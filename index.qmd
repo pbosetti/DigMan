@@ -1,0 +1,6 @@
+---
+title: Digital Manufacturing
+author: Paolo Bosetti
+format: revealjs
+engine: knitr
+---

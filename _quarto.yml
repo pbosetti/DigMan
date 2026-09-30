@@ -1,0 +1,23 @@
+project:
+  type: default
+
+format:
+  revealjs: 
+    width: 1280
+    height: 720
+    margin: 0.1
+    slide-number: true
+    code-line-numbers: true
+    code-annotations: below
+    preview-links: auto
+    theme: [default, slides.scss]
+    chalkboard: true
+    footer: "paolo.bosetti@unitn.it --- [/DigMan/](/DigMan)"
+    fig-width: 5
+    fig-height: 4
+    fig-dpi: 300
+    touch: true
+    email-obfuscation: javascript
+    pdf-separate-fragments: true
+    link-external-icon: true
+    lang: en-EN
