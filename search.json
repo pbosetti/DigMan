@@ -1,0 +1,1682 @@
+[
+  {
+    "objectID": "2-coding.html#c-programming-recap",
+    "href": "2-coding.html#c-programming-recap",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "C Programming recap",
+    "text": "C Programming recap\n\n\n#include &lt;stdlib.h&gt;\n#include &lt;stdio.h&gt;\n\nint main(int argc, char const *argv[]) {\n  /* declarations */\n  double result, factor[2];\n  unsigned int i;\n  int result = 0;\n\n  // code\n  if (argc != 3) {\n    fprintf(stderr, \"I need two arguments, got %d\\n\", argc);\n    result = -1;\n  }\n  for (i = 0; i &lt; 2; i++) {\n    factor[i] = atof(argv[i + 1]);\n  }\n  result = factor[0] * factor[1];\n  printf(\"%f * %f = %f\\n\", factor[0], factor[1], result);\n\n  return result;\n}\n\n\nkeywords starting with “#” are preprocessor directives\n#include loads locally an external C file\n#include &lt;...&gt; searches in system path\n#include \"...\" searches locally"
+  },
+  {
+    "objectID": "2-coding.html#c-programming-recap-1",
+    "href": "2-coding.html#c-programming-recap-1",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "C Programming recap",
+    "text": "C Programming recap\n\n\n#include &lt;stdlib.h&gt;\n#include &lt;stdio.h&gt;\n\nint main(int argc, char const *argv[]) {\n  /* declarations */\n  double result, factor[2];\n  unsigned int i;\n  int result = 0;\n\n  // code\n  if (argc != 3) {\n    fprintf(stderr, \"I need two arguments, got %d\\n\", argc);\n    result = -1;\n  }\n  for (i = 0; i &lt; 2; i++) {\n    factor[i] = atof(argv[i + 1]);\n  }\n  result = factor[0] * factor[1];\n  printf(\"%f * %f = %f\\n\", factor[0], factor[1], result);\n\n  return result;\n}\n\n\nFunctions are declared with:\n\nreturn type\nname\nlist of arguments\n\nFunctions are defined with:\n\neverything above\nplus body"
+  },
+  {
+    "objectID": "2-coding.html#c-programming-recap-2",
+    "href": "2-coding.html#c-programming-recap-2",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "C Programming recap",
+    "text": "C Programming recap\n\n\n#include &lt;stdlib.h&gt;\n#include &lt;stdio.h&gt;\n\nint main(int argc, char const *argv[]) {\n  /* declarations */\n  double result, factor[2];\n  unsigned int i;\n  int result = 0;\n\n  // code\n  if (argc != 3) {\n    fprintf(stderr, \"I need two arguments, got %d\\n\", argc);\n    result = -1;\n  }\n  for (i = 0; i &lt; 2; i++) {\n    factor[i] = atof(argv[i + 1]);\n  }\n  result = factor[0] * factor[1];\n  printf(\"%f * %f = %f\\n\", factor[0], factor[1], result);\n\n  return result;\n}\n\n\nint main(int, char const **) is the mandatory entry point for any C program\nargc is the number of arguments received from command line, plus 1\nargv[] is the array of arguments\nargv[0] is the program name"
+  },
+  {
+    "objectID": "2-coding.html#c-programming-recap-3",
+    "href": "2-coding.html#c-programming-recap-3",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "C Programming recap",
+    "text": "C Programming recap\n\n\n#include &lt;stdlib.h&gt;\n#include &lt;stdio.h&gt;\n\nint main(int argc, char const *argv[]) {\n  /* declarations */\n  double result, factor[2];\n  unsigned int i;\n  int result = 0;\n\n  // code\n  if (argc != 3) {\n    fprintf(stderr, \"I need two arguments, got %d\\n\", argc);\n    result = -1;\n  }\n  for (i = 0; i &lt; 2; i++) {\n    factor[i] = atof(argv[i + 1]);\n  }\n  result = factor[0] * factor[1];\n  printf(\"%f * %f = %f\\n\", factor[0], factor[1], result);\n\n  return result;\n}\n\nComments can be:\n\n// single line\n/* multiline */"
+  },
+  {
+    "objectID": "2-coding.html#c-programming-recap-4",
+    "href": "2-coding.html#c-programming-recap-4",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "C Programming recap",
+    "text": "C Programming recap\n\n\n#include &lt;stdlib.h&gt;\n#include &lt;stdio.h&gt;\n\nint main(int argc, char const *argv[]) {\n  /* declarations */\n  double result, factor[2];\n  unsigned int i;\n  int result = 0;\n\n  // code\n  if (argc != 3) {\n    fprintf(stderr, \"I need two arguments, got %d\\n\", argc);\n    result = -1;\n  }\n  for (i = 0; i &lt; 2; i++) {\n    factor[i] = atof(argv[i + 1]);\n  }\n  result = factor[0] * factor[1];\n  printf(\"%f * %f = %f\\n\", factor[0], factor[1], result);\n\n  return result;\n}\n\nConditionals:\nif (condition) {\n  /* code */\n} else if (condition) {\n  // code\n} else {\n  // other code\n}"
+  },
+  {
+    "objectID": "2-coding.html#c-programming-recap-5",
+    "href": "2-coding.html#c-programming-recap-5",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "C Programming recap",
+    "text": "C Programming recap\n\n\n#include &lt;stdlib.h&gt;\n#include &lt;stdio.h&gt;\n\nint main(int argc, char const *argv[]) {\n  /* declarations */\n  double result, factor[2];\n  unsigned int i;\n  int result = 0;\n\n  // code\n  if (argc != 3) {\n    fprintf(stderr, \"I need two arguments, got %d\\n\", argc);\n    result = -1;\n  }\n  for (i = 0; i &lt; 2; i++) {\n    factor[i] = atof(argv[i + 1]);\n  }\n  result = factor[0] * factor[1];\n  printf(\"%f * %f = %f\\n\", factor[0], factor[1], result);\n\n  return result;\n}\n\nLoops:\nfor (start; cond; incr) { /* code */ }\nwhile (true) { // }\ndo { // } while (true)"
+  },
+  {
+    "objectID": "2-coding.html#c-programming-recap-6",
+    "href": "2-coding.html#c-programming-recap-6",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "C Programming recap",
+    "text": "C Programming recap\n\n\n#include &lt;stdlib.h&gt;\n#include &lt;stdio.h&gt;\n\nint main(int argc, char const *argv[]) {\n  /* declarations */\n  double result, factor[2];\n  unsigned int i;\n  int result = 0;\n\n  // code\n  if (argc != 3) {\n    fprintf(stderr, \"I need two arguments, got %d\\n\", argc);\n    result = -1;\n  }\n  for (i = 0; i &lt; 2; i++) {\n    factor[i] = atof(argv[i + 1]);\n  }\n  result = factor[0] * factor[1];\n  printf(\"%f * %f = %f\\n\", factor[0], factor[1], result);\n\n  return result;\n}\n\nOutput: printf, fprintf, sprintf, asprintf\nChannels:\n\nstdout\nstderr\nFILE pointer"
+  },
+  {
+    "objectID": "2-coding.html#c-programming-recap-7",
+    "href": "2-coding.html#c-programming-recap-7",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "C Programming recap",
+    "text": "C Programming recap\n\n\n#include &lt;stdlib.h&gt;\n#include &lt;stdio.h&gt;\n\nint main(int argc, char const *argv[]) {\n  /* declarations */\n  double result, factor[2];\n  unsigned int i;\n  int result = 0;\n\n  // code\n  if (argc != 3) {\n    fprintf(stderr, \"I need two arguments, got %d\\n\", argc);\n    result = -1;\n  }\n  for (i = 0; i &lt; 2; i++) {\n    factor[i] = atof(argv[i + 1]);\n  }\n  result = factor[0] * factor[1];\n  printf(\"%f * %f = %f\\n\", factor[0], factor[1], result);\n\n  return result;\n}\n\nInput:\n\nfrom command line (argv)\nfrom environment\nfrom files\nfrom sockets\nfrom stdin\n\nNever interactive (gets(), scanf())"
+  },
+  {
+    "objectID": "2-coding.html#c-compound-types",
+    "href": "2-coding.html#c-compound-types",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "C Compound Types",
+    "text": "C Compound Types\n\nStructs: for collecting many variables in a single “object”\nUnions: for accessing the same memory as if it were of different types\nEnums: for finite set of symbols"
+  },
+  {
+    "objectID": "2-coding.html#best-practices",
+    "href": "2-coding.html#best-practices",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Best Practices",
+    "text": "Best Practices\n\n\n#include &lt;stdlib.h&gt;\n#include &lt;stdio.h&gt;\n\nint main(int argc, char const *argv[]) {\n/* declarations */\ndouble result, factor[2];\n  unsigned int i;\n  int result = 0;\n\n  // code\n  if(argc!=3){\n  fprintf(stderr, \"I need two arguments, got %d\\n\", argc);\n  result=-1;\n  }\n  for (i = 0; i &lt; 2; i++) {\n            factor[i] = atof(argv[i + 1]);\n  }\n  result = factor[0] * factor[1];\n  printf(\"%f * %f = %f\\n\", factor[0], factor[1], result);\n\n  return result;\n}\n\n\nProper indentation (if not, &lt; 18/30)\nProper spacing\nOn Visual Studio Code, use Format Document\n\n\nCompare this with code in previous slides!"
+  },
+  {
+    "objectID": "2-coding.html#best-practices-1",
+    "href": "2-coding.html#best-practices-1",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Best Practices",
+    "text": "Best Practices\n\nPut variables declarations at the beginning of each block\nOnly one exit point per function (except for errors)\nFactorize code (= Don’t Repeat Yourself: DRY)\nUse clean, extended names for functions and variables of general usage (short names OK for local variables)"
+  },
+  {
+    "objectID": "2-coding.html#from-source-to-runtime",
+    "href": "2-coding.html#from-source-to-runtime",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "From Source to Runtime",
+    "text": "From Source to Runtime"
+  },
+  {
+    "objectID": "2-coding.html#from-source-to-runtime-1",
+    "href": "2-coding.html#from-source-to-runtime-1",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "From Source to Runtime",
+    "text": "From Source to Runtime\n\nC Header files (.h) — elegant solution for:\n\norganizing code on many files\nreusing code, even in form of compiled library\n\nOn build-time, only headers are used\nOn link-time and runtime, only libraries are needed and used (no headers)"
+  },
+  {
+    "objectID": "2-coding.html#building-your-code",
+    "href": "2-coding.html#building-your-code",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Building your code",
+    "text": "Building your code\nBuild command needs:\nBuild time\n\nswitches for compile configuration\nlocation of system and special header files\nlist of files to compile\n\nLink time\n\nswitches for linking configuration\nlocation of system and special libraries\nlist of files to link"
+  },
+  {
+    "objectID": "2-coding.html#building-your-code-1",
+    "href": "2-coding.html#building-your-code-1",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Building your code",
+    "text": "Building your code\nTypical compilation command:\nclang [options] -Ipath/to/includes -Lpath/to/libs -llibrary_name \\\n  -o output_file source1.c source2.c source3.c\n\nMost common compilers are gcc and clang (we’ll use clang)\nThe [options] list and the list of source files can be long and tedious to type"
+  },
+  {
+    "objectID": "2-coding.html#building-assistants-ide-or-cli",
+    "href": "2-coding.html#building-assistants-ide-or-cli",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Building assistants: IDE or CLI",
+    "text": "Building assistants: IDE or CLI\n\nGNU Make: command-line program for building complex projects via special scripts called Makefiles. A Makefile is typically complex to write and maintain\nCMake: command-line program that takes a configuration file (CMakeLists.txt) and generates a temporary building environment (typically using GNU Make). Easier to write and maintain than Makefile"
+  },
+  {
+    "objectID": "2-coding.html#cmake-script",
+    "href": "2-coding.html#cmake-script",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "CMake Script",
+    "text": "CMake Script\n\n\nSteps:\n\nproject setup\ndefine common switches\ndefine headers and library locations\ndefine targets\ndefine install behavior\n\n\n\ncmake_minimum_required(VERSION 3.9)\nset(CMAKE_C_COMPILER \"clang\")\n# Set project name, version, and language\nproject(C-CNC VERSION 0.0.1 LANGUAGES C)\n# Set common compile options and preprocessor definitions\nadd_compile_options(-std=gnu11 -fPIC)\nadd_definitions(-D_GNU_SOURCE)\n# Define the list of source files\nset(SOURCE_DIR ${CMAKE_HOME_DIRECTORY}/src) #set a variable\nfile(GLOB LIB_SOURCES \"${SOURCE_DIR}/*.c\") #put into LIB_SOURCES the globbed list\n# Parametrically create some file from template\nconfigure_file(\n  ${SOURCE_DIR}/version.h.in\n  ${SOURCE_DIR}/version.h\n)\n# define header directories\ninclude_directories(\n  ${CMAKE_HOME_DIRECTORY}/machine/src\n)\n\n# Define TARGETS, i.e. output objects\n# Library target:\nadd_library(ccnclib STATIC ${LIB_SOURCES})\ntarget_link_libraries(ccnclib machine)\n# Main executable\nadd_executable(ccnc ${SOURCE_DIR}/main/ccnc.c)\nadd_dependencies(ccnc ccnclib)\ntarget_link_libraries(ccnc ccnclib)\n\n# INSTALL\nset(CMAKE_INSTALL_PREFIX ${CMAKE_HOME_DIRECTORY})\ninstall(TARGETS ccnclib ccnc\n  RUNTIME DESTINATION bin\n  LIBRARY DESTINATION lib\n  ARCHIVE DESTINATION lib\n)"
+  },
+  {
+    "objectID": "2-coding.html#cmake",
+    "href": "2-coding.html#cmake",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "CMake",
+    "text": "CMake\nBuilding with cmake takes 2+1 steps:\n\nConfiguration: cmake -Bbuild_dir\nBuilding: cmake --build build_dir\nInstalling: cmake --build build_dir -t install\n\nAlternatively, after configuration, make can be used:\n\nmake -Cbuild_dir\nmake -Cbuild_dir install"
+  },
+  {
+    "objectID": "2-coding.html#programming-c-as-a-pro",
+    "href": "2-coding.html#programming-c-as-a-pro",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Programming C as a Pro",
+    "text": "Programming C as a Pro\nProblem 1:\n\ncomplex programs are made of many functions that have to pass around data. C function arguments are passed by value (i.e. copied!)\nfor good performance you need to minimize info passed by functions\n\nSolution: learn to use pointers"
+  },
+  {
+    "objectID": "2-coding.html#programming-c-as-a-pro-1",
+    "href": "2-coding.html#programming-c-as-a-pro-1",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Programming C as a Pro",
+    "text": "Programming C as a Pro\nProblem 2:\n\nC function can only return a single value\nC functions cannot return compound types (arrays!)\n\nSolution: learn to use pointers"
+  },
+  {
+    "objectID": "2-coding.html#programming-c-as-a-pro-2",
+    "href": "2-coding.html#programming-c-as-a-pro-2",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Programming C as a Pro",
+    "text": "Programming C as a Pro\nProblem 3:\n\ncomplex programs are made of many functions\nthey also depend on external libraries\nthe code must be readable and understandable\n\nSolution: carefully distribute code in different files, and use flexible build software"
+  },
+  {
+    "objectID": "2-coding.html#stack-vs.-heap-memory",
+    "href": "2-coding.html#stack-vs.-heap-memory",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Stack vs. Heap memory",
+    "text": "Stack vs. Heap memory\n\n\n\n\n\n\n\nFIFO access (fast)\nTyp. ~8 Mb capacity per thread (check with command ulimit -s)\n\n\n\n\n\n\nRandom access (slower)\nVirtually unlimited"
+  },
+  {
+    "objectID": "2-coding.html#tricky-pointers",
+    "href": "2-coding.html#tricky-pointers",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Tricky Pointers",
+    "text": "Tricky Pointers\n\nStandard variables are defined on the stack memory\nYou get the pointer to variable var with &var\nYou get the value of pointer var_p with *var_p\nArrays are pointers to their first element, but stack arrays have a limited maximum size (system dependent)\nVariables on stack are eliminated from memory on exiting from local scope"
+  },
+  {
+    "objectID": "2-coding.html#tricky-pointers-1",
+    "href": "2-coding.html#tricky-pointers-1",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Tricky Pointers",
+    "text": "Tricky Pointers\n\nPointers requiring large (or dynamic) memory can be defined on the heap memory\nYou allocate a pointer on the heap with the malloc() family of functions\nmalloc’d variables are not freed upon exiting from local scope\nFor every malloc() you need one free(), or you have a memory leak ☠️☠️☠️"
+  },
+  {
+    "objectID": "2-coding.html#ways-for-returning-an-array-in-c",
+    "href": "2-coding.html#ways-for-returning-an-array-in-c",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Ways for returning an array in C",
+    "text": "Ways for returning an array in C\n\nUse malloc() in the caller and pass the pointer as an inout argument (easier)\nCall malloc() inside the function and return that pointer (easy, but you cannot return anything else, like error status)\nPass a double pointer to the callee as an inout argument, use malloc() inside the function (not so easy, but you can also return a status value)"
+  },
+  {
+    "objectID": "2-coding.html#not-so-easy-case-one-not-working",
+    "href": "2-coding.html#not-so-easy-case-one-not-working",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "NOT SO easy: Case one (not working)",
+    "text": "NOT SO easy: Case one (not working)"
+  },
+  {
+    "objectID": "2-coding.html#case-one-step-1",
+    "href": "2-coding.html#case-one-step-1",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Case one — step 1",
+    "text": "Case one — step 1"
+  },
+  {
+    "objectID": "2-coding.html#case-one-step-2",
+    "href": "2-coding.html#case-one-step-2",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Case one — step 2",
+    "text": "Case one — step 2"
+  },
+  {
+    "objectID": "2-coding.html#case-one-step-3",
+    "href": "2-coding.html#case-one-step-3",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Case one — step 3",
+    "text": "Case one — step 3"
+  },
+  {
+    "objectID": "2-coding.html#case-one-step-4",
+    "href": "2-coding.html#case-one-step-4",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Case one — step 4",
+    "text": "Case one — step 4"
+  },
+  {
+    "objectID": "2-coding.html#not-so-easy-case-two-working",
+    "href": "2-coding.html#not-so-easy-case-two-working",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "NOT SO easy: Case TWO (working)",
+    "text": "NOT SO easy: Case TWO (working)"
+  },
+  {
+    "objectID": "2-coding.html#case-two-step-1",
+    "href": "2-coding.html#case-two-step-1",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Case two — step 1",
+    "text": "Case two — step 1"
+  },
+  {
+    "objectID": "2-coding.html#case-two-step-2",
+    "href": "2-coding.html#case-two-step-2",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Case two — step 2",
+    "text": "Case two — step 2"
+  },
+  {
+    "objectID": "2-coding.html#case-two-step-3",
+    "href": "2-coding.html#case-two-step-3",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Case two — step 3",
+    "text": "Case two — step 3"
+  },
+  {
+    "objectID": "2-coding.html#case-two-step-3-cont.",
+    "href": "2-coding.html#case-two-step-3-cont.",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Case two — step 3 (cont.)",
+    "text": "Case two — step 3 (cont.)"
+  },
+  {
+    "objectID": "2-coding.html#case-two-step-5",
+    "href": "2-coding.html#case-two-step-5",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Case two — step 5",
+    "text": "Case two — step 5"
+  },
+  {
+    "objectID": "2-coding.html#memory-leaks",
+    "href": "2-coding.html#memory-leaks",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Memory leaks",
+    "text": "Memory leaks"
+  },
+  {
+    "objectID": "2-coding.html#memory-leaks-step-3",
+    "href": "2-coding.html#memory-leaks-step-3",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Memory leaks — step 3",
+    "text": "Memory leaks — step 3"
+  },
+  {
+    "objectID": "2-coding.html#memory-leaks-step-4",
+    "href": "2-coding.html#memory-leaks-step-4",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Memory leaks — step 4",
+    "text": "Memory leaks — step 4"
+  },
+  {
+    "objectID": "2-coding.html#memory-leaks-1",
+    "href": "2-coding.html#memory-leaks-1",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Memory leaks",
+    "text": "Memory leaks\n\nThere must be exactly one free() for every malloc()\nSometimes the malloc() is implicit, e.g. asprintf() and similar functions (those that take double pointers for allocating and returning an array!)\nLeaked memory is restored on process exit\nBUT, long running processes MUST avoid memory leaks, especially when the leak occurs within loops"
+  },
+  {
+    "objectID": "2-coding.html#mqtt-protocol",
+    "href": "2-coding.html#mqtt-protocol",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "MQTT protocol",
+    "text": "MQTT protocol\n\nMQTT stands for Message Queue Telemetry Transport\nActually, there is no queue but rather a publish-subscribe architecture\nThe protocol is lightweight: it minimizes the overhead of messages\nIt is about 100 times faster than REST HTTP messaging (in terms of maximum msg/s)\nIt is not the fastest protocol (ZeroMQ is faster), but it is simple to implement and well balanced"
+  },
+  {
+    "objectID": "2-coding.html#mqtt-protocol-1",
+    "href": "2-coding.html#mqtt-protocol-1",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "MQTT protocol",
+    "text": "MQTT protocol\n\nIn MQTT there are 3 different roles: publisher, subscriber, broker\n\nThe publisher is the information producer (to be implemented)\nThe subscriber is the information consumer (to be implemented)\nThe broker is a server that relays publisher messages to (possibly many) subscribers (already available)\n\nMessages are published under topics\nTopics are arranged hierarchically: ccnc/x/pos, ccnc/y/vel"
+  },
+  {
+    "objectID": "2-coding.html#mqtt-protocol-2",
+    "href": "2-coding.html#mqtt-protocol-2",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "MQTT protocol",
+    "text": "MQTT protocol\nSubscribers can subscribe to more than one topic, possibly also using wildcards (+ or #):\n\nccnc/+/pos means any single word in between ccnc and pos (as ccnc/x/pos and ccnc/y/pos, but not ccnc/x/nominal/pos)\nccnc/#/pos means anything (including multiple branches) under ccnc and ending with /pos"
+  },
+  {
+    "objectID": "2-coding.html#mqtt-protocol-3",
+    "href": "2-coding.html#mqtt-protocol-3",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "MQTT protocol",
+    "text": "MQTT protocol\n\nPublishers can publish messages to many different topics, but one at a time (no wildcards!)\nA message is also called a payload: any sequence of bytes, up to a maximum 268435456 bytes (\\(2^{28}\\), ~260 Mb)\nBigger payloads need to be split (or compressed)\nMessages are assigned with a quality of service level (QoS) and with an optional retain flag"
+  },
+  {
+    "objectID": "2-coding.html#mqtt-protocol-4",
+    "href": "2-coding.html#mqtt-protocol-4",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "MQTT protocol",
+    "text": "MQTT protocol\nThe QoS level states the reliability of a message:\n\nQoS 0: a message is delivered at most once\nQoS 1: a message is delivered at least once\nQoS 2: a message is delivered exactly once\n\nQoS 0 is “fire-and-forget”: less reliable but with minimum information exchange. QoS 2 has a delivery confirmation: 100% reliable, but slower"
+  },
+  {
+    "objectID": "2-coding.html#mqtt-protocol-5",
+    "href": "2-coding.html#mqtt-protocol-5",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "MQTT protocol",
+    "text": "MQTT protocol\n\nThe retain flag, when set, instructs the broker to deliver the message to any subscriber connecting in the future\n\nIt is a kind of “last known value” clause\n\nThere are also last will and testament (LWT) messages: these are messages delivered as soon as the broker detects that the client has disconnected\nNote: the roles of publisher and subscriber are semantic: any given process can simultaneously act as publisher and subscriber, if needed. Both are clients of the broker server"
+  },
+  {
+    "objectID": "2-coding.html#mqtt-applications",
+    "href": "2-coding.html#mqtt-applications",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "MQTT Applications",
+    "text": "MQTT Applications\n\nThere are many available broker services, like mosquitto, Paho, HiveMQ, Mosca, EMQ X, VerneMQ.\nAs well, there are many libraries for implementing MQTT clients (pub+sub) in virtually any known programming language\nWe will refer to mosquitto (the broker) and libmosquitto (the C library)"
+  },
+  {
+    "objectID": "2-coding.html#mqtt-broker",
+    "href": "2-coding.html#mqtt-broker",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "MQTT Broker",
+    "text": "MQTT Broker\nThe mosquitto broker can be installed as a linux service, but it is much quicker and easier to use a docker container:\ndocker run -d --rm \\\n  --name mosquitto \\\n  -p 1883:1883 \\\n  -v \"${PWD}/mosquitto.conf:/mosquitto/config/mosquitto.conf\" \\\n  eclipse-mosquitto\n\n-d --rm: as daemon, remove on exit\n--name mosquitto: give it a name\n-p 1883:1883: expose port 1883\n-v ...: config file\neclipse-mosquitto: name of the image"
+  },
+  {
+    "objectID": "2-coding.html#mqtt-broker-1",
+    "href": "2-coding.html#mqtt-broker-1",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "MQTT Broker",
+    "text": "MQTT Broker\nThe mosquitto config file (mosquitto.conf) typically contains at minimum:\nallow_anonymous true\nlistener 1883\nprotocol mqtt\nThis accepts any connection. In production, you might want to require passwords and encrypted connections."
+  },
+  {
+    "objectID": "2-coding.html#mqtt-library",
+    "href": "2-coding.html#mqtt-library",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "MQTT library",
+    "text": "MQTT library\n\nDocumentation is on https://mosquitto.org/api\nThe library namespace is mosqpp, the main class is mosquittopp\nTypical sequence of operation:\n\nStart &gt; library init &gt; client init &gt; client connect &gt; set callbacks &gt; loop { publish messages & update sockets } &gt; free resources &gt; stop\n\nCallbacks are methods automatically called on given events (e.g. successful connection, receiving subscribed message, …)"
+  },
+  {
+    "objectID": "2-coding.html#mqtt-library-1",
+    "href": "2-coding.html#mqtt-library-1",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "MQTT library",
+    "text": "MQTT library\n\nLibrary init: mosqpp::lib_init()\n\nIt simply MUST be called before any other mosquitto call\n\nLibrary cleanup: mosqpp::lib_cleanup() (in destructor)"
+  },
+  {
+    "objectID": "2-coding.html#mqtt-library-2",
+    "href": "2-coding.html#mqtt-library-2",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "MQTT library",
+    "text": "MQTT library\n\nClient init: auto mqt = mosquittopp(id, clean)\n\nid: can be a name (useful for debugging, only visible to the broker)\nclean: ask the broker to delete all messages and subscriptions on disconnect\n\nTypically, you derive a class from mosquittopp"
+  },
+  {
+    "objectID": "2-coding.html#mqtt-library-3",
+    "href": "2-coding.html#mqtt-library-3",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "MQTT library",
+    "text": "MQTT library\n\nClient connect: mosquittopp::connect(broker_addr, broker_port, keepalive)\n\nConnect the object to a given broker host and port\nThe broker pings the client (if no messages arrive) every keepalive seconds to verify if it is connected"
+  },
+  {
+    "objectID": "2-coding.html#mqtt-library-4",
+    "href": "2-coding.html#mqtt-library-4",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "MQTT library",
+    "text": "MQTT library\n\nImplement callbacks: mosquittopp::on_message(const struct mosquitto_message *message) (et similia)\n\nObject calls on_message each time a message is received"
+  },
+  {
+    "objectID": "2-coding.html#mqtt-library-5",
+    "href": "2-coding.html#mqtt-library-5",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "MQTT library",
+    "text": "MQTT library\nAll network operations are just scheduled by subscribe and publish functions. They are actually performed in two alternative ways:\n\nBy repeatedly/cyclically calling mosquittopp::loop() (preferred if you already have a loop)\nBy starting a parallel thread that iteratively calls mosquittopp::loop(): this is done by calling mosquittopp::loop_start() just after mosquittopp::connect()"
+  },
+  {
+    "objectID": "2-coding.html#mqtt-library-6",
+    "href": "2-coding.html#mqtt-library-6",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "MQTT library",
+    "text": "MQTT library\n\nTo schedule the publishing of a message, use mosquittopp::publish(mid, topic, len, payload, qos, retain)\n\nThe payload is any sequence of len bytes (a string or a binary object)\nThe message ID mid is typically NULL"
+  },
+  {
+    "objectID": "2-coding.html#mqtt-library-7",
+    "href": "2-coding.html#mqtt-library-7",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "MQTT library",
+    "text": "MQTT library\n\nWhen a message is received, the on_message callback is executed\nIt gets the message as a struct mosquitto_message, which contains:\n\nMessage ID (if any), topic, payload, payload length, QoS level, retain flag.\n\nIt does not contain any info on the publisher!\nThe subscriber HAS NO WAY for identifying the publisher (unless it is written in the payload or topic)"
+  },
+  {
+    "objectID": "2-coding.html#mqtt-library-8",
+    "href": "2-coding.html#mqtt-library-8",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "MQTT library",
+    "text": "MQTT library\nWhen done, you should, in this order:\n\nUnsubscribe all subscriptions\nCall mosquittopp::loop or mosquittopp::loop_stop\nDisconnect from broker\nCall mosqpp::lib_cleanup"
+  },
+  {
+    "objectID": "2-coding.html#mqtt-tools",
+    "href": "2-coding.html#mqtt-tools",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "MQTT tools",
+    "text": "MQTT tools\n\n\n\nThe mosquitto-clients package installs the pair of commands mosquitto_pub and mosquitto_sub\nMQTT explorer is a useful graphical tool for tapping into MQTT dataflows: http://mqtt-explorer.com"
+  },
+  {
+    "objectID": "2-coding.html#cargo-cult-in-anthropology",
+    "href": "2-coding.html#cargo-cult-in-anthropology",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Cargo cult in anthropology",
+    "text": "Cargo cult in anthropology\n\n\n\nA cargo cult is a belief system, in which adherents perform rituals which they believe will cause a more technologically advanced society to deliver goods\nMany examples in remote Pacific islands, where inhabitants replicate US army “rituals” in the hope of calling a cargo delivery"
+  },
+  {
+    "objectID": "2-coding.html#cargo-cult-programmingengineering",
+    "href": "2-coding.html#cargo-cult-programmingengineering",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Cargo Cult programming/engineering",
+    "text": "Cargo Cult programming/engineering\nTypical pattern:\n\nYou don’t know how to solve a problem\nYou type “How to do something in my language?” in Google (or ChatGPT!)\nYou end up on Stackoverflow (or similar sites) or get an AI-generated code\nYou copy and paste the first solution, which you cannot fully understand but it seems to work"
+  },
+  {
+    "objectID": "2-coding.html#why-is-that-a-bad-habit",
+    "href": "2-coding.html#why-is-that-a-bad-habit",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Why is that a bad habit?",
+    "text": "Why is that a bad habit?\n\nAt best, it messes up your coding style (e.g. using variableNames rather than variable_names)\nYou may look amateur and naïve to those who read your code (among them, your prospective employer!)\nForemost, you are losing control on your code, which may work fine in the stackoverflow/AI example, but much probably does hidden nasty things once embedded in your code\nAdditionally, your problem understanding does not improve"
+  },
+  {
+    "objectID": "2-coding.html#doesnt-happen-only-when-you-code",
+    "href": "2-coding.html#doesnt-happen-only-when-you-code",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Doesn’t happen only when you code",
+    "text": "Doesn’t happen only when you code\n\nThere are many examples of cargo cult engineering as well\nEach time you accept an existing solution just because it works in another emplacement, and without fully understanding it, you are a cargo cultist\nAlways question any solution; ask why; do not accept any solution that you cannot fully understand, at least in its outer structure (input/output relations, interfaces, specifications)"
+  },
+  {
+    "objectID": "2-coding.html#tool-radius-compensation",
+    "href": "2-coding.html#tool-radius-compensation",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Tool radius compensation",
+    "text": "Tool radius compensation\n\nG-code standard supports a feature for offsetting the tool trajectory to the left or to the right of the trajectory by an amount equal to the tool radius\nThis is only affecting the X-Y projection of the trajectory, Z values remain unchanged\nThe TRC is set to the left with G41, to the right with G42 and is disabled with G40\nTRC is fully active at the end of the current block"
+  },
+  {
+    "objectID": "2-coding.html#tool-radius-compensation-1",
+    "href": "2-coding.html#tool-radius-compensation-1",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Tool radius compensation",
+    "text": "Tool radius compensation\n\n\n\nTRC offsets the tool center path (programmed points) according to G41/G42\nNew target points are calculated for each block on the basis of the offset intersection with the next block (arc or line)\nDisabled for rapid motions"
+  },
+  {
+    "objectID": "2-coding.html#tool-radius-compensation-2",
+    "href": "2-coding.html#tool-radius-compensation-2",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Tool radius compensation",
+    "text": "Tool radius compensation\n\n\n\n\n\nInteractive example on https://www.geogebra.org/m/mcv4egvk"
+  },
+  {
+    "objectID": "2-coding.html#tool-radius-compensation-3",
+    "href": "2-coding.html#tool-radius-compensation-3",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Tool radius compensation",
+    "text": "Tool radius compensation\n\n\n\n\n\nInteractive example on https://www.geogebra.org/m/uwaa7u4v"
+  },
+  {
+    "objectID": "2-coding.html#tool-radius-compensation-4",
+    "href": "2-coding.html#tool-radius-compensation-4",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Tool radius compensation",
+    "text": "Tool radius compensation\n\n\n\n\n\nInteractive example on https://www.geogebra.org/m/uwaa7u4v"
+  },
+  {
+    "objectID": "2-coding.html#line-line-case",
+    "href": "2-coding.html#line-line-case",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Line-Line case",
+    "text": "Line-Line case\n\n\nWe need to calculate the point \\(D\\):\n\nGiven the line equation \\(y = ax + b\\), we need to calculate the equation of the offset line(s)\nCalculate \\(D\\) as intercept between the two offset lines"
+  },
+  {
+    "objectID": "2-coding.html#line-line-case-1",
+    "href": "2-coding.html#line-line-case-1",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Line-Line case",
+    "text": "Line-Line case\n\n\n\nGiven \\(y = ax + b\\), the equation of the offset line is \\(y = ax + b - v\\)\nBeing \\(a = u/r\\), it follows that: \\(v = \\sqrt{u^2 + r^2} = r\\sqrt{a^2 + 1}\\)\nSo, \\(y = ax + b \\pm r\\sqrt{a^2 + 1}\\)\nThe sign depends on G41/G42 and on the path direction"
+  },
+  {
+    "objectID": "2-coding.html#line-line-case-2",
+    "href": "2-coding.html#line-line-case-2",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Line-Line case",
+    "text": "Line-Line case\n\n\nIntersection \\(D\\) between\n\\(y = a_1 x + b_1 - v_1 = a_1 x + b_{o,1}\\)\nand\n\\(y = a_2 x + b_2 - v_2 = a_2 x + b_{o,2}\\)\nhas coordinates:\n\\[(x_i, y_i) = \\left(\\frac{b_{o,2} - b_{o,1}}{a_1 - a_2}, \\frac{b_{o,1}a_2 - b_{o,2}a_1}{a_2 - a_1}\\right)\\]"
+  },
+  {
+    "objectID": "2-coding.html#line-line-case-3",
+    "href": "2-coding.html#line-line-case-3",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Line-Line case",
+    "text": "Line-Line case\n\n\n\nException: when two segments are collinear (\\(a = a_1 = a_2\\)), the intercept is undefined\nThe new intersection node is set at an offset \\(r\\) perpendicular to the segments\n\n\\[C = \\begin{cases} (0, -r), & \\text{when } a = 0 \\\\ r(s, -s/a) \\text{ with } s = \\frac{a}{|a|}\\sqrt{\\frac{a^2}{1 + a^2}}, & \\text{otherwise} \\end{cases}\\]\nInteractive example on https://www.geogebra.org/m/pmdtaprr"
+  },
+  {
+    "objectID": "2-coding.html#line-arc-or-arc-line-case",
+    "href": "2-coding.html#line-arc-or-arc-line-case",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Line-Arc (or Arc-Line) case",
+    "text": "Line-Arc (or Arc-Line) case\n\n\nSimilar to line-line case, but with a caveat:\n\nLine-circle intersection gives two points, \\(G\\) and \\(B_r\\): you have to select the intersection that is closer to the node to be offset (\\(B\\) in figure)\n\nInteractive example on https://www.geogebra.org/m/uwaa7u4v"
+  },
+  {
+    "objectID": "2-coding.html#line-arc-or-arc-line-case-1",
+    "href": "2-coding.html#line-arc-or-arc-line-case-1",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Line-Arc (or Arc-Line) case",
+    "text": "Line-Arc (or Arc-Line) case\n\n\nSimilar to line-line case, but with a caveat:\n\nLine-circle intersection gives two points, \\(G\\) and \\(B_r\\): you have to select the intersection that is closer to the node to be offset (\\(B\\) in figure)\n\nInteractive example on https://www.geogebra.org/m/uwaa7u4v"
+  },
+  {
+    "objectID": "2-coding.html#code-changes",
+    "href": "2-coding.html#code-changes",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Code changes",
+    "text": "Code changes\nSupport for G40/G41/G42\n\nAn enum class TRCType with NONE, LEFT, RIGHT\nAn TRCType _trc field in the BlockTRC class\nProper code in BlockTRC::parse()\n_trc shall be managed as a modal field (i.e. inherited from previous block)"
+  },
+  {
+    "objectID": "2-coding.html#code-changes-1",
+    "href": "2-coding.html#code-changes-1",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Code changes",
+    "text": "Code changes\nSupport for tool radius\n\nThe YML file needs to have a field as: tools: [10.0, 8.0, 5.0, 2.5] giving the list of available tools and respective radiuses\nThe Machine class needs to properly load the tool list into a new field: vector&lt;data_t&gt; _tools\nAdd machine::tool_radius(), which returns the radius of a given tool number"
+  },
+  {
+    "objectID": "2-coding.html#code-changes-2",
+    "href": "2-coding.html#code-changes-2",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Code changes",
+    "text": "Code changes\nSupport for offset calculation\n\nThe method Block::parse() needs to change the target of the previous block if the previous block has _trc != TRCType::NONE\nThe target must be changed according to the equations shown above and the radius of the current tool"
+  },
+  {
+    "objectID": "2-coding.html#code-changes-3",
+    "href": "2-coding.html#code-changes-3",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Code changes",
+    "text": "Code changes\nSupport for offset calculation\n\nEquations for intersections possibly require:\n\nBlock::angle_with_prev(): angle in radians with previous block\nBlock::equation(): returns \\(a\\) and \\(b\\) as output parameters (refs); for an arc, parameters of the implicit equation \\((x - x_c)^2 + (y - y_c)^2 = r^2\\) are available already\n\nThese functions can be private"
+  },
+  {
+    "objectID": "2-coding.html#advanced-trc",
+    "href": "2-coding.html#advanced-trc",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Advanced TRC",
+    "text": "Advanced TRC"
+  },
+  {
+    "objectID": "2-coding.html#rules",
+    "href": "2-coding.html#rules",
+    "title": "Digital Manufacturing – Part 2",
+    "section": "Rules",
+    "text": "Rules\n\nYou must work alone (I’ll check and compare results!)\nNo help from my side, except these slides\nSet up a private GitHub repo and share it with me since the beginning\nWhen you are done, you must discuss your work with me\nIf it works (no warnings) and it is not copied, you get 30/30\nIf you implement advanced TRC or impress me with some other clever addition, you get 30/30 cum laude\nMust be done before the start of lessons in Sept. 2025"
+  },
+  {
+    "objectID": "0-intro.html#digital-manufacturing",
+    "href": "0-intro.html#digital-manufacturing",
+    "title": "Course Introduction",
+    "section": "Digital Manufacturing",
+    "text": "Digital Manufacturing\n\nDM is the evolution of manufacturing, where an integrated approach is centered around a computer system\nEvolution: purely mechanical machinery ➡︎ CNC machines ➡︎ systems of computer-controlled machines\nDM goes within the framework of Industry 4.0\nIndustry 4.0 is the 4th industrial revolution"
+  },
+  {
+    "objectID": "0-intro.html#evolution-of-manufacturing",
+    "href": "0-intro.html#evolution-of-manufacturing",
+    "title": "Course Introduction",
+    "section": "Evolution of manufacturing",
+    "text": "Evolution of manufacturing\n\n\n\n\n\nMilling machine\n\n\n\n\n\nCNC milling center\n\n\n\n\n\n\n1st NC machine tool (MIT, 1952)\n\n\n\n\n\nDM plant"
+  },
+  {
+    "objectID": "0-intro.html#industry-4.0",
+    "href": "0-intro.html#industry-4.0",
+    "title": "Course Introduction",
+    "section": "Industry 4.0",
+    "text": "Industry 4.0\n\nMotivation — reaction from EU and USA to 2008 economical crisis\nName origin — 2011 Hannover Messe (Angela Merkel)\n\n\n\n\nHannover Messe 2013 — presentation of final report of the Industrie 4.0 committee, tasked by German government in 2011:\n\nDesign principles\nChallenges\nImpacts"
+  },
+  {
+    "objectID": "0-intro.html#previous-industrial-revolutions",
+    "href": "0-intro.html#previous-industrial-revolutions",
+    "title": "Course Introduction",
+    "section": "Previous industrial revolutions",
+    "text": "Previous industrial revolutions\n\n\nFirst Industrial Revolution\n\n\n\nMechanical loom, E. Cartwright, 1784\n\n\n\nSecond Industrial Revolution\n\n\n\nConveyor belt, Cincinnati Slaughterhouse, 1870\n\n\n\n\n\nConveyor belt, Ford Motor Company, 1913\n\n\n\nThird Industrial Revolution\n\n\n\nPLC, Modicon 084, 1969"
+  },
+  {
+    "objectID": "0-intro.html#industry-4.0-1",
+    "href": "0-intro.html#industry-4.0-1",
+    "title": "Course Introduction",
+    "section": "Industry 4.0",
+    "text": "Industry 4.0\nObjectives:\n\nRe-shoring of added value in western countries\nSustain salaries of working- and middle-class\nSustain e-commerce\nMass customization (added value shifts from manufacturing to design)\nTime compression (life cycle of a car from 5 to 2 years)"
+  },
+  {
+    "objectID": "0-intro.html#industry-4.0-2",
+    "href": "0-intro.html#industry-4.0-2",
+    "title": "Course Introduction",
+    "section": "Industry 4.0",
+    "text": "Industry 4.0\nDesign principles:\n\nInteroperability (IoT, IIoT, IoP)\nCyber-Physical Systems (CPS)\nInformation transparency: public, open protocols; digital twins\nSelf-support and in-line help to operators\nDecision de-centralization: autonomy, stratification, prioritization"
+  },
+  {
+    "objectID": "0-intro.html#industry-4.0-3",
+    "href": "0-intro.html#industry-4.0-3",
+    "title": "Course Introduction",
+    "section": "Industry 4.0",
+    "text": "Industry 4.0\nDesign principles:\n\nAkin to the Yardstick of Automation (Amber & Amber, 1962)\n\n\n\n\n\n\n\nOrder\nHuman attribute\nExample\n\n\n\n\n0\nNone\nManual tools\n\n\n1\nEnergy\nPowered machines and tools\n\n\n2\nDexterity\nSingle-cycle automatics (dexterity = self-feeding)\n\n\n3\nDiligence\nRepeats cycle; open-loop control\n\n\n4\nJudgment\nClosed loop; numerical control; self-measuring\n\n\n5\nEvaluation\nComputer control; model of process required for automation\n\n\n6\nLearning\nLimited self-programming; some artificial intelligence\n\n\n7\nReasoning\nInductive reasoning (cause-effects)\n\n\n8\nCreativity\nPerforms (original) design unaided\n\n\n9\nDominance\nMachine is master (HAL 9000)"
+  },
+  {
+    "objectID": "0-intro.html#industry-4.0-4",
+    "href": "0-intro.html#industry-4.0-4",
+    "title": "Course Introduction",
+    "section": "Industry 4.0",
+    "text": "Industry 4.0\nChallenges:\n\nCybersecurity\nReliability and resiliency of M2M communication (bandwidth and latency)\nDrop-in, plug-in approach on existing processes\nIntellectual property (IP) protection\nReluctancy to change, operators re-training\nCorporate IT\nInitial loss of labor"
+  },
+  {
+    "objectID": "0-intro.html#industry-4.0-5",
+    "href": "0-intro.html#industry-4.0-5",
+    "title": "Course Introduction",
+    "section": "Industry 4.0",
+    "text": "Industry 4.0\nImpacts:\n\nServitization (from selling goods to selling services)\nProductivity, and its resilience\nSafety\nIntegrated design of product/process\nCost structure\nSocio-economical factors\nBig Data analytics"
+  },
+  {
+    "objectID": "0-intro.html#digital-manufacturing-1",
+    "href": "0-intro.html#digital-manufacturing-1",
+    "title": "Course Introduction",
+    "section": "Digital Manufacturing",
+    "text": "Digital Manufacturing\nSome core, enabling technologies are grounding I4.0 and DM:\n\nCyber-Physical Systems (M2M connectivity)\nIIoT (connectivity layer)\nAdditive Manufacturing (dematerialization of design)\nMachine Learning and AI (autonomous decisions)"
+  },
+  {
+    "objectID": "0-intro.html#digital-manufacturing-2",
+    "href": "0-intro.html#digital-manufacturing-2",
+    "title": "Course Introduction",
+    "section": "Digital Manufacturing",
+    "text": "Digital Manufacturing\n\nCyber-Physical Systems: in short, they are mechatronic systems, i.e., mechanisms, whose actuators are controlled by a computer system based on output from sensors and logics provided by algorithms\nI4.0/DM-enabled CPS must be IoT-connected\n\nProvide the plant controller with information on its own status\nAccept incoming tasks"
+  },
+  {
+    "objectID": "0-intro.html#digital-manufacturing-3",
+    "href": "0-intro.html#digital-manufacturing-3",
+    "title": "Course Introduction",
+    "section": "Digital Manufacturing",
+    "text": "Digital Manufacturing\n\nIndustrial Internet of Things (IIoT): has to support communications among CPSs (M2M communication)\nIP protocol: IPv4 has \\(2^{32} \\simeq 4.3 \\times 10^9\\) addresses, IPv6 has \\(2^{128} \\simeq 3.4 \\times 10^{39}\\) addresses. IPv6 adoption is slow because of NAT and its rescue for IPv4 addresses exhaustion problem"
+  },
+  {
+    "objectID": "0-intro.html#osi-networking-model",
+    "href": "0-intro.html#osi-networking-model",
+    "title": "Course Introduction",
+    "section": "OSI Networking Model",
+    "text": "OSI Networking Model\n\nNetworking stack: according to the Internet model, networking happens over a stack of 4 layers\n\n\n\n\nLink layer (L0): physical carrier (Ethernet Cable, WiFi, etc) and its protocol (MAC, 802.11, ARP, etc)\nInternet (or network) layer (L1): IPv4, IPv6, ICMP\nTransport layer (L2): TCP, UDP\nApplication layer (L3): HTTP, FTP, IMAP, LDAP, …\n\n\n\n\n\nOSI layers"
+  },
+  {
+    "objectID": "0-intro.html#digital-manufacturing-4",
+    "href": "0-intro.html#digital-manufacturing-4",
+    "title": "Course Introduction",
+    "section": "Digital Manufacturing",
+    "text": "Digital Manufacturing\n\nIndustrial Internet of Things (IIoT): has to support communications among CPSs (M2M communication)\nLevel 0 protocols: 5G (low latency!)\nIP protocol (L1): beside address space, IPv6 has other advantages (complex multicasting, autoconfiguration, IPsec). Its adoption is still slow, though\nLevel 3 protocols: from REST (HTTPS) to lightweight protocols (MQTT, ZeroMQ, AMQP, OPC-UA)"
+  },
+  {
+    "objectID": "0-intro.html#rest-vs-message-queuing",
+    "href": "0-intro.html#rest-vs-message-queuing",
+    "title": "Course Introduction",
+    "section": "REST vs Message Queuing",
+    "text": "REST vs Message Queuing\n\n\n\nREpresentational State Transfer: IoT extension of HTTP\n\nVerbose (large overhead)\nComplex (PUT/GET/POST/DELETE)\nPolling-based\nPoint-to-point (n clients to 1 server)"
+  },
+  {
+    "objectID": "0-intro.html#http-overhead",
+    "href": "0-intro.html#http-overhead",
+    "title": "Course Introduction",
+    "section": "HTTP overhead",
+    "text": "HTTP overhead\n\n\nRequest phrase: GET / HTTP/1.1 (14 × 2 bytes)\nThe HTTP frame takes 153 bytes total\nThe full request stack takes 437 bytes\n\n\n\n\nWireshark capture"
+  },
+  {
+    "objectID": "0-intro.html#http-overhead-1",
+    "href": "0-intro.html#http-overhead-1",
+    "title": "Course Introduction",
+    "section": "HTTP overhead",
+    "text": "HTTP overhead\n\n\nResponse phrase: 77 bytes + HTML\nThe whole HTTP frame takes 937 bytes (including 819 bytes of HTML)\nThe full response stack takes 1201 bytes, 382 bytes for a blank page\n\n\n\n\nWireshark capture"
+  },
+  {
+    "objectID": "0-intro.html#how-to-reduce-overhead",
+    "href": "0-intro.html#how-to-reduce-overhead",
+    "title": "Course Introduction",
+    "section": "How to reduce overhead",
+    "text": "How to reduce overhead\n\nSimpler transport layer (L2) protocol: UDP has no SYN/ACK/FIN frames (but no confirmation of delivery!)\n\nAND/OR\n\nSimpler application layer (L3) protocols, where the data frame is as naked as possible\nTrade reliability and robustness for bandwidth and latency"
+  },
+  {
+    "objectID": "0-intro.html#how-to-reduce-overhead-1",
+    "href": "0-intro.html#how-to-reduce-overhead-1",
+    "title": "Course Introduction",
+    "section": "How to reduce overhead",
+    "text": "How to reduce overhead\n\nReliability and robustness are very important for IoP communications: variety of web servers, web browsers and document formats, and the web must “just work”\nThey are also important in IoT (things must do their tasks) but we can enforce standards and minimize possible sources of unexpected conditions"
+  },
+  {
+    "objectID": "0-intro.html#rest-vs-message-queuing-1",
+    "href": "0-intro.html#rest-vs-message-queuing-1",
+    "title": "Course Introduction",
+    "section": "REST vs Message Queuing",
+    "text": "REST vs Message Queuing\n\n\n\nIoT messages are typically smaller but much more frequent than IoP messages, and may need to follow routes more complex than n-to-1 (clients–server)\n\nNeed to minimize overhead\nNeed to support flexible topologies\n\nMessage Queuing protocols (like MQTT and ZeroMQ)\n\n\n\n\n\n\n\nflowchart LR\n  P1[Publisher] --&gt; B[Broker]\n  P2[Publisher] --&gt; B\n  B --&gt; S1[Subscriber]\n  B --&gt; S2[Subscriber]\n  B --&gt; S3[Subscriber]\n  B --&gt; S4[Subscriber]"
+  },
+  {
+    "objectID": "0-intro.html#rest-vs-message-queuing-2",
+    "href": "0-intro.html#rest-vs-message-queuing-2",
+    "title": "Course Introduction",
+    "section": "REST vs Message Queuing",
+    "text": "REST vs Message Queuing"
+  },
+  {
+    "objectID": "0-intro.html#digital-manufacturing-5",
+    "href": "0-intro.html#digital-manufacturing-5",
+    "title": "Course Introduction",
+    "section": "Digital Manufacturing",
+    "text": "Digital Manufacturing\n\nConventional machining: Designer ➡︎ CAM operator ➡︎ CNC machine tool\nAdditive Manufacturing: Designer ➡︎ Machine tool (printer)\nEntirely digital workflow"
+  },
+  {
+    "objectID": "0-intro.html#digital-manufacturing-6",
+    "href": "0-intro.html#digital-manufacturing-6",
+    "title": "Course Introduction",
+    "section": "Digital Manufacturing",
+    "text": "Digital Manufacturing\nMachine Learning and Artificial Intelligence:\n\nClassification of operating conditions\nAutonomous and de-centralized decision making\nLevel 7 automation on Amber & Amber’s scale"
+  },
+  {
+    "objectID": "0-intro.html#course-matter",
+    "href": "0-intro.html#course-matter",
+    "title": "Course Introduction",
+    "section": "Course Matter",
+    "text": "Course Matter\n\n\n\n\n\nDevelopment and testing\n\n\n\n\n\n\nDeployment (MADS on BeagleBone)\n\n\n\n\n\n\nCPS simulation (Digital Twin)\n\n\n\n\n\n\n3D printer\n\n\n\nDevelopment and testing ➡︎ Deployment ➡︎ (ZeroMQ) ➡︎ CPS simulation, and/or 3D printer"
+  },
+  {
+    "objectID": "0-intro.html#tools",
+    "href": "0-intro.html#tools",
+    "title": "Course Introduction",
+    "section": "Tools",
+    "text": "Tools\n\nProgramming in C++: high performance, general purpose language, suitable for real-time systems (controllers), more complex to learn than C (bigger) but more abstract (does not need understanding of hardware)\nGNU-Unix toolchain (much more common than Windows in automation)\n\nLinux exposed via WSL in Windows (MacOS is UNIX already)\nAnd/or custom machine simulator (faster)"
+  },
+  {
+    "objectID": "0-intro.html#teaching-material",
+    "href": "0-intro.html#teaching-material",
+    "title": "Course Introduction",
+    "section": "Teaching Material",
+    "text": "Teaching Material\n\n\n\nAll teaching materials are provided via Moodle\nSoftware will be made available on GitHub platform\nReference textbook is Manufacturing Automation, by Y. Altintas (2000), available @BUM (2 copies)\n\n\n\n\n\nReference book"
+  },
+  {
+    "objectID": "0-intro.html#exam",
+    "href": "0-intro.html#exam",
+    "title": "Course Introduction",
+    "section": "Exam",
+    "text": "Exam\n\nEach Session is made up by a mandatory written exam and an optional oral exam\n\nWritten exam: on Moodle platform, max 26/30\nOral exam: optional, max 30L/30, must be given in the same session\n\nFinal mark: starting from written mark, oral exam can improve or degrade it"
+  },
+  {
+    "objectID": "1-machine_tools.html#manufacturing-systems",
+    "href": "1-machine_tools.html#manufacturing-systems",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Manufacturing systems",
+    "text": "Manufacturing systems\n\nTo give shape to a block of raw material (workpiece) there are three possibilities:\n\nDeform it: forming processes (motion axes: 1+)\nCut it: material removal (or subtractive) processes (motion axes: 2.5+)\nBuild on it: additive manufacturing processes (motion axes: 2.5+)"
+  },
+  {
+    "objectID": "1-machine_tools.html#manufacturing-systems-1",
+    "href": "1-machine_tools.html#manufacturing-systems-1",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Manufacturing systems",
+    "text": "Manufacturing systems\n\n\nWe skip over forming processes, where motion planning and control is trivial (with exceptions!)\nIn subtractive and additive manufacturing there is a tool performing the process (a mill, a polarized wire, an extruding nozzle, …), whose motion is performed by synchronized action of two or more axes, typically in cartesian arrangement\nThe motion (trajectory and speed) must be planned according to geometry and process specifics"
+  },
+  {
+    "objectID": "1-machine_tools.html#subtractive-manufacturing-5-axes-milling",
+    "href": "1-machine_tools.html#subtractive-manufacturing-5-axes-milling",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Subtractive Manufacturing: 5-axes milling",
+    "text": "Subtractive Manufacturing: 5-axes milling"
+  },
+  {
+    "objectID": "1-machine_tools.html#additive-manufacturing-5-axes-direct-laser-deposition",
+    "href": "1-machine_tools.html#additive-manufacturing-5-axes-direct-laser-deposition",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Additive Manufacturing: 5-axes Direct Laser Deposition",
+    "text": "Additive Manufacturing: 5-axes Direct Laser Deposition"
+  },
+  {
+    "objectID": "1-machine_tools.html#reference-case-turningmilling",
+    "href": "1-machine_tools.html#reference-case-turningmilling",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Reference case: Turning/Milling",
+    "text": "Reference case: Turning/Milling\n\nThe majority of products involve machining, either directly, or indirectly (dies are machined)\nMachining involves a combination of linear and rotary motions:\n\nIn turning, the workpiece is rotating, the tool is displacing\nIn drilling and milling the tool is rotating and there is a combined relative displacement between tool and workpiece"
+  },
+  {
+    "objectID": "1-machine_tools.html#machining-parameters",
+    "href": "1-machine_tools.html#machining-parameters",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Machining parameters",
+    "text": "Machining parameters\n\nMechanism of chip formation depends\n\non the relative speed of tool and workpiece (cutting speed)\non the cross section of removed material\n\nCutting speed and cross section (tool parameters) depend in turn on trajectory, rotary and translation speeds (machining parameters)"
+  },
+  {
+    "objectID": "1-machine_tools.html#turning",
+    "href": "1-machine_tools.html#turning",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Turning",
+    "text": "Turning\nMachining parameters to be calculated are spindle speed, feed rate, and spindle power:\n\n\n\\[\n\\begin{aligned}\n\\text{Rotational speed:}\\quad & N = \\frac{v}{\\pi D_0} \\\\\n\\text{Diameter:}\\quad & D_f = D_0 - 2d \\\\\n\\text{Feed rate:}\\quad & f = N f_r \\\\\n\\text{Machining time:}\\quad & T_m = \\frac{L}{f} = \\frac{\\pi D_0 L}{f_r v} \\\\\n\\text{Material Removal Rate:}\\quad & MRR = v f_r d\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "1-machine_tools.html#drilling",
+    "href": "1-machine_tools.html#drilling",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Drilling",
+    "text": "Drilling\nMachining parameters to be calculated are spindle speed, feed rate, and spindle power:\n\n\n\\[\n\\begin{aligned}\nN &= \\frac{v}{\\pi D} \\\\\nf &= N f_r \\\\\nT_m &= \\frac{t + A}{f} \\\\\nA &= \\frac{D}{2}\\tan\\left(\\frac{\\pi - \\theta}{2}\\right) \\\\\nMRR &= \\frac{\\pi D^2 f}{4}\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "1-machine_tools.html#milling",
+    "href": "1-machine_tools.html#milling",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Milling",
+    "text": "Milling\nMachining parameters to be calculated are spindle speed, feed rate, and spindle power:"
+  },
+  {
+    "objectID": "1-machine_tools.html#milling-1",
+    "href": "1-machine_tools.html#milling-1",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Milling",
+    "text": "Milling\n\n\n\\[\n\\begin{aligned}\nN &= \\frac{v}{\\pi D} \\\\\nf &= N f_z z \\\\\nMRR &= w d f \\\\\nA &= \\begin{cases} \\sqrt{d(D-d)} & \\text{side milling} \\\\ \\sqrt{w(D-w)} & \\text{face milling} \\end{cases} \\\\\nT_m &= \\begin{cases} (L + A)/f & \\text{side milling} \\\\ (L + 2A)/f & \\text{face milling} \\end{cases}\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "1-machine_tools.html#shopfloor-formulas",
+    "href": "1-machine_tools.html#shopfloor-formulas",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Shopfloor formulas",
+    "text": "Shopfloor formulas\n\n\n\n\n\n\n\n\n\nParameter\nTurning\nMilling\nDrilling\n\n\n\n\n\\(v\\) (m/min)\n\\(v = \\pi D_0 N\\)\n\\(v = \\pi D N\\)\n\\(v = \\pi D N\\)\n\n\n\\(N\\) (1/s)\n\\(N = \\dfrac{v}{\\pi D_0}\\)\n\\(N = \\dfrac{v}{\\pi D}\\)\n\\(N = \\dfrac{v}{\\pi D}\\)\n\n\n\\(f\\) (mm/min)\n\\(f = f_r N\\)\n\\(f = z f_z N\\)\n\\(f = f_r N\\)\n\n\n\\(f_{z,r}\\) (mm)\nFeed per tooth (zahn) or per revolution\n\n\n\n\n\\(T\\) (s)\n\\(T_m = L/f\\)\n\\(T_m = (L + kA)/f\\)\n\\(T_m = L/f\\)\n\n\n\\(MRR\\) (mm³/min)\n\\(MRR = d f_r v\\)\n\\(MRR = w d f\\)\n\\(MRR = \\dfrac{\\pi D^2}{4} f\\)\n\n\n\\(P\\) (kW)\n\\(P = MRR\\, p_s\\)\n\\(P = MRR\\, p_s\\)\n\\(P = MRR\\, p_s\\)\n\n\n\\(P_e\\) (kW)\n\\(P_e = \\dfrac{MRR\\, p_s}{\\eta}\\)\n\\(P_e = \\dfrac{MRR\\, p_s}{\\eta}\\)\n\\(P_e = \\dfrac{MRR\\, p_s}{\\eta}\\)"
+  },
+  {
+    "objectID": "1-machine_tools.html#example",
+    "href": "1-machine_tools.html#example",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Example",
+    "text": "Example\nWe have to set up a milling process on Aluminum, which has \\(p_s = 12.56\\) W min/cm³. The tool manufacturer suggests \\(v = 1000\\) m/min and \\(f_z = 0.1\\) mm/tooth. The mill has a diameter of 30 mm and does face milling with full overlapping, has 3 teeth and removes a layer of 2 mm.\n\\[\n\\begin{aligned}\nN &= \\frac{v}{\\pi D} = \\frac{1000\\ \\text{m/min}}{\\pi\\, 30\\ \\text{mm}} = 10610\\ \\text{rpm} \\\\\nf &= f_z z N = 0.1\\ \\text{mm} \\cdot 3 \\cdot 10610\\ \\text{rpm} = 3183\\ \\text{mm/min} \\\\\nMRR &= w d f = 30\\ \\text{mm} \\cdot 2\\ \\text{mm} \\cdot 3183\\ \\text{mm/min} = 190980\\ \\text{mm}^3/\\text{min} \\\\\nP &= MRR\\, p_s = 190.98\\ \\text{cm}^3/\\text{min} \\cdot 12.56\\ \\text{W min/cm}^3 \\simeq 2.4\\ \\text{kW}\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "1-machine_tools.html#cutting-economics",
+    "href": "1-machine_tools.html#cutting-economics",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Cutting Economics",
+    "text": "Cutting Economics\nThe cost of machining depends on:\n\nlabor: hourly cost of trained personnel\nmachinery: purchase cost / machine life\nraw material: cost of initial workpiece\nconsumables: tools, cutting fluids, disposable fixtures\n\nSome costs depend on process parameters (mainly cutting speed)"
+  },
+  {
+    "objectID": "1-machine_tools.html#tool-wear",
+    "href": "1-machine_tools.html#tool-wear",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Tool wear",
+    "text": "Tool wear"
+  },
+  {
+    "objectID": "1-machine_tools.html#tool-wear-taylors-law",
+    "href": "1-machine_tools.html#tool-wear-taylors-law",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Tool Wear: Taylor’s law",
+    "text": "Tool Wear: Taylor’s law\n\n\n\nFlank wear is the limiting process\nTaylor’s law (1907): \\(vT^n = C\\)\n\n\\(n\\) depends on materials\n\\(C\\) depends on materials and failure criterion\n\n\\(v\\) is the cutting speed\n\\(T\\) is the tool life"
+  },
+  {
+    "objectID": "1-machine_tools.html#optimal-cutting-speed",
+    "href": "1-machine_tools.html#optimal-cutting-speed",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Optimal cutting speed",
+    "text": "Optimal cutting speed\n\n\n\n\\(C_p\\) = cost per piece\n\\(C_m\\) = machining cost\n\\(C_s\\) = setup cost\n\\(C_l\\) = loading cost\n\\(C_t\\) = tooling cost\n\\(L\\) = labour\n\\(O\\) = overhead\n\n\n\\[\n\\begin{aligned}\nC_p &= C_m + C_s + C_l + C_t \\\\\nC_m &= T_m (L_m + O_m) \\\\\nC_l &= T_l (L_m + O_m) \\\\\nC_t &= \\frac{1}{N_p}\\left[T_c(L_m + O_m) + T_g(L_g + O_g) + D_c\\right] = \\frac{1}{N_p} C_{t0} \\\\\nT_p &= T_{s,l} + T_m + \\frac{T_c}{N_p} \\\\\nV T^n &= K\n\\end{aligned}\n\\]\nTurning: \\(T_m = \\dfrac{L}{f_r N} = \\dfrac{\\pi L D}{f_r V}\\), \\(\\quad N_p = \\dfrac{T}{T_m} = \\dfrac{f_r K^{1/n}}{\\pi L D V^{1/n - 1}}\\)\n\n\nCs è una figura fissa, in €/pezzo\nTc: tempo cambio utensile\nTg: tempo riaffilatura utensile\nDc: deprezzamento utensile per riaffilatura\nn&lt;1\nCurve Costo vs velocità e tempo vs velocità\nNota: utensili “integrati” (più lavorazioni in una) risparmiano tempo!"
+  },
+  {
+    "objectID": "1-machine_tools.html#optimal-cutting-speed-1",
+    "href": "1-machine_tools.html#optimal-cutting-speed-1",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Optimal cutting speed",
+    "text": "Optimal cutting speed\nSetting \\(\\dfrac{\\partial C_p}{\\partial V} = 0\\):\n\\[\nV_o = \\frac{K (L_m + O_m)^n}{\\left\\{[(1/n) - 1]\\, C_{t0}\\right\\}^n}\n\\qquad\nT_o = [(1/n) - 1]\\, \\frac{C_{t0}}{L_m + O_m}\n\\]\nSetting \\(\\dfrac{\\partial T_p}{\\partial V} = 0\\) (maximum production rate):\n\\[\nV_o = \\frac{K}{[(1/n - 1)\\, T_c]^n}\n\\qquad\nT_o = (1/n - 1)\\, T_c\n\\]"
+  },
+  {
+    "objectID": "1-machine_tools.html#optimal-cutting-speed-2",
+    "href": "1-machine_tools.html#optimal-cutting-speed-2",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Optimal cutting speed",
+    "text": "Optimal cutting speed"
+  },
+  {
+    "objectID": "1-machine_tools.html#notes",
+    "href": "1-machine_tools.html#notes",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Notes",
+    "text": "Notes\n\nBased on Taylor’s law\nexpensive\ndeterministic\nHomogeneous material\nConstant cutting parameters\nComplex machining requires process simulation (digital twin) and numerical optimization"
+  },
+  {
+    "objectID": "1-machine_tools.html#types-of-lathes",
+    "href": "1-machine_tools.html#types-of-lathes",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Types of Lathes",
+    "text": "Types of Lathes\n\n\n\nParallel or engine lathe\nCNC lathe\n\nHorizontal spindle\n\nsingle spindle\nmultiple spindle\n\nVertical spindle\nSliding headstock (fantina mobile)"
+  },
+  {
+    "objectID": "1-machine_tools.html#parallel-engine-lathe",
+    "href": "1-machine_tools.html#parallel-engine-lathe",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Parallel (engine) lathe",
+    "text": "Parallel (engine) lathe"
+  },
+  {
+    "objectID": "1-machine_tools.html#parallel-engine-lathe-1",
+    "href": "1-machine_tools.html#parallel-engine-lathe-1",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Parallel (engine) lathe",
+    "text": "Parallel (engine) lathe\n\n\n\nProgrammable engine lathe\nSame architecture as an engine lathe\nSimple controller for programming simple motions (cylinder, cone, sphere, plane)"
+  },
+  {
+    "objectID": "1-machine_tools.html#cnc-lathe",
+    "href": "1-machine_tools.html#cnc-lathe",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "CNC lathe",
+    "text": "CNC lathe\n\nA lathe with enhanced motion controller (Computer-Numerical-Controller, CNC)\nMechanical layout is arranged in order to allow automated chip evacuation\n3 controlled axes + spindle, or more\nThe spindle can be a controlled axis itself\nIt can have rotary tools, too (hybrid turning-milling)"
+  },
+  {
+    "objectID": "1-machine_tools.html#cnc-lathe-1",
+    "href": "1-machine_tools.html#cnc-lathe-1",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "CNC lathe",
+    "text": "CNC lathe\n\nDirect-drive spindle\nRoller-turner (revolving) turret\nCounterstock (hydraulics)\nInclined bed\nLead screw"
+  },
+  {
+    "objectID": "1-machine_tools.html#moveable-rest",
+    "href": "1-machine_tools.html#moveable-rest",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Moveable rest",
+    "text": "Moveable rest"
+  },
+  {
+    "objectID": "1-machine_tools.html#moveable-rest-1",
+    "href": "1-machine_tools.html#moveable-rest-1",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Moveable rest",
+    "text": "Moveable rest"
+  },
+  {
+    "objectID": "1-machine_tools.html#two-spindle-two-turrets-lathe",
+    "href": "1-machine_tools.html#two-spindle-two-turrets-lathe",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Two-spindle, two turrets lathe",
+    "text": "Two-spindle, two turrets lathe"
+  },
+  {
+    "objectID": "1-machine_tools.html#multiple-spindle-lathe",
+    "href": "1-machine_tools.html#multiple-spindle-lathe",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Multiple spindle lathe",
+    "text": "Multiple spindle lathe"
+  },
+  {
+    "objectID": "1-machine_tools.html#multiple-spindle-lathe-1",
+    "href": "1-machine_tools.html#multiple-spindle-lathe-1",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Multiple spindle lathe",
+    "text": "Multiple spindle lathe"
+  },
+  {
+    "objectID": "1-machine_tools.html#vertical-spindle",
+    "href": "1-machine_tools.html#vertical-spindle",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Vertical spindle",
+    "text": "Vertical spindle\n\n\n\n\n\nNormal\n\n\n\n\n\n\nInverted spindle"
+  },
+  {
+    "objectID": "1-machine_tools.html#vertical-spindle-1",
+    "href": "1-machine_tools.html#vertical-spindle-1",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Vertical spindle",
+    "text": "Vertical spindle"
+  },
+  {
+    "objectID": "1-machine_tools.html#sliding-headstock",
+    "href": "1-machine_tools.html#sliding-headstock",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Sliding headstock",
+    "text": "Sliding headstock"
+  },
+  {
+    "objectID": "1-machine_tools.html#sliding-headstock-1",
+    "href": "1-machine_tools.html#sliding-headstock-1",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Sliding headstock",
+    "text": "Sliding headstock"
+  },
+  {
+    "objectID": "1-machine_tools.html#parameters",
+    "href": "1-machine_tools.html#parameters",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Parameters",
+    "text": "Parameters\n\n\n\nSlewing (Brandeggio)\nTurning diameter\nTurning length\nX e Z travels (and possibly other axes)\nSpindle speed\nRapid speeds\nSpindle torque and power\n\n\n\n\n\nED = Einschaltdauer (operating time)\n\n\n\n\nED= Duty Cycle=moving time / total cycle time. S6 = ED 40%"
+  },
+  {
+    "objectID": "1-machine_tools.html#milling-machines",
+    "href": "1-machine_tools.html#milling-machines",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Milling machines",
+    "text": "Milling machines\n\n\n\nHuge variety of architectures\nCommon denominator: rotary tool\nFrom desktop size to 200 m³ footprint\nSome have rotary table and can do turning (hybrid mill-turn)"
+  },
+  {
+    "objectID": "1-machine_tools.html#types-of-milling-machines",
+    "href": "1-machine_tools.html#types-of-milling-machines",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Types of Milling Machines",
+    "text": "Types of Milling Machines\n\n\n\nCNC M.M.\n\nHorizontal spindle\nVertical spindle\nMilling centers\n\nUniversal\nPallet changer\nTraveling column\n\n\nArchitecture\n\nCantilever\nTraveling column\nGantry\nParallel kinematics\n\n\n\n\n\n\nCantilever\n\n\n\n\n\nTravelling column\n\n\n\n\n\n\nGantry\n\n\n\n\n\nParallel kinematics"
+  },
+  {
+    "objectID": "1-machine_tools.html#architectures",
+    "href": "1-machine_tools.html#architectures",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Architectures",
+    "text": "Architectures\n\n\n\nCantilever: simplest and cheapest\nTraveling column: suitable when one axis is much longer\nGantry: much more stiff and stable, but more complex (twin axes)\nParallel-K: much stiffer and faster, but complex to control and limited in travels"
+  },
+  {
+    "objectID": "1-machine_tools.html#vertical-spindle-2",
+    "href": "1-machine_tools.html#vertical-spindle-2",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Vertical spindle",
+    "text": "Vertical spindle\n\nEasy fixturing\nReduced moveable mass"
+  },
+  {
+    "objectID": "1-machine_tools.html#horizontal-spindle",
+    "href": "1-machine_tools.html#horizontal-spindle",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Horizontal spindle",
+    "text": "Horizontal spindle\n\nBetter chip disposal\nLarge travels\nMore difficult fixturing"
+  },
+  {
+    "objectID": "1-machine_tools.html#pallet-changer",
+    "href": "1-machine_tools.html#pallet-changer",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Pallet changer",
+    "text": "Pallet changer\n\n\n\nStocky WPs\nHigh productivity\ncan be integrated in automated lines"
+  },
+  {
+    "objectID": "1-machine_tools.html#traveling-column",
+    "href": "1-machine_tools.html#traveling-column",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Traveling column",
+    "text": "Traveling column\n\n\nSuitable for:\n\nslender WP\nstocky WP but with two alternating fixturing zones"
+  },
+  {
+    "objectID": "1-machine_tools.html#milling-centers",
+    "href": "1-machine_tools.html#milling-centers",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Milling centers",
+    "text": "Milling centers"
+  },
+  {
+    "objectID": "1-machine_tools.html#parameters-1",
+    "href": "1-machine_tools.html#parameters-1",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Parameters",
+    "text": "Parameters\n\n\n\nAxes configuration\nAxes travels\nSpindle speed\nRapid speed\nSpindle torque and power\n\n\n\n\n\nED = Einschaltdauer (operating time)"
+  },
+  {
+    "objectID": "1-machine_tools.html#amber-amber",
+    "href": "1-machine_tools.html#amber-amber",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Amber & Amber",
+    "text": "Amber & Amber\nThe Yardstick of Automation (1962)\n\n\n\n\n\n\n\n\nOrder\nHuman attribute\nExample\n\n\n\n\n0\nNone\nUtensili manuali\n\n\n1\nEnergy\nPowered machines and tools\n\n\n2\nDexterity\nSingle-cycle automatics (dexterity = self-feeding)\n\n\n3\nDiligence\nRepeats cycle; open-loop control\n\n\n4\nJudgment\nClosed loop; numerical control; self-measuring\n\n\n5\nEvaluation\nComputer control; model of process required for automation\n\n\n6\nLearning\nLimited self-programming; some artificial intelligence\n\n\n7\nReasoning\nInductive reasoning (cause-effects)\n\n\n8\nCreativity\nPerforms (original) design unaided\n\n\n9\nDominance\nMachine is master (HAL 9000)"
+  },
+  {
+    "objectID": "1-machine_tools.html#current-level-a4",
+    "href": "1-machine_tools.html#current-level-a4",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Current level: A(4)",
+    "text": "Current level: A(4)\n\n\n\nCNC machine tools\n\nConvert a machining description in machining movements\nRun machining commands with judgement (A4)"
+  },
+  {
+    "objectID": "1-machine_tools.html#machine-tool-elements",
+    "href": "1-machine_tools.html#machine-tool-elements",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Machine tool elements",
+    "text": "Machine tool elements"
+  },
+  {
+    "objectID": "1-machine_tools.html#drivers",
+    "href": "1-machine_tools.html#drivers",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Drivers",
+    "text": "Drivers\n\n\n\n\n\n\n\nRequirements:\n\nFast response\nQuick stabilization\nNo overshoot"
+  },
+  {
+    "objectID": "1-machine_tools.html#feedback",
+    "href": "1-machine_tools.html#feedback",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Feedback",
+    "text": "Feedback\n\n\n\nOpen loop (A3); closed loop on motor, on lead screw, on axis (A4)"
+  },
+  {
+    "objectID": "1-machine_tools.html#errors",
+    "href": "1-machine_tools.html#errors",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Errors",
+    "text": "Errors"
+  },
+  {
+    "objectID": "1-machine_tools.html#linear-axis-control",
+    "href": "1-machine_tools.html#linear-axis-control",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Linear axis control",
+    "text": "Linear axis control\n\n\n\n\n\nEncoder gain: pulses/rev — Axis gain: screw pitch × encoder gain (mm/pulse)"
+  },
+  {
+    "objectID": "1-machine_tools.html#ball-screw-assembly",
+    "href": "1-machine_tools.html#ball-screw-assembly",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Ball-screw assembly",
+    "text": "Ball-screw assembly\n\nLow friction\nHigh load-bearing\nTwo counter-screwed nuts with interposed elastic pad for eliminating mechanical plays (precision)"
+  },
+  {
+    "objectID": "1-machine_tools.html#linear-guide-rail",
+    "href": "1-machine_tools.html#linear-guide-rail",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Linear guide-rail",
+    "text": "Linear guide-rail\n\n\n\n\n\n\n\n\n\nLube port\nend wiper seal\nend cap\nrunner block body\nrolling element\nside seal\nguide rail"
+  },
+  {
+    "objectID": "1-machine_tools.html#encoder",
+    "href": "1-machine_tools.html#encoder",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Encoder",
+    "text": "Encoder\n\nTypes\n\nRotary encoders\nLinear encoders\n\nQuality\n\nIncremental\nAbsolute (Gray code)"
+  },
+  {
+    "objectID": "1-machine_tools.html#pid-controllers",
+    "href": "1-machine_tools.html#pid-controllers",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "PID controllers",
+    "text": "PID controllers\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nParameter\nRise time\nOvershoot\nSettling time\nSteady-state error\nStability\n\n\n\n\nKp\nDecrease\nIncrease\nSmall change\nDecrease\nDegrade\n\n\nKi\nDecrease\nIncrease\nIncrease\nDecrease significantly\nDegrade\n\n\nKd\nMinor decrease\nMinor decrease\nMinor decrease\nNo effect\nImprove if Kd small"
+  },
+  {
+    "objectID": "1-machine_tools.html#actual-control-schemes",
+    "href": "1-machine_tools.html#actual-control-schemes",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Actual control schemes",
+    "text": "Actual control schemes"
+  },
+  {
+    "objectID": "1-machine_tools.html#plc",
+    "href": "1-machine_tools.html#plc",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "PLC",
+    "text": "PLC\n\n\nInterfaces and Registers:\n\nAnalog and digital I/O (&gt; 2048)\nRelay (1000)\nMemories (200)\nTimers (200)\nCounters (200)\n\nCan be integrated in the CNC"
+  },
+  {
+    "objectID": "1-machine_tools.html#plc-1",
+    "href": "1-machine_tools.html#plc-1",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "PLC",
+    "text": "PLC\nAdvanced I/O\n\nGeneral purpose communication: RS232, RS422, Ethernet\nDeterministic communication: Profibus, DeviceNet, Modbus, Industrial EtherNET, CAN-BUS\nSpecial I/O: counters, virtual cams, PIDs and controllers"
+  },
+  {
+    "objectID": "1-machine_tools.html#plc-2",
+    "href": "1-machine_tools.html#plc-2",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "PLC",
+    "text": "PLC\nProgramming standard IEC 61131-3\n\n\nGraphical\n\nLadder Logic\nFunction Block Diagram\nSequential Function Chart\n\nTextual\n\nStructured Text\nInstruction List"
+  },
+  {
+    "objectID": "1-machine_tools.html#plc-ladder-diagram",
+    "href": "1-machine_tools.html#plc-ladder-diagram",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "PLC: Ladder diagram",
+    "text": "PLC: Ladder diagram"
+  },
+  {
+    "objectID": "1-machine_tools.html#plc-function-block-diagram",
+    "href": "1-machine_tools.html#plc-function-block-diagram",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "PLC: Function Block Diagram",
+    "text": "PLC: Function Block Diagram"
+  },
+  {
+    "objectID": "1-machine_tools.html#plc-sequential-function-chart",
+    "href": "1-machine_tools.html#plc-sequential-function-chart",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "PLC: Sequential Function Chart",
+    "text": "PLC: Sequential Function Chart"
+  },
+  {
+    "objectID": "1-machine_tools.html#plc-textual-languages",
+    "href": "1-machine_tools.html#plc-textual-languages",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "PLC: Textual languages",
+    "text": "PLC: Textual languages"
+  },
+  {
+    "objectID": "1-machine_tools.html#numerical-control",
+    "href": "1-machine_tools.html#numerical-control",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Numerical Control",
+    "text": "Numerical Control\n\nTypes of motion interpolation\nNumber of controlled axes\nCoordinate systems and reference frames"
+  },
+  {
+    "objectID": "1-machine_tools.html#types-of-interpolation",
+    "href": "1-machine_tools.html#types-of-interpolation",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Types of interpolation",
+    "text": "Types of interpolation\n\n\n\nPoint to point\nParaxial\nContinuous"
+  },
+  {
+    "objectID": "1-machine_tools.html#number-of-controlled-axes",
+    "href": "1-machine_tools.html#number-of-controlled-axes",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Number of controlled axes",
+    "text": "Number of controlled axes\n\n\n\n2 Axes\n2 Axes and 1/2\n3 Axes\n5 Axes"
+  },
+  {
+    "objectID": "1-machine_tools.html#coordinate-systems",
+    "href": "1-machine_tools.html#coordinate-systems",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Coordinate systems",
+    "text": "Coordinate systems\n\nMachine reference frame\n\nMachine origin\nMachine reference points\n\nWP reference frame\n\nWP origin\n\nTool reference frame\n\nRegistration point\nSupport point"
+  },
+  {
+    "objectID": "1-machine_tools.html#coordinate-systems-1",
+    "href": "1-machine_tools.html#coordinate-systems-1",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Coordinate systems",
+    "text": "Coordinate systems\n\n\n\n\n\nMachine reference frame: arbitrary position corresponding to the support point when all axes are at 0"
+  },
+  {
+    "objectID": "1-machine_tools.html#coordinate-systems-2",
+    "href": "1-machine_tools.html#coordinate-systems-2",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Coordinate systems",
+    "text": "Coordinate systems\n\n\n\n\n\n\n\n\n\\[\n\\begin{aligned}\nx_m &= O_x + x \\\\\ny_m &= O_y + y\n\\end{aligned}\n\\]\n\\((x_m, y_m)\\)"
+  },
+  {
+    "objectID": "1-machine_tools.html#coordinate-systems-3",
+    "href": "1-machine_tools.html#coordinate-systems-3",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Coordinate systems",
+    "text": "Coordinate systems\nIn general, the offset must also include the tool length and radius (\\(T_x\\) and \\(T_y\\)) and possibly the angle \\(\\theta\\) of the machine \\((X, Y)\\) frame with the workpiece frame:\n\\[\n\\begin{bmatrix} x_m \\\\ y_m \\\\ 1 \\end{bmatrix} =\n\\begin{bmatrix} \\cos\\theta & -\\sin\\theta & O_x + T_x \\\\ \\sin\\theta & \\cos\\theta & O_y + T_y \\\\ 0 & 0 & 1 \\end{bmatrix}\n\\begin{bmatrix} x \\\\ y \\\\ 1 \\end{bmatrix}\n\\]\nIn 3-D, you use 4x4 homogeneous transformation matrices"
+  },
+  {
+    "objectID": "1-machine_tools.html#machine-reference-frame",
+    "href": "1-machine_tools.html#machine-reference-frame",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Machine reference frame",
+    "text": "Machine reference frame\n\n\n\n\n\n\n\n\n\nEncoders give raw distance of spindle nose wrt machine reference\nMachine reference position is defined by manufacturer\nAxes drivers work in machine coordinates"
+  },
+  {
+    "objectID": "1-machine_tools.html#machine-reference-points",
+    "href": "1-machine_tools.html#machine-reference-points",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Machine reference points",
+    "text": "Machine reference points\n\nOnly used in incremental encoders\nOne or more per axis\nTypes:\n\nSwitch/contactor\nAdditional encoder readout position"
+  },
+  {
+    "objectID": "1-machine_tools.html#wp-coordinates",
+    "href": "1-machine_tools.html#wp-coordinates",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "WP coordinates",
+    "text": "WP coordinates\n\n\n\nSelected by operator/programmer\nPart program can use WP coordinates and/or machine coordinates\nAfter fixturing, WP origin has to be set up wrt machine origin\n\nby touching with tool and compensating for tool radius\nBy 3-D touch probe"
+  },
+  {
+    "objectID": "1-machine_tools.html#tool-reference",
+    "href": "1-machine_tools.html#tool-reference",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Tool reference",
+    "text": "Tool reference\n\n\n\nSupport point:\n\nAbutment plane (lathes)\nSpindle nose (mills)\n\nRegistration point:\n\non the tool, the point that matches the SP when mounted\n\nTo be measured:\n\nLength and offset (lathes)\nLength, diameter, and toric radius (mills)"
+  },
+  {
+    "objectID": "1-machine_tools.html#coordinate-transformations",
+    "href": "1-machine_tools.html#coordinate-transformations",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Coordinate transformations",
+    "text": "Coordinate transformations\n\n\nAny coordinate \\(P_{wp}\\) given in the workpiece reference frame \\(O_{wp}\\) is converted in machine coordinates \\(P_m\\), including tool length offset\n\\[\nP_m = T_{wp \\to m} P_{wp}; \\qquad\nT_{wp \\to m} = \\begin{bmatrix} r_{11} & r_{12} & r_{13} & d_x \\\\ r_{21} & r_{22} & r_{23} & d_y \\\\ r_{31} & r_{32} & r_{33} & d_z + l_t \\\\ 0 & 0 & 0 & 1 \\end{bmatrix}\n\\]\n\\(d_{x-z}\\) are coordinates of \\(O_{wp}\\) in \\(O_m\\)"
+  },
+  {
+    "objectID": "1-machine_tools.html#coordinate-transformations-1",
+    "href": "1-machine_tools.html#coordinate-transformations-1",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Coordinate transformations",
+    "text": "Coordinate transformations\nRemember that the roto-translation matrix is:\n\\[\nT = \\begin{bmatrix}\n\\cos\\alpha\\cos\\beta & \\cos\\alpha\\sin\\beta\\sin\\gamma - \\sin\\alpha\\cos\\beta & \\cos\\alpha\\sin\\beta\\cos\\gamma + \\sin\\alpha\\sin\\gamma & d_x \\\\\n\\sin\\alpha\\cos\\beta & \\sin\\alpha\\sin\\beta\\sin\\gamma + \\cos\\alpha\\cos\\beta & \\sin\\alpha\\sin\\beta\\cos\\gamma - \\cos\\alpha\\sin\\gamma & d_y \\\\\n-\\sin\\beta & \\cos\\beta\\sin\\gamma & \\cos\\beta\\cos\\gamma & d_z \\\\\n0 & 0 & 0 & 1\n\\end{bmatrix}\n\\]\n\n\nThe order of transformations is:\n\nRoll by \\(\\gamma\\)\nPitch by \\(\\beta\\)\nYaw by \\(\\alpha\\)\nTranslate by \\((d_x, d_y, d_z)\\)"
+  },
+  {
+    "objectID": "1-machine_tools.html#touch-probe",
+    "href": "1-machine_tools.html#touch-probe",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Touch probe",
+    "text": "Touch probe\n\n\n\n\\(O_{wp}\\) position is measured with a touch probe\nThe 3 contact points are also electric switches\nWhen a switch opens, the current coordinate plus the sphere radius in the direction of motion gives the touch point coordinate"
+  },
+  {
+    "objectID": "1-machine_tools.html#tool-reference-1",
+    "href": "1-machine_tools.html#tool-reference-1",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Tool reference",
+    "text": "Tool reference\nMeasurement systems:\n\nMT itself\nTool presetting systems\nIn-machine presetting"
+  },
+  {
+    "objectID": "1-machine_tools.html#on-board-presetting",
+    "href": "1-machine_tools.html#on-board-presetting",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "On-board presetting",
+    "text": "On-board presetting"
+  },
+  {
+    "objectID": "1-machine_tools.html#tool-presetter",
+    "href": "1-machine_tools.html#tool-presetter",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Tool presetter",
+    "text": "Tool presetter"
+  },
+  {
+    "objectID": "1-machine_tools.html#automation-1",
+    "href": "1-machine_tools.html#automation-1",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Automation",
+    "text": "Automation\n\n\n\nYardstick of Automation\nLevel A4\nLevel A5\nPart Programs"
+  },
+  {
+    "objectID": "1-machine_tools.html#machining-cycle",
+    "href": "1-machine_tools.html#machining-cycle",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Machining cycle",
+    "text": "Machining cycle\nGeneral sequence:"
+  },
+  {
+    "objectID": "1-machine_tools.html#part-program-structure",
+    "href": "1-machine_tools.html#part-program-structure",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Part-program structure",
+    "text": "Part-program structure"
+  },
+  {
+    "objectID": "1-machine_tools.html#toolpaths",
+    "href": "1-machine_tools.html#toolpaths",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Toolpaths",
+    "text": "Toolpaths"
+  },
+  {
+    "objectID": "1-machine_tools.html#workpiece-origin",
+    "href": "1-machine_tools.html#workpiece-origin",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Workpiece Origin",
+    "text": "Workpiece Origin\nIn turning, X coordinates are in diameters. Two typical choices for origin:\n\nrightmost axial point on finished workpiece (\\(z &lt; 0\\))\non the machine origin (fixtures must be taken into consideration)"
+  },
+  {
+    "objectID": "1-machine_tools.html#g-code",
+    "href": "1-machine_tools.html#g-code",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "G-Code",
+    "text": "G-Code\nISO language (ISO/DIN 6983)\n\n\n\nCod.\nCommand\nCod.\nCommand\n\n\n\n\nA\nRotation about X\nN\nBlock number\n\n\nB\nRotation about Y\nO\n—\n\n\nC\nRotation about Z\nP\nThird motion along X\n\n\nD\nTool diameter compensation\nQ\nThird motion along Y\n\n\nE\nSecondary feedrate\nR\nThird motion along Z\n\n\nF\nFeedrate\nS\nSpindle speed\n\n\nG\nPreparatory function\nT\nTool number\n\n\nH\n—\nU\nSecond motion along X\n\n\nI\nCircle center, X\nV\nSecond motion along Y\n\n\nJ\nCircle center, Y\nW\nSecond motion along Z\n\n\nK\nCircle center, Z\nX\nMotion along X\n\n\nL\n—\nY\nMotion along Y\n\n\nM\nMachine function\nZ\nMotion along Z"
+  },
+  {
+    "objectID": "1-machine_tools.html#punch-tape",
+    "href": "1-machine_tools.html#punch-tape",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Punch tape",
+    "text": "Punch tape\n\n\nG-Code"
+  },
+  {
+    "objectID": "1-machine_tools.html#g-code-functions",
+    "href": "1-machine_tools.html#g-code-functions",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "G-code functions",
+    "text": "G-code functions\n\nPreparatory functions (G,T)\nPositioning functions (X, Y, Z)\nMachine functions (M)\n\nN1 T1 S500.0 M3;              tool n°1, CW rotation, 500 rpm\nN2 M8;                        fluid jets ON\nN3 G00 X60.0 Z0.0;            rapid positioning\nN4 G01 X-0.5 Z0.0 F1000.0;    facing\nN5 G01 X20.0 F1000.0\nN6 G03 X40.0 Z-5.0 I30.0 K-10.0 F1000.0;    arc R=10.0\n...\nN128 M30;                     fine programma"
+  },
+  {
+    "objectID": "1-machine_tools.html#example-turning",
+    "href": "1-machine_tools.html#example-turning",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Example: turning",
+    "text": "Example: turning"
+  },
+  {
+    "objectID": "1-machine_tools.html#example-turning-roughing",
+    "href": "1-machine_tools.html#example-turning-roughing",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Example: turning — roughing",
+    "text": "Example: turning — roughing\n\n\n\n\n\n\n\nN10 G00 X61.0 Z7.0\nN11 G01 Z-94.5 F1000.0\nN12 G01 G91 X5.0 F2000.0\nN13 G00 Z7.0\nN14 G00 X51.0\nN15 G01 Z-92.2 F1000.0\nN16 G01 G91 X5.0 F2000.0\nN17 G00 Z7.0\n\nN18 G00 X41.0 Z7.0\nN19 G01 Z-59.4 F1000.0\nN20 G01 G91 X5.0 F2000.0\nN21 G00 Z7.0\nN22 G00 X32.0\nN23 G01 Z-57.6 F1000.0\nN24 G01 G91 X5.0 F2000.0\nN25 G00 Z7.0"
+  },
+  {
+    "objectID": "1-machine_tools.html#example-turning-finishing",
+    "href": "1-machine_tools.html#example-turning-finishing",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Example: turning — finishing",
+    "text": "Example: turning — finishing\n\n\n\n\n\n\n\nN31 G00 X70.0 Z0.0\nN32 G00 X35.0\nN33 G01 X0.0 F1000.0 S2000.0\nN34 G00 Z5.0\nN35 G00 X30.0\nN36 G01 Z-20.0\nN37 G01 X25.0 Z-25\n\nN38 G01 Z-52.0\nN39 G02 X45.0 Z-62.0 I10.0 K0.0\nN40 G01 Z-85.0\nN41 G01 G91 X20.0 Z-15.0\nN42 G01 G90 Z-150.0\nN43 G00 X70.0\nN44 G00 Z20.0\n...\nN98 M30"
+  },
+  {
+    "objectID": "1-machine_tools.html#example-milling",
+    "href": "1-machine_tools.html#example-milling",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Example: milling",
+    "text": "Example: milling"
+  },
+  {
+    "objectID": "1-machine_tools.html#example-milling-1",
+    "href": "1-machine_tools.html#example-milling-1",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Example: milling",
+    "text": "Example: milling\n\n\n%es1 G71 *\nN10 G30 G17 X+0 Y+0 Z-20*\nN20 G31 X+150 Y+150 Z+0*\nN30 G247 Q339=+1*\nN40 T1 G17 S5000 F4000*\nN50 G00 G90 X+14 Y-15 Z+10 G40 M8*\nN60 G00 Z-10 G40*\nN70 G01 Y+95 G41 F4000*\nN80 G01 X+36 Y+140*\nN90 G25 R10*\nN100 G01 X+105*\nN110 G24 R4*\nN120 G01 G91 Y-55*\nN130 G25 R14*\nN140 G01 G91 X+35*\nN150 G25 R5*\nN160 G01 G90 X+105 Y+14*\nN170 G24 R8*\nN180 G01 X-15*\nN190 G00 Z+10 G40*\nN200 G38 M30*\nN99999999 %es1 G71 *"
+  },
+  {
+    "objectID": "1-machine_tools.html#program-check",
+    "href": "1-machine_tools.html#program-check",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Program check",
+    "text": "Program check"
+  },
+  {
+    "objectID": "1-machine_tools.html#advanced-languages",
+    "href": "1-machine_tools.html#advanced-languages",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Advanced languages",
+    "text": "Advanced languages\n\n\n\nExplicit syntax\nConversational\nMacros\nParametric programming\n\n\n0  BEGIN PGM es1 MM\n1  BLK FORM 0.1 Z  X+0  Y+0  Z-20\n2  BLK FORM 0.2  X+150  Y+150  Z+0\n3  CYCL DEF 247 DEF. ZERO PEZZO ~\n    Q339=+1    ;NUMERO ORIGINE\n4  TOOL CALL 1 Z S5000 F4000\n5  M8\n6  L  X+10  Y-10  Z+10 R0 FMAX\n7  L  Z-10 R0 FMAX\n8  L  Y+95 RL F AUTO\n9  L  X+36  Y+140\n10 RND R10 F AUTO\n11 L  X+105\n12 CHF 4\n13 L IY-55\n14 RND R14\n15 L IX+35\n16 RND R5\n17 L  X+105  Y+14\n18 CHF 8\n19 L  X-15\n20 L  Z+10 R0 FMAX\n21 STOP M30\n22 END PGM es1 MM"
+  },
+  {
+    "objectID": "1-machine_tools.html#cnc-kernel-tasks",
+    "href": "1-machine_tools.html#cnc-kernel-tasks",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "CNC kernel tasks",
+    "text": "CNC kernel tasks\nKernel functions\n\nUnderstanding a part-program (parsing)\nGenerate velocity profiles (profiling)\nPosition interpolation\nGenerate command signals"
+  },
+  {
+    "objectID": "1-machine_tools.html#profiling",
+    "href": "1-machine_tools.html#profiling",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Profiling",
+    "text": "Profiling\nFor every block:\n\npreserve block length: \\(\\displaystyle\\int_{t_a}^{t_b} f(\\tau)\\,\\mathrm{d}\\tau = l\\)\nlimit acceleration\nlimit jerks"
+  },
+  {
+    "objectID": "1-machine_tools.html#profiling-1",
+    "href": "1-machine_tools.html#profiling-1",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Profiling",
+    "text": "Profiling\nDiscrete time-base (clock)\n\n\n\n\n\n\\[\n\\Delta t_1 = \\frac{f_m - f_s}{a}, \\quad\n\\Delta t_2 = \\frac{f_m - f_e}{d}, \\quad\n\\Delta t_m = \\frac{l}{f_m} - \\Delta t_1 \\frac{f_m + f_s}{2 f_m} - \\Delta t_2 \\frac{f_e + f_m}{2 f_m}\n\\]\n\\[\n\\Delta t^* = \\mathrm{int}\\left(\\frac{\\Delta t}{t_q} + 1\\right) t_q = \\Delta t_1 + \\Delta t_m^* + \\Delta t_2, \\qquad\n\\Delta t_m^* = \\Delta t_m + \\Delta t^* - \\Delta t\n\\]"
+  },
+  {
+    "objectID": "1-machine_tools.html#profiling-2",
+    "href": "1-machine_tools.html#profiling-2",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Profiling",
+    "text": "Profiling\nDiscrete time-base (clock)\n\n\n\n\n\n\\[\n\\int_{t_s}^{t_e} f(\\tau)\\,\\mathrm{d}\\tau = \\frac{\\Delta t_1}{2}(f_m^* + f_s) + \\Delta t_m^* f_m^* + \\frac{\\Delta t_2}{2}(f_m^* + f_e) = l\n\\]\n\\[\nf_m^* = \\frac{2l - f_s \\Delta t_1 - f_e \\Delta t_2}{\\Delta t_1 + \\Delta t_2 + 2\\Delta t_m^*}, \\qquad\na^* = \\frac{f_m^* - f_s}{\\Delta t_1}, \\qquad\nd^* = \\frac{f_e - f_m^*}{\\Delta t_2}\n\\]"
+  },
+  {
+    "objectID": "1-machine_tools.html#profiling-3",
+    "href": "1-machine_tools.html#profiling-3",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Profiling",
+    "text": "Profiling\nShort segments, \\(\\Delta t_m \\le 0\\)\n\n\n\n\n\n\n\n\n\\[\n\\int_{t_s}^{t_e} f(\\tau)\\,\\mathrm{d}\\tau = \\frac{a\\Delta t_1^2 + d\\Delta t_2^2}{2}; \\quad a\\Delta t_1 = d\\Delta t_2\n\\]\n\\[\n\\frac{\\Delta t_1^2 (a + a^2/d)}{2} = l\n\\]\n\n\\[\n\\begin{aligned}\n\\Delta t_1 &= \\sqrt{\\frac{2l}{a + a^2/d}} \\\\\n\\Delta t_2 &= \\frac{a}{d}\\Delta t_1 \\\\\n\\Delta t_2^* &= \\Delta t^* - \\Delta t_1\n\\end{aligned}\n\\qquad\nf_m^*(\\Delta t_1 + \\Delta t_2^*) = 2l\n\\qquad\n\\begin{aligned}\na^* &= \\frac{f_m^* - f_s}{\\Delta t_1} \\\\\nd^* &= \\frac{f_e - f_m^*}{\\Delta t_2^*}\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "1-machine_tools.html#motion-interpolation",
+    "href": "1-machine_tools.html#motion-interpolation",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Motion interpolation",
+    "text": "Motion interpolation\n\n\n\nThe speed profile is evaluated and integrated at each time tick\nThe axes set-points are calculated with the parametric equation of the path\nFor a linear motion:\n\n\\[\n\\begin{aligned}\nX(t) &= X_0 + \\Delta X \\lambda(t) \\\\\nY(t) &= Y_0 + \\Delta Y \\lambda(t) \\\\\nZ(t) &= Z_0 + \\Delta Z \\lambda(t)\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "1-machine_tools.html#motion-interpolation-1",
+    "href": "1-machine_tools.html#motion-interpolation-1",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Motion interpolation",
+    "text": "Motion interpolation\n\n\nFor arc interpolation:\n\\[\n\\begin{aligned}\nX(t) &= X_c + R\\cos(\\vartheta_0 + \\Delta\\vartheta \\lambda(t)) \\\\\nY(t) &= Y_c + R\\sin(\\vartheta_0 + \\Delta\\vartheta \\lambda(t)) \\\\\nZ(t) &= Z_0 + \\Delta Z \\lambda(t)\n\\end{aligned}\n\\]\nWarning: feedrate may be reduced\n\\[\nf_{m,a} = \\min\\left(f_m, \\sqrt{aR}\\right)\n\\]"
+  },
+  {
+    "objectID": "1-machine_tools.html#motion-interpolation-2",
+    "href": "1-machine_tools.html#motion-interpolation-2",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Motion interpolation",
+    "text": "Motion interpolation\nG-code syntax:\n\nG[02|03] X[\\(X_f\\)] Y[\\(Y_f\\)] I[\\(I\\)] J[\\(J\\)]\nG[02|03] X[\\(X_f\\)] Y[\\(Y_f\\)] R[\\(\\pm R\\)]\n\n\n\n\n\n\n\n\n\n\\[\n\\begin{aligned}\n\\vartheta_0 &= \\cos^{-1} I/R \\\\\n\\vartheta_f &= \\cos^{-1} (X_f - X_c)/R \\\\\nX_c &= X_0 + I \\\\\nY_c &= Y_0 + J \\\\\nR &= \\sqrt{I^2 + J^2} \\\\\nR^2 &= (X_f - X_c)^2 + (Y_f - Y_c)^2\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "1-machine_tools.html#motion-interpolation-3",
+    "href": "1-machine_tools.html#motion-interpolation-3",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Motion interpolation",
+    "text": "Motion interpolation\nCenter coordinates (two alternatives depending on the sign of \\(R\\))\n\\[\n\\Delta x = X_f - X_0, \\qquad \\Delta y = Y_f - Y_0\n\\]\n\\[\nX_c = X_0 + \\frac{1}{2}\\left(\\Delta x - \\mathrm{sign}(R)\\,\\frac{\\sqrt{-\\Delta y^2 (\\Delta x^2 + \\Delta y^2)(-4R^2 + \\Delta x^2 + \\Delta y^2)}}{\\Delta x^2 + \\Delta y^2}\\right)\n\\]\n\\[\nY_c = Y_0 + \\frac{\\Delta y}{2} + \\mathrm{sign}(R)\\,\\frac{\\Delta x \\sqrt{-\\Delta y^2 (\\Delta x^2 + \\Delta y^2)(-4R^2 + \\Delta x^2 + \\Delta y^2)}}{2\\Delta x^2 \\Delta y + 2\\Delta y^3}\n\\]"
+  },
+  {
+    "objectID": "1-machine_tools.html#jerk",
+    "href": "1-machine_tools.html#jerk",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Jerk",
+    "text": "Jerk\nJerk-limited profiling: each segment is split into 7 ranges (vs. 3)"
+  },
+  {
+    "objectID": "1-machine_tools.html#look-ahead-feedrate-profile",
+    "href": "1-machine_tools.html#look-ahead-feedrate-profile",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Look-ahead feedrate profile",
+    "text": "Look-ahead feedrate profile\n\nProblem 1: tangent or semi-tangent blocks shall have non-zero speed at the corner.\nProblem 2: it shall be possible to accelerate to nominal feedrate with continuous acceleration over \\(n\\) short segments, and it may take more than one segment to decelerate down to stop"
+  },
+  {
+    "objectID": "1-machine_tools.html#look-ahead-feedrate-profile-1",
+    "href": "1-machine_tools.html#look-ahead-feedrate-profile-1",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Look-ahead feedrate profile",
+    "text": "Look-ahead feedrate profile\nApproach:\n\nCalculate \\(v_i\\), \\(v_m\\), \\(v_f\\) for each block, considering \\(v = v(s)\\)\nForward step: from block 1 to block \\(n\\), calculate accelerations only\nBackward step: from block \\(n\\) to block 1, calculate decelerations only and compose with accelerations\nChange variable \\(s \\to t\\) and get \\(v = v(t)\\)\nReshape \\(v^* = \\dfrac{v(t)}{k}\\), where \\(k = t_f / t_f^*\\) and \\(t_f^*\\) is the multiple of \\(t_q\\) immediately larger than the total time \\(t_f\\) (block by block)"
+  },
+  {
+    "objectID": "1-machine_tools.html#constant-accdec",
+    "href": "1-machine_tools.html#constant-accdec",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Constant Acc/Dec",
+    "text": "Constant Acc/Dec\n\nWe cannot calculate feed profiles in time abscissa, for we don’t know the duration of each step\nThus we start planning in curvilinear abscissa \\(s\\):\n\n\\(s(t) = s_0 + v_0 t + a t^2/2\\), and thus \\(t(s) = \\dfrac{1}{a}\\left(-v_0 \\pm \\sqrt{2a(s - s_0) + v_0^2}\\right)\\)\nSince \\(v(t(s)) = v_0 + a\\, t(s)\\), it follows that \\(v(s) = \\sqrt{2a(s - s_0) + v_0^2}\\)\nSo accelerations and decelerations follow a square root law of \\(s\\)\n\nIn jerk-limited approach, we’d have a cubic root branch at the beginning and at the end of each acc/dec branch"
+  },
+  {
+    "objectID": "1-machine_tools.html#look-ahead-feedrate",
+    "href": "1-machine_tools.html#look-ahead-feedrate",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Look-ahead feedrate",
+    "text": "Look-ahead feedrate\n\n\nStep 1: calculate velocities:\n\n\\(v_{i,i} = v_{f,i-1}\\), or 0 for first sg.\n\\(v_{m,i} = f_i\\) for G01\n\\(v_m = \\min(f_i, \\sqrt{aR})\\) for G02/G03\n\\(v_{f,i} = \\dfrac{v_{m,i} + v_{m,i+1}}{2}\\cos\\alpha_i\\)\n\\(v_{f,i} = 0\\) for last segment or if \\(v_{m,i} = 0\\)"
+  },
+  {
+    "objectID": "1-machine_tools.html#forward-step-accelerations",
+    "href": "1-machine_tools.html#forward-step-accelerations",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Forward step: accelerations",
+    "text": "Forward step: accelerations\nLong segments, \\(v_i &lt; v_m\\):\nA. \\(v_f &gt; v_m\\), \\(s_0 &lt; s_1 &lt; s_2 &lt; s_f\\)\nB. \\(v_f &lt; v_m\\), \\(s_0 &lt; s_1 &lt; s_f &lt; s_2\\)"
+  },
+  {
+    "objectID": "1-machine_tools.html#forward-step-accelerations-1",
+    "href": "1-machine_tools.html#forward-step-accelerations-1",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Forward step: accelerations",
+    "text": "Forward step: accelerations\nLong segments, \\(v_i &gt; v_m\\):\nA. \\(v_f &gt; v_m\\), \\(s_1 &lt; s_0 &lt; s_2 &lt; s_f\\)\nB. \\(v_f &lt; v_m\\), \\(s_1 &lt; s_0 &lt; s_f &lt; s_2\\)"
+  },
+  {
+    "objectID": "1-machine_tools.html#forward-step-accelerations-2",
+    "href": "1-machine_tools.html#forward-step-accelerations-2",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Forward step: accelerations",
+    "text": "Forward step: accelerations\nShort segments:\n\n\\(s_0 &lt; s_f &lt; s_1\\)\n\\(v_f\\) and \\(s_2\\) are not relevant"
+  },
+  {
+    "objectID": "1-machine_tools.html#forward-step-accelerations-3",
+    "href": "1-machine_tools.html#forward-step-accelerations-3",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Forward step: accelerations",
+    "text": "Forward step: accelerations\nShort segments:\n\nIf \\(v_i\\) is large enough, fallback to long segment cases"
+  },
+  {
+    "objectID": "1-machine_tools.html#backward-step-decelerations",
+    "href": "1-machine_tools.html#backward-step-decelerations",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Backward step: decelerations",
+    "text": "Backward step: decelerations\n\nSame approach as forward step\nFor each block, select the path going from \\((s_0, v_i)\\) to \\((s_f, v_f)\\)"
+  },
+  {
+    "objectID": "1-machine_tools.html#possible-cases",
+    "href": "1-machine_tools.html#possible-cases",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "9 Possible cases",
+    "text": "9 Possible cases"
+  },
+  {
+    "objectID": "1-machine_tools.html#change-variable",
+    "href": "1-machine_tools.html#change-variable",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Change variable",
+    "text": "Change variable\nConvert from curvilinear abscissa to time, one block at a time:\n\nCalculate \\(v(t) = v_0 + at\\), \\(s(t) = s_0 + v_0 t + at^2/2\\) in the ranges \\([s_i, s_1]\\), \\([s_1, s_2]\\), \\([s_2, s_f]\\)\nCalculate timings \\(t_1\\), \\(t_2\\), \\(t_f\\)"
+  },
+  {
+    "objectID": "1-machine_tools.html#reshape-for-discrete-time",
+    "href": "1-machine_tools.html#reshape-for-discrete-time",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Reshape for discrete time",
+    "text": "Reshape for discrete time\n\nCalculate \\(t_f^* = \\lceil t_f / t_q + 1 \\rceil t_q\\)\nCalculate \\(k = t_f^* / t_f\\)\nRescale feedrate so that \\(v^*(t) = \\dfrac{v(t)}{k}\\)"
+  },
+  {
+    "objectID": "1-machine_tools.html#receding-horizon",
+    "href": "1-machine_tools.html#receding-horizon",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Receding horizon",
+    "text": "Receding horizon\n\nThis algorithm requires a sequence of blocks starting and ending at zero feedrate\nYou can assume that G00 blocks mark full stops at corners\nNonetheless, a program can consist in thousands of sequential G01/G02/G03 blocks: memory problem\nSolution:\n\nAt run time, pre-elaborate a buffer made of a limited number of blocks (say 100) assuming the last one stops (look-ahead buffer)\nRe-calculate the moving buffer as soon as a block is done by adding a new block at the end (FIFO): start backward (dec) until no change, then forward (acc)\nThe buffer size depends on available memory and on computation time (must be shorter than the time needed to execute the buffer); calculations are done in parallel in a separate thread"
+  },
+  {
+    "objectID": "1-machine_tools.html#machining-error-sources",
+    "href": "1-machine_tools.html#machining-error-sources",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Machining error sources",
+    "text": "Machining error sources"
+  },
+  {
+    "objectID": "1-machine_tools.html#error-compensation-a5",
+    "href": "1-machine_tools.html#error-compensation-a5",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Error Compensation (A5)",
+    "text": "Error Compensation (A5)\n\nAdaptive control systems (A/C) = evaluation attribute (A5)\nFactors under evaluation:\n\nmachining errors\nthermoelastic dilatations/deformations"
+  },
+  {
+    "objectID": "1-machine_tools.html#profiling-errors",
+    "href": "1-machine_tools.html#profiling-errors",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Profiling errors",
+    "text": "Profiling errors\n\n\n\nMore evident at high speed\nWhen a sharp corner is needed, use curls"
+  },
+  {
+    "objectID": "1-machine_tools.html#feedrate-related-errors",
+    "href": "1-machine_tools.html#feedrate-related-errors",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Feedrate-related errors",
+    "text": "Feedrate-related errors"
+  },
+  {
+    "objectID": "1-machine_tools.html#positioning-errors",
+    "href": "1-machine_tools.html#positioning-errors",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Positioning errors",
+    "text": "Positioning errors"
+  },
+  {
+    "objectID": "1-machine_tools.html#squareness-errors",
+    "href": "1-machine_tools.html#squareness-errors",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Squareness errors",
+    "text": "Squareness errors"
+  },
+  {
+    "objectID": "1-machine_tools.html#elementary-errors",
+    "href": "1-machine_tools.html#elementary-errors",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Elementary errors",
+    "text": "Elementary errors\n\nThree linear errors per axis (linearity, straightness, undulation)\nThree angular errors per axis (roll, pitch, yaw)\nTwo squareness errors between axes 1 and 2\nTwo squareness errors between axes 3 and 2\nTotal of 18 + 4 = 22 elementary errors, 18 of which are position-dependent"
+  },
+  {
+    "objectID": "1-machine_tools.html#laser-interferometer",
+    "href": "1-machine_tools.html#laser-interferometer",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Laser interferometer",
+    "text": "Laser interferometer"
+  },
+  {
+    "objectID": "1-machine_tools.html#laser-interferometer-1",
+    "href": "1-machine_tools.html#laser-interferometer-1",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Laser interferometer",
+    "text": "Laser interferometer"
+  },
+  {
+    "objectID": "1-machine_tools.html#linearity-measurement",
+    "href": "1-machine_tools.html#linearity-measurement",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Linearity measurement",
+    "text": "Linearity measurement"
+  },
+  {
+    "objectID": "1-machine_tools.html#angle-measurement",
+    "href": "1-machine_tools.html#angle-measurement",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Angle measurement",
+    "text": "Angle measurement"
+  },
+  {
+    "objectID": "1-machine_tools.html#straightness-measurement",
+    "href": "1-machine_tools.html#straightness-measurement",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Straightness measurement",
+    "text": "Straightness measurement\nPrinciples of operation of Wollaston’s prism"
+  },
+  {
+    "objectID": "1-machine_tools.html#straightness-measurement-1",
+    "href": "1-machine_tools.html#straightness-measurement-1",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Straightness measurement",
+    "text": "Straightness measurement"
+  },
+  {
+    "objectID": "1-machine_tools.html#squareness-measurement",
+    "href": "1-machine_tools.html#squareness-measurement",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Squareness measurement",
+    "text": "Squareness measurement"
+  },
+  {
+    "objectID": "1-machine_tools.html#calibration",
+    "href": "1-machine_tools.html#calibration",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Calibration",
+    "text": "Calibration"
+  },
+  {
+    "objectID": "1-machine_tools.html#laser-interferometer-three-axis-machine-tool-installation",
+    "href": "1-machine_tools.html#laser-interferometer-three-axis-machine-tool-installation",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Laser interferometer: three-axis machine tool installation",
+    "text": "Laser interferometer: three-axis machine tool installation"
+  }
+]
