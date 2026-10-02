@@ -4,3 +4,9 @@ author: Paolo Bosetti
 format: revealjs
 engine: knitr
 ---
+
+# Contents
+
+* [Course intro](0-intro.qmd)
+* [Digital manufacturing](1-machine_tools.qmd)
+* [Coding](2-coding.qmd)

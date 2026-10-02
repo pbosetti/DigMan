@@ -7,3 +7,4 @@ _site
 *.html
 
 .DS_Store
+.thumbnail

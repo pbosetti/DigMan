@@ -1,0 +1,1825 @@
+---
+title: "Digital Manufacturing – Part 1"
+subtitle: |
+  Digital Manufacturing \
+  ![](images/by-nc-sa.png){height=30}
+author: "Paolo Bosetti"
+institute: "Università di Trento, Dipartimento di Ingegneria Industriale"
+date: "`r Sys.time()`"
+date-format: "[*Updated:* ]DD/MM/YYYY"
+format: revealjs
+---
+
+
+```{r}
+options(width = 60)
+set.seed(0)
+library(tidyverse)
+```
+
+# Manufacturing systems
+
+Relevant for the mechatronics point of view
+
+## Manufacturing systems
+
+![](images-1/technologies.jpg)
+
+To give shape to a block of raw material (*workpiece*) there are three possibilities:
+
+- Deform it: **forming processes** (motion axes: 1+)
+- Cut it: material removal (or **subtractive**) processes (motion axes: 2.5+)
+- Build on it: **additive manufacturing** processes (motion axes: 2.5+)
+
+## Manufacturing systems
+
+![](images-1/technologies.jpg)
+
+- We skip over forming processes, where motion planning and control is trivial (with exceptions!)
+- In subtractive and additive manufacturing there is a tool performing the process (a mill, a polarized wire, an extruding nozzle, ...), whose motion is performed by synchronized action of two or more axes, typically in cartesian arrangement
+- The motion (trajectory and speed) must be planned according to geometry and process specifics
+
+## Subtractive Manufacturing: 5-axes milling
+
+<video data-autoplay controls loop muted src="videos/subtractive-milling.mp4" style="width:100%; display:block; margin:auto"></video>
+
+## Additive Manufacturing: 5-axes Direct Laser Deposition
+
+<video data-autoplay controls loop muted src="videos/additive-dld.mp4" style="width:100%; display:block; margin:auto"></video>
+
+## Reference case: Turning/Milling
+
+- The majority of products involve machining, either directly, or indirectly (dies are machined)
+- Machining involves a combination of linear and rotary motions:
+  - In **turning**, the workpiece is rotating, the tool is displacing
+  - In **drilling and milling** the tool is rotating and there is a combined relative displacement between tool and workpiece
+
+
+::: {.callout-important}
+
+Regardless the process, understanding its physics and the governing parameters is essential to design the manufacturing system and its control algorithms
+
+:::
+
+
+# The subtractive manufactiring case
+
+Material removal processes and their control parameters
+
+## Machining parameters
+
+- Mechanism of **chip formation** depends
+  - on the relative speed of tool and workpiece (**cutting speed**)
+  - on the *cross section* of removed material
+- Cutting speed and cross section (**tool** parameters) depend in turn on trajectory, rotary and translation speeds (**machining** parameters)
+
+## Turning
+
+Machining parameters to be calculated are **spindle speed**, **feed rate**, and **spindle power**:
+
+:::: {.columns}
+::: {.column width="45%"}
+$$
+\begin{aligned}
+\text{Rotational speed:}\quad & N = \frac{v}{\pi D_0} \\
+\text{Diameter:}\quad & D_f = D_0 - 2d \\
+\text{Feed rate:}\quad & f = N f_r \\
+\text{Machining time:}\quad & T_m = \frac{L}{f} = \frac{\pi D_0 L}{f_r v} \\
+\text{Material Removal Rate:}\quad & MRR = v f_r d
+\end{aligned}
+$$
+:::
+::: {.column width="55%"}
+![](images-1/turning.jpg){fig-align="center" width="100%"}
+:::
+::::
+
+## Drilling
+
+Machining parameters to be calculated are **spindle speed**, **feed rate**, and **spindle power**:
+
+:::: {.columns}
+::: {.column width="40%"}
+$$
+\begin{aligned}
+N &= \frac{v}{\pi D} \\
+f &= N f_r \\
+T_m &= \frac{t + A}{f} \\
+A &= \frac{D}{2}\tan\left(\frac{\pi - \theta}{2}\right) \\
+MRR &= \frac{\pi D^2 f}{4}
+\end{aligned}
+$$
+:::
+::: {.column width="60%"}
+![](images-1/drilling.jpg){fig-align="center" width="100%"}
+:::
+::::
+
+## Milling
+
+Machining parameters to be calculated are **spindle speed**, **feed rate**, and **spindle power**. There are three types of milling:
+
+![](images-1/milling.jpg){fig-align="center" height=400}
+
+## Milling
+
+:::: {.columns}
+::: {.column width="55%"}
+$$
+\begin{aligned}
+N &= \frac{v}{\pi D} \\
+f &= N f_z z \\
+MRR &= w d f \\
+A &= \begin{cases} \sqrt{d(D-d)} & \text{side milling} \\ \sqrt{w(D-w)} & \text{face/end milling} \end{cases} \\
+T_m &= \begin{cases} (L + A)/f & \text{side milling} \\ (L + 2A)/f & \text{face/end milling} \end{cases}
+\end{aligned}
+$$
+:::
+::: {.column width="45%"}
+![](images-1/milling.jpg){fig-align="center"}
+:::
+::::
+
+## Shopfloor formulas
+
+| Parameter | Turning | Milling | Drilling |
+|:--|:-:|:-:|:-:|
+| $v$ (m/min) | $v = \pi D_0 N$ | $v = \pi D N$ | $v = \pi D N$ |
+| $N$ (1/s) | $N = \dfrac{v}{\pi D_0}$ | $N = \dfrac{v}{\pi D}$ | $N = \dfrac{v}{\pi D}$ |
+| $f$ (mm/min) | $f = f_r N$ | $f = z f_z N$ | $f = f_r N$ |
+| $f_{z,r}$ (mm) | *Feed per tooth (zahn) or per revolution* | | |
+| $T$ (s) | $T_m = L/f$ | $T_m = (L + kA)/f$ | $T_m = L/f$ |
+| $MRR$ (mm³/min) | $MRR = d f_r v$ | $MRR = w d f$ | $MRR = \dfrac{\pi D^2}{4} f$ |
+| $P$ (kW) | $P = MRR\, p_s$ | $P = MRR\, p_s$ | $P = MRR\, p_s$ |
+| $P_e$ (kW) | $P_e = \dfrac{MRR\, p_s}{\eta}$ | $P_e = \dfrac{MRR\, p_s}{\eta}$ | $P_e = \dfrac{MRR\, p_s}{\eta}$ |
+
+: {.striped}
+
+## Example
+
+We have to set up a milling process on Aluminum, which has $p_s = 12.56$ W min/cm³
+
+The tool manufacturer suggests $v = 1000$ m/min and $f_z = 0.1$ mm/tooth
+
+The mill has a diameter of $30$ mm and does face milling with **full overlapping**, has $3$ teeth and removes a layer of $2$ mm
+
+$$
+\begin{aligned}
+N &= \frac{v}{\pi D} = \frac{1000\ \text{m/min}}{\pi\, 30\ \text{mm}} = 10610\ \text{rpm} \\
+f &= f_z z N = 0.1\ \text{mm} \cdot 3 \cdot 10610\ \text{rpm} = 3183\ \text{mm/min} \\
+MRR &= w d f = 30\ \text{mm} \cdot 2\ \text{mm} \cdot 3183\ \text{mm/min} = 190980\ \text{mm}^3/\text{min} \\
+P &= MRR\, p_s = 190.98\ \text{cm}^3/\text{min} \cdot 12.56\ \text{W min/cm}^3 \simeq 2.4\ \text{kW}
+\end{aligned}
+$$
+
+
+::: {.callout-note}
+The machininst must always ensure that the required maximum power does not exceet that available at the spindle. If not, some of the machining parameters must be reduced (usually $d$ and or $w$)
+:::
+
+
+## Cutting Economics
+
+The cost of machining depends on:
+
+- **labor:** hourly cost of trained personnel
+- **machinery:** purchase cost / machine life
+- **raw material:** cost of initial workpiece
+- **consumables:** tools, cutting fluids, disposable fixtures
+
+Some costs depend on process parameters (mainly cutting speed)
+
+## Tool wear
+
+![](images-1/tool-wear.png){fig-align="center" height=500}
+
+## Tool wear
+
+Tools are subject to **wear**. It can affect two parts of the tool:
+
+-   the [flank]{.bred}: it changes the geometry of the tool where it
+    contacts the workpiece, so it progressively affects surface quality
+    and dimensional accuracy
+-   the [rake face]{.bblue}: it changes the geometry where the tool
+    contacts the chip: it has no effect on the workpiece, but in the
+    long run it weakens the tool and causes it to break
+
+If the tool and the cutting parameters are chosen correctly, flank
+wear occurs before rake face wear
+
+The wear law was formulated by Taylor: $VT^n=K$, where:
+
+
+-   $V$ is the cutting speed
+-   $T$ is the tool life
+-   $n$ and $K$ are material constants; $K$ also depends on the
+    **end-of-life criterion** (application specific)
+
+## Taylor's law
+
+$VT^n=K \rightarrow \log(V) - n\log(T) = \log(K) \rightarrow \log(T) = \frac{1}{n}\log(V) - \frac{1}{n}\log(K)$
+
+::::: columns
+::: column
+```{r}
+set.seed(0)
+wc <- 200
+round_next <- function(x, d) round(x/d) * d
+w <- function(t,v, k=0.2, a=10) a*v^(k*t)
+life <- function(v, wmax, k=0.2) uniroot(\(x) w(x, v, k) - wmax, interval=c(0, 1e5))$root
+vels <- c(5, 7, 10, 15, 20, 40)
+
+df <- expand.grid(
+  T = seq(2, 10, length.out=50),
+  V = vels
+) %>%
+  mutate(w = w(T, V, k=0.3)) %>% 
+  mutate(w = round_next(w, 5)) %>% 
+  filter(w <= wc + 30) 
+
+df_l <- df %>% 
+  filter(w <= wc) %>% 
+  group_by(V) %>% 
+  summarise(T = T[which.max(w)], w=max(w))
+
+df %>% 
+  mutate(V=factor(V)) %>% 
+  ggplot(aes(x=T, y=w, group=V, color=V)) + 
+  geom_point(data=df_l, aes(x=T, y=w), color="red", shape=4, size=5) +
+  geom_hline(yintercept=wc, color="red", linetype=2) +
+  geom_point() +
+  geom_line() +
+  scale_color_viridis_d(breaks=vels) +
+  labs(x="Time (min)", y="Wear (µm)", title="Interrupted cutting experiments")
+```
+:::
+
+::: column
+```{r}
+df_l %>% 
+  ggplot(aes(x=log(V), y=log(T))) +
+  geom_smooth(method="lm", formula=y~x) +
+  geom_point() + 
+  labs(title = "Taylor's law")
+```
+:::
+:::::
+
+## Productivity optimization
+
+The costs of machining production are related to:
+
+-   investments and *overhead* ([fixed]{.rbold})
+-   labor and raw materials ([variable]{.rgreen})
+-   cost per piece ([variable]{.rgreen})
+
+Costs are dependent variables. The process parameters are
+**independent parameters**
+
+::: callout-important
+We can ask whether there are process conditions that
+[maximize]{.bgreen} productivity and/or [minimize]{.bred} costs
+:::
+
+## Productivity optimization --- Turning
+
+::::: columns
+:::{.column .smaller width="30%"}
+| Symbol  | Meaning           |
+|---------|-------------------|
+| $C_p$   | Cost per piece    |
+| $C_m$   | Machining cost    |
+| $C_s$   | Setup cost        |
+| $C_l$   | Loading cost      |
+| $C_t$   | Tooling cost      |
+| $L$     | Labor cost        |
+| $O$     | Overhead          |
+
+In **turning**:
+$$
+T_m = \frac{L}{fN}=\frac{\pi LD}{fV} \\
+N_p = \frac{T}{T_m} = \frac{fK^{1/n}}{\pi LDV^{1/n-1}}
+$$
+:::
+
+:::{.column width="70%"}
+\begin{align}
+C_p &= C_m + C_s + C_l + C_t \\
+C_m &= T_m(L_m + O_m) \\
+C_l &= T_l(L_m + O_m) \\
+C_t &= \frac{1}{N_p}\left[T_c(L_m+O_m) + T_g(L_g+O_g) + D_c\right] = \frac{C_{t0}}{N_p} \\
+T_p &= T_{s,l} + T_m + \frac{C_{t0}}{N_p}
+\end{align}
+
+:::callout-note
+We have $C_p=C_p(V)$ and $T_p = T_p(V)$, so we can differentiate both to identify an optimal condition
+:::
+:::
+:::
+
+
+## Productivity optimization --- Turning
+
+:::columns
+:::column
+**Costs**:
+\begin{align}
+\frac{\partial C_p}{\partial V} &= 0 \\
+V_{o,c} &= \frac{K(L_m+O_m)^n}{[(1/n-1)C_{t0}]^n} \\
+T_{o,c} &= (1/n -1)\frac{C_{t0}}{L_m+O_m}
+\end{align}
+:::
+
+:::column
+**Times**:
+\begin{align}
+\frac{\partial T_p}{\partial V} &= 0 \\
+V_{o,t} &= \frac{K}{[(1/n-1)T_c]^n} \\
+T_{0,t} &= (1/n -1)T_c
+\end{align}
+:::
+:::
+
+:::callout-note
+What do we optimize? Costs or times?
+:::
+
+## Productivity optimization --- Turning
+
+:::columns
+:::column
+* The optimal cutting speed $V_{o,c}$ corresponds to maximum economic efficiency
+* However, when there are **penalties for delays** it may be worth producing at $V_{o,t}$, because it is the speed that **maximizes productivity**
+* So, $V$ shall be normally set to $V_{o,c}$, increasing it up to (but not above) $V_{o,t}$ if there are penalties for delays
+:::
+
+:::column
+```{r}
+L <- 100
+D <- 50
+f <- 0.5
+Lm <- 1
+Om <- 0.7
+Cs <- 1
+Cl <- 1
+K <- 50
+n <- 0.5
+Ct0 <- 2
+Cs <- 10*(Lm + Om)
+Cl <- 100*(Lm + Om)
+Tm <- function(V) (pi * L * D) / (f*V)
+Np <- function(V) (K/V)^(1/n)/Tm(V)
+Ct <- function(V) Ct0/Np(V)
+Cm <- function(V) Tm(V) * (Lm + Om)
+
+Voc <- (K*(Lm+Om)^n)/((1/n-1)*Ct0)^n
+Vot <- K/((1/n-1)*0.5)^n
+
+tibble(
+  V = seq(10, 300, length.out=100),
+  Cs = Cs,
+  Cl = Cl,
+  Cm = Cm(V),
+  Ct = Ct(V),
+  Cp = Cm + Ct + Cs + Cl
+) %>% 
+  pivot_longer(-V, names_to = "Item", values_to = "Cost") %>% 
+  mutate(Cost = Cost/70) %>% 
+  ggplot(aes(x=V)) + 
+  geom_line(aes(y=Cost, color=Item)) + 
+  geom_vline(xintercept=c(Voc, Vot), linetype=2, color="red") + 
+  ylim(c(0, 60)) + 
+  labs(x="Cutting speed (m/min)", y="Cost (€)")
+```
+:::
+:::
+
+
+## Limits of analytical process models
+
+### Orthogonal cutting
+
+* Orthogonal cutting **rarely applies**. In most real machining operations chip formation is inherently 3-D
+* The chip formation model is idealized. In reality:
+  - the cutting edge is never perfectly sharp
+  - the shear plane does not have zero thickness
+  - deformation does not occur only on the shear plane, but also on the machined surface in contact with the cutting edge and between chip and tool
+* The stress and strain field cannot be computed analytically
+* There is no reliable **thermal model** that accounts for friction and plastic deformation as heat sources
+* The strain rates involved $\dot\gamma$ are extreme: this makes it very difficult to identify the plastic properties of the material under similar conditions
+
+
+## Limits of analytical process models
+### Taylor's law
+
+* It is an **empirical model**, i.e., it has no physical basis but rests on observation alone, so it cannot be calibrated from measurements of material properties
+* It is an approximate law: more complete empirical laws exist in the form $VT^nd^xf^y=K$, which account for other process parameters that have a much smaller influence than $V$ but still affect tool life
+* It is **expensive** to calibrate:
+  - the experimental procedure is necessarily slow and costly
+  - $n$ depends on the workpiece material and on the tool material
+  - $K$ depends on the **end-of-life criterion**, so it is user-specific (i.e., it cannot be found in tables)
+* Even the more complete laws do not account for factors such as **lubrication and cooling**
+
+
+## Economic optimization
+
+* The analysis above depends on being able to **express $T_m(V)$ analytically**
+  - This is possible **only for elementary operations** (e.g., cylindrical turning). For more complex operations the relation can only be computed point by point by simulating the process (via CAM or CNC functions, which entails **considerable time and cost**)
+  - It relies on the availability of a validated and reliable wear law
+  - It is worthwhile only for large and very large batches (economy of scale)
+
+# Machine tools
+
+![A gantry-type, large milling center](images/gantry-mill.jpg){fig-align="center" height=320}
+
+## Types of Lathes
+
+:::: {.columns}
+::: {.column width="55%"}
+- Parallel or engine lathe
+- CNC lathe
+  - Horizontal spindle
+    - single spindle
+    - multiple spindle
+  - Vertical spindle
+  - Sliding headstock (*fantina mobile*)
+:::
+::: {.column width="45%"}
+![](images/lathes-photo.jpg){fig-align="center" height=430}
+:::
+::::
+
+## Parallel (engine) lathe
+
+![](images-1/engine-lathe-labeled.png){fig-align="center" height=470}
+
+
+## Parallel (engine) lathe
+
+:::: {.columns}
+::: {.column width="45%"}
+- Programmable engine lathe
+- Same architecture as an engine lathe
+- Simple controller for programming simple motions (cylinder, cone, sphere, plane)
+:::
+::: {.column width="55%"}
+![](images/programmable-lathe.jpg){fig-align="center" height=350}
+:::
+::::
+
+## CNC lathe
+
+- A lathe with enhanced motion controller (**Computer-Numerical-Controller**, CNC)
+- Mechanical layout is arranged in order to allow automated chip evacuation
+- 3 controlled axes + spindle, or more
+- The spindle can be a controlled axis itself
+- It can have rotary tools, too (hybrid turning-milling)
+
+## CNC lathe
+
+:::columns
+:::column
+- Direct-drive spindle
+- Roller-turner (revolving) turret
+- Counterstock (hydraulics)
+- Inclined bed
+- Lead screw
+:::
+
+:::column
+![](images-1/cnc-lathe.png){fig-align="center" height=430}
+:::
+:::
+
+## Moveable rest
+
+![](images-1/moveable-rest.jpg){fig-align="center" height=470}
+
+
+## Moveable rest
+
+<video data-autoplay controls loop muted src="videos/moveable-rest.mp4" style="width: 100%; display:block; margin:auto"></video>
+
+## Two-spindle, two turrets lathe
+
+![](images-1/multiple-lathe.png){fig-align="center" height=470}
+
+## Multiple spindle lathe
+
+![](images-1/multiple-spindle-1.png){fig-align="center"}
+
+## Multiple spindle lathe
+
+![](images-1/multiple-spindle-2.png){fig-align="center"}
+
+## Multiple spindle lathe
+
+<video data-autoplay controls loop muted src="videos/multiple-spindle.mp4" style="width: 100%; display:block; margin:auto"></video>
+
+## Vertical spindle lathe
+
+:::: {.columns}
+::: {.column width="50%"}
+![Normal](images/vertical-normal.jpg){fig-align="center" height=480}
+:::
+::: {.column width="50%"}
+![Inverted spindle](images/vertical-inverted.jpg){fig-align="center" height=480}
+:::
+::::
+
+## Vertical spindle lathe
+
+<video data-autoplay controls loop muted src="videos/vertrical-spindle.mp4" style="width: 100%; display:block; margin:auto"></video>
+
+## Sliding headstock
+
+![](images-1/sliding-headstock.png){fig-align="center" height=480}
+
+
+## Sliding headstock
+
+<video data-autoplay controls loop muted src="videos/sliding-headstock.mp4" style="width: 100%; display:block; margin:auto"></video>
+
+## Parameters
+
+:::: {.columns}
+::: {.column width="40%"}
+- Slewing (*Brandeggio*)
+- Turning diameter
+- Turning length
+- X e Z travels (and possibly other axes)
+- Spindle speed
+- Rapid speeds
+- Spindle torque and power
+:::
+::: {.column width="60%"}
+![ED = *Einschaltdauer* (operating time)](images/spindle-power.jpg){fig-align="center" width="80%"}
+:::
+::::
+
+::: {.notes}
+ED= Duty Cycle=moving time / total cycle time. S6 = ED 40%
+:::
+
+## Milling machines
+
+:::: {.columns}
+::: {.column width="55%"}
+- Huge variety of architectures
+- Common denominator: rotary tool
+- From desktop size to 200 m$^3$ footprint
+- Some have rotary table and can do turning (hybrid mill-turn)
+:::
+::: {.column width="45%"}
+![](images/milling-machine.jpg){fig-align="center" height=400}
+:::
+::::
+
+## Types of Milling Machines
+
+:::: {.columns}
+::: {.column width="40%"}
+- CNC Milling Machines
+  - Horizontal spindle
+  - Vertical spindle
+- Milling centers
+  - Universal
+  - Pallet changer
+  - Traveling column
+- Architectures
+  - Cantilever
+  - Traveling column
+  - Gantry
+  - Parallel kinematics
+:::
+::: {.column width="30%"}
+![Cantilever](images-1/cantilever.jpg){height=240}
+
+![Travelling column](images-1/travelling-column.jpg){height=240}
+:::
+::: {.column width="30%"}
+![Gantry](images-1/gantry.jpg){height=240}
+
+![Parallel kinematics](images-1/parallel-kinematics.jpg){height=240}
+:::
+::::
+
+## Universal milling center
+
+
+::: {.columns}
+
+::: {.column}
+
+* Universl milling centers have a **rotary table** and a **universal milling head** that can be tilted and swiveled to machine any surface of the workpiece
+* By rotating the axis at 45° from Z, the spindle axis can be changed from vertical to horizontal (*universal*)
+
+:::
+
+::: {.column}
+![Universal milling head](images-1/universal-head.jpg){fig-align="center" height=400}
+:::
+
+:::
+
+
+
+## Architectures
+
+:::: {.columns}
+::: {.column width="50%"}
+- **Cantilever:** simplest and cheapest
+- **Traveling column:** suitable when one axis is much longer
+- **Gantry:** much more stiff and stable, but more complex (twin axes)
+- **Parallel-K:** much stiffer and faster, but complex to control and limited in travels
+:::
+::: {.column width="50%"}
+![](images/architectures.jpg){fig-align="center" height=330}
+:::
+::::
+
+## Vertical spindle
+
+:::columns
+:::column
+[Pros]{.bgreen}:
+
+- Easy fixturing
+- Reduced moveable mass
+
+**Cons**:
+
+- Chip disposal is more difficult
+- Not suitable for machinind dies/cavities
+:::
+
+:::column
+![Vertical spindle machine](images-1/vertical-spindle.jpg)
+:::
+:::
+
+## Horizontal spindle
+
+:::columns
+:::column
+[Pros]{.bgreen}:
+
+- Better chip/liquids disposal
+- Large travels
+
+**Cons**:
+
+- More difficult fixturing
+- More moveable mass (slower)
+- more difficult to fixture
+:::
+
+:::column
+![Horizontal spindle machine](images-1/horizontal-spindle.png)
+:::
+:::
+
+## Pallet changer
+
+:::: {.columns}
+::: {.column width="35%"}
+- Stocky WPs
+- High productivity
+- can be integrated in automated lines
+:::
+::: {.column width="65%"}
+![Pallet changer](images-1/pallet-changer-machine.png)
+:::
+::::
+
+## Traveling column
+
+:::: {.columns}
+::: {.column width="50%"}
+Suitable for:
+
+- slender WP
+- stocky WP but with two alternating fixturing zones (higher productivity)
+
+
+::: {.callout-important}
+### Masked time
+
+Any operation that can be performed in parallel to machining is said to happen in *masked time*. It's cost is absorbed in the machining cost
+
+Other operations happen in *exposed time*, which is added to the machining cost
+
+:::
+
+
+:::
+::: {.column width="50%"}
+![Travelling column machine](images-1/traveling-column.jpg)
+:::
+::::
+
+## Milling centers
+
+![DMG Mori DMU600p linear](images-1/dmu600p.jpg){fig-align="center" height=500}
+
+
+## Parameters
+
+:::: {.columns}
+::: {.column width="40%"}
+- Axes configuration
+- Axes travels
+- Spindle speed
+- Rapid speed
+- Spindle torque and power
+:::
+::: {.column width="60%"}
+![ED = *Einschaltdauer* (operating time)](images/spindle-power.jpg){fig-align="center" width="80%"}
+:::
+::::
+
+# Automation
+
+*It is mainly a matter of synchronizing motion*
+
+![](images/automation-photo.jpg){fig-align="center" height=320}
+
+## Amber & Amber {.smaller}
+
+*The Yardstick of Automation* (1962)
+
+| Order | Human attribute | Example |
+|:-:|:-:|:--|
+| 0 | None | Utensili manuali |
+| 1 | Energy | Powered machines and tools |
+| 2 | Dexterity | Single-cycle automatics (*dexterity = self-feeding*) |
+| 3 | Diligence | Repeats cycle; open-loop control |
+| 4 | Judgment | Closed loop; numerical control; self-measuring |
+| 5 | Evaluation | Computer control; model of process required for automation |
+| 6 | Learning | Limited self-programming; some artificial intelligence |
+| 7 | Reasoning | Inductive reasoning (cause-effects) |
+| 8 | Creativity | Performs (original) design unaided |
+| 9 | Dominance | Machine is master (HAL 9000) |
+
+: {.striped .hover}
+
+## Current level: A(4)
+
+:::: {.columns}
+::: {.column width="55%"}
+- CNC machine tools
+  - Convert a machining description in machining movements
+  - Run machining commands with *judgement* (A4)
+:::
+::: {.column width="45%"}
+![](images/cnc-block-diagram.jpg){fig-align="center" height=430}
+:::
+::::
+
+## Machine tool elements
+
+![](images/mt-elements.jpg){fig-align="center" height=470}
+
+## Drivers
+
+![](images/driver-loop.jpg){fig-align="center" height=140}
+
+:::: {.columns}
+::: {.column width="45%"}
+Requirements:
+
+- Fast response
+- Quick stabilization
+- **No overshoot**
+:::
+::: {.column width="55%"}
+![](images/step-response.jpg){fig-align="center" height=290}
+:::
+::::
+
+## Feedback
+
+![Open loop (A3); closed loop on motor, on lead screw, on axis (A4)](images/feedback-loops.jpg){fig-align="center" height=470}
+
+## Errors
+
+![](images/errors-diagram.jpg){fig-align="center" height=250}
+
+:::: {.columns}
+::: {.column width="50%"}
+![](images/drive-1.jpg){fig-align="center" height=200}
+:::
+::: {.column width="50%"}
+![](images/drive-2.jpg){fig-align="center" height=200}
+:::
+::::
+
+## Linear axis control
+
+![](images/linear-axis.jpg){fig-align="center" height=430}
+
+Encoder gain: pulses/rev --- Axis gain: screw pitch × encoder gain (mm/pulse)
+
+## Ball-screw assembly
+
+- Low friction
+- High load-bearing
+- Two counter-screwed nuts with interposed elastic pad for eliminating mechanical plays (precision)
+
+## Linear guide-rail
+
+:::: {.columns}
+::: {.column width="55%"}
+![](images/guide-rail.jpg){fig-align="center" height=380}
+:::
+::: {.column width="45%"}
+1. Lube port
+2. end wiper seal
+3. end cap
+4. runner block body
+5. rolling element
+6. side seal
+7. guide rail
+:::
+::::
+
+## Encoder
+
+- **Types**
+  - Rotary encoders
+  - Linear encoders
+- **Quality**
+  - Incremental
+  - Absolute (Gray code)
+
+## PID controllers {.smaller}
+
+![](images/pid-diagram.jpg){fig-align="center" height=250}
+
+| Parameter | Rise time | Overshoot | Settling time | Steady-state error | Stability |
+|:-:|:-:|:-:|:-:|:-:|:-:|
+| **Kp** | Decrease | Increase | Small change | Decrease | Degrade |
+| **Ki** | Decrease | Increase | Increase | Decrease significantly | Degrade |
+| **Kd** | Minor decrease | Minor decrease | Minor decrease | No effect | Improve if Kd small |
+
+## Actual control schemes
+
+![](images/control-schemes.jpg){fig-align="center" height=490}
+
+## PLC
+
+:::: {.columns}
+::: {.column width="55%"}
+Interfaces and Registers:
+
+- Analog and digital I/O (> 2048)
+- Relay (1000)
+- Memories (200)
+- Timers (200)
+- Counters (200)
+
+Can be integrated in the CNC
+:::
+::: {.column width="45%"}
+![](images/cnc-block-diagram.jpg){fig-align="center" height=430}
+:::
+::::
+
+## PLC
+
+**Advanced I/O**
+
+- General purpose communication: RS232, RS422, Ethernet
+- Deterministic communication: Profibus, DeviceNet, Modbus, Industrial EtherNET, CAN-BUS
+- Special I/O: counters, virtual cams, PIDs and controllers
+
+## PLC
+
+Programming standard **IEC 61131-3**
+
+:::: {.columns}
+::: {.column width="50%"}
+**Graphical**
+
+- Ladder Logic
+- Function Block Diagram
+- Sequential Function Chart
+
+**Textual**
+
+- Structured Text
+- Instruction List
+:::
+::::
+
+## PLC: Ladder diagram
+
+![](images/plc-ladder.jpg){fig-align="center" height=470}
+
+## PLC: Function Block Diagram
+
+![](images/plc-fbd.jpg){fig-align="center" height=470}
+
+## PLC: Sequential Function Chart
+
+![](images/plc-sfc.jpg){fig-align="center" height=470}
+
+## PLC: Textual languages
+
+![](images/plc-text.jpg){fig-align="center" height=470}
+
+## Numerical Control
+
+- Types of motion interpolation
+- Number of controlled axes
+- Coordinate systems and reference frames
+
+## Types of interpolation
+
+:::: {.columns}
+::: {.column width="40%"}
+- Point to point
+- Paraxial
+- Continuous
+:::
+::: {.column width="60%"}
+![](images/interp-types.jpg){fig-align="center" height=430}
+:::
+::::
+
+## Number of controlled axes
+
+:::: {.columns}
+::: {.column width="40%"}
+- 2 Axes
+- 2 Axes and 1/2
+- 3 Axes
+- 5 Axes
+:::
+::: {.column width="60%"}
+![](images/axes-count.jpg){fig-align="center" height=450}
+:::
+::::
+
+## Coordinate systems
+
+- **Machine reference frame**
+  - Machine origin
+  - Machine reference points
+- **WP reference frame**
+  - WP origin
+- **Tool reference frame**
+  - Registration point
+  - Support point
+
+## Coordinate systems
+
+![](images/frame-1.jpg){fig-align="center" height=470}
+
+**Machine reference frame:** arbitrary position corresponding to the support point when all axes are at 0
+
+## Coordinate systems
+
+:::: {.columns}
+::: {.column width="55%"}
+![](images/frame-2.jpg){fig-align="center" height=430}
+:::
+::: {.column width="45%"}
+$$
+\begin{aligned}
+x_m &= O_x + x \\
+y_m &= O_y + y
+\end{aligned}
+$$
+
+$(x_m, y_m)$
+:::
+::::
+
+## Coordinate systems
+
+In general, the offset must also include the tool length and radius ($T_x$ and $T_y$) and possibly the angle $\theta$ of the machine $(X, Y)$ frame with the workpiece frame:
+
+$$
+\begin{bmatrix} x_m \\ y_m \\ 1 \end{bmatrix} =
+\begin{bmatrix} \cos\theta & -\sin\theta & O_x + T_x \\ \sin\theta & \cos\theta & O_y + T_y \\ 0 & 0 & 1 \end{bmatrix}
+\begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
+$$
+
+In 3-D, you use 4x4 **homogeneous transformation matrices**
+
+## Machine reference frame
+
+:::: {.columns}
+::: {.column width="50%"}
+![](images/mt-frame.jpg){fig-align="center" height=380}
+:::
+::: {.column width="50%"}
+- Encoders give raw distance of spindle nose wrt machine reference
+- Machine reference position is defined by manufacturer
+- Axes drivers work in machine coordinates
+:::
+::::
+
+## Machine reference points
+
+- Only used in incremental encoders
+- One or more per axis
+- Types:
+  - Switch/contactor
+  - Additional encoder readout position
+
+## WP coordinates
+
+:::: {.columns}
+::: {.column width="60%"}
+- Selected by operator/programmer
+- Part program can use WP coordinates and/or machine coordinates
+- After fixturing, WP origin has to be set up wrt machine origin
+  - by touching with tool and compensating for tool radius
+  - By 3-D touch probe
+:::
+::: {.column width="40%"}
+![](images/wp-coords.jpg){fig-align="center" height=400}
+:::
+::::
+
+## Tool reference
+
+:::: {.columns}
+::: {.column width="55%"}
+- **Support point:**
+  - Abutment plane (lathes)
+  - Spindle nose (mills)
+- **Registration point:**
+  - on the tool, the point that matches the SP when mounted
+- **To be measured:**
+  - Length and offset (lathes)
+  - Length, diameter, and toric radius (mills)
+:::
+::: {.column width="45%"}
+![](images/tool-ref.jpg){fig-align="center" height=450}
+:::
+::::
+
+## Coordinate transformations
+
+:::: {.columns}
+::: {.column width="60%"}
+Any coordinate $P_{wp}$ given in the workpiece reference frame $O_{wp}$ is converted in machine coordinates $P_m$, including tool length offset
+
+$$
+P_m = T_{wp \to m} P_{wp}; \qquad
+T_{wp \to m} = \begin{bmatrix} r_{11} & r_{12} & r_{13} & d_x \\ r_{21} & r_{22} & r_{23} & d_y \\ r_{31} & r_{32} & r_{33} & d_z + l_t \\ 0 & 0 & 0 & 1 \end{bmatrix}
+$$
+
+$d_{x-z}$ are coordinates of $O_{wp}$ in $O_m$
+:::
+::: {.column width="40%"}
+![](images/transform-3d.jpg){fig-align="center" height=330}
+:::
+::::
+
+## Coordinate transformations
+
+Remember that the roto-translation matrix is:
+
+$$
+T = \begin{bmatrix}
+\cos\alpha\cos\beta & \cos\alpha\sin\beta\sin\gamma - \sin\alpha\cos\beta & \cos\alpha\sin\beta\cos\gamma + \sin\alpha\sin\gamma & d_x \\
+\sin\alpha\cos\beta & \sin\alpha\sin\beta\sin\gamma + \cos\alpha\cos\beta & \sin\alpha\sin\beta\cos\gamma - \cos\alpha\sin\gamma & d_y \\
+-\sin\beta & \cos\beta\sin\gamma & \cos\beta\cos\gamma & d_z \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+$$
+
+:::: {.columns}
+::: {.column width="65%"}
+The **order of transformations** is:
+
+1. Roll by $\gamma$
+2. Pitch by $\beta$
+3. Yaw by $\alpha$
+4. Translate by $(d_x, d_y, d_z)$
+:::
+::: {.column width="35%"}
+![](images/rpy.jpg){fig-align="center" height=170}
+:::
+::::
+
+# {background-iframe="MillCoordinates/machine-frames.html" background-interactive="true"}
+
+
+## Touch probe
+
+:::: {.columns}
+::: {.column width="55%"}
+- $O_{wp}$ position is measured with a touch probe
+- The 3 contact points are also electric switches
+- When a switch opens, the current coordinate plus the **sphere radius in the direction of motion** gives the touch point coordinate
+:::
+::: {.column width="45%"}
+![](images/touch-probe.jpg){fig-align="center" height=440}
+:::
+::::
+
+## Tool reference {.smaller}
+
+Measurement systems:
+
+- MT itself
+- Tool presetting systems
+- In-machine presetting
+
+:::: {.columns}
+::: {.column width="35%"}
+![](images/presetting-1.jpg){fig-align="center" height=200}
+:::
+::: {.column width="30%"}
+![](images/presetting-2.jpg){fig-align="center" height=200}
+:::
+::: {.column width="35%"}
+![](images/presetting-3.jpg){fig-align="center" height=200}
+:::
+::::
+
+## On-board presetting
+
+<video data-autoplay controls loop muted src="videos/onboard-presetting.mp4" style="max-height:480px; display:block; margin:auto"></video>
+
+## Tool presetter
+
+<video data-autoplay controls loop muted src="videos/tool-presetter.mp4" style="max-height:480px; display:block; margin:auto"></video>
+
+## Automation
+
+:::: {.columns}
+::: {.column width="40%"}
+- Yardstick of Automation
+- Level A4
+- Level A5
+- Part Programs
+:::
+::: {.column width="60%"}
+![](images/yardstick-loop.jpg){fig-align="center" height=280}
+:::
+::::
+
+## Machining cycle
+
+General sequence:
+
+![](images/machining-cycle.jpg){fig-align="center" height=260}
+
+## Part-program structure
+
+![](images/part-program.jpg){fig-align="center" height=490}
+
+## Toolpaths
+
+![](images/toolpaths.jpg){fig-align="center" height=490}
+
+## Workpiece Origin
+
+In turning, X coordinates are in **diameters**. Two typical choices for origin:
+
+- rightmost axial point on finished workpiece ($z < 0$)
+- on the machine origin (fixtures must be taken into consideration)
+
+## G-Code {.smaller}
+
+ISO language (ISO/DIN 6983)
+
+| Cod. | Command | Cod. | Command |
+|:-:|:--|:-:|:--|
+| A | Rotation about X | N | Block number |
+| B | Rotation about Y | O | --- |
+| C | Rotation about Z | P | Third motion along X |
+| D | Tool diameter compensation | Q | Third motion along Y |
+| E | Secondary feedrate | R | Third motion along Z |
+| F | Feedrate | S | Spindle speed |
+| G | Preparatory function | T | Tool number |
+| H | --- | U | Second motion along X |
+| I | Circle center, X | V | Second motion along Y |
+| J | Circle center, Y | W | Second motion along Z |
+| K | Circle center, Z | X | Motion along X |
+| L | --- | Y | Motion along Y |
+| M | Machine function | Z | Motion along Z |
+
+## Punch tape
+
+:::: {.columns}
+::: {.column width="35%"}
+G-Code
+:::
+::: {.column width="65%"}
+![](images/punch-tape-photo.jpg){fig-align="center" height=190}
+:::
+::::
+
+![](images/punch-tape.jpg){fig-align="center" height=280}
+
+## G-code functions
+
+- Preparatory functions (G,T)
+- Positioning functions (X, Y, Z)
+- Machine functions (M)
+
+```{.gcode code-line-numbers="false"}
+N1 T1 S500.0 M3;              tool n°1, CW rotation, 500 rpm
+N2 M8;                        fluid jets ON
+N3 G00 X60.0 Z0.0;            rapid positioning
+N4 G01 X-0.5 Z0.0 F1000.0;    facing
+N5 G01 X20.0 F1000.0
+N6 G03 X40.0 Z-5.0 I30.0 K-10.0 F1000.0;    arc R=10.0
+...
+N128 M30;                     fine programma
+```
+
+## Example: turning
+
+![](images/turning-part.jpg){fig-align="center" height=470}
+
+## Example: turning --- roughing {.smaller}
+
+![](images/turning-rough.jpg){fig-align="center" height=170}
+
+:::: {.columns}
+::: {.column width="50%"}
+```{.gcode code-line-numbers="false"}
+N10 G00 X61.0 Z7.0
+N11 G01 Z-94.5 F1000.0
+N12 G01 G91 X5.0 F2000.0
+N13 G00 Z7.0
+N14 G00 X51.0
+N15 G01 Z-92.2 F1000.0
+N16 G01 G91 X5.0 F2000.0
+N17 G00 Z7.0
+```
+:::
+::: {.column width="50%"}
+```{.gcode code-line-numbers="false"}
+N18 G00 X41.0 Z7.0
+N19 G01 Z-59.4 F1000.0
+N20 G01 G91 X5.0 F2000.0
+N21 G00 Z7.0
+N22 G00 X32.0
+N23 G01 Z-57.6 F1000.0
+N24 G01 G91 X5.0 F2000.0
+N25 G00 Z7.0
+```
+:::
+::::
+
+## Example: turning --- finishing {.smaller}
+
+![](images/turning-finish.jpg){fig-align="center" height=170}
+
+:::: {.columns}
+::: {.column width="50%"}
+```{.gcode code-line-numbers="false"}
+N31 G00 X70.0 Z0.0
+N32 G00 X35.0
+N33 G01 X0.0 F1000.0 S2000.0
+N34 G00 Z5.0
+N35 G00 X30.0
+N36 G01 Z-20.0
+N37 G01 X25.0 Z-25
+```
+:::
+::: {.column width="50%"}
+```{.gcode code-line-numbers="false"}
+N38 G01 Z-52.0
+N39 G02 X45.0 Z-62.0 I10.0 K0.0
+N40 G01 Z-85.0
+N41 G01 G91 X20.0 Z-15.0
+N42 G01 G90 Z-150.0
+N43 G00 X70.0
+N44 G00 Z20.0
+...
+N98 M30
+```
+:::
+::::
+
+## Example: milling
+
+![](images/milling-part.jpg){fig-align="center" height=480}
+
+## Example: milling {.smaller}
+
+:::: {.columns}
+::: {.column width="42%"}
+```{.gcode code-line-numbers="false"}
+%es1 G71 *
+N10 G30 G17 X+0 Y+0 Z-20*
+N20 G31 X+150 Y+150 Z+0*
+N30 G247 Q339=+1*
+N40 T1 G17 S5000 F4000*
+N50 G00 G90 X+14 Y-15 Z+10 G40 M8*
+N60 G00 Z-10 G40*
+N70 G01 Y+95 G41 F4000*
+N80 G01 X+36 Y+140*
+N90 G25 R10*
+N100 G01 X+105*
+N110 G24 R4*
+N120 G01 G91 Y-55*
+N130 G25 R14*
+N140 G01 G91 X+35*
+N150 G25 R5*
+N160 G01 G90 X+105 Y+14*
+N170 G24 R8*
+N180 G01 X-15*
+N190 G00 Z+10 G40*
+N200 G38 M30*
+N99999999 %es1 G71 *
+```
+:::
+::: {.column width="58%"}
+![](images/xp-editing.jpg){fig-align="center" height=380}
+:::
+::::
+
+## Program check
+
+![](images/xp-check.jpg){fig-align="center" height=480}
+
+## Advanced languages {.smaller}
+
+:::: {.columns}
+::: {.column width="40%"}
+- Explicit syntax
+- Conversational
+- Macros
+- Parametric programming
+:::
+::: {.column width="60%"}
+```{.gcode code-line-numbers="false"}
+0  BEGIN PGM es1 MM
+1  BLK FORM 0.1 Z  X+0  Y+0  Z-20
+2  BLK FORM 0.2  X+150  Y+150  Z+0
+3  CYCL DEF 247 DEF. ZERO PEZZO ~
+    Q339=+1    ;NUMERO ORIGINE
+4  TOOL CALL 1 Z S5000 F4000
+5  M8
+6  L  X+10  Y-10  Z+10 R0 FMAX
+7  L  Z-10 R0 FMAX
+8  L  Y+95 RL F AUTO
+9  L  X+36  Y+140
+10 RND R10 F AUTO
+11 L  X+105
+12 CHF 4
+13 L IY-55
+14 RND R14
+15 L IX+35
+16 RND R5
+17 L  X+105  Y+14
+18 CHF 8
+19 L  X-15
+20 L  Z+10 R0 FMAX
+21 STOP M30
+22 END PGM es1 MM
+```
+:::
+::::
+
+# CNC
+
+*Algorithms for Computer Numerical Control --- machining complex shapes*
+
+![](images/cnc-photo.jpg){fig-align="center" height=300}
+
+## CNC kernel tasks
+
+**Kernel functions**
+
+- Understanding a part-program (parsing)
+- Generate velocity profiles (profiling)
+- Position interpolation
+- Generate command signals
+
+## Profiling
+
+For every block:
+
+- preserve block length: $\displaystyle\int_{t_a}^{t_b} f(\tau)\,\mathrm{d}\tau = l$
+- limit acceleration
+- limit jerks
+
+![](images/profile-blocks.jpg){fig-align="center" height=210}
+
+## Profiling
+
+Discrete time-base (clock)
+
+![](images/profiling-clock.jpg){fig-align="center" height=190}
+
+$$
+\Delta t_1 = \frac{f_m - f_s}{a}, \quad
+\Delta t_2 = \frac{f_m - f_e}{d}, \quad
+\Delta t_m = \frac{l}{f_m} - \Delta t_1 \frac{f_m + f_s}{2 f_m} - \Delta t_2 \frac{f_e + f_m}{2 f_m}
+$$
+
+$$
+\Delta t^* = \mathrm{int}\left(\frac{\Delta t}{t_q} + 1\right) t_q = \Delta t_1 + \Delta t_m^* + \Delta t_2, \qquad
+\Delta t_m^* = \Delta t_m + \Delta t^* - \Delta t
+$$
+
+## Profiling
+
+Discrete time-base (clock)
+
+![](images/profiling-clock.jpg){fig-align="center" height=170}
+
+$$
+\int_{t_s}^{t_e} f(\tau)\,\mathrm{d}\tau = \frac{\Delta t_1}{2}(f_m^* + f_s) + \Delta t_m^* f_m^* + \frac{\Delta t_2}{2}(f_m^* + f_e) = l
+$$
+
+$$
+f_m^* = \frac{2l - f_s \Delta t_1 - f_e \Delta t_2}{\Delta t_1 + \Delta t_2 + 2\Delta t_m^*}, \qquad
+a^* = \frac{f_m^* - f_s}{\Delta t_1}, \qquad
+d^* = \frac{f_e - f_m^*}{\Delta t_2}
+$$
+
+## Profiling
+
+Short segments, $\Delta t_m \le 0$
+
+:::: {.columns}
+::: {.column width="35%"}
+![](images/profiling-short.jpg){fig-align="center" height=200}
+:::
+::: {.column width="65%"}
+$$
+\int_{t_s}^{t_e} f(\tau)\,\mathrm{d}\tau = \frac{a\Delta t_1^2 + d\Delta t_2^2}{2}; \quad a\Delta t_1 = d\Delta t_2
+$$
+
+$$
+\frac{\Delta t_1^2 (a + a^2/d)}{2} = l
+$$
+:::
+::::
+
+$$
+\begin{aligned}
+\Delta t_1 &= \sqrt{\frac{2l}{a + a^2/d}} \\
+\Delta t_2 &= \frac{a}{d}\Delta t_1 \\
+\Delta t_2^* &= \Delta t^* - \Delta t_1
+\end{aligned}
+\qquad
+f_m^*(\Delta t_1 + \Delta t_2^*) = 2l
+\qquad
+\begin{aligned}
+a^* &= \frac{f_m^* - f_s}{\Delta t_1} \\
+d^* &= \frac{f_e - f_m^*}{\Delta t_2^*}
+\end{aligned}
+$$
+
+## Motion interpolation
+
+:::: {.columns}
+::: {.column width="60%"}
+- The speed profile is evaluated and integrated at each time tick
+- The axes set-points are calculated with the parametric equation of the path
+- For a **linear motion**:
+
+$$
+\begin{aligned}
+X(t) &= X_0 + \Delta X \lambda(t) \\
+Y(t) &= Y_0 + \Delta Y \lambda(t) \\
+Z(t) &= Z_0 + \Delta Z \lambda(t)
+\end{aligned}
+$$
+:::
+::: {.column width="40%"}
+![](images/interp-profiles.jpg){fig-align="center" height=430}
+:::
+::::
+
+## Motion interpolation
+
+:::: {.columns}
+::: {.column width="55%"}
+For **arc interpolation**:
+
+$$
+\begin{aligned}
+X(t) &= X_c + R\cos(\vartheta_0 + \Delta\vartheta \lambda(t)) \\
+Y(t) &= Y_c + R\sin(\vartheta_0 + \Delta\vartheta \lambda(t)) \\
+Z(t) &= Z_0 + \Delta Z \lambda(t)
+\end{aligned}
+$$
+
+Warning: feedrate may be reduced
+
+$$
+f_{m,a} = \min\left(f_m, \sqrt{aR}\right)
+$$
+:::
+::: {.column width="45%"}
+![](images/arc-diagram.jpg){fig-align="center" height=330}
+:::
+::::
+
+## Motion interpolation {.smaller}
+
+G-code syntax:
+
+- `G[02|03] X[`$X_f$`] Y[`$Y_f$`] I[`$I$`] J[`$J$`]`
+- `G[02|03] X[`$X_f$`] Y[`$Y_f$`] R[`$\pm R$`]`
+
+:::: {.columns}
+::: {.column width="55%"}
+![](images/arc-syntax.jpg){fig-align="center" height=280}
+:::
+::: {.column width="45%"}
+$$
+\begin{aligned}
+\vartheta_0 &= \cos^{-1} I/R \\
+\vartheta_f &= \cos^{-1} (X_f - X_c)/R \\
+X_c &= X_0 + I \\
+Y_c &= Y_0 + J \\
+R &= \sqrt{I^2 + J^2} \\
+R^2 &= (X_f - X_c)^2 + (Y_f - Y_c)^2
+\end{aligned}
+$$
+:::
+::::
+
+## Motion interpolation
+
+**Center coordinates** (two alternatives depending on the sign of $R$)
+
+$$
+\Delta x = X_f - X_0, \qquad \Delta y = Y_f - Y_0
+$$
+
+$$
+X_c = X_0 + \frac{1}{2}\left(\Delta x - \mathrm{sign}(R)\,\frac{\sqrt{-\Delta y^2 (\Delta x^2 + \Delta y^2)(-4R^2 + \Delta x^2 + \Delta y^2)}}{\Delta x^2 + \Delta y^2}\right)
+$$
+
+$$
+Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta y^2 (\Delta x^2 + \Delta y^2)(-4R^2 + \Delta x^2 + \Delta y^2)}}{2\Delta x^2 \Delta y + 2\Delta y^3}
+$$
+
+## Jerk
+
+Jerk-limited profiling: each segment is split into 7 ranges (vs. 3)
+
+![](images/jerk-profile.jpg){fig-align="center" height=430}
+
+## Look-ahead feedrate profile
+
+- **Problem 1:** tangent or semi-tangent blocks shall have non-zero speed at the corner.
+- **Problem 2:** it shall be possible to accelerate to nominal feedrate with continuous acceleration over $n$ short segments, and it may take more than one segment to decelerate down to stop
+
+## Look-ahead feedrate profile
+
+Approach:
+
+1. Calculate $v_i$, $v_m$, $v_f$ for each block, considering $v = v(s)$
+2. Forward step: from block 1 to block $n$, calculate accelerations only
+3. Backward step: from block $n$ to block 1, calculate decelerations only and compose with accelerations
+4. Change variable $s \to t$ and get $v = v(t)$
+5. Reshape $v^* = \dfrac{v(t)}{k}$, where $k = t_f / t_f^*$ and $t_f^*$ is the multiple of $t_q$ immediately larger than the total time $t_f$ (block by block)
+
+## Constant Acc/Dec
+
+- We cannot calculate feed profiles in time abscissa, for we don't know the duration of each step
+- Thus we start planning in **curvilinear abscissa** $s$:
+  - $s(t) = s_0 + v_0 t + a t^2/2$, and thus $t(s) = \dfrac{1}{a}\left(-v_0 \pm \sqrt{2a(s - s_0) + v_0^2}\right)$
+  - Since $v(t(s)) = v_0 + a\, t(s)$, it follows that $v(s) = \sqrt{2a(s - s_0) + v_0^2}$
+  - So accelerations and decelerations follow a square root law of $s$
+- In jerk-limited approach, we'd have a cubic root branch at the beginning and at the end of each acc/dec branch
+
+## Look-ahead feedrate
+
+:::: {.columns}
+::: {.column width="55%"}
+Step 1: calculate velocities:
+
+- $v_{i,i} = v_{f,i-1}$, or 0 for first sg.
+- $v_{m,i} = f_i$ for G01
+- $v_m = \min(f_i, \sqrt{aR})$ for G02/G03
+- $v_{f,i} = \dfrac{v_{m,i} + v_{m,i+1}}{2}\cos\alpha_i$
+- $v_{f,i} = 0$ for last segment or if $v_{m,i} = 0$
+:::
+::: {.column width="45%"}
+![](images/lookahead-velocities.jpg){fig-align="center" height=280}
+:::
+::::
+
+## Forward step: accelerations
+
+Long segments, $v_i < v_m$:
+
+A. $v_f > v_m$, $s_0 < s_1 < s_2 < s_f$
+
+B. $v_f < v_m$, $s_0 < s_1 < s_f < s_2$
+
+:::: {.columns}
+::: {.column width="50%"}
+![](images/la-fwd-long-a1.jpg){height=170}
+:::
+::: {.column width="50%"}
+![](images/la-fwd-long-a2.jpg){height=170}
+:::
+::::
+
+## Forward step: accelerations
+
+Long segments, $v_i > v_m$:
+
+A. $v_f > v_m$, $s_1 < s_0 < s_2 < s_f$
+
+B. $v_f < v_m$, $s_1 < s_0 < s_f < s_2$
+
+:::: {.columns}
+::: {.column width="50%"}
+![](images/la-fwd-long-b1.jpg){height=170}
+:::
+::: {.column width="50%"}
+![](images/la-fwd-long-b2.jpg){height=170}
+:::
+::::
+
+## Forward step: accelerations {.smaller}
+
+Short segments:
+
+- $s_0 < s_f < s_1$
+- $v_f$ and $s_2$ are not relevant
+
+:::: {.columns}
+::: {.column width="50%"}
+![](images/la-fwd-short-1.jpg){height=200}
+:::
+::: {.column width="50%"}
+![](images/la-fwd-short-2.jpg){height=200}
+:::
+::::
+
+## Forward step: accelerations
+
+Short segments:
+
+- If $v_i$ is large enough, fallback to long segment cases
+
+:::: {.columns}
+::: {.column width="50%"}
+![](images/la-fwd-short-3.jpg){height=200}
+:::
+::: {.column width="50%"}
+![](images/la-fwd-short-4.jpg){height=200}
+:::
+::::
+
+## Backward step: decelerations
+
+- Same approach as forward step
+- For each block, select the path going from $(s_0, v_i)$ to $(s_f, v_f)$
+
+:::: {.columns}
+::: {.column width="50%"}
+![](images/la-bwd-1.jpg){height=200}
+:::
+::: {.column width="50%"}
+![](images/la-bwd-2.jpg){height=200}
+:::
+::::
+
+## 9 Possible cases
+
+:::: {.columns}
+::: {.column width="33%"}
+![](images/case-ama.jpg){height=140}
+
+![](images/case-dmd.jpg){height=140}
+
+![](images/case-ad.jpg){height=140}
+:::
+::: {.column width="33%"}
+![](images/case-a.jpg){height=140}
+
+![](images/case-d.jpg){height=140}
+
+![](images/case-da.jpg){height=140}
+:::
+::: {.column width="33%"}
+![](images/case-m.jpg){height=140}
+
+![](images/case-amd.jpg){height=140}
+
+![](images/case-dma.jpg){height=140}
+:::
+::::
+
+## Change variable
+
+Convert **from curvilinear abscissa to time**, one block at a time:
+
+- Calculate $v(t) = v_0 + at$, $s(t) = s_0 + v_0 t + at^2/2$ in the ranges $[s_i, s_1]$, $[s_1, s_2]$, $[s_2, s_f]$
+- Calculate timings $t_1$, $t_2$, $t_f$
+
+## Reshape for discrete time
+
+- Calculate $t_f^* = \lceil t_f / t_q + 1 \rceil t_q$
+- Calculate $k = t_f^* / t_f$
+- **Rescale feedrate** so that $v^*(t) = \dfrac{v(t)}{k}$
+
+## Receding horizon
+
+- This algorithm requires a sequence of blocks starting and ending at zero feedrate
+- You can assume that G00 blocks mark full stops at corners
+- Nonetheless, a program can consist in thousands of sequential G01/G02/G03 blocks: memory problem
+- **Solution:**
+  - At run time, pre-elaborate a buffer made of a limited number of blocks (say 100) assuming the last one stops (look-ahead buffer)
+  - Re-calculate the moving buffer as soon as a block is done by adding a new block at the end (FIFO): start backward (dec) until no change, then forward (acc)
+  - The buffer size depends on available memory and on computation time (must be shorter than the time needed to execute the buffer); calculations are done in parallel in a separate thread
+
+# Errors in machine tools
+
+*Machine tools are precision systems --- laser interferometry*
+
+![](images/laser-interferometry.jpg){fig-align="center" height=300}
+
+## Machining error sources
+
+![](images/error-sources.jpg){fig-align="center" height=490}
+
+## Error Compensation (A5)
+
+- Adaptive control systems (A/C) = **evaluation** attribute (A5)
+- Factors under evaluation:
+  - machining errors
+  - thermoelastic dilatations/deformations
+
+## Profiling errors
+
+:::: {.columns}
+::: {.column width="45%"}
+- More evident at high speed
+- When a sharp corner is needed, use curls
+:::
+::: {.column width="55%"}
+![](images/profiling-error.jpg){fig-align="center" height=400}
+:::
+::::
+
+## Feedrate-related errors
+
+![](images/feedrate-errors.jpg){fig-align="center" height=460}
+
+## Positioning errors
+
+![](images/positioning-errors.jpg){fig-align="center" height=460}
+
+## Squareness errors
+
+![](images/squareness-errors.jpg){fig-align="center" height=460}
+
+## Elementary errors
+
+- Three linear errors per axis (linearity, straightness, undulation)
+- Three angular errors per axis (roll, pitch, yaw)
+- Two squareness errors between axes 1 and 2
+- Two squareness errors between axes 3 and 2
+- Total of 18 + 4 = 22 elementary errors, 18 of which are position-dependent
+
+## Laser interferometer
+
+![](images/interferometer-paths.jpg){fig-align="center" height=470}
+
+## Laser interferometer
+
+![](images/interferometer-optics.jpg){fig-align="center" height=470}
+
+## Linearity measurement
+
+![](images/linearity-meas.jpg){fig-align="center" height=470}
+
+## Angle measurement
+
+![](images/angle-meas.jpg){fig-align="center" height=470}
+
+## Straightness measurement
+
+*Principles of operation of Wollaston's prism*
+
+![](images/straightness-prism.jpg){fig-align="center" height=400}
+
+## Straightness measurement
+
+![](images/straightness-meas.jpg){fig-align="center" height=490}
+
+## Squareness measurement
+
+![](images/squareness-meas.jpg){fig-align="center" height=490}
+
+## Calibration
+
+![](images/calibration.jpg){fig-align="center" height=470}
+
+## Laser interferometer: three-axis machine tool installation
+
+![](images/three-axis.jpg){fig-align="center" height=470}

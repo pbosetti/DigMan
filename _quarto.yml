@@ -1,5 +1,8 @@
 project:
-  type: default
+  type: website
+  resources:
+    - videos/*
+    - MillCoordinates/**
 
 format:
   revealjs: 
@@ -16,6 +19,7 @@ format:
     fig-width: 5
     fig-height: 4
     fig-dpi: 300
+    controls: true
     touch: true
     email-obfuscation: javascript
     pdf-separate-fragments: true

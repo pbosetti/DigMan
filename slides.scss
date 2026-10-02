@@ -113,6 +113,36 @@ $code-block-font-size: 0.75em;
   font-size: 0.7em;
 }
 
+// columns as flex boxes: robust when a list or paragraph precedes them
+.reveal div.columns {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5em;
+}
+
+.reveal div.columns > .column {
+  flex: 0 1 auto;
+  box-sizing: border-box;
+}
+
+// never clip code blocks (reveal.js caps them at 400px)
+.reveal pre,
+.reveal pre code,
+.reveal div.sourceCode {
+  max-height: none !important;
+}
+
+// code blocks without a known language (e.g. g-code) sit inside their column
+.reveal pre.gcode {
+  width: 94%;
+  box-sizing: border-box;
+  margin: 0.5em 0;
+}
+
+.reveal .tiny pre code {
+  font-size: 0.5em;
+}
+
 // quarto-live code-blocks
 .reveal {
   .card.exercise-editor {
@@ -138,6 +168,10 @@ $code-block-font-size: 0.75em;
   .exercise-cell-output code {
     font-size: inherit;
   }
+}
+
+.reveal .smaller {
+  font-size: 75%;
 }
 
 .reveal .live-split {
