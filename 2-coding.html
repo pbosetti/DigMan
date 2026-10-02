@@ -101,7 +101,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-dce7d0f1d1864d1287446c23d8487fa7.css">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-3c42783efb589def58cebd2c5d808515.css">
   <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -216,7 +216,7 @@ Paolo Bosetti
     </div>
 </div>
 
-  <p class="date"><em>Updated:</em> 30/09/2026</p>
+  <p class="date"><em>Updated:</em> 02/10/2026</p>
 </section>
 <section id="c-programming-recap" class="slide level2 smaller">
 <h2>C Programming recap</h2>
@@ -1323,7 +1323,7 @@ protocol mqtt</code></pre>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
-<p>paolo.bosetti@unitn.it — <a href="./DigMan">/DigMan/</a></p>
+<p>paolo.bosetti@unitn.it — <a href="https://pbosetti.github.io/DigMan/">https://pbosetti.github.io/DigMan/</a></p>
 </div>
 </div></div>
 
@@ -1349,7 +1349,7 @@ protocol mqtt</code></pre>
       // Full list of configuration options available at:
       // https://revealjs.com/config/
       Reveal.initialize({
-'controlsAuto': true,
+'controlsAuto': false,
 'previewLinksAuto': true,
 'pdfSeparateFragments': true,
 'autoAnimateEasing': "ease",
@@ -1361,7 +1361,7 @@ protocol mqtt</code></pre>
 'smaller': false,
  
         // Display controls in the bottom right corner
-        controls: false,
+        controls: true,
 
         // Help the user learn the controls by providing hints, for example by
         // bouncing the down arrow when they first encounter a vertical slide
@@ -1645,7 +1645,7 @@ protocol mqtt</code></pre>
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp('/' + window.location.host + '/');
+            var filterRegex = new RegExp("https:\/\/pbosetti\.github\.io\/DigMan\/");
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

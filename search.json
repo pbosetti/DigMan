@@ -749,15 +749,15 @@
     "text": "Exam\n\nEach Session is made up by a mandatory written exam and an optional oral exam\n\nWritten exam: on Moodle platform, max 26/30\nOral exam: optional, max 30L/30, must be given in the same session\n\nFinal mark: starting from written mark, oral exam can improve or degrade it"
   },
   {
-    "objectID": "1-machine_tools.html#manufacturing-systems",
-    "href": "1-machine_tools.html#manufacturing-systems",
+    "objectID": "1-machine_tools.html#manufacturing-systems-1",
+    "href": "1-machine_tools.html#manufacturing-systems-1",
     "title": "Digital Manufacturing – Part 1",
     "section": "Manufacturing systems",
     "text": "Manufacturing systems\n\nTo give shape to a block of raw material (workpiece) there are three possibilities:\n\nDeform it: forming processes (motion axes: 1+)\nCut it: material removal (or subtractive) processes (motion axes: 2.5+)\nBuild on it: additive manufacturing processes (motion axes: 2.5+)"
   },
   {
-    "objectID": "1-machine_tools.html#manufacturing-systems-1",
-    "href": "1-machine_tools.html#manufacturing-systems-1",
+    "objectID": "1-machine_tools.html#manufacturing-systems-2",
+    "href": "1-machine_tools.html#manufacturing-systems-2",
     "title": "Digital Manufacturing – Part 1",
     "section": "Manufacturing systems",
     "text": "Manufacturing systems\n\n\nWe skip over forming processes, where motion planning and control is trivial (with exceptions!)\nIn subtractive and additive manufacturing there is a tool performing the process (a mill, a polarized wire, an extruding nozzle, …), whose motion is performed by synchronized action of two or more axes, typically in cartesian arrangement\nThe motion (trajectory and speed) must be planned according to geometry and process specifics"
@@ -781,7 +781,7 @@
     "href": "1-machine_tools.html#reference-case-turningmilling",
     "title": "Digital Manufacturing – Part 1",
     "section": "Reference case: Turning/Milling",
-    "text": "Reference case: Turning/Milling\n\nThe majority of products involve machining, either directly, or indirectly (dies are machined)\nMachining involves a combination of linear and rotary motions:\n\nIn turning, the workpiece is rotating, the tool is displacing\nIn drilling and milling the tool is rotating and there is a combined relative displacement between tool and workpiece"
+    "text": "Reference case: Turning/Milling\n\nThe majority of products involve machining, either directly, or indirectly (dies are machined)\nMachining involves a combination of linear and rotary motions:\n\nIn turning, the workpiece is rotating, the tool is displacing\nIn drilling and milling the tool is rotating and there is a combined relative displacement between tool and workpiece\n\n\n\n\n\n\n\n\nImportant\n\n\nRegardless the process, understanding its physics and the governing parameters is essential to design the manufacturing system and its control algorithms"
   },
   {
     "objectID": "1-machine_tools.html#machining-parameters",
@@ -809,14 +809,14 @@
     "href": "1-machine_tools.html#milling",
     "title": "Digital Manufacturing – Part 1",
     "section": "Milling",
-    "text": "Milling\nMachining parameters to be calculated are spindle speed, feed rate, and spindle power:"
+    "text": "Milling\nMachining parameters to be calculated are spindle speed, feed rate, and spindle power. There are three types of milling:"
   },
   {
     "objectID": "1-machine_tools.html#milling-1",
     "href": "1-machine_tools.html#milling-1",
     "title": "Digital Manufacturing – Part 1",
     "section": "Milling",
-    "text": "Milling\n\n\n\\[\n\\begin{aligned}\nN &= \\frac{v}{\\pi D} \\\\\nf &= N f_z z \\\\\nMRR &= w d f \\\\\nA &= \\begin{cases} \\sqrt{d(D-d)} & \\text{side milling} \\\\ \\sqrt{w(D-w)} & \\text{face milling} \\end{cases} \\\\\nT_m &= \\begin{cases} (L + A)/f & \\text{side milling} \\\\ (L + 2A)/f & \\text{face milling} \\end{cases}\n\\end{aligned}\n\\]"
+    "text": "Milling\n\n\n\\[\n\\begin{aligned}\nN &= \\frac{v}{\\pi D} \\\\\nf &= N f_z z \\\\\nMRR &= w d f \\\\\nA &= \\begin{cases} \\sqrt{d(D-d)} & \\text{side milling} \\\\ \\sqrt{w(D-w)} & \\text{face/end milling} \\end{cases} \\\\\nT_m &= \\begin{cases} (L + A)/f & \\text{side milling} \\\\ (L + 2A)/f & \\text{face/end milling} \\end{cases}\n\\end{aligned}\n\\]"
   },
   {
     "objectID": "1-machine_tools.html#shopfloor-formulas",
@@ -830,7 +830,7 @@
     "href": "1-machine_tools.html#example",
     "title": "Digital Manufacturing – Part 1",
     "section": "Example",
-    "text": "Example\nWe have to set up a milling process on Aluminum, which has \\(p_s = 12.56\\) W min/cm³. The tool manufacturer suggests \\(v = 1000\\) m/min and \\(f_z = 0.1\\) mm/tooth. The mill has a diameter of 30 mm and does face milling with full overlapping, has 3 teeth and removes a layer of 2 mm.\n\\[\n\\begin{aligned}\nN &= \\frac{v}{\\pi D} = \\frac{1000\\ \\text{m/min}}{\\pi\\, 30\\ \\text{mm}} = 10610\\ \\text{rpm} \\\\\nf &= f_z z N = 0.1\\ \\text{mm} \\cdot 3 \\cdot 10610\\ \\text{rpm} = 3183\\ \\text{mm/min} \\\\\nMRR &= w d f = 30\\ \\text{mm} \\cdot 2\\ \\text{mm} \\cdot 3183\\ \\text{mm/min} = 190980\\ \\text{mm}^3/\\text{min} \\\\\nP &= MRR\\, p_s = 190.98\\ \\text{cm}^3/\\text{min} \\cdot 12.56\\ \\text{W min/cm}^3 \\simeq 2.4\\ \\text{kW}\n\\end{aligned}\n\\]"
+    "text": "Example\nWe have to set up a milling process on Aluminum, which has \\(p_s = 12.56\\) W min/cm³\nThe tool manufacturer suggests \\(v = 1000\\) m/min and \\(f_z = 0.1\\) mm/tooth\nThe mill has a diameter of \\(30\\) mm and does face milling with full overlapping, has \\(3\\) teeth and removes a layer of \\(2\\) mm\n\\[\n\\begin{aligned}\nN &= \\frac{v}{\\pi D} = \\frac{1000\\ \\text{m/min}}{\\pi\\, 30\\ \\text{mm}} = 10610\\ \\text{rpm} \\\\\nf &= f_z z N = 0.1\\ \\text{mm} \\cdot 3 \\cdot 10610\\ \\text{rpm} = 3183\\ \\text{mm/min} \\\\\nMRR &= w d f = 30\\ \\text{mm} \\cdot 2\\ \\text{mm} \\cdot 3183\\ \\text{mm/min} = 190980\\ \\text{mm}^3/\\text{min} \\\\\nP &= MRR\\, p_s = 190.98\\ \\text{cm}^3/\\text{min} \\cdot 12.56\\ \\text{W min/cm}^3 \\simeq 2.4\\ \\text{kW}\n\\end{aligned}\n\\]\n\n\n\n\n\n\nNote\n\n\nThe machininst must always ensure that the required maximum power does not exceet that available at the spindle. If not, some of the machining parameters must be reduced (usually \\(d\\) and or \\(w\\))"
   },
   {
     "objectID": "1-machine_tools.html#cutting-economics",
@@ -847,39 +847,67 @@
     "text": "Tool wear"
   },
   {
-    "objectID": "1-machine_tools.html#tool-wear-taylors-law",
-    "href": "1-machine_tools.html#tool-wear-taylors-law",
+    "objectID": "1-machine_tools.html#tool-wear-1",
+    "href": "1-machine_tools.html#tool-wear-1",
     "title": "Digital Manufacturing – Part 1",
-    "section": "Tool Wear: Taylor’s law",
-    "text": "Tool Wear: Taylor’s law\n\n\n\nFlank wear is the limiting process\nTaylor’s law (1907): \\(vT^n = C\\)\n\n\\(n\\) depends on materials\n\\(C\\) depends on materials and failure criterion\n\n\\(v\\) is the cutting speed\n\\(T\\) is the tool life"
+    "section": "Tool wear",
+    "text": "Tool wear\nTools are subject to wear. It can affect two parts of the tool:\n\nthe flank: it changes the geometry of the tool where it contacts the workpiece, so it progressively affects surface quality and dimensional accuracy\nthe rake face: it changes the geometry where the tool contacts the chip: it has no effect on the workpiece, but in the long run it weakens the tool and causes it to break\n\nIf the tool and the cutting parameters are chosen correctly, flank wear occurs before rake face wear\nThe wear law was formulated by Taylor: \\(VT^n=K\\), where:\n\n\\(V\\) is the cutting speed\n\\(T\\) is the tool life\n\\(n\\) and \\(K\\) are material constants; \\(K\\) also depends on the end-of-life criterion (application specific)"
   },
   {
-    "objectID": "1-machine_tools.html#optimal-cutting-speed",
-    "href": "1-machine_tools.html#optimal-cutting-speed",
+    "objectID": "1-machine_tools.html#taylors-law",
+    "href": "1-machine_tools.html#taylors-law",
     "title": "Digital Manufacturing – Part 1",
-    "section": "Optimal cutting speed",
-    "text": "Optimal cutting speed\n\n\n\n\\(C_p\\) = cost per piece\n\\(C_m\\) = machining cost\n\\(C_s\\) = setup cost\n\\(C_l\\) = loading cost\n\\(C_t\\) = tooling cost\n\\(L\\) = labour\n\\(O\\) = overhead\n\n\n\\[\n\\begin{aligned}\nC_p &= C_m + C_s + C_l + C_t \\\\\nC_m &= T_m (L_m + O_m) \\\\\nC_l &= T_l (L_m + O_m) \\\\\nC_t &= \\frac{1}{N_p}\\left[T_c(L_m + O_m) + T_g(L_g + O_g) + D_c\\right] = \\frac{1}{N_p} C_{t0} \\\\\nT_p &= T_{s,l} + T_m + \\frac{T_c}{N_p} \\\\\nV T^n &= K\n\\end{aligned}\n\\]\nTurning: \\(T_m = \\dfrac{L}{f_r N} = \\dfrac{\\pi L D}{f_r V}\\), \\(\\quad N_p = \\dfrac{T}{T_m} = \\dfrac{f_r K^{1/n}}{\\pi L D V^{1/n - 1}}\\)\n\n\nCs è una figura fissa, in €/pezzo\nTc: tempo cambio utensile\nTg: tempo riaffilatura utensile\nDc: deprezzamento utensile per riaffilatura\nn&lt;1\nCurve Costo vs velocità e tempo vs velocità\nNota: utensili “integrati” (più lavorazioni in una) risparmiano tempo!"
+    "section": "Taylor’s law",
+    "text": "Taylor’s law\n\\(VT^n=K \\rightarrow \\log(V) - n\\log(T) = \\log(K) \\rightarrow \\log(T) = \\frac{1}{n}\\log(V) - \\frac{1}{n}\\log(K)\\)"
   },
   {
-    "objectID": "1-machine_tools.html#optimal-cutting-speed-1",
-    "href": "1-machine_tools.html#optimal-cutting-speed-1",
+    "objectID": "1-machine_tools.html#productivity-optimization",
+    "href": "1-machine_tools.html#productivity-optimization",
     "title": "Digital Manufacturing – Part 1",
-    "section": "Optimal cutting speed",
-    "text": "Optimal cutting speed\nSetting \\(\\dfrac{\\partial C_p}{\\partial V} = 0\\):\n\\[\nV_o = \\frac{K (L_m + O_m)^n}{\\left\\{[(1/n) - 1]\\, C_{t0}\\right\\}^n}\n\\qquad\nT_o = [(1/n) - 1]\\, \\frac{C_{t0}}{L_m + O_m}\n\\]\nSetting \\(\\dfrac{\\partial T_p}{\\partial V} = 0\\) (maximum production rate):\n\\[\nV_o = \\frac{K}{[(1/n - 1)\\, T_c]^n}\n\\qquad\nT_o = (1/n - 1)\\, T_c\n\\]"
+    "section": "Productivity optimization",
+    "text": "Productivity optimization\nThe costs of machining production are related to:\n\ninvestments and overhead (fixed)\nlabor and raw materials (variable)\ncost per piece (variable)\n\nCosts are dependent variables. The process parameters are independent parameters\n\n\n\n\n\n\nImportant\n\n\nWe can ask whether there are process conditions that maximize productivity and/or minimize costs"
   },
   {
-    "objectID": "1-machine_tools.html#optimal-cutting-speed-2",
-    "href": "1-machine_tools.html#optimal-cutting-speed-2",
+    "objectID": "1-machine_tools.html#productivity-optimization-turning",
+    "href": "1-machine_tools.html#productivity-optimization-turning",
     "title": "Digital Manufacturing – Part 1",
-    "section": "Optimal cutting speed",
-    "text": "Optimal cutting speed"
+    "section": "Productivity optimization — Turning",
+    "text": "Productivity optimization — Turning\n\n\n\n\n\nSymbol\nMeaning\n\n\n\n\n\\(C_p\\)\nCost per piece\n\n\n\\(C_m\\)\nMachining cost\n\n\n\\(C_s\\)\nSetup cost\n\n\n\\(C_l\\)\nLoading cost\n\n\n\\(C_t\\)\nTooling cost\n\n\n\\(L\\)\nLabor cost\n\n\n\\(O\\)\nOverhead\n\n\n\nIn turning: \\[\nT_m = \\frac{L}{fN}=\\frac{\\pi LD}{fV} \\\\\nN_p = \\frac{T}{T_m} = \\frac{fK^{1/n}}{\\pi LDV^{1/n-1}}\n\\]\n\n\\[\\begin{align}\nC_p &= C_m + C_s + C_l + C_t \\\\\nC_m &= T_m(L_m + O_m) \\\\\nC_l &= T_l(L_m + O_m) \\\\\nC_t &= \\frac{1}{N_p}\\left[T_c(L_m+O_m) + T_g(L_g+O_g) + D_c\\right] = \\frac{C_{t0}}{N_p} \\\\\nT_p &= T_{s,l} + T_m + \\frac{C_{t0}}{N_p}\n\\end{align}\\]\n\n\n\n\n\n\nNote\n\n\nWe have \\(C_p=C_p(V)\\) and \\(T_p = T_p(V)\\), so we can differentiate both to identify an optimal condition"
   },
   {
-    "objectID": "1-machine_tools.html#notes",
-    "href": "1-machine_tools.html#notes",
+    "objectID": "1-machine_tools.html#productivity-optimization-turning-1",
+    "href": "1-machine_tools.html#productivity-optimization-turning-1",
     "title": "Digital Manufacturing – Part 1",
-    "section": "Notes",
-    "text": "Notes\n\nBased on Taylor’s law\nexpensive\ndeterministic\nHomogeneous material\nConstant cutting parameters\nComplex machining requires process simulation (digital twin) and numerical optimization"
+    "section": "Productivity optimization — Turning",
+    "text": "Productivity optimization — Turning\n\n\nCosts: \\[\\begin{align}\n\\frac{\\partial C_p}{\\partial V} &= 0 \\\\\nV_{o,c} &= \\frac{K(L_m+O_m)^n}{[(1/n-1)C_{t0}]^n} \\\\\nT_{o,c} &= (1/n -1)\\frac{C_{t0}}{L_m+O_m}\n\\end{align}\\]\n\nTimes: \\[\\begin{align}\n\\frac{\\partial T_p}{\\partial V} &= 0 \\\\\nV_{o,t} &= \\frac{K}{[(1/n-1)T_c]^n} \\\\\nT_{0,t} &= (1/n -1)T_c\n\\end{align}\\]\n\n\n\n\n\n\n\nNote\n\n\nWhat do we optimize? Costs or times?"
+  },
+  {
+    "objectID": "1-machine_tools.html#productivity-optimization-turning-2",
+    "href": "1-machine_tools.html#productivity-optimization-turning-2",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Productivity optimization — Turning",
+    "text": "Productivity optimization — Turning\n\n\n\nThe optimal cutting speed \\(V_{o,c}\\) corresponds to maximum economic efficiency\nHowever, when there are penalties for delays it may be worth producing at \\(V_{o,t}\\), because it is the speed that maximizes productivity\nSo, \\(V\\) shall be normally set to \\(V_{o,c}\\), increasing it up to (but not above) \\(V_{o,t}\\) if there are penalties for delays"
+  },
+  {
+    "objectID": "1-machine_tools.html#limits-of-analytical-process-models",
+    "href": "1-machine_tools.html#limits-of-analytical-process-models",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Limits of analytical process models",
+    "text": "Limits of analytical process models\nOrthogonal cutting\n\nOrthogonal cutting rarely applies. In most real machining operations chip formation is inherently 3-D\nThe chip formation model is idealized. In reality:\n\nthe cutting edge is never perfectly sharp\nthe shear plane does not have zero thickness\ndeformation does not occur only on the shear plane, but also on the machined surface in contact with the cutting edge and between chip and tool\n\nThe stress and strain field cannot be computed analytically\nThere is no reliable thermal model that accounts for friction and plastic deformation as heat sources\nThe strain rates involved \\(\\dot\\gamma\\) are extreme: this makes it very difficult to identify the plastic properties of the material under similar conditions"
+  },
+  {
+    "objectID": "1-machine_tools.html#limits-of-analytical-process-models-1",
+    "href": "1-machine_tools.html#limits-of-analytical-process-models-1",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Limits of analytical process models",
+    "text": "Limits of analytical process models\nTaylor’s law\n\nIt is an empirical model, i.e., it has no physical basis but rests on observation alone, so it cannot be calibrated from measurements of material properties\nIt is an approximate law: more complete empirical laws exist in the form \\(VT^nd^xf^y=K\\), which account for other process parameters that have a much smaller influence than \\(V\\) but still affect tool life\nIt is expensive to calibrate:\n\nthe experimental procedure is necessarily slow and costly\n\\(n\\) depends on the workpiece material and on the tool material\n\\(K\\) depends on the end-of-life criterion, so it is user-specific (i.e., it cannot be found in tables)\n\nEven the more complete laws do not account for factors such as lubrication and cooling"
+  },
+  {
+    "objectID": "1-machine_tools.html#economic-optimization",
+    "href": "1-machine_tools.html#economic-optimization",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Economic optimization",
+    "text": "Economic optimization\n\nThe analysis above depends on being able to express \\(T_m(V)\\) analytically\n\nThis is possible only for elementary operations (e.g., cylindrical turning). For more complex operations the relation can only be computed point by point by simulating the process (via CAM or CNC functions, which entails considerable time and cost)\nIt relies on the availability of a validated and reliable wear law\nIt is worthwhile only for large and very large batches (economy of scale)"
   },
   {
     "objectID": "1-machine_tools.html#types-of-lathes",
@@ -914,7 +942,7 @@
     "href": "1-machine_tools.html#cnc-lathe-1",
     "title": "Digital Manufacturing – Part 1",
     "section": "CNC lathe",
-    "text": "CNC lathe\n\nDirect-drive spindle\nRoller-turner (revolving) turret\nCounterstock (hydraulics)\nInclined bed\nLead screw"
+    "text": "CNC lathe\n\n\n\nDirect-drive spindle\nRoller-turner (revolving) turret\nCounterstock (hydraulics)\nInclined bed\nLead screw"
   },
   {
     "objectID": "1-machine_tools.html#moveable-rest",
@@ -952,18 +980,25 @@
     "text": "Multiple spindle lathe"
   },
   {
-    "objectID": "1-machine_tools.html#vertical-spindle",
-    "href": "1-machine_tools.html#vertical-spindle",
+    "objectID": "1-machine_tools.html#multiple-spindle-lathe-2",
+    "href": "1-machine_tools.html#multiple-spindle-lathe-2",
     "title": "Digital Manufacturing – Part 1",
-    "section": "Vertical spindle",
-    "text": "Vertical spindle\n\n\n\n\n\nNormal\n\n\n\n\n\n\nInverted spindle"
+    "section": "Multiple spindle lathe",
+    "text": "Multiple spindle lathe"
   },
   {
-    "objectID": "1-machine_tools.html#vertical-spindle-1",
-    "href": "1-machine_tools.html#vertical-spindle-1",
+    "objectID": "1-machine_tools.html#vertical-spindle-lathe",
+    "href": "1-machine_tools.html#vertical-spindle-lathe",
     "title": "Digital Manufacturing – Part 1",
-    "section": "Vertical spindle",
-    "text": "Vertical spindle"
+    "section": "Vertical spindle lathe",
+    "text": "Vertical spindle lathe\n\n\n\n\n\nNormal\n\n\n\n\n\n\nInverted spindle"
+  },
+  {
+    "objectID": "1-machine_tools.html#vertical-spindle-lathe-1",
+    "href": "1-machine_tools.html#vertical-spindle-lathe-1",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Vertical spindle lathe",
+    "text": "Vertical spindle lathe"
   },
   {
     "objectID": "1-machine_tools.html#sliding-headstock",
@@ -991,14 +1026,21 @@
     "href": "1-machine_tools.html#milling-machines",
     "title": "Digital Manufacturing – Part 1",
     "section": "Milling machines",
-    "text": "Milling machines\n\n\n\nHuge variety of architectures\nCommon denominator: rotary tool\nFrom desktop size to 200 m³ footprint\nSome have rotary table and can do turning (hybrid mill-turn)"
+    "text": "Milling machines\n\n\n\nHuge variety of architectures\nCommon denominator: rotary tool\nFrom desktop size to 200 m\\(^3\\) footprint\nSome have rotary table and can do turning (hybrid mill-turn)"
   },
   {
     "objectID": "1-machine_tools.html#types-of-milling-machines",
     "href": "1-machine_tools.html#types-of-milling-machines",
     "title": "Digital Manufacturing – Part 1",
     "section": "Types of Milling Machines",
-    "text": "Types of Milling Machines\n\n\n\nCNC M.M.\n\nHorizontal spindle\nVertical spindle\nMilling centers\n\nUniversal\nPallet changer\nTraveling column\n\n\nArchitecture\n\nCantilever\nTraveling column\nGantry\nParallel kinematics\n\n\n\n\n\n\nCantilever\n\n\n\n\n\nTravelling column\n\n\n\n\n\n\nGantry\n\n\n\n\n\nParallel kinematics"
+    "text": "Types of Milling Machines\n\n\n\nCNC Milling Machines\n\nHorizontal spindle\nVertical spindle\n\nMilling centers\n\nUniversal\nPallet changer\nTraveling column\n\nArchitectures\n\nCantilever\nTraveling column\nGantry\nParallel kinematics\n\n\n\n\n\n\nCantilever\n\n\n\n\n\nTravelling column\n\n\n\n\n\n\nGantry\n\n\n\n\n\nParallel kinematics"
+  },
+  {
+    "objectID": "1-machine_tools.html#universal-milling-center",
+    "href": "1-machine_tools.html#universal-milling-center",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Universal milling center",
+    "text": "Universal milling center\n\n\n\nUniversl milling centers have a rotary table and a universal milling head that can be tilted and swiveled to machine any surface of the workpiece\nBy rotating the axis at 45° from Z, the spindle axis can be changed from vertical to horizontal (universal)\n\n\n\n\n\nUniversal milling head"
   },
   {
     "objectID": "1-machine_tools.html#architectures",
@@ -1008,39 +1050,39 @@
     "text": "Architectures\n\n\n\nCantilever: simplest and cheapest\nTraveling column: suitable when one axis is much longer\nGantry: much more stiff and stable, but more complex (twin axes)\nParallel-K: much stiffer and faster, but complex to control and limited in travels"
   },
   {
-    "objectID": "1-machine_tools.html#vertical-spindle-2",
-    "href": "1-machine_tools.html#vertical-spindle-2",
+    "objectID": "1-machine_tools.html#vertical-spindle",
+    "href": "1-machine_tools.html#vertical-spindle",
     "title": "Digital Manufacturing – Part 1",
     "section": "Vertical spindle",
-    "text": "Vertical spindle\n\nEasy fixturing\nReduced moveable mass"
+    "text": "Vertical spindle\n\n\nPros:\n\nEasy fixturing\nReduced moveable mass\n\nCons:\n\nChip disposal is more difficult\nNot suitable for machinind dies/cavities\n\n\n\n\n\nVertical spindle machine"
   },
   {
     "objectID": "1-machine_tools.html#horizontal-spindle",
     "href": "1-machine_tools.html#horizontal-spindle",
     "title": "Digital Manufacturing – Part 1",
     "section": "Horizontal spindle",
-    "text": "Horizontal spindle\n\nBetter chip disposal\nLarge travels\nMore difficult fixturing"
+    "text": "Horizontal spindle\n\n\nPros:\n\nBetter chip/liquids disposal\nLarge travels\n\nCons:\n\nMore difficult fixturing\nMore moveable mass (slower)\nmore difficult to fixture\n\n\n\n\n\nHorizontal spindle machine"
   },
   {
     "objectID": "1-machine_tools.html#pallet-changer",
     "href": "1-machine_tools.html#pallet-changer",
     "title": "Digital Manufacturing – Part 1",
     "section": "Pallet changer",
-    "text": "Pallet changer\n\n\n\nStocky WPs\nHigh productivity\ncan be integrated in automated lines"
+    "text": "Pallet changer\n\n\n\nStocky WPs\nHigh productivity\ncan be integrated in automated lines\n\n\n\n\n\nPallet changer"
   },
   {
     "objectID": "1-machine_tools.html#traveling-column",
     "href": "1-machine_tools.html#traveling-column",
     "title": "Digital Manufacturing – Part 1",
     "section": "Traveling column",
-    "text": "Traveling column\n\n\nSuitable for:\n\nslender WP\nstocky WP but with two alternating fixturing zones"
+    "text": "Traveling column\n\n\nSuitable for:\n\nslender WP\nstocky WP but with two alternating fixturing zones (higher productivity)\n\n\n\n\n\n\n\nMasked time\n\n\nAny operation that can be performed in parallel to machining is said to happen in masked time. It’s cost is absorbed in the machining cost\nOther operations happen in exposed time, which is added to the machining cost\n\n\n\n\n\n\n\nTravelling column machine"
   },
   {
     "objectID": "1-machine_tools.html#milling-centers",
     "href": "1-machine_tools.html#milling-centers",
     "title": "Digital Manufacturing – Part 1",
     "section": "Milling centers",
-    "text": "Milling centers"
+    "text": "Milling centers\n\n\n\nDMG Mori DMU600p linear"
   },
   {
     "objectID": "1-machine_tools.html#parameters-1",

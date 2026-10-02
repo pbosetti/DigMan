@@ -35,7 +35,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-dce7d0f1d1864d1287446c23d8487fa7.css">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-3c42783efb589def58cebd2c5d808515.css">
   <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -150,9 +150,14 @@ Paolo Bosetti
     </div>
 </div>
 
-  <p class="date"><em>Updated:</em> 30/09/2026</p>
+  <p class="date"><em>Updated:</em> 02/10/2026</p>
 </section>
-<section id="manufacturing-systems" class="slide level2">
+<section>
+<section id="manufacturing-systems" class="title-slide slide level1 center">
+<h1>Manufacturing systems</h1>
+<p>Relevant for the mechatronics point of view</p>
+</section>
+<section id="manufacturing-systems-1" class="slide level2">
 <h2>Manufacturing systems</h2>
 
 <img data-src="images-1/technologies.jpg" class="r-stretch"><p>To give shape to a block of raw material (<em>workpiece</em>) there are three possibilities:</p>
@@ -162,7 +167,7 @@ Paolo Bosetti
 <li>Build on it: <strong>additive manufacturing</strong> processes (motion axes: 2.5+)</li>
 </ul>
 </section>
-<section id="manufacturing-systems-1" class="slide level2">
+<section id="manufacturing-systems-2" class="slide level2">
 <h2>Manufacturing systems</h2>
 
 <img data-src="images-1/technologies.jpg" class="r-stretch"><ul>
@@ -173,12 +178,12 @@ Paolo Bosetti
 </section>
 <section id="subtractive-manufacturing-5-axes-milling" class="slide level2">
 <h2>Subtractive Manufacturing: 5-axes milling</h2>
-<video data-autoplay="" controls="" loop="" muted="" src="videos/subtractive-milling.mp4" style="max-height:540px; display:block; margin:auto">
+<video data-autoplay="" controls="" loop="" muted="" src="videos/subtractive-milling.mp4" style="width:100%; display:block; margin:auto">
 </video>
 </section>
 <section id="additive-manufacturing-5-axes-direct-laser-deposition" class="slide level2">
 <h2>Additive Manufacturing: 5-axes Direct Laser Deposition</h2>
-<video data-autoplay="" controls="" loop="" muted="" src="videos/additive-dld.mp4" style="max-height:540px; display:block; margin:auto">
+<video data-autoplay="" controls="" loop="" muted="" src="videos/additive-dld.mp4" style="width:100%; display:block; margin:auto">
 </video>
 </section>
 <section id="reference-case-turningmilling" class="slide level2">
@@ -187,20 +192,38 @@ Paolo Bosetti
 <li>The majority of products involve machining, either directly, or indirectly (dies are machined)</li>
 <li>Machining involves a combination of linear and rotary motions:
 <ul>
-<li>In turning, the workpiece is rotating, the tool is displacing</li>
-<li>In drilling and milling the tool is rotating and there is a combined relative displacement between tool and workpiece</li>
+<li>In <strong>turning</strong>, the workpiece is rotating, the tool is displacing</li>
+<li>In <strong>drilling and milling</strong> the tool is rotating and there is a combined relative displacement between tool and workpiece</li>
 </ul></li>
 </ul>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>Regardless the process, understanding its physics and the governing parameters is essential to design the manufacturing system and its control algorithms</p>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="the-subtractive-manufactiring-case" class="title-slide slide level1 center">
+<h1>The subtractive manufactiring case</h1>
+<p>Material removal processes and their control parameters</p>
 </section>
 <section id="machining-parameters" class="slide level2">
 <h2>Machining parameters</h2>
 <ul>
-<li>Mechanism of chip formation depends
+<li>Mechanism of <strong>chip formation</strong> depends
 <ul>
 <li>on the relative speed of tool and workpiece (<strong>cutting speed</strong>)</li>
-<li>on the cross section of removed material</li>
+<li>on the <em>cross section</em> of removed material</li>
 </ul></li>
-<li>Cutting speed and cross section (tool parameters) depend in turn on trajectory, rotary and translation speeds (machining parameters)</li>
+<li>Cutting speed and cross section (<strong>tool</strong> parameters) depend in turn on trajectory, rotary and translation speeds (<strong>machining</strong> parameters)</li>
 </ul>
 </section>
 <section id="turning" class="slide level2">
@@ -220,7 +243,7 @@ Paolo Bosetti
 </div><div class="column" style="width:55%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/turning-1.jpg" class="quarto-figure quarto-figure-center" height="300"></p>
+<p><img data-src="images-1/turning.jpg" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div></div>
@@ -229,7 +252,7 @@ Paolo Bosetti
 <h2>Drilling</h2>
 <p>Machining parameters to be calculated are <strong>spindle speed</strong>, <strong>feed rate</strong>, and <strong>spindle power</strong>:</p>
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column" style="width:40%;">
 <p><span class="math display">\[
 \begin{aligned}
 N &amp;= \frac{v}{\pi D} \\
@@ -239,20 +262,20 @@ A &amp;= \frac{D}{2}\tan\left(\frac{\pi - \theta}{2}\right) \\
 MRR &amp;= \frac{\pi D^2 f}{4}
 \end{aligned}
 \]</span></p>
-</div><div class="column" style="width:50%;">
+</div><div class="column" style="width:60%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/drilling-1.jpg" class="quarto-figure quarto-figure-center" height="280"></p>
+<p><img data-src="images-1/drilling.jpg" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div></div>
 </section>
 <section id="milling" class="slide level2">
 <h2>Milling</h2>
-<p>Machining parameters to be calculated are <strong>spindle speed</strong>, <strong>feed rate</strong>, and <strong>spindle power</strong>:</p>
+<p>Machining parameters to be calculated are <strong>spindle speed</strong>, <strong>feed rate</strong>, and <strong>spindle power</strong>. There are three types of milling:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/milling-side-face.jpg" class="quarto-figure quarto-figure-center" height="380"></p>
+<p><img data-src="images-1/milling.jpg" class="quarto-figure quarto-figure-center" height="400"></p>
 </figure>
 </div>
 </section>
@@ -265,21 +288,21 @@ MRR &amp;= \frac{\pi D^2 f}{4}
 N &amp;= \frac{v}{\pi D} \\
 f &amp;= N f_z z \\
 MRR &amp;= w d f \\
-A &amp;= \begin{cases} \sqrt{d(D-d)} &amp; \text{side milling} \\ \sqrt{w(D-w)} &amp; \text{face milling} \end{cases} \\
-T_m &amp;= \begin{cases} (L + A)/f &amp; \text{side milling} \\ (L + 2A)/f &amp; \text{face milling} \end{cases}
+A &amp;= \begin{cases} \sqrt{d(D-d)} &amp; \text{side milling} \\ \sqrt{w(D-w)} &amp; \text{face/end milling} \end{cases} \\
+T_m &amp;= \begin{cases} (L + A)/f &amp; \text{side milling} \\ (L + 2A)/f &amp; \text{face/end milling} \end{cases}
 \end{aligned}
 \]</span></p>
 </div><div class="column" style="width:45%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/milling-2.jpg" class="quarto-figure quarto-figure-center" height="280"></p>
+<p><img data-src="images-1/milling.jpg" class="quarto-figure quarto-figure-center"></p>
 </figure>
 </div>
 </div></div>
 </section>
 <section id="shopfloor-formulas" class="slide level2">
 <h2>Shopfloor formulas</h2>
-<table class="caption-top">
+<table class="table-striped caption-top">
 <colgroup>
 <col style="width: 25%">
 <col style="width: 25%">
@@ -348,7 +371,9 @@ T_m &amp;= \begin{cases} (L + A)/f &amp; \text{side milling} \\ (L + 2A)/f &amp;
 </section>
 <section id="example" class="slide level2">
 <h2>Example</h2>
-<p>We have to set up a milling process on Aluminum, which has <span class="math inline">\(p_s = 12.56\)</span> W min/cm³. The tool manufacturer suggests <span class="math inline">\(v = 1000\)</span> m/min and <span class="math inline">\(f_z = 0.1\)</span> mm/tooth. The mill has a diameter of 30 mm and does face milling with full overlapping, has 3 teeth and removes a layer of 2 mm.</p>
+<p>We have to set up a milling process on Aluminum, which has <span class="math inline">\(p_s = 12.56\)</span> W min/cm³</p>
+<p>The tool manufacturer suggests <span class="math inline">\(v = 1000\)</span> m/min and <span class="math inline">\(f_z = 0.1\)</span> mm/tooth</p>
+<p>The mill has a diameter of <span class="math inline">\(30\)</span> mm and does face milling with <strong>full overlapping</strong>, has <span class="math inline">\(3\)</span> teeth and removes a layer of <span class="math inline">\(2\)</span> mm</p>
 <p><span class="math display">\[
 \begin{aligned}
 N &amp;= \frac{v}{\pi D} = \frac{1000\ \text{m/min}}{\pi\, 30\ \text{mm}} = 10610\ \text{rpm} \\
@@ -357,6 +382,19 @@ MRR &amp;= w d f = 30\ \text{mm} \cdot 2\ \text{mm} \cdot 3183\ \text{mm/min} = 
 P &amp;= MRR\, p_s = 190.98\ \text{cm}^3/\text{min} \cdot 12.56\ \text{W min/cm}^3 \simeq 2.4\ \text{kW}
 \end{aligned}
 \]</span></p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>The machininst must always ensure that the required maximum power does not exceet that available at the spindle. If not, some of the machining parameters must be reduced (usually <span class="math inline">\(d\)</span> and or <span class="math inline">\(w\)</span>)</p>
+</div>
+</div>
+</div>
 </section>
 <section id="cutting-economics" class="slide level2">
 <h2>Cutting Economics</h2>
@@ -373,116 +411,239 @@ P &amp;= MRR\, p_s = 190.98\ \text{cm}^3/\text{min} \cdot 12.56\ \text{W min/cm}
 <h2>Tool wear</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/tool-wear.jpg" class="quarto-figure quarto-figure-center" height="500"></p>
+<p><img data-src="images-1/tool-wear.png" class="quarto-figure quarto-figure-center" height="500"></p>
 </figure>
 </div>
 </section>
-<section id="tool-wear-taylors-law" class="slide level2">
-<h2>Tool Wear: Taylor’s law</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
+<section id="tool-wear-1" class="slide level2">
+<h2>Tool wear</h2>
+<p>Tools are subject to <strong>wear</strong>. It can affect two parts of the tool:</p>
 <ul>
-<li><strong>Flank wear</strong> is the limiting process</li>
-<li>Taylor’s law (1907): <span class="math inline">\(vT^n = C\)</span>
+<li>the <span class="bred">flank</span>: it changes the geometry of the tool where it contacts the workpiece, so it progressively affects surface quality and dimensional accuracy</li>
+<li>the <span class="bblue">rake face</span>: it changes the geometry where the tool contacts the chip: it has no effect on the workpiece, but in the long run it weakens the tool and causes it to break</li>
+</ul>
+<p>If the tool and the cutting parameters are chosen correctly, flank wear occurs before rake face wear</p>
+<p>The wear law was formulated by Taylor: <span class="math inline">\(VT^n=K\)</span>, where:</p>
 <ul>
-<li><span class="math inline">\(n\)</span> depends on materials</li>
-<li><span class="math inline">\(C\)</span> depends on materials and failure criterion</li>
-</ul></li>
-<li><span class="math inline">\(v\)</span> is the cutting speed</li>
+<li><span class="math inline">\(V\)</span> is the cutting speed</li>
 <li><span class="math inline">\(T\)</span> is the tool life</li>
+<li><span class="math inline">\(n\)</span> and <span class="math inline">\(K\)</span> are material constants; <span class="math inline">\(K\)</span> also depends on the <strong>end-of-life criterion</strong> (application specific)</li>
 </ul>
-</div><div class="column" style="width:50%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/taylor.jpg" class="quarto-figure quarto-figure-center" height="350"></p>
-</figure>
-</div>
-</div></div>
 </section>
-<section id="optimal-cutting-speed" class="slide level2">
-<h2>Optimal cutting speed</h2>
+<section id="taylors-law" class="slide level2">
+<h2>Taylor’s law</h2>
+<p><span class="math inline">\(VT^n=K \rightarrow \log(V) - n\log(T) = \log(K) \rightarrow \log(T) = \frac{1}{n}\log(V) - \frac{1}{n}\log(K)\)</span></p>
 <div class="columns">
-<div class="column" style="width:38%;">
-<ul>
-<li><span class="math inline">\(C_p\)</span> = cost per piece</li>
-<li><span class="math inline">\(C_m\)</span> = machining cost</li>
-<li><span class="math inline">\(C_s\)</span> = setup cost</li>
-<li><span class="math inline">\(C_l\)</span> = loading cost</li>
-<li><span class="math inline">\(C_t\)</span> = tooling cost</li>
-<li><span class="math inline">\(L\)</span> = labour</li>
-<li><span class="math inline">\(O\)</span> = overhead</li>
-</ul>
-</div><div class="column" style="width:62%;">
-<p><span class="math display">\[
-\begin{aligned}
-C_p &amp;= C_m + C_s + C_l + C_t \\
-C_m &amp;= T_m (L_m + O_m) \\
-C_l &amp;= T_l (L_m + O_m) \\
-C_t &amp;= \frac{1}{N_p}\left[T_c(L_m + O_m) + T_g(L_g + O_g) + D_c\right] = \frac{1}{N_p} C_{t0} \\
-T_p &amp;= T_{s,l} + T_m + \frac{T_c}{N_p} \\
-V T^n &amp;= K
-\end{aligned}
-\]</span></p>
-<p><strong>Turning:</strong> <span class="math inline">\(T_m = \dfrac{L}{f_r N} = \dfrac{\pi L D}{f_r V}\)</span>, <span class="math inline">\(\quad N_p = \dfrac{T}{T_m} = \dfrac{f_r K^{1/n}}{\pi L D V^{1/n - 1}}\)</span></p>
-</div></div>
-<aside class="notes">
-<p>Cs è una figura fissa, in €/pezzo</p>
-<p>Tc: tempo cambio utensile</p>
-<p>Tg: tempo riaffilatura utensile</p>
-<p>Dc: deprezzamento utensile per riaffilatura</p>
-<p>n&lt;1</p>
-<p>Curve Costo vs velocità e tempo vs velocità</p>
-<p>Nota: utensili “integrati” (più lavorazioni in una) risparmiano tempo!</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="optimal-cutting-speed-1" class="slide level2">
-<h2>Optimal cutting speed</h2>
-<p>Setting <span class="math inline">\(\dfrac{\partial C_p}{\partial V} = 0\)</span>:</p>
-<p><span class="math display">\[
-V_o = \frac{K (L_m + O_m)^n}{\left\{[(1/n) - 1]\, C_{t0}\right\}^n}
-\qquad
-T_o = [(1/n) - 1]\, \frac{C_{t0}}{L_m + O_m}
-\]</span></p>
-<p>Setting <span class="math inline">\(\dfrac{\partial T_p}{\partial V} = 0\)</span> (maximum production rate):</p>
-<p><span class="math display">\[
-V_o = \frac{K}{[(1/n - 1)\, T_c]^n}
-\qquad
-T_o = (1/n - 1)\, T_c
-\]</span></p>
-</section>
-<section id="optimal-cutting-speed-2" class="slide level2">
-<h2>Optimal cutting speed</h2>
-<div class="quarto-figure quarto-figure-center">
+<div class="column">
+<div class="cell">
+<div class="cell-output-display">
+<div>
 <figure>
-<p><img data-src="images/optimal-speed-plot.jpg" class="quarto-figure quarto-figure-center" height="470"></p>
+<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-2-1.png" width="1500"></p>
 </figure>
 </div>
+</div>
+</div>
+</div><div class="column">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-3-1.png" width="1500"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
 </section>
-<section id="notes" class="slide level2">
-<h2>Notes</h2>
+<section id="productivity-optimization" class="slide level2">
+<h2>Productivity optimization</h2>
+<p>The costs of machining production are related to:</p>
 <ul>
-<li>Based on Taylor’s law</li>
-<li>expensive</li>
-<li>deterministic</li>
-<li>Homogeneous material</li>
-<li>Constant cutting parameters</li>
-<li>Complex machining requires process simulation (digital twin) and numerical optimization</li>
+<li>investments and <em>overhead</em> (<span class="rbold">fixed</span>)</li>
+<li>labor and raw materials (<span class="rgreen">variable</span>)</li>
+<li>cost per piece (<span class="rgreen">variable</span>)</li>
+</ul>
+<p>Costs are dependent variables. The process parameters are <strong>independent parameters</strong></p>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>We can ask whether there are process conditions that <span class="bgreen">maximize</span> productivity and/or <span class="bred">minimize</span> costs</p>
+</div>
+</div>
+</div>
+</section>
+<section id="productivity-optimization-turning" class="slide level2">
+<h2>Productivity optimization — Turning</h2>
+<div class="columns">
+<div class="column smaller" style="width:30%;">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(C_p\)</span></td>
+<td>Cost per piece</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(C_m\)</span></td>
+<td>Machining cost</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(C_s\)</span></td>
+<td>Setup cost</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(C_l\)</span></td>
+<td>Loading cost</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(C_t\)</span></td>
+<td>Tooling cost</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(L\)</span></td>
+<td>Labor cost</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(O\)</span></td>
+<td>Overhead</td>
+</tr>
+</tbody>
+</table>
+<p>In <strong>turning</strong>: <span class="math display">\[
+T_m = \frac{L}{fN}=\frac{\pi LD}{fV} \\
+N_p = \frac{T}{T_m} = \frac{fK^{1/n}}{\pi LDV^{1/n-1}}
+\]</span></p>
+</div><div class="column" style="width:70%;">
+<p><span class="math display">\[\begin{align}
+C_p &amp;= C_m + C_s + C_l + C_t \\
+C_m &amp;= T_m(L_m + O_m) \\
+C_l &amp;= T_l(L_m + O_m) \\
+C_t &amp;= \frac{1}{N_p}\left[T_c(L_m+O_m) + T_g(L_g+O_g) + D_c\right] = \frac{C_{t0}}{N_p} \\
+T_p &amp;= T_{s,l} + T_m + \frac{C_{t0}}{N_p}
+\end{align}\]</span></p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>We have <span class="math inline">\(C_p=C_p(V)\)</span> and <span class="math inline">\(T_p = T_p(V)\)</span>, so we can differentiate both to identify an optimal condition</p>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="productivity-optimization-turning-1" class="slide level2">
+<h2>Productivity optimization — Turning</h2>
+<div class="columns">
+<div class="column">
+<p><strong>Costs</strong>: <span class="math display">\[\begin{align}
+\frac{\partial C_p}{\partial V} &amp;= 0 \\
+V_{o,c} &amp;= \frac{K(L_m+O_m)^n}{[(1/n-1)C_{t0}]^n} \\
+T_{o,c} &amp;= (1/n -1)\frac{C_{t0}}{L_m+O_m}
+\end{align}\]</span></p>
+</div><div class="column">
+<p><strong>Times</strong>: <span class="math display">\[\begin{align}
+\frac{\partial T_p}{\partial V} &amp;= 0 \\
+V_{o,t} &amp;= \frac{K}{[(1/n-1)T_c]^n} \\
+T_{0,t} &amp;= (1/n -1)T_c
+\end{align}\]</span></p>
+</div></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>What do we optimize? Costs or times?</p>
+</div>
+</div>
+</div>
+</section>
+<section id="productivity-optimization-turning-2" class="slide level2">
+<h2>Productivity optimization — Turning</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>The optimal cutting speed <span class="math inline">\(V_{o,c}\)</span> corresponds to maximum economic efficiency</li>
+<li>However, when there are <strong>penalties for delays</strong> it may be worth producing at <span class="math inline">\(V_{o,t}\)</span>, because it is the speed that <strong>maximizes productivity</strong></li>
+<li>So, <span class="math inline">\(V\)</span> shall be normally set to <span class="math inline">\(V_{o,c}\)</span>, increasing it up to (but not above) <span class="math inline">\(V_{o,t}\)</span> if there are penalties for delays</li>
+</ul>
+</div><div class="column">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-4-1.png" width="1500"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="limits-of-analytical-process-models" class="slide level2">
+<h2>Limits of analytical process models</h2>
+<h3 id="orthogonal-cutting">Orthogonal cutting</h3>
+<ul>
+<li>Orthogonal cutting <strong>rarely applies</strong>. In most real machining operations chip formation is inherently 3-D</li>
+<li>The chip formation model is idealized. In reality:
+<ul>
+<li>the cutting edge is never perfectly sharp</li>
+<li>the shear plane does not have zero thickness</li>
+<li>deformation does not occur only on the shear plane, but also on the machined surface in contact with the cutting edge and between chip and tool</li>
+</ul></li>
+<li>The stress and strain field cannot be computed analytically</li>
+<li>There is no reliable <strong>thermal model</strong> that accounts for friction and plastic deformation as heat sources</li>
+<li>The strain rates involved <span class="math inline">\(\dot\gamma\)</span> are extreme: this makes it very difficult to identify the plastic properties of the material under similar conditions</li>
 </ul>
 </section>
+<section id="limits-of-analytical-process-models-1" class="slide level2">
+<h2>Limits of analytical process models</h2>
+<h3 id="taylors-law-1">Taylor’s law</h3>
+<ul>
+<li>It is an <strong>empirical model</strong>, i.e., it has no physical basis but rests on observation alone, so it cannot be calibrated from measurements of material properties</li>
+<li>It is an approximate law: more complete empirical laws exist in the form <span class="math inline">\(VT^nd^xf^y=K\)</span>, which account for other process parameters that have a much smaller influence than <span class="math inline">\(V\)</span> but still affect tool life</li>
+<li>It is <strong>expensive</strong> to calibrate:
+<ul>
+<li>the experimental procedure is necessarily slow and costly</li>
+<li><span class="math inline">\(n\)</span> depends on the workpiece material and on the tool material</li>
+<li><span class="math inline">\(K\)</span> depends on the <strong>end-of-life criterion</strong>, so it is user-specific (i.e., it cannot be found in tables)</li>
+</ul></li>
+<li>Even the more complete laws do not account for factors such as <strong>lubrication and cooling</strong></li>
+</ul>
+</section>
+<section id="economic-optimization" class="slide level2">
+<h2>Economic optimization</h2>
+<ul>
+<li>The analysis above depends on being able to <strong>express <span class="math inline">\(T_m(V)\)</span> analytically</strong>
+<ul>
+<li>This is possible <strong>only for elementary operations</strong> (e.g., cylindrical turning). For more complex operations the relation can only be computed point by point by simulating the process (via CAM or CNC functions, which entails <strong>considerable time and cost</strong>)</li>
+<li>It relies on the availability of a validated and reliable wear law</li>
+<li>It is worthwhile only for large and very large batches (economy of scale)</li>
+</ul></li>
+</ul>
+</section></section>
 <section>
 <section id="machine-tools" class="title-slide slide level1 center">
 <h1>Machine tools</h1>
-<p><em>Lathes and milling machines</em></p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/gantry-mill.jpg" height="320"></p>
@@ -519,7 +680,7 @@ T_o = (1/n - 1)\, T_c
 <h2>Parallel (engine) lathe</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/engine-lathe.jpg" class="quarto-figure quarto-figure-center" height="470"></p>
+<p><img data-src="images-1/engine-lathe-labeled.png" class="quarto-figure quarto-figure-center" height="470"></p>
 </figure>
 </div>
 </section>
@@ -552,6 +713,8 @@ T_o = (1/n - 1)\, T_c
 </section>
 <section id="cnc-lathe-1" class="slide level2">
 <h2>CNC lathe</h2>
+<div class="columns">
+<div class="column">
 <ul>
 <li>Direct-drive spindle</li>
 <li>Roller-turner (revolving) turret</li>
@@ -559,82 +722,89 @@ T_o = (1/n - 1)\, T_c
 <li>Inclined bed</li>
 <li>Lead screw</li>
 </ul>
+</div><div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images-1/cnc-lathe.png" class="quarto-figure quarto-figure-center" height="430"></p>
+</figure>
+</div>
+</div></div>
 </section>
 <section id="moveable-rest" class="slide level2">
 <h2>Moveable rest</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/moveable-rest.jpg" class="quarto-figure quarto-figure-center" height="470"></p>
+<p><img data-src="images-1/moveable-rest.jpg" class="quarto-figure quarto-figure-center" height="470"></p>
 </figure>
 </div>
 </section>
 <section id="moveable-rest-1" class="slide level2">
 <h2>Moveable rest</h2>
-<video data-autoplay="" controls="" loop="" muted="" src="videos/moveable-rest.mp4" style="max-height:480px; display:block; margin:auto">
+<video data-autoplay="" controls="" loop="" muted="" src="videos/moveable-rest.mp4" style="width: 100%; display:block; margin:auto">
 </video>
 </section>
 <section id="two-spindle-two-turrets-lathe" class="slide level2">
 <h2>Two-spindle, two turrets lathe</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/two-spindle.jpg" class="quarto-figure quarto-figure-center" height="470"></p>
+<p><img data-src="images-1/multiple-lathe.png" class="quarto-figure quarto-figure-center" height="470"></p>
 </figure>
 </div>
 </section>
 <section id="multiple-spindle-lathe" class="slide level2">
 <h2>Multiple spindle lathe</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/multi-spindle.jpg" class="quarto-figure quarto-figure-center" height="470"></p>
-</figure>
-</div>
-</section>
+
+<img data-src="images-1/multiple-spindle-1.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="multiple-spindle-lathe-1" class="slide level2">
 <h2>Multiple spindle lathe</h2>
-<video data-autoplay="" controls="" loop="" muted="" src="videos/multiple-spindle.mp4" style="max-height:480px; display:block; margin:auto">
+
+<img data-src="images-1/multiple-spindle-2.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="multiple-spindle-lathe-2" class="slide level2">
+<h2>Multiple spindle lathe</h2>
+<video data-autoplay="" controls="" loop="" muted="" src="videos/multiple-spindle.mp4" style="width: 100%; display:block; margin:auto">
 </video>
 </section>
-<section id="vertical-spindle" class="slide level2">
-<h2>Vertical spindle</h2>
+<section id="vertical-spindle-lathe" class="slide level2">
+<h2>Vertical spindle lathe</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/vertical-normal.jpg" height="380"></p>
+<p><img data-src="images/vertical-normal.jpg" height="480"></p>
 <figcaption>Normal</figcaption>
 </figure>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/vertical-inverted.jpg" height="380"></p>
+<p><img data-src="images/vertical-inverted.jpg" height="480"></p>
 <figcaption>Inverted spindle</figcaption>
 </figure>
 </div>
 </div></div>
 </section>
-<section id="vertical-spindle-1" class="slide level2">
-<h2>Vertical spindle</h2>
-<video data-autoplay="" controls="" loop="" muted="" src="videos/vertical-spindle.mp4" style="max-height:480px; display:block; margin:auto">
+<section id="vertical-spindle-lathe-1" class="slide level2">
+<h2>Vertical spindle lathe</h2>
+<video data-autoplay="" controls="" loop="" muted="" src="videos/vertrical-spindle.mp4" style="width: 100%; display:block; margin:auto">
 </video>
 </section>
 <section id="sliding-headstock" class="slide level2">
 <h2>Sliding headstock</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/sliding-headstock.jpg" class="quarto-figure quarto-figure-center" height="480"></p>
+<p><img data-src="images-1/sliding-headstock.png" class="quarto-figure quarto-figure-center" height="480"></p>
 </figure>
 </div>
 </section>
 <section id="sliding-headstock-1" class="slide level2">
 <h2>Sliding headstock</h2>
-<video data-autoplay="" controls="" loop="" muted="" src="videos/sliding-headstock.mp4" style="max-height:480px; display:block; margin:auto">
+<video data-autoplay="" controls="" loop="" muted="" src="videos/sliding-headstock.mp4" style="width: 100%; display:block; margin:auto">
 </video>
 </section>
 <section id="parameters" class="slide level2">
 <h2>Parameters</h2>
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column" style="width:40%;">
 <ul>
 <li>Slewing (<em>Brandeggio</em>)</li>
 <li>Turning diameter</li>
@@ -644,10 +814,10 @@ T_o = (1/n - 1)\, T_c
 <li>Rapid speeds</li>
 <li>Spindle torque and power</li>
 </ul>
-</div><div class="column" style="width:50%;">
+</div><div class="column" style="width:60%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/spindle-power.jpg" height="330"></p>
+<p><img data-src="images/spindle-power.jpg" style="width:80.0%"></p>
 <figcaption>ED = <em>Einschaltdauer</em> (operating time)</figcaption>
 </figure>
 </div>
@@ -673,7 +843,7 @@ T_o = (1/n - 1)\, T_c
 <ul>
 <li>Huge variety of architectures</li>
 <li>Common denominator: rotary tool</li>
-<li>From desktop size to 200 m³ footprint</li>
+<li>From desktop size to 200 m<span class="math inline">\(^3\)</span> footprint</li>
 <li>Some have rotary table and can do turning (hybrid mill-turn)</li>
 </ul>
 </div><div class="column" style="width:45%;">
@@ -684,23 +854,23 @@ T_o = (1/n - 1)\, T_c
 </div>
 </div></div>
 </section>
-<section id="types-of-milling-machines" class="slide level2 smaller">
+<section id="types-of-milling-machines" class="slide level2">
 <h2>Types of Milling Machines</h2>
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column" style="width:40%;">
 <ul>
-<li>CNC M.M.
+<li>CNC Milling Machines
 <ul>
 <li>Horizontal spindle</li>
 <li>Vertical spindle</li>
+</ul></li>
 <li>Milling centers
 <ul>
 <li>Universal</li>
 <li>Pallet changer</li>
 <li>Traveling column</li>
 </ul></li>
-</ul></li>
-<li>Architecture
+<li>Architectures
 <ul>
 <li>Cantilever</li>
 <li>Traveling column</li>
@@ -708,30 +878,47 @@ T_o = (1/n - 1)\, T_c
 <li>Parallel kinematics</li>
 </ul></li>
 </ul>
-</div><div class="column" style="width:25%;">
+</div><div class="column" style="width:30%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/cantilever.jpg" height="200"></p>
+<p><img data-src="images-1/cantilever.jpg" height="240"></p>
 <figcaption>Cantilever</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/travelling-column.jpg" height="200"></p>
+<p><img data-src="images-1/travelling-column.jpg" height="240"></p>
 <figcaption>Travelling column</figcaption>
 </figure>
 </div>
-</div><div class="column" style="width:25%;">
+</div><div class="column" style="width:30%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/gantry.jpg" height="200"></p>
+<p><img data-src="images-1/gantry.jpg" height="240"></p>
 <figcaption>Gantry</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/parallel-kinematics.jpg" height="200"></p>
+<p><img data-src="images-1/parallel-kinematics.jpg" height="240"></p>
 <figcaption>Parallel kinematics</figcaption>
+</figure>
+</div>
+</div></div>
+</section>
+<section id="universal-milling-center" class="slide level2">
+<h2>Universal milling center</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>Universl milling centers have a <strong>rotary table</strong> and a <strong>universal milling head</strong> that can be tilted and swiveled to machine any surface of the workpiece</li>
+<li>By rotating the axis at 45° from Z, the spindle axis can be changed from vertical to horizontal (<em>universal</em>)</li>
+</ul>
+</div><div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images-1/universal-head.jpg" height="400"></p>
+<figcaption>Universal milling head</figcaption>
 </figure>
 </div>
 </div></div>
@@ -754,20 +941,52 @@ T_o = (1/n - 1)\, T_c
 </div>
 </div></div>
 </section>
-<section id="vertical-spindle-2" class="slide level2">
+<section id="vertical-spindle" class="slide level2">
 <h2>Vertical spindle</h2>
+<div class="columns">
+<div class="column">
+<p><span class="bgreen">Pros</span>:</p>
 <ul>
 <li>Easy fixturing</li>
 <li>Reduced moveable mass</li>
 </ul>
+<p><strong>Cons</strong>:</p>
+<ul>
+<li>Chip disposal is more difficult</li>
+<li>Not suitable for machinind dies/cavities</li>
+</ul>
+</div><div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images-1/vertical-spindle.jpg"></p>
+<figcaption>Vertical spindle machine</figcaption>
+</figure>
+</div>
+</div></div>
 </section>
 <section id="horizontal-spindle" class="slide level2">
 <h2>Horizontal spindle</h2>
+<div class="columns">
+<div class="column">
+<p><span class="bgreen">Pros</span>:</p>
 <ul>
-<li>Better chip disposal</li>
+<li>Better chip/liquids disposal</li>
 <li>Large travels</li>
-<li>More difficult fixturing</li>
 </ul>
+<p><strong>Cons</strong>:</p>
+<ul>
+<li>More difficult fixturing</li>
+<li>More moveable mass (slower)</li>
+<li>more difficult to fixture</li>
+</ul>
+</div><div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images-1/horizontal-spindle.png"></p>
+<figcaption>Horizontal spindle machine</figcaption>
+</figure>
+</div>
+</div></div>
 </section>
 <section id="pallet-changer" class="slide level2">
 <h2>Pallet changer</h2>
@@ -781,7 +1000,8 @@ T_o = (1/n - 1)\, T_c
 </div><div class="column" style="width:65%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/pallet-changer.jpg" class="quarto-figure quarto-figure-center" height="400"></p>
+<p><img data-src="images-1/pallet-changer-machine.png"></p>
+<figcaption>Pallet changer</figcaption>
 </figure>
 </div>
 </div></div>
@@ -789,16 +1009,31 @@ T_o = (1/n - 1)\, T_c
 <section id="traveling-column" class="slide level2">
 <h2>Traveling column</h2>
 <div class="columns">
-<div class="column" style="width:40%;">
+<div class="column" style="width:50%;">
 <p>Suitable for:</p>
 <ul>
 <li>slender WP</li>
-<li>stocky WP but with two alternating fixturing zones</li>
+<li>stocky WP but with two alternating fixturing zones (higher productivity)</li>
 </ul>
-</div><div class="column" style="width:60%;">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Masked time</strong></p>
+</div>
+<div class="callout-content">
+<p>Any operation that can be performed in parallel to machining is said to happen in <em>masked time</em>. It’s cost is absorbed in the machining cost</p>
+<p>Other operations happen in <em>exposed time</em>, which is added to the machining cost</p>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/traveling-column.jpg" class="quarto-figure quarto-figure-center" height="400"></p>
+<p><img data-src="images-1/traveling-column.jpg"></p>
+<figcaption>Travelling column machine</figcaption>
 </figure>
 </div>
 </div></div>
@@ -807,14 +1042,15 @@ T_o = (1/n - 1)\, T_c
 <h2>Milling centers</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/milling-centers.jpg" class="quarto-figure quarto-figure-center" height="470"></p>
+<p><img data-src="images-1/dmu600p.jpg" height="500"></p>
+<figcaption>DMG Mori DMU600p linear</figcaption>
 </figure>
 </div>
 </section>
 <section id="parameters-1" class="slide level2">
 <h2>Parameters</h2>
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column" style="width:40%;">
 <ul>
 <li>Axes configuration</li>
 <li>Axes travels</li>
@@ -822,10 +1058,10 @@ T_o = (1/n - 1)\, T_c
 <li>Rapid speed</li>
 <li>Spindle torque and power</li>
 </ul>
-</div><div class="column" style="width:50%;">
+</div><div class="column" style="width:60%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/spindle-power.jpg" height="330"></p>
+<p><img data-src="images/spindle-power.jpg" style="width:80.0%"></p>
 <figcaption>ED = <em>Einschaltdauer</em> (operating time)</figcaption>
 </figure>
 </div>
@@ -1410,6 +1646,11 @@ T = \begin{bmatrix}
 </figure>
 </div>
 </div></div>
+</section></section>
+<section>
+<section id="section" class="title-slide slide level1 center" data-background-iframe="MillCoordinates/machine-frames.html" data-background-interactive="true">
+<h1></h1>
+
 </section>
 <section id="touch-probe" class="slide level2">
 <h2>Touch probe</h2>
@@ -2315,7 +2556,7 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
-<p>paolo.bosetti@unitn.it — <a href="./DigMan">/DigMan/</a></p>
+<p>paolo.bosetti@unitn.it — <a href="https://pbosetti.github.io/DigMan/">https://pbosetti.github.io/DigMan/</a></p>
 </div>
 </div></div>
 
@@ -2341,7 +2582,7 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
       // Full list of configuration options available at:
       // https://revealjs.com/config/
       Reveal.initialize({
-'controlsAuto': true,
+'controlsAuto': false,
 'previewLinksAuto': true,
 'pdfSeparateFragments': true,
 'autoAnimateEasing': "ease",
@@ -2353,7 +2594,7 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
 'smaller': false,
  
         // Display controls in the bottom right corner
-        controls: false,
+        controls: true,
 
         // Help the user learn the controls by providing hints, for example by
         // bouncing the down arrow when they first encounter a vertical slide
@@ -2637,7 +2878,7 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp('/' + window.location.host + '/');
+            var filterRegex = new RegExp("https:\/\/pbosetti\.github\.io\/DigMan\/");
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

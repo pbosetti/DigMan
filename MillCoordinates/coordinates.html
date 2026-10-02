@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./_ds/modernist-c924f199-cb51-461e-91db-6ac3f91c3eef/styles.css">
+<script src="./_ds/modernist-c924f199-cb51-461e-91db-6ac3f91c3eef/_ds_bundle.js"></script>
+<style>html,body{margin:0;background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);overflow:hidden}a{color:var(--color-accent-700)}a:hover{color:var(--color-accent)}</style>
+</helmet>
+<div style="position:fixed;inset:0;overflow:hidden;background:var(--color-bg);display:flex;align-items:center;justify-content:center">
+<div style="width:1152px;height:768px;flex:none;transform:scale({{ scale }});transform-origin:center;display:flex;flex-direction:column;background:var(--color-bg);border:2px solid var(--color-text);box-sizing:border-box">
+  <header style="display:flex;flex-direction:column;gap:2px;padding:var(--space-3) var(--space-4);border-bottom:2px solid var(--color-text)">
+    <h1 style="margin:0;font-family:var(--font-heading);font-weight:800;font-size:22px;letter-spacing:-0.01em">Coordinate frames — 3-axis vertical mill</h1>
+    <div style="font-size:13px;color:var(--color-neutral-700)">Table moves X and Y, spindle head moves Z. M is fixed to the machine frame; W is placed on the table and may be rotated about Z.</div>
+  </header>
+  <div style="flex:1;display:flex;min-height:0">
+    <div style="flex:none;width:712px;position:relative;border-right:2px solid var(--color-text);overflow:hidden">
+      <div ref="{{ mountRef }}" style="position:absolute;inset:0"></div>
+      <div style="position:absolute;left:var(--space-4);top:var(--space-4);display:flex;gap:var(--space-4);font-size:13px;font-weight:700;pointer-events:none">
+        <div style="display:flex;align-items:center;gap:6px"><span style="width:18px;height:4px;background:var(--color-accent)"></span>+X</div>
+        <div style="display:flex;align-items:center;gap:6px"><span style="width:18px;height:4px;background:var(--color-success)"></span>+Y</div>
+        <div style="display:flex;align-items:center;gap:6px"><span style="width:18px;height:4px;background:var(--color-accent-2)"></span>+Z</div>
+      </div>
+      <sc-if value="{{ loading }}" hint-placeholder-val="{{ true }}">
+        <div style="position:absolute;left:var(--space-4);bottom:var(--space-4);font-size:13px;color:var(--color-neutral-700)">Loading 3D scene…</div>
+      </sc-if>
+      <sc-if value="{{ hasTip }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;left:{{ tipX }};top:{{ tipY }};width:240px;padding:var(--space-3);background:var(--color-text);color:var(--color-bg);pointer-events:none;display:flex;flex-direction:column;gap:4px;box-shadow:var(--shadow-md)">
+          <div style="display:flex;align-items:center;gap:var(--space-2)">
+            <span style="width:22px;height:22px;background:var(--color-bg);color:var(--color-text);font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center">{{ tip.key }}</span>
+            <span style="font-weight:700;font-size:14px">{{ tip.name }}</span>
+          </div>
+          <div style="font-size:13px;line-height:1.4;text-wrap:pretty">{{ tip.desc }}</div>
+        </div>
+      </sc-if>
+      <div style="position:absolute;right:var(--space-4);bottom:var(--space-4);font-size:12px;color:var(--color-neutral-700);pointer-events:none">Hover a frame letter · drag to orbit · scroll to zoom</div>
+    </div>
+    <aside style="flex:1;min-width:0;display:flex;flex-direction:column">
+      <section style="padding:var(--space-3) var(--space-4);border-bottom:2px solid var(--color-text)">
+        <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:var(--space-2)">Workpiece frame W relative to M</div>
+        <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--space-2)">
+          <sc-for list="{{ wpFields }}" as="f" hint-placeholder-count="4">
+            <label style="display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:700">
+              <span>{{ f.label }}</span>
+              <input class="input" type="text" inputmode="decimal" data-field="{{ f.key }}" value="{{ f.val }}" onChange="{{ f.change }}" onBlur="{{ f.blur }}" onKeyDown="{{ f.enter }}" style="width:100%;box-sizing:border-box;min-width:0;padding-left:6px;padding-right:6px;font-size:14px;text-align:right;font-variant-numeric:tabular-nums">
+            </label>
+          </sc-for>
+        </div>
+        <div style="margin-top:var(--space-2);font-size:12px;color:var(--color-neutral-700)">Corner position (mm) with all axes at zero; θ about Z (°).</div>
+      </section>
+      <section style="padding:var(--space-3) var(--space-4);border-bottom:2px solid var(--color-text)">
+        <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:var(--space-2)">Homogeneous transformation <sup>M</sup>T<sub>W</sub></div>
+        <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px var(--space-3);padding:4px var(--space-3);border-left:2px solid var(--color-text);border-right:2px solid var(--color-text);font-variant-numeric:tabular-nums;font-size:14px">
+          <sc-for list="{{ htm }}" as="h" hint-placeholder-count="16">
+            <div style="text-align:right;font-weight:{{ h.w }};color:{{ h.c }}">{{ h.v }}</div>
+          </sc-for>
+        </div>
+      </section>
+      <section style="padding:var(--space-3) var(--space-4);border-bottom:2px solid var(--color-text)">
+        <label style="display:grid;grid-template-columns:minmax(0,1fr) 130px;gap:var(--space-3);align-items:center;font-size:14px">
+          <span style="display:flex;flex-direction:column;gap:2px">
+            <span style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em">Tool length</span>
+            <span>L = distance S → T (mm)</span>
+          </span>
+          <sc-for list="{{ lenFields }}" as="f" hint-placeholder-count="1">
+            <input class="input" type="text" inputmode="decimal" data-field="{{ f.key }}" value="{{ f.val }}" onChange="{{ f.change }}" onBlur="{{ f.blur }}" onKeyDown="{{ f.enter }}" style="width:100%;box-sizing:border-box;text-align:right;font-variant-numeric:tabular-nums">
+          </sc-for>
+        </label>
+      </section>
+      <section style="padding:var(--space-3) var(--space-4);flex:1">
+        <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:var(--space-2)">Commanded position (mm)</div>
+        <div style="display:grid;grid-template-columns:20px minmax(0,1fr) minmax(0,1fr);gap:var(--space-2) var(--space-3);align-items:center">
+          <div></div>
+          <div style="font-size:12px;font-weight:700">Machine · S in M</div>
+          <div style="font-size:12px;font-weight:700">Workpiece · T in W</div>
+          <sc-for list="{{ coordRows }}" as="r" hint-placeholder-count="3">
+            <div style="font-weight:800;font-size:15px">{{ r.axis }}</div>
+            <input class="input" type="text" inputmode="decimal" data-field="{{ r.m.key }}" value="{{ r.m.val }}" onChange="{{ r.m.change }}" onBlur="{{ r.m.blur }}" onKeyDown="{{ r.m.enter }}" style="width:100%;box-sizing:border-box;min-width:0;text-align:right;font-variant-numeric:tabular-nums">
+            <input class="input" type="text" inputmode="decimal" data-field="{{ r.w.key }}" value="{{ r.w.val }}" onChange="{{ r.w.change }}" onBlur="{{ r.w.blur }}" onKeyDown="{{ r.w.enter }}" style="width:100%;box-sizing:border-box;min-width:0;text-align:right;font-variant-numeric:tabular-nums">
+          </sc-for>
+        </div>
+        <div style="margin-top:var(--space-3);font-size:12px;color:var(--color-neutral-700);text-wrap:pretty">[X, Y, Z − L, 1]ᵀ = <sup>M</sup>T<sub>W</sub> · [x, y, z, 1]ᵀ. Edit either column; the other follows. Click a field and scroll to change it (Shift for fine steps). Changing W keeps the axes where they are; changing L keeps T where it is (Z compensates).</div>
+        <sc-if value="{{ outOfTravel }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:var(--space-2);font-size:12px;font-weight:700;color:var(--color-accent-700)">{{ travelMsg }}</div>
+        </sc-if>
+      </section>
+    </aside>
+  </div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1152,&quot;height&quot;:768},&quot;autoRotate&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;showVectors&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const SC = 0.01, M_Z = 4.8, TABLE_Z = 1.35, W_PX = 1152, H_PX = 768;
+const TRAVEL = { X: [-250, 250], Y: [-100, 100], Z: [-300, 0] };
+const DEF = { axes: [0, 0, -10], wp: [-80, -50, -280, 0], L: 120 };
+const rad = d => d * Math.PI / 180;
+const toAxes = (pW, wp, L) => { const c = Math.cos(rad(wp[3])), s = Math.sin(rad(wp[3]));
+  return [c*pW[0] - s*pW[1] + wp[0], s*pW[0] + c*pW[1] + wp[1], pW[2] + wp[2] + L]; };
+const fromAxes = (ax, wp, L) => { const c = Math.cos(rad(wp[3])), s = Math.sin(rad(wp[3]));
+  const q = [ax[0] - wp[0], ax[1] - wp[1], ax[2] - L - wp[2]];
+  return [c*q[0] + s*q[1], -s*q[0] + c*q[1], q[2]]; };
+const fmt = (v, d = 3) => (Math.abs(v) < 0.5 * Math.pow(10, -d) ? 0 : v).toFixed(d);
+const NUM = /^\s*[-+]?(\d+\.?\d*|\.\d+)\s*$/;
+const META = L => ({ M: ['Machine zero', 'Fixed to the machine frame: the point reached by S with all axes at zero.'],
+  W: ['Workpiece zero', 'On the part’s top-front-left corner. Placed on the table by the transform M→W and carried by the X and Y axes.'],
+  S: ['Spindle gauge point', 'Reference on the spindle nose. Its position in M is the machine coordinate.'],
+  T: ['Tool center point', `Cutter tip, L = ${fmt(L, 1)} mm below S. Its position in W is the workpiece coordinate.`] });
+
+class Component extends DCLogic {
+  state = (() => {
+    let s = null; try { s = JSON.parse(localStorage.getItem('mtf-htm')); } catch (e) {}
+    return { loading: true, drafts: {}, scale: 1, hover: null, axes: s?.axes || DEF.axes, wp: s?.wp || DEF.wp, L: s?.L || DEF.L };
+  })();
+  mountRef = React.createRef();
+
+  componentDidUpdate() {
+    const { axes, wp, L } = this.state;
+    localStorage.setItem('mtf-htm', JSON.stringify({ axes, wp, L }));
+  }
+
+  async componentDidMount() {
+    this.fit = () => this.setState({ scale: Math.min(window.innerWidth / W_PX, window.innerHeight / H_PX) });
+    window.addEventListener('resize', this.fit); this.fit();
+    this.onWheel = e => {
+      const t = e.target, k = t && t.dataset && t.dataset.field;
+      if (!k || document.activeElement !== t || !this.fmap[k]) return;
+      e.preventDefault();
+      const f = this.fmap[k];
+      const px = e.deltaMode === 1 ? e.deltaY * 33 : e.deltaY;
+      const n = Math.round((f.value - px * f.rate * (e.shiftKey ? 0.1 : 1)) * 1000) / 1000;
+      f.value = n; f.commit(n);
+      this.setState(st => { const dr = { ...st.drafts }; delete dr[k]; return { drafts: dr }; });
+    };
+    document.addEventListener('wheel', this.onWheel, { passive: false });
+    const THREE = await import('https://esm.sh/three@0.160.0');
+    const { OrbitControls } = await import('https://esm.sh/three@0.160.0/examples/jsm/controls/OrbitControls.js');
+    if (this.dead) return;
+    const el = this.mountRef.current;
+    for (let i = 0; i < 100 && !getComputedStyle(document.documentElement).getPropertyValue('--color-bg').trim(); i++) await new Promise(r => setTimeout(r, 50));
+    if (this.dead) return;
+    const css = getComputedStyle(document.documentElement);
+    const FB = { '--color-bg':'#f3f2f2','--color-text':'#201e1d','--color-accent':'#ec3013','--color-success':'#1ea93a','--color-accent-2':'#157fda',
+      '--color-neutral-100':'#f5f5f5','--color-neutral-200':'#e6e6e6','--color-neutral-300':'#d2d2d2','--color-neutral-400':'#b5b5b5','--color-neutral-500':'#979797','--color-neutral-700':'#5d5d5d','--color-neutral-800':'#414141' };
+    const v = n => css.getPropertyValue(n).trim() || FB[n] || '#888';
+    const c = n => new THREE.Color(v(n));
+    const col = { x: c('--color-accent'), y: c('--color-success'), z: c('--color-accent-2'), ink: c('--color-text'), bg: c('--color-bg') };
+    const inkHex = v('--color-text'), bgHex = v('--color-bg');
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setPixelRatio(Math.min(2, window.devicePixelRatio));
+    el.appendChild(renderer.domElement);
+    renderer.domElement.style.display = 'block';
+    const scene = new THREE.Scene();
+    scene.background = col.bg;
+    const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 200);
+    camera.up.set(0,0,1);
+    camera.position.set(9, -11, 7.5);
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.target.set(0, 0.6, 2.8);
+    controls.enableDamping = true;
+    controls.update();
+    scene.add(new THREE.HemisphereLight(0xffffff, 0x888888, 1.6));
+    const dl = new THREE.DirectionalLight(0xffffff, 1.4); dl.position.set(5,-6,10); scene.add(dl);
+    const dl2 = new THREE.DirectionalLight(0xffffff, 0.5); dl2.position.set(-6,4,3); scene.add(dl2);
+
+    const box = (parent, size, pos, colorVar) => {
+      const g = new THREE.BoxGeometry(...size);
+      const m = new THREE.Mesh(g, new THREE.MeshLambertMaterial({ color: c(colorVar) }));
+      m.position.set(...pos);
+      m.add(new THREE.LineSegments(new THREE.EdgesGeometry(g), new THREE.LineBasicMaterial({ color: col.ink, transparent: true, opacity: 0.55 })));
+      parent.add(m); return m;
+    };
+    const cyl = (parent, r1, r2, h, z, colorVar) => {
+      const g = new THREE.CylinderGeometry(r1, r2, h, 32);
+      const m = new THREE.Mesh(g, new THREE.MeshLambertMaterial({ color: c(colorVar) }));
+      m.rotation.x = Math.PI/2; m.position.z = z; parent.add(m); return m;
+    };
+
+    const grid = new THREE.GridHelper(20, 20, col.ink, col.ink);
+    grid.rotation.x = Math.PI/2; grid.material.transparent = true; grid.material.opacity = 0.12; scene.add(grid);
+
+    box(scene, [6,5.0,0.8], [0,0.5,0.4], '--color-neutral-300');
+    box(scene, [1.6,1.2,5.8], [0,2.4,3.7], '--color-neutral-300');
+    const saddle = new THREE.Group(); scene.add(saddle);
+    box(saddle, [3,1.8,0.4], [0,0,1.0], '--color-neutral-200');
+    const table = new THREE.Group(); scene.add(table);
+    box(table, [5,1.4,0.3], [0,0,0], '--color-neutral-400');
+    for (const y of [-0.4,0,0.4]) box(table, [5,0.08,0.02], [0,y,0.16], '--color-neutral-700');
+    const wpG = new THREE.Group(); table.add(wpG);
+    const block = box(wpG, [1,1,1], [0.8,0.5,-0.25], '--color-neutral-100');
+    const head = new THREE.Group(); scene.add(head);
+    box(head, [1.2,2.0,1.2], [0,0.9,0], '--color-neutral-200');
+    for (const x of [-0.45,0.45]) box(scene, [0.18,0.1,5.6], [x,1.77,3.6], '--color-neutral-500');
+    cyl(head, 0.32, 0.32, 1.71, -0.245, '--color-neutral-400');
+    cyl(head, 0.2, 0.2, 0.35, -1.275, '--color-neutral-700');
+    const cutter = cyl(head, 0.1, 0.1, 1, -1.875, '--color-neutral-800');
+
+    const label = (text, bg, fg, s) => {
+      const cv = document.createElement('canvas'); cv.width = cv.height = 128;
+      const x = cv.getContext('2d');
+      if (bg) { x.fillStyle = bg; x.fillRect(8,8,112,112); }
+      x.fillStyle = fg; x.font = '800 76px Archivo, system-ui, sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle';
+      x.fillText(text, 64, 68);
+      const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace;
+      const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, depthTest: false, transparent: true }));
+      sp.scale.set(s, s, 1); sp.renderOrder = 20; return sp;
+    };
+    const keyLabels = [];
+    const frame = (key, len, axisLabels) => {
+      const g = new THREE.Group();
+      const dirs = [[new THREE.Vector3(1,0,0), col.x, 'X'], [new THREE.Vector3(0,1,0), col.y, 'Y'], [new THREE.Vector3(0,0,1), col.z, 'Z']];
+      for (const [d, color, n] of dirs) {
+        const mat = new THREE.MeshBasicMaterial({ color, depthTest: false, transparent: true });
+        const shaft = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, len, 12), mat);
+        const tip = new THREE.Mesh(new THREE.ConeGeometry(0.07, 0.2, 16), mat);
+        const q = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0,1,0), d);
+        shaft.quaternion.copy(q); tip.quaternion.copy(q);
+        shaft.position.copy(d.clone().multiplyScalar(len/2));
+        tip.position.copy(d.clone().multiplyScalar(len + 0.1));
+        shaft.renderOrder = tip.renderOrder = 10;
+        g.add(shaft, tip);
+        if (axisLabels) { const l = label(n, null, '#' + color.getHexString(), 0.32); l.position.copy(d.clone().multiplyScalar(len + 0.35)); g.add(l); }
+      }
+      const dot = new THREE.Mesh(new THREE.SphereGeometry(0.06, 16, 12), new THREE.MeshBasicMaterial({ color: col.ink, depthTest: false, transparent: true }));
+      dot.renderOrder = 11; g.add(dot);
+      const l = label(key, inkHex, bgHex, 0.34); l.position.set(-0.22, -0.22, -0.12); l.userData.key = key; g.add(l); keyLabels.push(l);
+      return g;
+    };
+    const F = { M: frame('M', 0.9, true), W: frame('W', 0.7, true), S: frame('S', 0.5, false), T: frame('T', 0.5, false) };
+    F.M.position.set(0, 0, M_Z); scene.add(F.M);
+    wpG.add(F.W);
+    F.S.position.set(0, 0, -1.1); head.add(F.S);
+    head.add(F.T);
+
+    const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(6), 3));
+    const vDrop = new THREE.Line(g, new THREE.LineDashedMaterial({ color: col.ink, dashSize: 0.1, gapSize: 0.07, transparent: true, opacity: 0.85 }));
+    vDrop.frustumCulled = false; scene.add(vDrop);
+
+    const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
+    const cvs = renderer.domElement;
+    cvs.addEventListener('pointermove', e => {
+      const r = cvs.getBoundingClientRect();
+      ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+      ray.setFromCamera(ndc, camera);
+      const hit = ray.intersectObjects(keyLabels, false)[0];
+      const key = hit ? hit.object.userData.key : null;
+      cvs.style.cursor = key ? 'help' : '';
+      if (!key) { if (this.state.hover) this.setState({ hover: null }); return; }
+      const k = el.clientWidth / r.width;
+      this.setState({ hover: { key, x: (e.clientX - r.left) * k, y: (e.clientY - r.top) * k } });
+    });
+    cvs.addEventListener('pointerleave', () => this.state.hover && this.setState({ hover: null }));
+
+    const resize = () => { const w = el.clientWidth, h = el.clientHeight; if (!w || !h) return; renderer.setSize(w, h); camera.aspect = w/h; camera.updateProjectionMatrix();
+      const dist = 16.5 * Math.max(1, 1.25 / camera.aspect);
+      const dir = camera.position.clone().sub(controls.target).normalize();
+      camera.position.copy(controls.target).addScaledVector(dir, dist); controls.update(); };
+    this.ro = new ResizeObserver(resize); this.ro.observe(el); resize();
+
+    const tgt = () => { const { axes, wp, L } = this.state; return [...axes, ...wp, L]; };
+    const cur = tgt();
+    let last = performance.now();
+    const B = new THREE.Vector3(), Cc = new THREE.Vector3();
+    const tick = now => {
+      this.raf = requestAnimationFrame(tick);
+      const dt = Math.min(0.05, (now - last) / 1000); last = now;
+      const t = tgt(), k = 1 - Math.exp(-dt * 5);
+      for (let i = 0; i < cur.length; i++) cur[i] += (t[i] - cur[i]) * k;
+      const [X, Y, Z, dx, dy, dz, th, L] = cur;
+      saddle.position.y = -Y * SC;
+      table.position.set(-X * SC, -Y * SC, TABLE_Z);
+      head.position.set(0, 0, M_Z + Z * SC + 1.1);
+      const wz = M_Z + dz * SC - TABLE_Z;
+      wpG.position.set(dx * SC, dy * SC, wz); wpG.rotation.z = rad(th);
+      const h = Math.max(0.05, wz - 0.15);
+      block.scale.set(1.6, 1.0, h); block.position.set(0.8, 0.5, -h / 2);
+      const Ls = Math.max(0.4, L * SC), cl = Ls - 0.35;
+      cutter.scale.y = cl; cutter.position.z = -1.45 - cl / 2;
+      F.T.position.set(0, 0, -1.1 - L * SC);
+      scene.updateMatrixWorld();
+      F.T.getWorldPosition(Cc); B.set(Cc.x, Cc.y, TABLE_Z + 0.15);
+      const p = vDrop.geometry.attributes.position; p.setXYZ(0, Cc.x, Cc.y, Cc.z); p.setXYZ(1, B.x, B.y, B.z); p.needsUpdate = true; vDrop.computeLineDistances();
+      vDrop.visible = (this.props.showVectors ?? true) && Cc.z > B.z;
+      controls.autoRotate = this.props.autoRotate ?? false; controls.autoRotateSpeed = 0.6;
+      controls.update();
+      renderer.render(scene, camera);
+    };
+    this.setState({ loading: false });
+    this.raf = requestAnimationFrame(tick);
+    this.renderer = renderer;
+  }
+
+  componentWillUnmount() {
+    this.dead = true;
+    document.removeEventListener('wheel', this.onWheel);
+    window.removeEventListener('resize', this.fit);
+    cancelAnimationFrame(this.raf);
+    this.ro && this.ro.disconnect();
+    if (this.renderer) { this.renderer.dispose(); this.renderer.domElement.remove(); }
+  }
+
+  field(key, value, digits, commit, rate = 0.1) {
+    const d = this.state.drafts[key];
+    (this.fmap || (this.fmap = {}))[key] = { value, commit, rate };
+    return { key,
+      val: d ?? fmt(value, digits),
+      change: e => { const s = e.target.value;
+        this.setState(st => ({ drafts: { ...st.drafts, [key]: s } }));
+        if (NUM.test(s)) commit(parseFloat(s)); },
+      blur: () => this.setState(st => { const dr = { ...st.drafts }; delete dr[key]; return { drafts: dr }; }),
+      enter: e => { if (e.key === 'Enter') e.target.blur(); },
+    };
+  }
+
+  renderVals() {
+    const { axes, wp, L, loading, scale, hover } = this.state;
+    const pW = fromAxes(axes, wp, L);
+    const AX = ['X','Y','Z'];
+    const coordRows = AX.map((a, i) => ({
+      axis: a,
+      m: this.field('m' + a, axes[i], 3, n => this.setState(s => { const ax = [...s.axes]; ax[i] = n; return { axes: ax }; })),
+      w: this.field('w' + a, pW[i], 3, n => this.setState(s => { const p = fromAxes(s.axes, s.wp, s.L); p[i] = n; return { axes: toAxes(p, s.wp, s.L) }; })),
+    }));
+    const wpFields = ['X','Y','Z','θ (°)'].map((lab, i) => ({ label: lab,
+      ...this.field('wp' + i, wp[i], 3, n => this.setState(s => { const w = [...s.wp]; w[i] = n; return { wp: w }; }), i === 3 ? 0.05 : 0.1) }));
+    const lenFields = [this.field('L', L, 3, n => { if (n >= 40) this.setState(s => ({ L: n, axes: toAxes(fromAxes(s.axes, s.wp, s.L), s.wp, n) })); })];
+    const c = Math.cos(rad(wp[3])), s = Math.sin(rad(wp[3]));
+    const M = [[c, -s, 0, wp[0]], [s, c, 0, wp[1]], [0, 0, 1, wp[2]], [0, 0, 0, 1]];
+    const htm = M.flatMap((row, r) => row.map((v, k) => ({
+      v: k === 3 && r < 3 ? fmt(v, 3) : fmt(v, 4),
+      w: k === 3 && r < 3 ? '700' : '400',
+      c: r === 3 ? 'var(--color-neutral-500)' : 'var(--color-text)' })));
+    const off = AX.filter((a, i) => axes[i] < TRAVEL[a][0] || axes[i] > TRAVEL[a][1]);
+    const meta = META(L);
+    const tip = hover ? { key: hover.key, name: meta[hover.key][0], desc: meta[hover.key][1] } : { key: '', name: '', desc: '' };
+    const tx = hover ? (hover.x > 712 - 270 ? hover.x - 256 : hover.x + 16) : 0;
+    const ty = hover ? (hover.y > 560 ? hover.y - 130 : hover.y + 16) : 0;
+    return {
+      mountRef: this.mountRef, loading, scale, coordRows, wpFields, lenFields, htm,
+      hasTip: !!hover, tip, tipX: tx + 'px', tipY: ty + 'px',
+      outOfTravel: off.length > 0,
+      travelMsg: `Outside travel on ${off.join(', ')}. Limits: X ${TRAVEL.X.join('…')}, Y ${TRAVEL.Y.join('…')}, Z ${TRAVEL.Z.join('…')} mm.`,
+    };
+  }
+}
+</script>
+</body>
+</html>
