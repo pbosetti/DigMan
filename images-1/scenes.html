@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Machining Scenes</title>
+<!-- Interactive 3D figures for 1-machine_tools.qmd. Pick the scene with the URL hash:
+     #interp (interpolation types), #axes (number of controlled axes),
+     #machine (machine reference frame), #wp (workpiece origin).
+     Drag to orbit, scroll to zoom, double-click to reset the view. -->
+<style>
+  :root {
+    --bg: #ffffff;
+    --ink: #333333;
+    --muted: #777777;
+    --font: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  html, body { margin: 0; height: 100%; background: var(--bg); overflow: hidden; }
+  canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+  #hint {
+    position: absolute; right: 8px; bottom: 6px; font: 12px/1.2 var(--font); color: var(--muted);
+    pointer-events: none; user-select: none;
+  }
+  #err { position: absolute; inset: 0; display: grid; place-items: center; font: 14px var(--font); color: var(--ink); }
+  #err[hidden] { display: none; }
+</style>
+<script type="importmap">
+{ "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<div id="hint">drag to rotate · double-click to reset</div>
+<div id="err" hidden>3D view needs WebGL and an internet connection (three.js loads from a CDN).</div>
+<script type="module">
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+// ---------------------------------------------------------------- palette
+const C = {
+  steel: 0xc9d3dc, steelSide: 0x9fb0bf, trace: 0x34495e, traceDeep: 0x14202b,
+  shank: 0xb8b8b8, holder: 0xd8cf9a, cutter: 0xe08a1e, path: 0x880000, rapid: 0x008800,
+  frame: 0x666666, x: 0xc0392b, y: 0x27ae60, z: 0x2c3e90,
+};
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// machine coordinates (X right, Y back, Z up) -> three.js (Y up)
+const M = (x, y, z) => new THREE.Vector3(x, z, -y);
+
+// ---------------------------------------------------------------- helpers
+function textSprite(text, { size = 0.32, color = "#333333", weight = "500", italic = false } = {}) {
+  const c = document.createElement("canvas");
+  const ctx = c.getContext("2d");
+  const px = 96;
+  const font = `${italic ? "italic " : ""}${weight} ${px}px Helvetica, Arial, sans-serif`;
+  ctx.font = font;
+  c.width = Math.ceil(ctx.measureText(text).width) + 24;
+  c.height = px * 1.3;
+  ctx.font = font;
+  ctx.fillStyle = color;
+  ctx.textBaseline = "middle";
+  ctx.fillText(text, 12, c.height / 2);
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = 4;
+  const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, depthTest: false, transparent: true }));
+  s.scale.set(size * c.width / c.height, size, 1);
+  s.renderOrder = 10;
+  return s;
+}
+
+function datumSprite(size = 0.45) {
+  // origin symbol: circle with two opposite black quadrants
+  const c = document.createElement("canvas");
+  c.width = c.height = 128;
+  const g = c.getContext("2d"), r = 56;
+  g.translate(64, 64);
+  g.fillStyle = "#fff"; g.beginPath(); g.arc(0, 0, r, 0, 2 * Math.PI); g.fill();
+  g.fillStyle = "#000";
+  g.beginPath(); g.moveTo(0, 0); g.arc(0, 0, r, 0, Math.PI / 2); g.fill();
+  g.beginPath(); g.moveTo(0, 0); g.arc(0, 0, r, Math.PI, 1.5 * Math.PI); g.fill();
+  g.lineWidth = 8; g.beginPath(); g.arc(0, 0, r, 0, 2 * Math.PI); g.stroke();
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, depthTest: false }));
+  s.scale.set(size, size, 1);
+  s.renderOrder = 11;
+  return s;
+}
+
+function arrow(dir, origin, len, color, label) {
+  const g = new THREE.Group();
+  const ah = new THREE.ArrowHelper(dir.clone().normalize(), origin, len, color, 0.22, 0.12);
+  ah.traverse(o => { if (o.material) { o.material.depthTest = false; o.renderOrder = 9; } });
+  g.add(ah);
+  if (label) {
+    const t = textSprite(label, { size: 0.36, color: "#" + color.toString(16).padStart(6, "0"), weight: "700" });
+    t.position.copy(origin.clone().add(dir.clone().normalize().multiplyScalar(len + 0.3)));
+    g.add(t);
+  }
+  return g;
+}
+
+function triad(origin, len = 1.2, labels = ["X", "Y", "Z"]) {
+  const g = new THREE.Group();
+  g.add(arrow(M(1, 0, 0), origin, len, C.x, labels[0]));
+  g.add(arrow(M(0, 1, 0), origin, len, C.y, labels[1]));
+  g.add(arrow(M(0, 0, 1), origin, len, C.z, labels[2]));
+  return g;
+}
+
+const mat = (color, opts = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.55, metalness: 0.15, ...opts });
+
+function block(x0, y0, w, d, h) {
+  // workpiece with its top face at Z = 0
+  const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d),
+    [mat(C.steelSide), mat(C.steelSide), mat(C.steel), mat(C.steel), mat(C.steelSide), mat(C.steelSide)]);
+  m.position.copy(M(x0 + w / 2, y0 + d / 2, -h / 2));
+  const e = new THREE.LineSegments(new THREE.EdgesGeometry(m.geometry), new THREE.LineBasicMaterial({ color: 0x55606a }));
+  m.add(e);
+  return m;
+}
+
+function tool({ radius = 0.12, flute = 0.45, shank = 0.9, ball = false } = {}) {
+  // tool tip at the local origin, axis along +Y
+  const g = new THREE.Group();
+  const cut = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius, flute, 24), mat(C.cutter));
+  cut.position.y = flute / 2 + (ball ? radius : 0);
+  g.add(cut);
+  if (ball) {
+    const b = new THREE.Mesh(new THREE.SphereGeometry(radius, 24, 12), mat(C.cutter));
+    b.position.y = radius;
+    g.add(b);
+  }
+  const off = flute + (ball ? radius : 0);
+  const sh = new THREE.Mesh(new THREE.CylinderGeometry(radius * 1.05, radius * 1.05, shank, 24), mat(C.shank));
+  sh.position.y = off + shank / 2;
+  g.add(sh);
+  const cone = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.16, 0.7, 32), mat(C.holder));
+  cone.position.y = off + shank + 0.35;
+  g.add(cone);
+  const top = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.42, 0.3, 32), mat(C.holder));
+  top.position.y = off + shank + 0.85;
+  g.add(top);
+  return g;
+}
+
+// ---------------------------------------------------------------- animated toolpaths
+// A toolpath is a list of waypoints {p: [x, y, z], cut, n?: [nx, ny, nz]} in machine
+// coordinates; the tool moves at constant speed, rapids (cut = false) twice as fast.
+class PathAnim {
+  constructor(parent, wps, { radius = 0.12, ball = false, depthColor = null, surface = null } = {}) {
+    this.wps = wps.map(w => ({ p: M(...w.p), cut: w.cut, n: w.n ? M(...w.n).normalize() : M(0, 0, 1) }));
+    this.tool = tool({ radius, ball });
+    parent.add(this.tool);
+    // cumulative "time" along the path
+    this.t = [0];
+    for (let i = 1; i < this.wps.length; i++) {
+      const L = this.wps[i].p.distanceTo(this.wps[i - 1].p);
+      this.t.push(this.t[i - 1] + L / (this.wps[i].cut ? 1 : 2));
+    }
+    this.T = this.t[this.t.length - 1];
+    // drawn path: cutting moves in red, rapids in dashed green
+    const pts = this.wps.map(w => w.p);
+    for (let i = 1; i < pts.length; i++) {
+      const geo = new THREE.BufferGeometry().setFromPoints([pts[i - 1], pts[i]]);
+      const line = this.wps[i].cut
+        ? new THREE.Line(geo, new THREE.LineBasicMaterial({ color: C.path }))
+        : new THREE.Line(geo, new THREE.LineDashedMaterial({ color: C.rapid, dashSize: 0.08, gapSize: 0.06 }));
+      if (!this.wps[i].cut) line.computeLineDistances();
+      line.userData.t = this.t[i - 1];
+      line.visible = false;
+      line.renderOrder = 5;
+      line.material.depthTest = false;
+      parent.add(line);
+      (this.lines ??= []).push(line);
+    }
+    // machined trace: discs on the surface, revealed as the tool passes
+    const samples = [];
+    for (let i = 1; i < this.wps.length; i++) {
+      if (!this.wps[i].cut) continue;
+      const a = this.wps[i - 1], b = this.wps[i];
+      const n = Math.max(2, Math.ceil(a.p.distanceTo(b.p) / 0.04));
+      for (let k = 0; k <= n; k++) {
+        const u = k / n;
+        const p = a.p.clone().lerp(b.p, u), nn = a.n.clone().lerp(b.n, u).normalize();
+        samples.push({ p, n: nn, t: this.t[i - 1] + u * (this.t[i] - this.t[i - 1]) });
+      }
+    }
+    this.samples = samples;
+    const disc = new THREE.CircleGeometry(radius, 20);
+    this.trace = new THREE.InstancedMesh(disc, new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide }), samples.length);
+    const q = new THREE.Quaternion(), s = new THREE.Vector3(1, 1, 1), m4 = new THREE.Matrix4(), col = new THREE.Color();
+    samples.forEach((smp, i) => {
+      q.setFromUnitVectors(new THREE.Vector3(0, 0, 1), smp.n);
+      // the trace sits on the stock surface above the tip (or on the given surface)
+      const pos = smp.p.clone();
+      if (surface) pos.add(smp.n.clone().multiplyScalar(0.025));
+      else pos.y = 0.012;
+      m4.compose(pos, q, s);
+      this.trace.setMatrixAt(i, m4);
+      const depth = surface ? 0 : -smp.p.y;
+      col.set(depthColor ? depthColor(depth) : (depth > 0.45 ? C.traceDeep : C.trace));
+      this.trace.setColorAt(i, col);
+    });
+    this.trace.count = 0;
+    parent.add(this.trace);
+  }
+  update(time) {
+    const T = this.T, cyc = T * 1.25;              // pause at the end of each cycle
+    const tc = Math.min(time % cyc, T);
+    let i = 1;
+    while (i < this.t.length - 1 && this.t[i] < tc) i++;
+    const u = (tc - this.t[i - 1]) / Math.max(this.t[i] - this.t[i - 1], 1e-9);
+    const a = this.wps[i - 1], b = this.wps[i];
+    this.tool.position.copy(a.p).lerp(b.p, u);
+    const n = a.n.clone().lerp(b.n, u).normalize();
+    this.tool.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), n);
+    let k = 0;
+    while (k < this.samples.length && this.samples[k].t <= tc) k++;
+    this.trace.count = k;
+    this.lines.forEach(l => (l.visible = l.userData.t <= tc));
+  }
+}
+
+// ---------------------------------------------------------------- scenes
+const scenes = {};
+
+const W = (x, y, z, cut = true, n) => ({ p: [x, y, z], cut, n });
+const arcWps = (cx, cy, r, a0, a1, z, n = 24) =>
+  Array.from({ length: n + 1 }, (_, k) => {
+    const a = a0 + (a1 - a0) * k / n;
+    return W(cx + r * Math.cos(a), cy + r * Math.sin(a), z);
+  });
+
+// --- interpolation types: point to point, paraxial, continuous
+scenes.interp = (root) => {
+  const anims = [];
+  const H = 1.2;   // rapid height
+  const titles = ["Point to point", "Paraxial", "Continuous"];
+  const paths = [
+    // drilling: rapids between holes (uncoordinated), plunge and retract
+    [W(0.8, 0.8, H, false), W(0.8, 0.8, -0.6), W(0.8, 0.8, H, false), W(3.0, 1.0, H, false),
+     W(3.0, 1.0, -0.6), W(3.0, 1.0, H, false), W(2.2, 2.3, H, false), W(2.2, 2.3, -0.6), W(2.2, 2.3, H, false)],
+    // milling along one axis at a time
+    [W(0.7, 0.7, H, false), W(0.7, 0.7, -0.3, false), W(3.3, 0.7, -0.3), W(3.3, 2.3, -0.3), W(1.6, 2.3, -0.3),
+     W(1.6, 2.3, H, false)],
+    // any direction, including arcs
+    [W(0.7, 0.7, H, false), W(0.7, 0.7, -0.3, false), W(2.6, 0.7, -0.3), ...arcWps(2.6, 1.5, 0.8, -Math.PI / 2, Math.PI / 2, -0.3),
+     W(1.4, 2.3, -0.3), W(0.7, 0.7, -0.3), W(0.7, 0.7, H, false)],
+  ];
+  paths.forEach((wps, i) => {
+    const g = new THREE.Group();
+    g.position.copy(M(i * 5.2, 0, 0));
+    g.add(block(0, 0, 4, 3, 1.6));
+    anims.push(new PathAnim(g, wps, { radius: i === 0 ? 0.13 : 0.12 }));
+    const t = textSprite(titles[i], { size: 0.42, weight: "700" });
+    t.position.copy(M(2, -0.9, -1.9));
+    g.add(t);
+    root.add(g);
+  });
+  return { anims, zoom: 0.62, polar: 1.0, azim: -0.35 };
+};
+
+// --- number of controlled axes: 2, 2 1/2, 3, 5
+scenes.axes = (root) => {
+  const anims = [];
+  const H = 1.2;
+  // 2 axes: XY contour at a fixed depth
+  const two = [W(0.6, 0.6, H, false), W(0.6, 0.6, -0.3, false), W(3.4, 0.6, -0.3), W(3.4, 2.4, -0.3),
+    W(0.6, 2.4, -0.3), W(0.6, 0.6, -0.3), W(0.6, 0.6, H, false)];
+  // 2 1/2 axes: XY contours on two levels, Z moves only between them
+  const twoHalf = [W(0.6, 0.6, H, false), W(0.6, 0.6, -0.25, false), W(3.4, 0.6, -0.25), W(3.4, 2.4, -0.25),
+    W(0.6, 2.4, -0.25), W(0.6, 0.6, -0.25), W(1.3, 1.1, -0.25), W(1.3, 1.1, -0.6, false),
+    W(2.7, 1.1, -0.6), W(2.7, 1.9, -0.6), W(1.3, 1.9, -0.6), W(1.3, 1.1, -0.6), W(1.3, 1.1, H, false)];
+  // 3 axes: raster on a free-form surface, X, Y and Z move together (ball-end tool)
+  const f3 = (x, y) => 0.35 * Math.sin(x * 1.3) * Math.cos(y * 1.1) - 0.1;
+  const three = [W(0.3, 0.3, H, false), W(0.3, 0.3, f3(0.3, 0.3), false)];
+  for (let r = 0; r < 6; r++) {
+    const y = 0.3 + r * 0.48, xs = r % 2 ? [3.7, 0.3] : [0.3, 3.7];
+    for (let k = 0; k <= 30; k++) { const x = xs[0] + (xs[1] - xs[0]) * k / 30; three.push(W(x, y, f3(x, y))); }
+    if (r < 5) three.push(W(xs[1], y + 0.48, f3(xs[1], y + 0.48)));
+  }
+  three.push(W(three.at(-1).p[0], three.at(-1).p[1], H, false));
+  // 5 axes: tool kept normal to a cylindrical surface (axis along Y), tool axis tilts
+  const R = 2.6, cx = 2;
+  const five = [];
+  for (let r = 0; r < 4; r++) {
+    const y = 0.4 + r * 0.73, dir = r % 2 ? -1 : 1;
+    for (let k = 0; k <= 30; k++) {
+      const a = dir * (-0.75 + 1.5 * k / 30);
+      five.push(W(cx + R * Math.sin(a), y, R * Math.cos(a) - R + 0.0, true, [Math.sin(a), 0, Math.cos(a)]));
+    }
+  }
+  five[0].cut = false;
+  const s0 = five[0];
+  five.unshift(W(s0.p[0] + s0.n[0] * 1.5, s0.p[1], s0.p[2] + s0.n[2] * 1.5, false, s0.n));
+  const titles = ["2 axes", "2½ axes", "3 axes", "5 axes"];
+  [two, twoHalf, three, five].forEach((wps, i) => {
+    const g = new THREE.Group();
+    g.position.copy(M((i % 2) * 6.6, -(i >> 1) * 6.0, 0));
+    if (i < 2) g.add(block(0, 0, 4, 3, 1.4));
+    else if (i === 2) g.add(surfaceBlock(f3));
+    else g.add(cylBlock(cx, R));
+    anims.push(new PathAnim(g, wps, i >= 2 ? { ball: true, radius: 0.12, surface: true } : {}));
+    const t = textSprite(titles[i], { size: 0.45, weight: "700" });
+    t.position.copy(M(-1.1, 1.5, 0.2));
+    g.add(t);
+    root.add(g);
+  });
+  return { anims, zoom: 0.72, polar: 0.85, azim: -0.3 };
+};
+
+function surfaceBlock(f) {
+  // block whose top is the surface z = f(x, y), 4 x 3, bottom at z = -1.4
+  const g = new THREE.Group();
+  const nx = 40, ny = 30, w = 4, d = 3, zb = -1.4;
+  const top = new THREE.PlaneGeometry(w, d, nx, ny);
+  const pos = top.attributes.position;
+  for (let i = 0; i < pos.count; i++) {
+    const x = pos.getX(i) + w / 2, y = pos.getY(i) + d / 2;
+    const v = M(x, y, f(x, y));
+    pos.setXYZ(i, v.x, v.y, v.z);
+  }
+  top.computeVertexNormals();
+  g.add(new THREE.Mesh(top, mat(C.steel, { side: THREE.DoubleSide })));
+  // side walls following the surface
+  const wall = (pts) => {
+    const geo = new THREE.BufferGeometry(), arr = [];
+    for (let i = 0; i < pts.length - 1; i++) {
+      const [x0, y0] = pts[i], [x1, y1] = pts[i + 1];
+      const a = M(x0, y0, f(x0, y0)), b = M(x1, y1, f(x1, y1)), c = M(x1, y1, zb), e = M(x0, y0, zb);
+      arr.push(...a.toArray(), ...e.toArray(), ...b.toArray(), ...b.toArray(), ...e.toArray(), ...c.toArray());
+    }
+    geo.setAttribute("position", new THREE.Float32BufferAttribute(arr, 3));
+    geo.computeVertexNormals();
+    g.add(new THREE.Mesh(geo, mat(C.steelSide, { side: THREE.DoubleSide })));
+  };
+  const edge = (n, fn) => Array.from({ length: n + 1 }, (_, k) => fn(k / n));
+  wall(edge(nx, u => [u * w, 0]));
+  wall(edge(ny, u => [w, u * d]));
+  wall(edge(nx, u => [w - u * w, d]));
+  wall(edge(ny, u => [0, d - u * d]));
+  return g;
+}
+
+function cylBlock(cx, R) {
+  // block with a cylindrical top (axis along Y), 4 x 3
+  const g = new THREE.Group();
+  const a = Math.asin(2 / R);
+  const shape = new THREE.Shape();
+  shape.moveTo(0, -1.4);
+  shape.lineTo(4, -1.4);
+  for (let k = 0; k <= 40; k++) {
+    const t = a - 2 * a * k / 40;
+    shape.lineTo(cx + R * Math.sin(t), R * Math.cos(t) - R);
+  }
+  shape.lineTo(0, -1.4);
+  const geo = new THREE.ExtrudeGeometry(shape, { depth: 3, bevelEnabled: false, curveSegments: 40 });
+  const m = new THREE.Mesh(geo, [mat(C.steelSide), mat(C.steel)]);
+  // shape is in the XZ plane of the machine: map shape (x, z) -> machine (x, ., z), extrude along -Y(three Z)
+  m.rotation.set(0, 0, 0);
+  m.position.set(0, 0, -3);
+  g.add(m);
+  return g;
+}
+
+// --- machine reference frame on a bed-type milling machine
+scenes.machine = (root) => {
+  const add = (w, d, h, x, y, z, color) => {
+    const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat(color));
+    m.position.copy(M(x, y, z));
+    m.add(new THREE.LineSegments(new THREE.EdgesGeometry(m.geometry), new THREE.LineBasicMaterial({ color: 0x555555 })));
+    root.add(m);
+    return m;
+  };
+  add(7, 5, 1.2, 0, 0, -2.6, 0xbfc3a0);                 // bed
+  add(1.6, 1.6, 6, 0, 2.6, 0.8, 0xbfc3a0);              // column
+  const table = add(5, 3, 0.4, 0, -0.4, -1.8, 0xe2955a);  // table (X)
+  const ram = add(1.2, 3.6, 0.9, 0, 0.9, 3.2, 0xb7d35a);   // ram (Y)
+  const head = add(0.8, 0.8, 2.2, 0, -0.6, 2.2, 0x5b7fc8); // spindle head (Z)
+  // machine origin: where the support point (spindle nose) sits with all axes at 0
+  const home0 = M(0, -0.6, 1.05);
+  root.add(triad(home0, 1.6));
+  const o = datumSprite(0.55); o.position.copy(home0); root.add(o);
+  const l1 = textSprite("machine origin", { size: 0.5, italic: true, color: "#555555" });
+  l1.position.copy(M(-2.4, -0.6, 0.6)); root.add(l1);
+  // support point travels with the spindle head
+  const sp = datumSprite(0.4); sp.position.set(0, -1.1, 0); head.add(sp);
+  const l2 = textSprite("support point", { size: 0.45, italic: true, color: "#555555" });
+  l2.position.set(1.9, -1.1, 0); head.add(l2);
+  // gentle motion of the three axes, to show which part carries which axis
+  const anims = [{
+    update(t) {
+      const x = 0.9 * Math.sin(t * 0.6), y = 0.5 * Math.sin(t * 0.45 + 1), z = 0.4 * Math.sin(t * 0.8 + 2);
+      table.position.copy(M(x, -0.4, -1.8));
+      ram.position.copy(M(0, 0.9 + y, 3.2));
+      head.position.copy(M(0, -0.6 + y, 2.2 + z));
+    },
+  }];
+  return { anims, zoom: 0.8, polar: 1.15, azim: -0.6 };
+};
+
+// --- workpiece origin: block with a machined pocket, WP datum on a corner
+scenes.wp = (root) => {
+  root.add(block(0, 0, 4, 3, 1.6));
+  const wps = [W(1.0, 0.7, 1.2, false), W(1.0, 0.7, -0.4, false), W(2.4, 0.7, -0.4),
+    ...arcWps(2.4, 1.5, 0.8, -Math.PI / 2, Math.PI / 2, -0.4), W(1.0, 2.3, -0.4), W(1.0, 0.7, -0.4), W(1.0, 0.7, 1.2, false)];
+  const anim = new PathAnim(root, wps, { radius: 0.13 });
+  const d = datumSprite(0.55); d.position.copy(M(0, 0, 0)); root.add(d);
+  root.add(triad(M(0, 0, 0), 1.3, ["x", "y", "z"]));
+  const l = textSprite("WP origin", { size: 0.34, italic: true, color: "#555555" });
+  l.position.copy(M(-0.9, -0.5, 0.2)); root.add(l);
+  return { anims: [anim], zoom: 0.9, polar: 0.95, azim: -0.55 };
+};
+
+// ---------------------------------------------------------------- boot
+function boot() {
+  const name = (location.hash || "#interp").slice(1);
+  const build = scenes[name] ?? scenes.interp;
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.setClearColor(0xffffff, 1);
+  document.body.prepend(renderer.domElement);
+  const scene = new THREE.Scene();
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x8a8f99, 2.2));
+  const sun = new THREE.DirectionalLight(0xffffff, 1.6);
+  sun.position.set(6, 12, 8);
+  scene.add(sun);
+  const root = new THREE.Group();
+  scene.add(root);
+  const cfg = build(root);
+  const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 200);
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.enablePan = false;
+  // frame the whole scene: centre and radius of its bounding sphere
+  const sphere = new THREE.Box3().setFromObject(root).getBoundingSphere(new THREE.Sphere());
+  const home = () => {
+    const { polar, azim } = cfg;
+    const target = sphere.center;
+    const vfov = THREE.MathUtils.degToRad(camera.fov), hfov = 2 * Math.atan(Math.tan(vfov / 2) * camera.aspect);
+    const dist = (cfg.zoom ?? 0.8) * sphere.radius / Math.sin(Math.min(vfov, hfov) / 2);
+    controls.target.copy(target);
+    camera.position.set(
+      target.x + dist * Math.sin(polar) * Math.sin(azim),
+      target.y + dist * Math.cos(polar),
+      target.z + dist * Math.sin(polar) * Math.cos(azim));
+    controls.update();
+  };
+  renderer.domElement.addEventListener("dblclick", home);
+  const resize = () => {
+    const w = innerWidth, h = innerHeight;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    // keep the whole scene in view on narrow frames
+    camera.updateProjectionMatrix();
+    home();
+  };
+  addEventListener("resize", resize);
+  resize();
+  const clock = new THREE.Clock();
+  // with reduced motion, show the completed toolpaths without animation
+  const frame = () => {
+    const t = reduceMotion ? 1e6 : clock.getElapsedTime();
+    cfg.anims.forEach(a => a.update(reduceMotion ? (a.T ?? 0) : t));
+    controls.update();
+    renderer.render(scene, camera);
+    if (!document.hidden) requestAnimationFrame(frame);
+  };
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) requestAnimationFrame(frame); });
+  frame();
+}
+
+try { boot(); } catch (e) { console.error(e); document.getElementById("err").hidden = false; }
+</script>
+</body>
+</html>

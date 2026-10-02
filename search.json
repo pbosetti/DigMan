@@ -1222,7 +1222,7 @@
     "href": "1-machine_tools.html#plc-textual-languages",
     "title": "Digital Manufacturing – Part 1",
     "section": "PLC: Textual languages",
-    "text": "PLC: Textual languages"
+    "text": "PLC: Textual languages\n\n\n\n\nStructured Text (ST)\n\n(* motor start/stop with seal-in *)\nMotor := (Start_PB OR Motor)\n         AND NOT Stop_PB\n         AND NOT Overload;\nInlet_Valve := Motor AND NOT Level_Hi;\nT1(IN := Motor, PT := T#10s);\nIF T1.Q THEN\n  Run_Lamp := TRUE;\nEND_IF;\n\n\n\n\nInstruction List (IL)\n\nLD   Start_PB\nOR   Motor\nANDN Stop_PB\nANDN Overload\nST   Motor\nLD   Motor\nANDN Level_Hi\nST   Inlet_Valve\nCAL  T1(IN := Motor, PT := T#10s)\nLD   T1.Q\nS    Run_Lamp"
   },
   {
     "objectID": "1-machine_tools.html#numerical-control",
@@ -1278,7 +1278,7 @@
     "href": "1-machine_tools.html#machine-reference-frame",
     "title": "Digital Manufacturing – Part 1",
     "section": "Machine reference frame",
-    "text": "Machine reference frame\n\n\n\n\n\n\n\n\n\nEncoders give raw distance of spindle nose wrt machine reference\nMachine reference position is defined by manufacturer\nAxes drivers work in machine coordinates"
+    "text": "Machine reference frame\n\n\n\n\n\n\nEncoders give raw distance of spindle nose wrt machine reference\nMachine reference position is defined by manufacturer\nAxes drivers work in machine coordinates"
   },
   {
     "objectID": "1-machine_tools.html#machine-reference-points",
@@ -1467,21 +1467,21 @@
     "href": "1-machine_tools.html#profiling-1",
     "title": "Digital Manufacturing – Part 1",
     "section": "Profiling",
-    "text": "Profiling\nDiscrete time-base (clock)\n\n\n\n\n\n\\[\n\\Delta t_1 = \\frac{f_m - f_s}{a}, \\quad\n\\Delta t_2 = \\frac{f_m - f_e}{d}, \\quad\n\\Delta t_m = \\frac{l}{f_m} - \\Delta t_1 \\frac{f_m + f_s}{2 f_m} - \\Delta t_2 \\frac{f_e + f_m}{2 f_m}\n\\]\n\\[\n\\Delta t^* = \\mathrm{int}\\left(\\frac{\\Delta t}{t_q} + 1\\right) t_q = \\Delta t_1 + \\Delta t_m^* + \\Delta t_2, \\qquad\n\\Delta t_m^* = \\Delta t_m + \\Delta t^* - \\Delta t\n\\]"
+    "text": "Profiling\nDiscrete time-base (clock)\n\n\n\n\n\n\n\n\n\n\\[\n\\Delta t_1 = \\frac{f_m - f_s}{a}, \\quad\n\\Delta t_2 = \\frac{f_m - f_e}{d}, \\quad\n\\Delta t_m = \\frac{l}{f_m} - \\Delta t_1 \\frac{f_m + f_s}{2 f_m} - \\Delta t_2 \\frac{f_e + f_m}{2 f_m}\n\\]\n\\[\n\\Delta t^* = \\mathrm{int}\\left(\\frac{\\Delta t}{t_q} + 1\\right) t_q = \\Delta t_1 + \\Delta t_m^* + \\Delta t_2, \\qquad\n\\Delta t_m^* = \\Delta t_m + \\Delta t^* - \\Delta t\n\\]"
   },
   {
     "objectID": "1-machine_tools.html#profiling-2",
     "href": "1-machine_tools.html#profiling-2",
     "title": "Digital Manufacturing – Part 1",
     "section": "Profiling",
-    "text": "Profiling\nDiscrete time-base (clock)\n\n\n\n\n\n\\[\n\\int_{t_s}^{t_e} f(\\tau)\\,\\mathrm{d}\\tau = \\frac{\\Delta t_1}{2}(f_m^* + f_s) + \\Delta t_m^* f_m^* + \\frac{\\Delta t_2}{2}(f_m^* + f_e) = l\n\\]\n\\[\nf_m^* = \\frac{2l - f_s \\Delta t_1 - f_e \\Delta t_2}{\\Delta t_1 + \\Delta t_2 + 2\\Delta t_m^*}, \\qquad\na^* = \\frac{f_m^* - f_s}{\\Delta t_1}, \\qquad\nd^* = \\frac{f_e - f_m^*}{\\Delta t_2}\n\\]"
+    "text": "Profiling\nDiscrete time-base (clock)\n\n\n\n\n\n\n\n\n\n\\[\n\\int_{t_s}^{t_e} f(\\tau)\\,\\mathrm{d}\\tau = \\frac{\\Delta t_1}{2}(f_m^* + f_s) + \\Delta t_m^* f_m^* + \\frac{\\Delta t_2}{2}(f_m^* + f_e) = l\n\\]\n\\[\nf_m^* = \\frac{2l - f_s \\Delta t_1 - f_e \\Delta t_2}{\\Delta t_1 + \\Delta t_2 + 2\\Delta t_m^*}, \\qquad\na^* = \\frac{f_m^* - f_s}{\\Delta t_1}, \\qquad\nd^* = \\frac{f_e - f_m^*}{\\Delta t_2}\n\\]"
   },
   {
     "objectID": "1-machine_tools.html#profiling-3",
     "href": "1-machine_tools.html#profiling-3",
     "title": "Digital Manufacturing – Part 1",
     "section": "Profiling",
-    "text": "Profiling\nShort segments, \\(\\Delta t_m \\le 0\\)\n\n\n\n\n\n\n\n\n\\[\n\\int_{t_s}^{t_e} f(\\tau)\\,\\mathrm{d}\\tau = \\frac{a\\Delta t_1^2 + d\\Delta t_2^2}{2}; \\quad a\\Delta t_1 = d\\Delta t_2\n\\]\n\\[\n\\frac{\\Delta t_1^2 (a + a^2/d)}{2} = l\n\\]\n\n\\[\n\\begin{aligned}\n\\Delta t_1 &= \\sqrt{\\frac{2l}{a + a^2/d}} \\\\\n\\Delta t_2 &= \\frac{a}{d}\\Delta t_1 \\\\\n\\Delta t_2^* &= \\Delta t^* - \\Delta t_1\n\\end{aligned}\n\\qquad\nf_m^*(\\Delta t_1 + \\Delta t_2^*) = 2l\n\\qquad\n\\begin{aligned}\na^* &= \\frac{f_m^* - f_s}{\\Delta t_1} \\\\\nd^* &= \\frac{f_e - f_m^*}{\\Delta t_2^*}\n\\end{aligned}\n\\]"
+    "text": "Profiling\nShort segments, \\(\\Delta t_m \\le 0\\)\n\n\n\n\n\n\n\n\n\n\n\n\n\\[\n\\int_{t_s}^{t_e} f(\\tau)\\,\\mathrm{d}\\tau = \\frac{a\\Delta t_1^2 + d\\Delta t_2^2}{2}; \\quad a\\Delta t_1 = d\\Delta t_2\n\\]\n\\[\n\\frac{\\Delta t_1^2 (a + a^2/d)}{2} = l\n\\]\n\n\\[\n\\begin{aligned}\n\\Delta t_1 &= \\sqrt{\\frac{2l}{a + a^2/d}} \\\\\n\\Delta t_2 &= \\frac{a}{d}\\Delta t_1 \\\\\n\\Delta t_2^* &= \\Delta t^* - \\Delta t_1\n\\end{aligned}\n\\qquad\nf_m^*(\\Delta t_1 + \\Delta t_2^*) = 2l\n\\qquad\n\\begin{aligned}\na^* &= \\frac{f_m^* - f_s}{\\Delta t_1} \\\\\nd^* &= \\frac{f_e - f_m^*}{\\Delta t_2^*}\n\\end{aligned}\n\\]"
   },
   {
     "objectID": "1-machine_tools.html#motion-interpolation",
