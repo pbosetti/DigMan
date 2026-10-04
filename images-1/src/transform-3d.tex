@@ -1,0 +1,44 @@
+% Workpiece frame to machine frame, including tool length
+\documentclass[dvisvgm,tikz,border=4pt]{standalone}
+\input{preamble}
+\begin{document}
+\begin{tikzpicture}[x={(0.87cm,-0.5cm)}, y={(-0.87cm,-0.5cm)}, z={(0cm,1cm)}, font=\Large]
+  \coordinate (Om) at (0,0,5);       % machine origin
+  \coordinate (Ow) at (3.4,1.2,0);   % workpiece origin
+  \def\th{25}                        % workpiece rotation about z
+  % workpiece block: top face at z=0, visible faces at x=3 and y=2.2 (local)
+  \begin{scope}[shift={(Ow)}, rotate around z=\th]
+    \filldraw[thick, fill=steel!90] (3,0,0) -- (3,2.2,0) -- (3,2.2,-1.2) -- (3,0,-1.2) -- cycle;
+    \filldraw[thick, fill=steeldk!70] (0,2.2,0) -- (3,2.2,0) -- (3,2.2,-1.2) -- (0,2.2,-1.2) -- cycle;
+    \filldraw[thick, fill=steel!45] (0,0,0) -- (3,0,0) -- (3,2.2,0) -- (0,2.2,0) -- cycle;
+    \draw[->, thick, dmblue] (0,0,0) -- (1.9,0,0) node[above right] {$x$};
+    \draw[->, thick, dmblue] (0,0,0) -- (0,1.7,0) node[below] {$y$};
+    \draw[->, thick, dmblue] (0,0,0) -- (0,0,1.5) node[above] {$z$};
+  \end{scope}
+  \node[left=13pt, yshift=9pt] at (Ow) {$O_{wp}$};
+  % machine frame
+  \draw[->, thick] (Om) -- ++(2.0,0,0) node[right] {$X$};
+  \draw[->, thick] (Om) -- ++(0,2.0,0) node[left] {$Y$};
+  \draw[->, thick] (Om) -- ++(0,0,1.5) node[above] {$Z$};
+  \node[above right=8pt] at (Om) {$O_m$};
+  % components of d
+  \draw[proj, dmred!80] (Om) -- node[left, black, font=\large] {$d_z$} (0,0,0)
+     -- node[below left=-2pt, black, font=\large] {$d_x$} (3.4,0,0)
+     -- node[below right=-2pt, black, font=\large] {$d_y$} (Ow);
+  \draw[->, line width=1.6pt, dmred, shorten <=0.32cm, shorten >=0.32cm] (Om) -- node[pos=0.45, right=3pt] {$\mathbf{d}$} (Ow);
+  % tool hanging from the spindle nose: registration point and length
+  \begin{scope}[shift={(-1.6,2.6,5)}, x={(1cm,0cm)}, y={(0cm,1cm)}]
+    \fill[metal] (-0.3,0) rectangle (0.3,-2.4);
+    \fill[dmorange] (-0.3,-1.8) rectangle (0.3,-2.4);
+    \fill[dmorange] (0,-2.4) ellipse [x radius=0.3, y radius=0.15];
+    \draw[thick] (-0.3,0) -- (-0.3,-2.4) arc[start angle=180, end angle=360, x radius=0.3, y radius=0.15] -- (0.3,0);
+    \filldraw[thick, fill=metal!60] (0,0) ellipse [x radius=0.3, y radius=0.15];
+    \pic at (0,0) {regpt};
+    \draw[ext] (0.45,0) -- (1.3,0) (0.4,-2.4) -- (1.3,-2.4);
+    \draw[dim] (1.1,0) -- node[right] {$l_t$} (1.1,-2.4);
+  \end{scope}
+  % reference symbols on top of everything
+  \pic at (Ow) {wporigin};
+  \pic at (Om) {machorigin};
+\end{tikzpicture}
+\end{document}

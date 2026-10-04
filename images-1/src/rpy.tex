@@ -1,0 +1,23 @@
+% Roll, pitch, yaw rotations about x, y, z
+\documentclass[dvisvgm,tikz,border=4pt]{standalone}
+\input{preamble}
+\begin{document}
+\begin{tikzpicture}[x={(-0.62cm,-0.5cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}, font=\huge, line width=1.2pt]
+  \draw[->, very thick] (0,0,0) -- (4.2,0,0) node[below left] {$x$};
+  \draw[->, very thick] (0,0,0) -- (0,4.2,0) node[right] {$y$};
+  \draw[->, very thick] (0,0,0) -- (0,0,4.2) node[above] {$z$};
+  % rotation arrows: circles in the plane normal to each axis
+  \begin{scope}[canvas is yz plane at x=3.0]
+    \draw[->, thick, dmred] (0:0.45) arc[start angle=0, end angle=300, radius=0.45];
+  \end{scope}
+  \begin{scope}[canvas is xz plane at y=3.2]
+    \draw[->, thick, dmgreen] (0:0.45) arc[start angle=0, end angle=300, radius=0.45];
+  \end{scope}
+  \begin{scope}[canvas is xy plane at z=3.2]
+    \draw[->, thick, dmblue] (0:0.5) arc[start angle=0, end angle=300, radius=0.5];
+  \end{scope}
+  \node[dmred, anchor=east] at (2.3,-0.9,0.1) {Roll $\gamma$};
+  \node[dmgreen, anchor=north]     at (0,3.2,-0.7)   {Pitch $\beta$};
+  \node[dmblue, anchor=west]       at (0,0.75,3.2)   {Yaw $\alpha$};
+\end{tikzpicture}
+\end{document}

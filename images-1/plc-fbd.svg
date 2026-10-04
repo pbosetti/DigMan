@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-6 -6 892 512" width="892" height="512" font-family="Helvetica, Arial, sans-serif">
+<defs></defs>
+<rect x="230" y="30" width="90" height="86" rx="0" fill="#e8e8f8" stroke="#000088" stroke-width="1.5"/>
+<text x="275" y="46" font-size="15" text-anchor="middle" fill="#333333" font-weight="bold" font-family="Helvetica, Arial, sans-serif" dominant-baseline="middle">OR</text>
+<text x="237" y="73" font-size="12" text-anchor="start" fill="#333333" font-family="Helvetica, Arial, sans-serif" dominant-baseline="middle">IN1</text>
+<text x="237" y="99" font-size="12" text-anchor="start" fill="#333333" font-family="Helvetica, Arial, sans-serif" dominant-baseline="middle">IN2</text>
+<text x="313" y="73" font-size="12" text-anchor="end" fill="#333333" font-family="Helvetica, Arial, sans-serif" dominant-baseline="middle">OUT</text>
+<text x="150" y="99" font-size="15" text-anchor="end" fill="#000088" font-weight="bold" font-family="'Courier New', Courier, monospace" dominant-baseline="middle">Start_PB</text>
+<polyline points="156,99 230,99" stroke="#333333" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+<rect x="430" y="110" width="90" height="112" rx="0" fill="#e8e8f8" stroke="#000088" stroke-width="1.5"/>
+<text x="475" y="126" font-size="15" text-anchor="middle" fill="#333333" font-weight="bold" font-family="Helvetica, Arial, sans-serif" dominant-baseline="middle">AND</text>
+<text x="437" y="153" font-size="12" text-anchor="start" fill="#333333" font-family="Helvetica, Arial, sans-serif" dominant-baseline="middle">IN1</text>
+<text x="437" y="179" font-size="12" text-anchor="start" fill="#333333" font-family="Helvetica, Arial, sans-serif" dominant-baseline="middle">IN2</text>
+<circle cx="425" cy="179" r="5" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="437" y="205" font-size="12" text-anchor="start" fill="#333333" font-family="Helvetica, Arial, sans-serif" dominant-baseline="middle">IN3</text>
+<circle cx="425" cy="205" r="5" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="513" y="153" font-size="12" text-anchor="end" fill="#333333" font-family="Helvetica, Arial, sans-serif" dominant-baseline="middle">OUT</text>
+<polyline points="320,73 380,73 380,153 430,153" stroke="#333333" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+<text x="150" y="179" font-size="15" text-anchor="end" fill="#000088" font-weight="bold" font-family="'Courier New', Courier, monospace" dominant-baseline="middle">Stop_PB</text>
+<polyline points="156,179 420,179" stroke="#333333" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+<text x="150" y="205" font-size="15" text-anchor="end" fill="#000088" font-weight="bold" font-family="'Courier New', Courier, monospace" dominant-baseline="middle">Overload</text>
+<polyline points="156,205 420,205" stroke="#333333" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+<text x="710" y="153" font-size="15" text-anchor="start" fill="#008800" font-weight="bold" font-family="'Courier New', Courier, monospace" dominant-baseline="middle">Motor</text>
+<polyline points="520,153 704,153" stroke="#333333" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+<circle cx="640" cy="153" r="3.5" fill="#333333" stroke="none" stroke-width="0"/>
+<polyline points="640,153 640,10 200,10 200,73 230,73" stroke="#333333" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+<rect x="430" y="270" width="90" height="86" rx="0" fill="#e8e8f8" stroke="#000088" stroke-width="1.5"/>
+<text x="475" y="286" font-size="15" text-anchor="middle" fill="#333333" font-weight="bold" font-family="Helvetica, Arial, sans-serif" dominant-baseline="middle">AND</text>
+<text x="437" y="313" font-size="12" text-anchor="start" fill="#333333" font-family="Helvetica, Arial, sans-serif" dominant-baseline="middle">IN1</text>
+<text x="437" y="339" font-size="12" text-anchor="start" fill="#333333" font-family="Helvetica, Arial, sans-serif" dominant-baseline="middle">IN2</text>
+<circle cx="425" cy="339" r="5" fill="#ffffff" stroke="#333333" stroke-width="1.4"/>
+<text x="513" y="313" font-size="12" text-anchor="end" fill="#333333" font-family="Helvetica, Arial, sans-serif" dominant-baseline="middle">OUT</text>
+<polyline points="610,153 610,250 395,250 395,313 430,313" stroke="#333333" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+<circle cx="610" cy="153" r="3.5" fill="#333333" stroke="none" stroke-width="0"/>
+<text x="150" y="339" font-size="15" text-anchor="end" fill="#000088" font-weight="bold" font-family="'Courier New', Courier, monospace" dominant-baseline="middle">Level_Hi</text>
+<polyline points="156,339 420,339" stroke="#333333" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+<text x="710" y="313" font-size="15" text-anchor="start" fill="#008800" font-weight="bold" font-family="'Courier New', Courier, monospace" dominant-baseline="middle">Inlet_Valve</text>
+<polyline points="520,313 704,313" stroke="#333333" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+<rect x="430" y="405" width="90" height="86" rx="0" fill="#e8f4e8" stroke="#008800" stroke-width="1.5"/>
+<text x="475" y="393" font-size="14" text-anchor="middle" fill="#008800" font-family="'Courier New', Courier, monospace" dominant-baseline="middle">T1</text>
+<text x="475" y="421" font-size="15" text-anchor="middle" fill="#333333" font-weight="bold" font-family="Helvetica, Arial, sans-serif" dominant-baseline="middle">TON</text>
+<text x="437" y="448" font-size="12" text-anchor="start" fill="#333333" font-family="Helvetica, Arial, sans-serif" dominant-baseline="middle">IN</text>
+<text x="437" y="474" font-size="12" text-anchor="start" fill="#333333" font-family="Helvetica, Arial, sans-serif" dominant-baseline="middle">PT</text>
+<text x="513" y="448" font-size="12" text-anchor="end" fill="#333333" font-family="Helvetica, Arial, sans-serif" dominant-baseline="middle">Q</text>
+<text x="513" y="474" font-size="12" text-anchor="end" fill="#333333" font-family="Helvetica, Arial, sans-serif" dominant-baseline="middle">ET</text>
+<polyline points="395,250 375,250 375,448 430,448" stroke="#333333" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+<circle cx="395" cy="250" r="3.5" fill="#333333" stroke="none" stroke-width="0"/>
+<text x="150" y="474" font-size="15" text-anchor="end" fill="#000088" font-weight="bold" font-family="'Courier New', Courier, monospace" dominant-baseline="middle">T#10s</text>
+<polyline points="156,474 430,474" stroke="#333333" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+<text x="710" y="448" font-size="15" text-anchor="start" fill="#008800" font-weight="bold" font-family="'Courier New', Courier, monospace" dominant-baseline="middle">Run_Lamp</text>
+<polyline points="520,448 704,448" stroke="#333333" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,32 @@
+% Shared drawing macros for frame-1.tex and frame-2.tex (not compiled on its own)
+% \machine{X position}{Y position}: X scale, Y scale (moving with X), Y carriage with tool holder
+\def\XZ{2}      % x of X = 0 on the X scale
+\def\YZ{7.4}    % y of Y = 0 on the Y scale
+\def\OX{4.4}    % support-point offset from the scale indices
+\def\OY{-0.7}
+\newcommand\machine[2]{%
+  % X scale
+  \fill[metal] (-0.6,0) rectangle (11.2,0.6); \draw[thick] (-0.6,0) rectangle (11.2,0.6);
+  \foreach \i in {-12,...,46} {\pgfmathsetmacro\h{mod(\i,5)==0 ? 0.3 : 0.15}
+    \draw ({\XZ+0.2*\i},0) -- ++(0,\h);}
+  \draw[->, thick] (-0.6,-0.45) -- (11.2,-0.45) node[below left] {$X$};
+  \node[below] at (\XZ,-0.5) {0};
+  % Y scale, carried by the X axis
+  \begin{scope}[xshift=#1 cm]
+    \fill[dmred!35, opacity=0.9] (\XZ-0.5,0.6) rectangle (\XZ+0.5,8.8); \draw[thick] (\XZ-0.5,0.6) rectangle (\XZ+0.5,8.8);
+    \foreach \i in {-6,...,33} {\pgfmathsetmacro\h{mod(\i,5)==0 ? 0.3 : 0.15}
+      \draw (\XZ,{\YZ-0.2*\i}) -- ++(\h,0);}
+    \draw[->, thick] (\XZ,0.8) -- (\XZ,8.75);
+    \node[left] at (\XZ-0.5,8.5) {$Y$};
+    \node[left, font=\normalsize] at (\XZ-0.5,\YZ) {0};
+    % X index
+    \draw[->, very thick] (\XZ,{\YZ-#2-0.55}) -- (\XZ,0.35);
+    % Y carriage with index arrow and tool holder
+    \begin{scope}[yshift=-#2 cm]
+      \filldraw[dmblue, thick, fill=dmblue!45, fill opacity=0.75] (\XZ-1.2,\YZ-0.55) -- (\XZ+3.4,\YZ-0.55) -- (\XZ+3.4,\YZ+0.15) -- (\XZ+3.0,\YZ+0.55) -- (\XZ-1.2,\YZ+0.55) -- cycle;
+      \draw[->, very thick] (\XZ+2.2,\YZ) -- (\XZ+0.05,\YZ);
+      \draw[dmgreen, thick, fill=dmgreen!35] (\XZ+3.4,\YZ+\OY-0.35) rectangle (\XZ+\OX-0.15,\YZ+\OY+0.35);
+      \pic at (\XZ+\OX,\YZ+\OY) {supportpt};
+    \end{scope}
+  \end{scope}
+}

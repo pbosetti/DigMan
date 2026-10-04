@@ -1,0 +1,34 @@
+// General sequence of a machining job
+digraph cycle {
+  graph [rankdir=LR, bgcolor="transparent", fontname="Helvetica", nodesep=0.35, ranksep=0.35, splines=ortho, newrank=true]
+  node  [shape=box, style="filled", fillcolor="#f9f9ff", color="#666666",
+         fontname="Helvetica", fontsize=14, height=0.6, width=1.5]
+  edge  [color="#333333", arrowsize=0.7]
+
+  node [group=main]
+  start [label="Start", shape=box, style="rounded,filled", fillcolor="#ffffff", width=1]
+  tool  [label="Tooling\nsetup"]
+  subgraph cluster_cycle {
+    label="Machining cycle (repeated for each WP)"; labeljust=c; fontsize=13
+    style="dashed,rounded"; color="#880000"; fontcolor="#880000"; margin=12
+    load  [label="Loading /\nfixturing"]
+    orig  [label="WP origin"]
+    run   [label="Part-program\nrun"]
+    unl   [label="Unloading"]
+  }
+  stop  [label="Stop", shape=box, style="rounded,filled", fillcolor="#ffffff", width=1]
+
+  node [group="", shape=cylinder, fillcolor="#ffffff", height=0.7, width=1.3, fontsize=13]
+  tt [label="Tools\ntable"]
+  pt [label="Preset\ntable"]
+  pp [label="Part\nprograms"]
+
+  start -> tool -> load -> orig -> run -> unl -> stop
+  edge [arrowhead=dot, dir=back, arrowtail=none, arrowhead=none]
+  tool -> tt [dir=none]
+  orig -> pt [dir=none]
+  run  -> pp [dir=none]
+  {rank=same; tool; tt}
+  {rank=same; orig; pt}
+  {rank=same; run; pp}
+}

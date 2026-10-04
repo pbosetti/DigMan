@@ -1,0 +1,29 @@
+% Machine reference frame: axes displaced by (x, y)
+\documentclass[dvisvgm,tikz,border=4pt]{standalone}
+\input{preamble}
+\input{frame-common}
+\begin{document}
+\begin{tikzpicture}
+  \def\x{2.4}\def\y{3.6}
+  \machine{\x}{\y}
+  \coordinate (R) at (\XZ+\OX,\YZ+\OY);          % support point with axes at zero
+  \coordinate (P) at (\XZ+\OX+\x,\YZ+\OY-\y);    % current support point
+  \pic[opacity=0.6] at (R) {supportpt};
+  % O_x and x above the machine
+  \draw[ext] (\XZ,9.6) -- (\XZ,8.0);
+  \draw[ext] (R) ++(0,0.2) -- (\XZ+\OX,9.6);
+  \draw[ext] (P) ++(0,0.4) -- (\XZ+\OX+\x,9.6);
+  \draw[dim] (\XZ,9.4) -- node[above, pos=0.2] {$O_x$} (\XZ+\OX,9.4);
+  \draw[dim] (\XZ+\OX,9.4) -- node[above] {$x$} (\XZ+\OX+\x,9.4);
+  % x on the X scale
+  \draw[ext] (\XZ,0.6) -- (\XZ,1.5);
+  \draw[dim] (\XZ,1.3) -- node[above] {$x$} (\XZ+\x,1.3);
+  % y and O_y at the right
+  \draw[ext] (R) ++(0.2,0) -- ($(P|-R)+(1.8,0)$);
+  \draw[ext] (P) ++(0.2,0) -- ++(1.8,0);
+  \draw[dim] ($(P|-R)+(1.6,0)$) -- node[right] {$y$} ($(P)+(1.6,0)$);
+  \draw[callout] (P) ++(0.1,-0.15) .. controls +(0.3,-0.8) .. ++(1.3,-1.0)
+    node[right, black] {$(x_m, y_m)$};
+  \node[anchor=west, font=\large] at (\XZ+\OX+\x+0.6,\YZ+0.9) {};
+\end{tikzpicture}
+\end{document}

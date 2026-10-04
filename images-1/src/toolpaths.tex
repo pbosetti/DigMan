@@ -1,0 +1,32 @@
+% Turning example: raw stock, roughed and finished part (full silhouettes)
+\documentclass[dvisvgm,tikz,border=4pt]{standalone}
+\input{preamble}
+\input{turning-common}
+\begin{document}
+\begin{tikzpicture}[mm, x=0.05cm, y=0.05cm, font=\large]
+  % roughed silhouette: step profile of the passes, never below the finished part + 0.5 mm
+  \newcommand\roughprofile{(1,0) -- (1,16) -- (-57.6,16) -- (-57.6,20.5) -- (-59.4,20.5) -- (-59.4,23)
+    -- (-85,23) -- (-92.2,27.8) -- (-92.2,30.5) -- (-94.5,30.5) -- (-94.5,32.5) -- (-165,32.5) -- (-165,0)}
+  \foreach \row/\title/\col in {0/Raw workpiece/metal, 1/Roughing/dmorange, 2/Finishing/dmgreen}{
+    \begin{scope}[shift={(0,-\row*135)}]
+      
+      \ifcase\row
+        \filldraw[thick, fill=metal] (-165,-32.5) rectangle (2,32.5);
+      \or
+        \fill[dmorange!55] \roughprofile -- cycle;
+        \fill[dmorange!55, yscale=-1] \roughprofile -- cycle;
+        \draw[thick] \roughprofile;
+        \draw[thick, yscale=-1] \roughprofile;
+      \or
+        \filldraw[thick, fill=dmgreen!35] (0,0) -- (0,15) -- (-20,15) -- (-25,12.5) -- (-52,12.5)
+          arc[start angle=-90, end angle=-180, x radius=10, y radius=10] -- (-85,22.5)
+          -- (-100,32.5) -- (-165,32.5) -- (-165,-32.5) -- (-100,-32.5) -- (-85,-22.5) -- (-62,-22.5)
+          arc[start angle=180, end angle=90, x radius=10, y radius=10] -- (-25,-12.5) -- (-20,-15) -- (0,-15) -- cycle;
+      \fi
+      \chuck
+      \draw[dash dot, gray] (10,0) -- (-190,0);
+      \node[anchor=west] at (15,0) {\title};
+    \end{scope}
+  }
+\end{tikzpicture}
+\end{document}

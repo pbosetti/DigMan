@@ -1,0 +1,41 @@
+// IEC 61131-3 Sequential Function Chart: batch heating cycle
+digraph sfc {
+  graph [rankdir=TB, bgcolor="transparent", fontname="Helvetica", nodesep=0.25, ranksep=0.18, splines=ortho]
+  node  [shape=box, style="filled", fillcolor="#f9f9ff", color="#333333",
+         fontname="Helvetica-Bold", fontsize=14, width=1.1, height=0.5, fixedsize=true]
+  edge  [color="#333333", arrowhead=none, penwidth=1.3]
+
+  node [group=main]
+  init [label="INIT", peripheries=2]
+  t1   [shape=box, label="", style=filled, fillcolor="#333333", width=0.5, height=0.05]
+  fill [label="FILL"]
+  t2   [shape=box, label="", style=filled, fillcolor="#333333", width=0.5, height=0.05]
+  heat [label="HEAT"]
+  t3   [shape=box, label="", style=filled, fillcolor="#333333", width=0.5, height=0.05]
+  drain [label="DRAIN"]
+  t4   [shape=box, label="", style=filled, fillcolor="#333333", width=0.5, height=0.05]
+  back [shape=point, width=0.01]
+
+  // transition conditions
+  node [group="", shape=plaintext, style="", fontname="Courier", fontsize=13, fixedsize=false, width=0, height=0]
+  c1 [label="Start"]
+  c2 [label="Level >= Level_Max"]
+  c3 [label="Temp >= Temp_Set"]
+  c4 [label="Level <= Level_Min"]
+
+  // action blocks: qualifier | action
+  node [shape=plain, fontname="Helvetica", fontsize=13]
+  a1 [label=<<table border="1" cellborder="1" cellspacing="0" cellpadding="4" bgcolor="#ffffff"><tr><td>N</td><td align="left">Ready_Lamp</td></tr></table>>]
+  a2 [label=<<table border="1" cellborder="1" cellspacing="0" cellpadding="4" bgcolor="#ffffff"><tr><td>N</td><td align="left">Inlet_Valve</td></tr></table>>]
+  a3 [label=<<table border="1" cellborder="1" cellspacing="0" cellpadding="4" bgcolor="#ffffff"><tr><td>N</td><td align="left">Heater</td></tr><tr><td>S</td><td align="left">Mixer</td></tr></table>>]
+  a4 [label=<<table border="1" cellborder="1" cellspacing="0" cellpadding="4" bgcolor="#ffffff"><tr><td>N</td><td align="left">Drain_Valve</td></tr><tr><td>R</td><td align="left">Mixer</td></tr></table>>]
+
+  init -> t1 -> fill -> t2 -> heat -> t3 -> drain -> t4 -> back
+  back -> init [arrowhead=normal, arrowsize=0.7, tailport=w, headport=w, constraint=false]
+  edge [arrowhead=none]
+  init -> a1  fill -> a2  heat -> a3  drain -> a4
+  edge [style=invis]
+  t1 -> c1  t2 -> c2  t3 -> c3  t4 -> c4
+  {rank=same; init; a1} {rank=same; fill; a2} {rank=same; heat; a3} {rank=same; drain; a4}
+  {rank=same; t1; c1} {rank=same; t2; c2} {rank=same; t3; c3} {rank=same; t4; c4}
+}

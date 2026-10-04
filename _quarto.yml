@@ -3,6 +3,7 @@ project:
   resources:
     - videos/*
     - MillCoordinates/**
+    - images-1/scenes.html
 
 format:
   revealjs: 
@@ -15,7 +16,7 @@ format:
     preview-links: auto
     theme: [default, slides.scss]
     chalkboard: true
-    footer: "paolo.bosetti@unitn.it --- [/DigMan/](/DigMan)"
+    footer: "paolo.bosetti@unitn.it --- [https://pbosetti.github.io/DigMan/](https://pbosetti.github.io/DigMan/)"
     fig-width: 5
     fig-height: 4
     fig-dpi: 300

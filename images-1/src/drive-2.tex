@@ -1,0 +1,26 @@
+% Direct measurement: linear transducer on the table
+\documentclass[dvisvgm,tikz,border=4pt]{standalone}
+\input{preamble}
+\input{drive-common}
+\input{drive-common2}
+\begin{document}
+\begin{tikzpicture}[font=\large]
+  \gearaxis
+  % linear scale fixed to the frame, reading head (cursor) on the table
+  \fill[dmred!70] (3.4,1.75) rectangle (10.4,1.95);
+  \draw[thick, dmred] (3.4,1.75) rectangle (10.4,1.95);
+  \draw[sensor] (6.45,1.15) rectangle (7.15,1.75);
+  \draw[wire] (7.15,1.45) -- (11.4,1.45) -- (11.4,-2.6) node[below, black] {feedback};
+  % callouts
+  \draw[callout] (10.0,1.95) -- (10.4,2.6) node[right, black] {linear scale};
+  \draw[callout] (6.6,1.75) -- (6.0,2.6) node[left, black] {reading head};
+  \draw[callout] (1.18,1.0) -- (1.7,1.6) node[above right=-3pt, black] {gears};
+  \draw[callout] (3.0,-1.83) -- (3.6,-2.4) node[right, black] {motor};
+  \draw[callout] (3.6,-0.18) -- (4.2,-0.9) node[right, black] {lead screw};
+  \draw[callout] (4.6,1.15) -- (4.3,1.6) node[left, black] {table};
+  % backlash locations, now inside the position loop
+  \draw[callout, dmred] (1.18,-1.0) -- (0.4,-1.6) node[left, dmred, align=right] {internal\\backlash};
+  \draw[callout, dmred] (6.8,0.18) -- (7.9,-0.9) node[right, dmred, align=left] {internal\\backlash};
+  \fill[dmred] (1.18,-1.0) circle (2.5pt) (6.8,0.18) circle (2.5pt);
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,31 @@
+% Shared side-view components for the feed-drive figures (not compiled on its own)
+\tikzset{
+  part/.style={thick, fill=metal},
+  screwbody/.style={thick, fill=metal!60, postaction={pattern=north west lines, pattern color=gray!80}},
+  sensor/.style={thick, fill=dmgreen!30, draw=dmgreen!50!black},
+  wire/.style={thick, dmblue, ->, rounded corners=3pt},
+  power/.style={thick, ->, rounded corners=3pt},
+}
+% \screw{x1}{x2}{y}: lead screw along y (axis), radius 0.18
+\newcommand\screw[3]{\draw[screwbody] (#1,#3-0.18) rectangle (#2,#3+0.18);}
+% \shaft{x1}{x2}{y}
+\newcommand\shaft[3]{\draw[thick, fill=metal!60] (#1,#3-0.1) rectangle (#2,#3+0.1);}
+% \motor{x left}{y axis}: body 1.4 x 1.0, shaft to the right
+\newcommand\motor[2]{%
+  \draw[part, fill=metaldk!60, rounded corners=2pt] (#1,#2-0.5) rectangle (#1+1.4,#2+0.5);
+  \foreach \i in {1,...,5} \draw[gray!60!black] (#1+0.22*\i,#2-0.5) -- (#1+0.22*\i,#2+0.5);
+  \draw[part] (#1+1.4,#2-0.3) rectangle (#1+1.55,#2+0.3);}
+% \bearing{x}{y}: support bearing around the screw
+\newcommand\bearing[2]{%
+  \draw[part, fill=metal!80] (#1-0.18,#2+0.18) rectangle (#1+0.18,#2+0.5);
+  \draw[part, fill=metal!80] (#1-0.18,#2-0.5) rectangle (#1+0.18,#2-0.18);
+  \draw (#1-0.18,#2+0.18) -- (#1+0.18,#2+0.5) (#1-0.18,#2+0.5) -- (#1+0.18,#2+0.18);
+  \draw (#1-0.18,#2-0.5) -- (#1+0.18,#2-0.18) (#1-0.18,#2-0.18) -- (#1+0.18,#2-0.5);}
+% \coupling{x}{y}
+\newcommand\coupling[2]{\draw[part, fill=metaldk!40] (#1-0.18,#2-0.28) rectangle (#1+0.18,#2+0.28);}
+% \rotenc{x}{y}: rotary encoder disk seen edge-on
+\newcommand\rotenc[2]{\draw[sensor] (#1-0.09,#2-0.45) rectangle (#1+0.09,#2+0.45);}
+% \tablenut{x centre}{y axis}{half length}: table with nut on the screw
+\newcommand\tablenut[3]{%
+  \draw[part, fill=dmorange!55] (#1-#3,#2+0.6) rectangle (#1+#3,#2+1.1);
+  \draw[part, fill=dmorange!35] (#1-0.4,#2-0.3) rectangle (#1+0.4,#2+0.6);}

@@ -1,0 +1,51 @@
+% Milling example: part drawing from the part-program (dimensions in mm)
+\documentclass[dvisvgm,tikz,border=4pt]{standalone}
+\input{preamble}
+\begin{document}
+\begin{tikzpicture}[x=0.055cm, y=0.055cm, font=\large]
+  % ---------------- top view: stock 150 x 150, island machined 10 mm deep
+  \filldraw[thick, fill=steel!40] (0,0) rectangle (150,150);
+  \filldraw[very thick, fill=steel!90]
+    % rounds: tangent points and arcs computed for R10, R14, R5
+    (14,14) -- (14,95)
+    -- (33.26,134.39) arc[start angle=153.95, end angle=90, x radius=10, y radius=10]
+    -- (101,140) -- (105,136)
+    -- (105,99) arc[start angle=180, end angle=270, x radius=14, y radius=14]
+    -- (131.96,85) arc[start angle=90, end angle=-26.24, x radius=5, y radius=5]
+    -- (108.54,21.17) -- (97,14) -- cycle;
+  \pic at (0,0) {wporigin};
+  % horizontal dimensions (below and above)
+  \draw[ext] (0,-1) -- (0,-37) (14,13) -- (14,-15) (105,13) -- (105,-26) (150,-1) -- (150,-37);
+  \draw[dim] (0,-12) -- node[below] {14} (14,-12);
+  \draw[dim] (0,-23) -- node[below] {105} (105,-23);
+  \draw[dim] (0,-34) -- node[below] {150} (150,-34);
+  \draw[ext] (0,151) -- (0,170) (36,141) -- (36,162) (105,137) -- (105,170);
+  \draw[dim] (0,159) -- node[above] {36} (36,159);
+  \draw[dim] (0,167) -- node[above] {105} (105,167);
+  \draw[ext] (106,85) -- (141,85) (140,84) -- (140,64) (105,84) -- (105,64);
+  \draw[dim] (105,67) -- node[below] {35} (140,67);
+  % vertical dimensions (left and right)
+  \draw[ext] (-1,0) -- (-37,0) (13,14) -- (-15,14) (13,95) -- (-26,95) (-1,150) -- (-37,150);
+  \draw[dim] (-12,0) -- node[left] {14} (-12,14);
+  \draw[dim] (-23,0) -- node[left, fill=white, inner sep=1pt] {95} (-23,95);
+  \draw[dim] (-34,0) -- node[left] {150} (-34,150);
+  \draw[ext] (106,140) -- (165,140) (141,85) -- (165,85);
+  \draw[dim] (161,85) -- node[right] {55} (161,140);
+  % rounds and chamfers
+  \draw[callout] (36.1,137.5) -- (22,125) node[left, black] {R10};
+  \draw[callout] (109.1,89.1) -- (122,108) node[right, black] {R14};
+  \draw[callout] (139.5,82) -- (148,72) node[right, black] {R5};
+  \draw[callout] (103,138) -- (116,148) node[right, black] {4$\times$45°};
+  \draw[callout] (103,17) -- (118,4) node[right, black] {8$\times$8};
+  % ---------------- side view
+  \begin{scope}[shift={(0,190)}]
+    \filldraw[thick, fill=steel!40] (0,0) rectangle (150,10);
+    \filldraw[thick, fill=steel!90] (14,10) rectangle (140,20);
+    \draw[thin] (36,10) -- (36,20) (101,10) -- (101,20) (105,10) -- (105,20);
+    \pic at (0,20) {wporigin};
+    \draw[ext] (151,10) -- (163,10) (141,20) -- (185,20) (151,0) -- (185,0);
+    \draw[dim] (160,10) -- node[right] {10} (160,20);
+    \draw[dim] (180,0) -- node[right] {20} (180,20);
+  \end{scope}
+\end{tikzpicture}
+\end{document}

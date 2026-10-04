@@ -772,7 +772,7 @@ Other operations happen in *exposed time*, which is added to the machining cost
   - Run machining commands with *judgement* (A4)
 :::
 ::: {.column width="45%"}
-![](images/cnc-block-diagram.jpg){fig-align="center" height=430}
+![](images-1/cnc-block-diagram.svg){fig-align="center" height=430}
 :::
 ::::
 
@@ -782,41 +782,60 @@ Other operations happen in *exposed time*, which is added to the machining cost
 
 ## Drivers
 
-![](images/driver-loop.jpg){fig-align="center" height=140}
+![](images-1/driver-loop.svg){fig-align="center" height=140}
 
 :::: {.columns}
 ::: {.column width="45%"}
 Requirements:
 
-- Fast response
-- Quick stabilization
-- **No overshoot**
+- Fast response (acceleration)
+- Quick stabilization (minimum number of oscillations)
+- **No overshoot** (or risk of damages)
 :::
 ::: {.column width="55%"}
-![](images/step-response.jpg){fig-align="center" height=290}
+```{r}
+#| fig-width: 5.5
+#| fig-height: 3.6
+#| out-width: "443px"
+#| out-height: "290px"
+#| fig-align: center
+# P-controlled position loop, G(s) = k / (s (tau s + 1)): closed-loop step response
+step_response <- function(t, Kp, k = 34.7, tau = 0.02) {
+  wn <- sqrt(Kp * k / tau)
+  zeta <- 1 / (2 * sqrt(Kp * k * tau))
+  wd <- wn * sqrt(1 - zeta^2)
+  1 - exp(-zeta * wn * t) * (cos(wd * t) + zeta / sqrt(1 - zeta^2) * sin(wd * t))
+}
+expand_grid(t = seq(0, 0.2, length.out = 500), Kp = c(1, 11, 21)) %>%
+  mutate(theta = step_response(t, Kp), Kp = factor(Kp)) %>%
+  ggplot(aes(x = t, y = theta, color = Kp)) +
+  geom_hline(yintercept = 1, linetype = 2) +
+  geom_line(linewidth = 0.8) +
+  labs(x = "Time (s)", y = "Position (rad)", color = quote(K[p]))
+```
 :::
 ::::
 
 ## Feedback
 
-![Open loop (A3); closed loop on motor, on lead screw, on axis (A4)](images/feedback-loops.jpg){fig-align="center" height=470}
+![Open loop (A3); closed loop on motor, on lead screw, on axis (A4)](images-1/feedback-loops.svg){fig-align="center" height=470}
 
 ## Errors
 
-![](images/errors-diagram.jpg){fig-align="center" height=250}
+![](images-1/errors-diagram.svg){fig-align="center" height=250}
 
 :::: {.columns}
 ::: {.column width="50%"}
-![](images/drive-1.jpg){fig-align="center" height=200}
+![](images-1/drive-1.svg){fig-align="center" height=200}
 :::
 ::: {.column width="50%"}
-![](images/drive-2.jpg){fig-align="center" height=200}
+![](images-1/drive-2.svg){fig-align="center" height=200}
 :::
 ::::
 
 ## Linear axis control
 
-![](images/linear-axis.jpg){fig-align="center" height=430}
+![](images-1/linear-axis.svg){fig-align="center" height=430}
 
 Encoder gain: pulses/rev --- Axis gain: screw pitch × encoder gain (mm/pulse)
 
@@ -854,7 +873,7 @@ Encoder gain: pulses/rev --- Axis gain: screw pitch × encoder gain (mm/pulse)
 
 ## PID controllers {.smaller}
 
-![](images/pid-diagram.jpg){fig-align="center" height=250}
+![](images-1/pid-diagram.svg){fig-align="center" height=250}
 
 | Parameter | Rise time | Overshoot | Settling time | Steady-state error | Stability |
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -864,13 +883,15 @@ Encoder gain: pulses/rev --- Axis gain: screw pitch × encoder gain (mm/pulse)
 
 ## Actual control schemes
 
-![](images/control-schemes.jpg){fig-align="center" height=490}
+![](images-1/control-schemes-a.svg){fig-align="center" height=280}
 
-## PLC
+![](images-1/control-schemes-b.svg){fig-align="center" height=240}
+
+## PLC: Programmable Logic Controller
 
 :::: {.columns}
 ::: {.column width="55%"}
-Interfaces and Registers:
+PLC is a controller taht implemets logic relationships between inputs and outputs. It provides a range of interfaces and registers:
 
 - Analog and digital I/O (> 2048)
 - Relay (1000)
@@ -878,72 +899,164 @@ Interfaces and Registers:
 - Timers (200)
 - Counters (200)
 
-Can be integrated in the CNC
 :::
+
 ::: {.column width="45%"}
-![](images/cnc-block-diagram.jpg){fig-align="center" height=430}
+![](images-1/cnc-block-diagram.svg){fig-align="center" height=430}
 :::
 ::::
 
-## PLC
 
-**Advanced I/O**
-
-- General purpose communication: RS232, RS422, Ethernet
-- Deterministic communication: Profibus, DeviceNet, Modbus, Industrial EtherNET, CAN-BUS
-- Special I/O: counters, virtual cams, PIDs and controllers
-
-## PLC
-
-Programming standard **IEC 61131-3**
-
-:::: {.columns}
-::: {.column width="50%"}
-**Graphical**
-
-- Ladder Logic
-- Function Block Diagram
-- Sequential Function Chart
-
-**Textual**
-
-- Structured Text
-- Instruction List
+::: {.callout-note}
+Can be either a separate hardware, or a software process running on the same computer that runs the CNC
 :::
-::::
+
+
+## PLC
+
+* Beside GPIO, PLC can also have advanced I/O and communication capabilities:
+  - General purpose communication: RS232, RS422, Ethernet
+  - Deterministic communication: Profibus, DeviceNet, Modbus, Industrial EtherNET, CAN-BUS
+  - Special I/O: counters, virtual cams, PIDs and controllers
+* PLC programming languages have been designed to facilitate the transition form **wired logics** to **software logics**: the languages had to be intuitive and immediately productive for technicians with different backgrounds: **electrical engineering**, control engineering, firmware programming
+
+## PLC
+
+The programming standard **IEC 61131-3** provided this transition:
+
+| Language | Type | Description |
+| ----- |:-:| --------- |
+| Ladder Logic | Graphical | Resembles relay logic diagrams, intuitive for electricians |
+| Function Block Diagram | Graphical | Resembles block diagrams, intuitive for control engineers |
+| Sequential Function Chart | Graphical | Resembles flow charts and [finite state machines](https://en.wikipedia.org/wiki/Finite-state_machine), intuitive for process engineers |
+| Structured Text | Textual | Resembles Pascal, intuitive for software engineers |
+| Instruction List | Textual | Resembles assembly, intuitive for firmware engineers |
+
+
+::: {.callout-note}
+The standard states that languages must be interchangeable, i.e., the same program can be written in any language and must have the same behavior, different parts of a program can be written in different languages, and the program can be converted from one language to another
+:::
+
 
 ## PLC: Ladder diagram
 
-![](images/plc-ladder.jpg){fig-align="center" height=470}
+::: {.columns}
+::: {.column width="30%"}
+
+::: {.callout-note}
+* On the left side there are **contactors** (inputs), on the right side there are **coils** (outputs).
+* parallel branches represent **OR** logic, series branches represent **AND** logic; contactors can be **normally open** or **normally closed** (**NOT**).
+* The program is read from left to right, top to bottom. The program is executed in a **cyclic scan**: all inputs are read, the logic is evaluated, and the outputs are updated.
+:::
+
+:::
+
+::: {.column width="70%"}
+![](images-1/plc-ladder.svg){fig-align="center" height=470}
+:::
+:::
+
+
 
 ## PLC: Function Block Diagram
 
-![](images/plc-fbd.jpg){fig-align="center" height=470}
+::: {.columns}
+::: {.column width="30%"}
+::: {.callout-note}
+* Each block implements a function, which can be a logic function, a timer, a counter, or even a more complicated one as a PID controller
+* Appeals to control engineers, being quite similar to [Simulink](https://www.mathworks.com/products/simulink.html) and other block-diagram-based control design software
+* Complex programs tend to become quite messy, so FBD is often used in combination with other languages and limited to implement specific functions related to control and signal processing
+:::
+:::
+
+::: {.column width="70%"}
+![](images-1/plc-fbd.svg){fig-align="center" height=470}
+:::
+:::
+
+
+
 
 ## PLC: Sequential Function Chart
+::: {.columns}
+::: {.column width="30%"}
+::: {.callout-note}
+* SFC is a graphical language that implements a **finite state machine**
+* Each block is a **state**, each line a transition with its activation condition
+*  It is very intuitive for process engineers, and it is often used in combination with other languages to implement the **overall logic** of a process, while the other languages are used to implement the **details** of each state
+:::
+:::
 
-![](images/plc-sfc.jpg){fig-align="center" height=470}
+::: {.column width="70%"}
+![](images-1/plc-sfc.svg){fig-align="center" height=470}
+:::
+:::
 
 ## PLC: Textual languages
 
-![](images/plc-text.jpg){fig-align="center" height=470}
+:::: {.columns}
+::: {.column width="55%"}
+```{.pascal filename="Structured Text (ST)" code-line-numbers="false"}
+(* motor start/stop with seal-in *)
+Motor := (Start_PB OR Motor)
+         AND NOT Stop_PB
+         AND NOT Overload;
+Inlet_Valve := Motor AND NOT Level_Hi;
+T1(IN := Motor, PT := T#10s);
+IF T1.Q THEN
+  Run_Lamp := TRUE;
+END_IF;
+```
+:::
+::: {.column width="45%"}
+```{.asm filename="Instruction List (IL)" code-line-numbers="false"}
+LD   Start_PB
+OR   Motor
+ANDN Stop_PB
+ANDN Overload
+ST   Motor
+LD   Motor
+ANDN Level_Hi
+ST   Inlet_Valve
+CAL  T1(IN := Motor, PT := T#10s)
+LD   T1.Q
+S    Run_Lamp
+```
+:::
+::::
 
-## Numerical Control
 
-- Types of motion interpolation
-- Number of controlled axes
-- Coordinate systems and reference frames
+::: {.callout-note}
+Textual languages are the most easy to implement and always available even on low-cost PLC and PLC IDEs
+:::
 
-## Types of interpolation
+
+## (Computer) Numerical Control
+
+The CNC controller is the **brain** of the machine tool. It implements the **judgement** (A4) of Amber's scale, and it is responsible for:
+
+* parsing the **part-program**
+* converting it into **motion commands** for the machine tool actuators
+* provinding action inputs to the **PLC controller** for auxiliary functions (coolant, tool change rutines, etc.)
+
+CNC controllers are characterized by:
+
+- Types of **motion interpolation**
+- Number of **controlled axes**
+
+
+## Types of motion interpolation
+
+CNC can control axes with increasing levels of sophistication:
 
 :::: {.columns}
-::: {.column width="40%"}
-- Point to point
-- Paraxial
-- Continuous
+::: {.column .smaller width="40%"}
+- **Point to point**: only the start and end points are controlled, the path is not controlled (drilling, pick-and-place)
+- **Paraxial**: one axis at a time can be **controlled in feed** (semi-automatic machines, machines that don't need axes interpolation as sawing machines, presses)
+- [Continuous]{.bgreen}: all axes can be controlled simultaneously, and the path is controlled in position and velocity
 :::
 ::: {.column width="60%"}
-![](images/interp-types.jpg){fig-align="center" height=430}
+<iframe data-src="images-1/scenes.html#interp" title="3D view, drag to rotate" style="width:100%; height:430px; border:none;"></iframe>
 :::
 ::::
 
@@ -951,98 +1064,47 @@ Programming standard **IEC 61131-3**
 
 :::: {.columns}
 ::: {.column width="40%"}
-- 2 Axes
-- 2 Axes and 1/2
-- 3 Axes
-- 5 Axes
+- 2 Axes: third axis is manually adjusted (manual lathes, manual mills)
+- 2 Axes and 1/2: only two axes at a time can be controlled, the third is for positioning
+- 3 Axes: full 3-D trajectory control of TCP
+- 5 Axes: full trajectory control of TCP and tool orientation
 :::
 ::: {.column width="60%"}
-![](images/axes-count.jpg){fig-align="center" height=450}
+<iframe data-src="images-1/scenes.html#axes" title="3D view, drag to rotate" style="width:100%; height:450px; border:none;"></iframe>
 :::
 ::::
 
 ## Coordinate systems
 
-- **Machine reference frame**
-  - Machine origin
-  - Machine reference points
-- **WP reference frame**
-  - WP origin
-- **Tool reference frame**
-  - Registration point
-  - Support point
 
-## Coordinate systems
+::: {.columns}
 
-![](images/frame-1.jpg){fig-align="center" height=470}
+::: {.column}
 
-**Machine reference frame:** arbitrary position corresponding to the support point when all axes are at 0
+- Axes references combine to give machine origin
+- Axes references are used to reset encoders (*homing*)
+- Machine controller works in **machine coordinates**
+- Workpiece origin is **set up by the operator**
+- Registration point is the reference to measure tool length and diameter
+- Support point is the reference to mount the tool on the spindle (when mounted, *reference = support*)
 
-## Coordinate systems
 
-:::: {.columns}
-::: {.column width="55%"}
-![](images/frame-2.jpg){fig-align="center" height=430}
 :::
-::: {.column width="45%"}
-$$
-\begin{aligned}
-x_m &= O_x + x \\
-y_m &= O_y + y
-\end{aligned}
-$$
 
-$(x_m, y_m)$
+::: {.column}
+
+| Reference | Symbol |
+| --------- | :-: |
+| Axis reference | ![](images-1/axis-reference.png){fig-align="center" height=30} |
+| Machine origin | ![](images-1/machine-origin.png){fig-align="center" height=30} |
+| Workpiece origin | ![](images-1/wp-origin.png){fig-align="center" height=30} |
+| Registration point | ![](images-1/registration-point.png){fig-align="center" height=30} |
+| Support point | ![](images-1/support-point.png){fig-align="center" height=30} |
+
 :::
-::::
 
-## Coordinate systems
-
-In general, the offset must also include the tool length and radius ($T_x$ and $T_y$) and possibly the angle $\theta$ of the machine $(X, Y)$ frame with the workpiece frame:
-
-$$
-\begin{bmatrix} x_m \\ y_m \\ 1 \end{bmatrix} =
-\begin{bmatrix} \cos\theta & -\sin\theta & O_x + T_x \\ \sin\theta & \cos\theta & O_y + T_y \\ 0 & 0 & 1 \end{bmatrix}
-\begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
-$$
-
-In 3-D, you use 4x4 **homogeneous transformation matrices**
-
-## Machine reference frame
-
-:::: {.columns}
-::: {.column width="50%"}
-![](images/mt-frame.jpg){fig-align="center" height=380}
 :::
-::: {.column width="50%"}
-- Encoders give raw distance of spindle nose wrt machine reference
-- Machine reference position is defined by manufacturer
-- Axes drivers work in machine coordinates
-:::
-::::
 
-## Machine reference points
-
-- Only used in incremental encoders
-- One or more per axis
-- Types:
-  - Switch/contactor
-  - Additional encoder readout position
-
-## WP coordinates
-
-:::: {.columns}
-::: {.column width="60%"}
-- Selected by operator/programmer
-- Part program can use WP coordinates and/or machine coordinates
-- After fixturing, WP origin has to be set up wrt machine origin
-  - by touching with tool and compensating for tool radius
-  - By 3-D touch probe
-:::
-::: {.column width="40%"}
-![](images/wp-coords.jpg){fig-align="center" height=400}
-:::
-::::
 
 ## Tool reference
 
@@ -1058,9 +1120,40 @@ In 3-D, you use 4x4 **homogeneous transformation matrices**
   - Length, diameter, and toric radius (mills)
 :::
 ::: {.column width="45%"}
-![](images/tool-ref.jpg){fig-align="center" height=450}
+![](images-1/tool-ref.svg){fig-align="center" height=450}
 :::
 ::::
+
+
+## WP coordinates
+
+:::: {.columns}
+::: {.column width="60%"}
+- Selected by operator/programmer
+- Part program can use WP coordinates and/or machine coordinates
+- After fixturing, WP origin has to be set up wrt machine origin
+  - by touching with tool and compensating for tool radius
+  - By 3-D touch probe
+:::
+::: {.column width="40%"}
+<iframe data-src="images-1/scenes.html#wp" title="3D view, drag to rotate" style="width:100%; height:400px; border:none;"></iframe>
+:::
+::::
+
+
+## Coordinate transformations
+
+* The part program defines the toolpath as the trajectory of the **tool center position** (TCP) in the workpiece reference frame
+* The CNC controller converts the TCP coordinates into **machine coordinates** by applying a roto-translation transformation that accounts for:
+  - the workpiece origin
+  - the tool length
+* Tool diameter is accounted for by the **tool radius compensation** function, which offsets the toolpath by the tool radius in a direction perpendicular to the toolpath
+
+
+::: {.callout-note}
+In turning, there is no tool radius compensation; rather, tool is measured by **length** and **abuttment**, the latter being the offset w.r.t. the registration point
+:::
+
 
 ## Coordinate transformations
 
@@ -1076,7 +1169,7 @@ $$
 $d_{x-z}$ are coordinates of $O_{wp}$ in $O_m$
 :::
 ::: {.column width="40%"}
-![](images/transform-3d.jpg){fig-align="center" height=330}
+![](images-1/transform-3d.svg){fig-align="center" height=330}
 :::
 ::::
 
@@ -1103,19 +1196,43 @@ The **order of transformations** is:
 4. Translate by $(d_x, d_y, d_z)$
 :::
 ::: {.column width="35%"}
-![](images/rpy.jpg){fig-align="center" height=170}
+![](images-1/rpy.svg){fig-align="center" height=230}
 :::
 ::::
+
+
+## Coordinate transformations (3-axes machines)
+
+Machines with 3 controlled axes (no tool alignment) typically implement a simplified transformation that only accounts for the workpiece origin translation and rotation $\theta$ about $z$ and tool length:
+
+$$
+\begin{bmatrix} x_m \\ y_m \\ z_m \\1 \end{bmatrix} =
+\begin{bmatrix} \cos\theta & -\sin\theta & 0 & d_x \\
+\sin\theta & \cos\theta & 0 & d_y \\
+0 & 0 & 1 & d_z + l_t \\
+0 & 0 & 0 & 1 \end{bmatrix}
+\begin{bmatrix} x \\ y \\ z \\ 1 \end{bmatrix}
+$$
+
+::: {.callout-tip title="Workplane tilt compensation"}
+Even for 3 axes machines, it is customary to also include **small** rotations about $x$ and $y$ in the transformation matrix, to account for **misalignments** of the working plane and tool holder: this comes especially handy for **3-D printers**
+:::
+
+
+
+
 
 # {background-iframe="MillCoordinates/machine-frames.html" background-interactive="true"}
 
 
-## Touch probe
+## Measuring positions: touch probe
 
 :::: {.columns}
 ::: {.column width="55%"}
-- $O_{wp}$ position is measured with a touch probe
-- The 3 contact points are also electric switches
+Reference positions (as $O_{wp}$can be measure in machine thanks to a **touch probe**:
+
+- a special non-rotating tool with a deflecting stylus and spherical tip that can be used to touch the workpiece and measure its position in machine coordinates
+- The 3 contact points provide a [kinematic mount](https://en.wikipedia.org/wiki/Kinematic_coupling) are also electric switches
 - When a switch opens, the current coordinate plus the **sphere radius in the direction of motion** gives the touch point coordinate
 :::
 ::: {.column width="45%"}
@@ -1123,23 +1240,20 @@ The **order of transformations** is:
 :::
 ::::
 
-## Tool reference {.smaller}
 
-Measurement systems:
+## Tool reference (*presetting*)
 
-- MT itself
-- Tool presetting systems
-- In-machine presetting
+Tool geometry can be measured in machine (**exposed time**) or by a **tool presetter** (**masked time**). The latter is preferred because it is faster and more accurate, and it allows to measure the tool geometry without having to mount it on the machine.
 
 :::: {.columns}
-::: {.column width="35%"}
-![](images/presetting-1.jpg){fig-align="center" height=200}
+::: {.column width="37%"}
+- On-board presetting uses a fixed stylus/switched contact point in known position reachable by the tool
+- Tool presetting systems have a dummy spindle mount, a camera and a shadow projector
 :::
-::: {.column width="30%"}
-![](images/presetting-2.jpg){fig-align="center" height=200}
-:::
-::: {.column width="35%"}
-![](images/presetting-3.jpg){fig-align="center" height=200}
+::: {.column width="63%"}
+![](images/presetting-1.jpg){fig-align="center" height=250}
+![](images/presetting-3.jpg){fig-align="center" height=250}
+![](images/presetting-2.jpg){fig-align="center" height=250}
 :::
 ::::
 
@@ -1155,94 +1269,185 @@ Measurement systems:
 
 :::: {.columns}
 ::: {.column width="40%"}
-- Yardstick of Automation
-- Level A4
-- Level A5
-- Part Programs
+According to the Yardstick of Automation:
+
+- most CNC machines are at Level A4 
+- Level A5 requires post-machining automated inspection and feedback to the CNC controller and **to the part-program**
 :::
 ::: {.column width="60%"}
-![](images/yardstick-loop.jpg){fig-align="center" height=280}
+![](images-1/yardstick-loop.svg){fig-align="center" height=280}
 :::
 ::::
 
+- a validated **process model** can be required to implement A5, which is not necessarilyavailable for most machining processes
+- empirical models (*machine learning*) can be used to implement A5, but they require a lot of data and are not always reliable
+
 ## Machining cycle
 
-General sequence:
+The general sequence for machining a part is:
 
-![](images/machining-cycle.jpg){fig-align="center" height=260}
+![](images-1/machining-cycle.svg){fig-align="center" height=260}
+
+The section within the red box is the **mcahining cycle**, i.e. the sequence of operations that can be cyclically repeated for each part
 
 ## Part-program structure
 
-![](images/part-program.jpg){fig-align="center" height=490}
+
+::: {.columns}
+::: {.column}
+The structure of a part program generally follows a common structure:
+
+* **setups**
+* **roughing** section: removes the bulk of the material, usually with a large tool and high feedrate, leaving a small allowance for finishing
+* **finishing** section: removes the remaining material with a small tool and low feedrate (final geometry)
+* **reset** of the machine to a safe position and end of program
+:::
+
+::: {.column}
+![](images-1/part-program.png){fig-align="center" height=490}
+:::
+:::
+
+
+
 
 ## Toolpaths
 
-![](images/toolpaths.jpg){fig-align="center" height=490}
+:::: {.columns}
+::: {.column}
+![](images-1/turning-process.png){fig-align="center" height=490}
+:::
+
+::: {.column}
+* Roughing and finishing may require different tools for different geometries
+* Roughing typically follows simple, stepped trajectories 
+* Roughing allowance (excess material) is usually in the range of 
+  - 0.5--1 mm for turning
+  - 0.2--0.5 mm for milling
+:::
+::::
 
 ## Workpiece Origin
 
 In turning, X coordinates are in **diameters**. Two typical choices for origin:
 
-- rightmost axial point on finished workpiece ($z < 0$)
+- rightmost axial point on finished workpiece
 - on the machine origin (fixtures must be taken into consideration)
 
-## G-Code {.smaller}
+Common choice for WP origin among machinists is the **rightmost axial point on finished workpiece** (turning) and **topmost point on the finished workpiece** (milling). This choice allows to quickly spot in a program **safe** fast motions (positive $z$), from **dangerous** fast motions (negative $z$) that can crash the tool into the workpiece or fixture.
 
-ISO language (ISO/DIN 6983)
+## G-Code
 
-| Cod. | Command | Cod. | Command |
-|:-:|:--|:-:|:--|
-| A | Rotation about X | N | Block number |
-| B | Rotation about Y | O | --- |
-| C | Rotation about Z | P | Third motion along X |
-| D | Tool diameter compensation | Q | Third motion along Y |
-| E | Secondary feedrate | R | Third motion along Z |
-| F | Feedrate | S | Spindle speed |
-| G | Preparatory function | T | Tool number |
-| H | --- | U | Second motion along X |
-| I | Circle center, X | V | Second motion along Y |
-| J | Circle center, Y | W | Second motion along Z |
-| K | Circle center, Z | X | Motion along X |
-| L | --- | Y | Motion along Y |
-| M | Machine function | Z | Motion along Z |
+**ISO language** (ISO/DIN 6983): sequence of `[C][arg]` where `C` is a letter and `arg` is a number. Valid commands are:
+
+
+::: {.columns .smaller}
+
+::: {.column}
+| Cod. | Command |
+| ---- | -------------- |
+| A | Rotation about X |
+| B | Rotation about Y |
+| C | Rotation about Z |
+| D | Tool diameter compensation |
+| E | Secondary feedrate |
+| F | Feedrate |
+| G | Preparatory function |
+| H | --- |
+| I | Circle center, X |
+:::
+
+::: {.column}
+
+| Cod. | Command |
+| ---- | -------------- |
+| J | Circle center, Y |
+| K | Circle center, Z |
+| L | --- |
+| M | Machine function |
+| N | Block number |
+| O | --- |
+| P | Third motion along X |
+| Q | Third motion along Y |
+|   |  |
+:::
+
+::: {.column}
+
+
+| Cod. | Command |
+| - | - |
+| R | Third motion along Z |
+| S | Spindle speed |
+| T | Tool number |
+| U | Second motion along X |
+| V | Second motion along Y |
+| W | Second motion along Z |
+| X | Motion along X |
+| Y | Motion along Y |
+| Z | Motion along Z |
+
+:::
+
+:::
+
+
+
 
 ## Punch tape
 
+* [G-Code](https://en.wikipedia.org/wiki/G-code){target="wiki"} was developed during 1950s
+* Computers only had **punch tapes** as input devices
+* Language had to be concise
+
 :::: {.columns}
 ::: {.column width="35%"}
-G-Code
+![](images/punch-tape-photo.jpg){fig-align="center" height=280}
 :::
 ::: {.column width="65%"}
-![](images/punch-tape-photo.jpg){fig-align="center" height=190}
+![](images-1/punch-tape.svg){fig-align="center" height=280}
 :::
 ::::
 
-![](images/punch-tape.jpg){fig-align="center" height=280}
 
 ## G-code functions
 
-- Preparatory functions (G,T)
-- Positioning functions (X, Y, Z)
-- Machine functions (M)
+:::: columns
+:::column
+Types of functions:
+
+- Preparatory functions (`G`, `T`)
+- Positioning functions (`X`, `Y`, `Z`, `A`, `B`, `C`)
+- Machine functions (`M`)
+:::
+
+:::column
+`G` functions:
+
+* `G00`: **rapid positioning**
+* `G01`: **linear interpolation**
+* `G02/G03`: **circular interpolation** (CW/CCW)
+:::
+::::
 
 ```{.gcode code-line-numbers="false"}
-N1 T1 S500.0 M3;              tool n°1, CW rotation, 500 rpm
-N2 M8;                        fluid jets ON
-N3 G00 X60.0 Z0.0;            rapid positioning
-N4 G01 X-0.5 Z0.0 F1000.0;    facing
+N1 T1 S500.0 M3                             ; tool n°1, CW rotation, 500 rpm
+N2 M8;                                      ; fluid jets ON
+N3 G00 X60.0 Z0.0;                          ; rapid positioning
+N4 G01 X-0.5 Z0.0 F1000.0                   ; facing
 N5 G01 X20.0 F1000.0
-N6 G03 X40.0 Z-5.0 I30.0 K-10.0 F1000.0;    arc R=10.0
+N6 G03 X40.0 Z-5.0 I30.0 K-10.0 F1000.0     ; arc R=10.0
 ...
-N128 M30;                     fine programma
+N128 M30                                    ; fine programma
 ```
 
 ## Example: turning
 
-![](images/turning-part.jpg){fig-align="center" height=470}
+![](images-1/turning-part.svg){fig-align="center" height=470}
 
-## Example: turning --- roughing {.smaller}
+## Example: turning --- roughing
 
-![](images/turning-rough.jpg){fig-align="center" height=170}
+![](images-1/turning-rough.svg){fig-align="center" height=170}
 
 :::: {.columns}
 ::: {.column width="50%"}
@@ -1252,7 +1457,7 @@ N11 G01 Z-94.5 F1000.0
 N12 G01 G91 X5.0 F2000.0
 N13 G00 Z7.0
 N14 G00 X51.0
-N15 G01 Z-92.2 F1000.0
+N15 G01 Z-88 F1000.0
 N16 G01 G91 X5.0 F2000.0
 N17 G00 Z7.0
 ```
@@ -1271,9 +1476,9 @@ N25 G00 Z7.0
 :::
 ::::
 
-## Example: turning --- finishing {.smaller}
+## Example: turning --- finishing
 
-![](images/turning-finish.jpg){fig-align="center" height=170}
+![](images-1/turning-finish.svg){fig-align="center" height=170}
 
 :::: {.columns}
 ::: {.column width="50%"}
@@ -1304,13 +1509,29 @@ N98 M30
 
 ## Example: milling
 
-![](images/milling-part.jpg){fig-align="center" height=480}
+
+::: {.columns}
+::: {.column}
+* WP origin is usually placed in $y,y$ plane on a geometry feature where most of the dimensions are referenced to, e.g. the bottom-left corner of a rectangular pocket
+* The $z$ coordinate is set to the topmost surface on the **finished part**:
+  - the very first roughing operation will remove the excess material and reach the finished surface, which will be used as reference for all subsequent operations
+  - any subsequent operation is carried out at a **negative $z$** coordinate, which is the depth of cut below the finished surface
+
+:::
+
+::: {.column}
+![](images-1/milling-part.png){fig-align="center" height=480}
+:::
+:::
+
+
+
 
 ## Example: milling {.smaller}
 
 :::: {.columns}
-::: {.column width="42%"}
-```{.gcode code-line-numbers="false"}
+::: {.column width="30%"}
+```{.gcode filename="G-code language" code-line-numbers="false"}
 %es1 G71 *
 N10 G30 G17 X+0 Y+0 Z-20*
 N20 G31 X+150 Y+150 Z+0*
@@ -1335,26 +1556,59 @@ N200 G38 M30*
 N99999999 %es1 G71 *
 ```
 :::
-::: {.column width="58%"}
-![](images/xp-editing.jpg){fig-align="center" height=380}
+::: {.column width="60%"}
+![Heidenhain CNC - interactive programming](images-1/heidenhain-1.png)
 :::
 ::::
 
-## Program check
-
-![](images/xp-check.jpg){fig-align="center" height=480}
-
-## Advanced languages {.smaller}
+## Program check {.smaller}
 
 :::: {.columns}
-::: {.column width="40%"}
-- Explicit syntax
-- Conversational
+::: {.column width="30%"}
+```{.gcode filename="G-code language" code-line-numbers="false"}
+%es1 G71 *
+N10 G30 G17 X+0 Y+0 Z-20*
+N20 G31 X+150 Y+150 Z+0*
+N30 G247 Q339=+1*
+N40 T1 G17 S5000 F4000*
+N50 G00 G90 X+14 Y-15 Z+10 G40 M8*
+N60 G00 Z-10 G40*
+N70 G01 Y+95 G41 F4000*
+N80 G01 X+36 Y+140*
+N90 G25 R10*
+N100 G01 X+105*
+N110 G24 R4*
+N120 G01 G91 Y-55*
+N130 G25 R14*
+N140 G01 G91 X+35*
+N150 G25 R5*
+N160 G01 G90 X+105 Y+14*
+N170 G24 R8*
+N180 G01 X-15*
+N190 G00 Z+10 G40*
+N200 G38 M30*
+N99999999 %es1 G71 *
+```
+:::
+::: {.column width="60%"}
+![Heidenhain CNC - program preview](images-1/heidenhain-2.png)
+:::
+::::
+
+## Advanced languages
+
+:::: {.columns}
+::: {.column width="60%"}
+Different CNC manufacturers implement proprietary languages that extend the basic G-code with advanced features:
+
+- Explicit, reacher syntax
+- Conversational/interactive programming (*zero-handbook*)
 - Macros
 - Parametric programming
 :::
-::: {.column width="60%"}
-```{.gcode code-line-numbers="false"}
+
+::: {.column .smaller width="40%"}
+```{.gcode filename="Heidenhain language" code-line-numbers="false"}
 0  BEGIN PGM es1 MM
 1  BLK FORM 0.1 Z  X+0  Y+0  Z-20
 2  BLK FORM 0.2  X+150  Y+150  Z+0
@@ -1389,6 +1643,105 @@ N99999999 %es1 G71 *
 
 ![](images/cnc-photo.jpg){fig-align="center" height=300}
 
+```{r}
+#| include: false
+# Helpers for the profiling and look-ahead plots of this section
+
+# Trapezoidal feed profile of a block on a discrete clock (period tq):
+# the block duration is rounded up to a multiple of tq and f_m reduced accordingly
+quantize_block <- function(l, fm, a, d, fs, fe, tq) {
+  t1 <- (fm - fs) / a
+  t2 <- (fm - fe) / d
+  tm <- l / fm - t1 * (fm + fs) / (2 * fm) - t2 * (fe + fm) / (2 * fm)
+  dt <- t1 + tm + t2
+  dts <- (floor(dt / tq) + 1) * tq
+  tms <- tm + dts - dt
+  fms <- (2 * l - fs * t1 - fe * t2) / (t1 + t2 + 2 * tms)
+  list(t1 = t1, t2 = t2, tm = tm, tms = tms, fm = fm, fms = fms, fs = fs, fe = fe, tq = tq, dts = dts)
+}
+
+profile_phases <- function(t1, tm, t2, fs, fm, fe) tibble(
+  t = c(0, t1, t1, t1 + tm, t1 + tm, t1 + tm + t2),
+  f = c(fs, fm, fm, fm, fm, fe),
+  phase = rep(c("acc", "const", "dec"), each = 2)
+)
+
+plot_clock <- function(q = quantize_block(l = 10, fm = 2, a = 1.6, d = 1.6, fs = 0.3, fe = 0.5, tq = 0.4)) {
+  prof <- bind_rows(
+    `Nominal` = profile_phases(q$t1, q$tm, q$t2, q$fs, q$fm, q$fe),
+    `Rounded to the clock` = profile_phases(q$t1, q$tms, q$t2, q$fs, q$fms, q$fe),
+    .id = "which"
+  )
+  lab <- prof %>%
+    group_by(which, phase) %>%
+    summarise(t = mean(t), .groups = "drop") %>%
+    mutate(label = case_when(
+      phase == "acc" ~ "Delta*t[1]", phase == "dec" ~ "Delta*t[2]",
+      which == "Nominal" ~ "Delta*t[m]", TRUE ~ "Delta*t[m]^'*'"))
+  ggplot(prof, aes(t, f)) +
+    geom_area(aes(fill = phase), alpha = 0.6, show.legend = FALSE) +
+    geom_line(linewidth = 0.8) +
+    geom_vline(xintercept = seq(0, q$dts, by = q$tq), color = "gray55", linewidth = 0.25) +
+    geom_text(data = lab, aes(y = -0.22, label = label), parse = TRUE, size = 4) +
+    scale_fill_manual(values = c(acc = "orange", const = "yellowgreen", dec = "orange")) +
+    facet_wrap(~which) +
+    coord_cartesian(ylim = c(-0.35, 2.1)) +
+    labs(x = "t", y = "f")
+}
+
+# Look-ahead, one block in curvilinear abscissa, constant acc/dec a:
+# fwd: forward step (accelerations only), bwd: backward step (decelerations only),
+# final: resulting profile from (s0, vi) to (sf, vf) with nominal feed vm
+la_block <- function(vi, vm, vf, sf = 5, a = 15, n = 400) {
+  sq <- function(x) sqrt(pmax(x, 0))
+  tibble(s = seq(0, sf, length.out = n)) %>%
+    mutate(
+      acc_vi = sqrt(vi^2 + 2 * a * s),
+      dec_vf = sqrt(vf^2 + 2 * a * (sf - s)),
+      dec_vi = sq(vi^2 - 2 * a * s),
+      acc_vf = sq(vf^2 - 2 * a * (sf - s)),
+      fwd = pmin(acc_vi, pmax(vm, acc_vf)),
+      bwd = pmin(dec_vf, pmax(vm, dec_vi)),
+      final = pmin(acc_vi, dec_vf, pmax(vm, dec_vi, acc_vf))
+    )
+}
+
+la_plot <- function(vi, vm, vf, sf = 5, a = 15, steps = "fwd", ymax = 11) {
+  b <- la_block(vi, vm, vf, sf, a)
+  s <- seq(0, 5.5, length.out = 300)
+  guides <- bind_rows(
+    tibble(s = s, v = sqrt(vi^2 + 2 * a * s), g = "acc_vi"),
+    tibble(s = s, v = suppressWarnings(sqrt(vf^2 - 2 * a * (sf - s))), g = "acc_vf"),
+    tibble(s = s, v = suppressWarnings(sqrt(-2 * a * (sf - s))), g = "stop")
+  ) %>% filter(!is.na(v))
+  s1 <- (vm^2 - vi^2) / (2 * a)
+  s2 <- sf - (vf^2 - vm^2) / (2 * a)
+  lab <- tribble(
+    ~s, ~v, ~label, ~hjust,
+    0, vi + 0.8, "(s[0]*','~v[i])", -0.1,
+    sf, vf + 0.8, "(s[f]*','~v[f])", 1.05,
+    sf, 0.6, "(s[f]*','~0)", 1.1
+  )
+  marks <- tibble(s = c(s1, s2), v = vm, label = c("(s[1]*','~v[m])", "(s[2]*','~v[m])")) %>%
+    filter(s > 0, s < sf)
+  p <- ggplot(b, aes(x = s)) +
+    geom_hline(yintercept = vm, linetype = 2, color = "gray40") +
+    geom_vline(xintercept = sf, linetype = 2, color = "gray40") +
+    geom_line(data = guides, aes(y = v, group = g), linetype = 2, linewidth = 0.3, color = "gray30") +
+    geom_line(aes(y = fwd), linewidth = 1.2, color = "firebrick")
+  if ("bwd" %in% steps)
+    p <- p + geom_line(aes(y = bwd), linewidth = 1.2, color = "forestgreen", linetype = "22")
+  p +
+    geom_point(data = tibble(s = c(0, sf), v = c(vi, vf)), aes(y = v),
+               shape = 4, size = 4, stroke = 1.5, color = "firebrick") +
+    geom_point(data = marks, aes(y = v), shape = 21, fill = "white", size = 2.5) +
+    geom_text(data = marks, aes(y = v + 0.9, label = label), parse = TRUE, size = 3.6) +
+    geom_text(data = lab, aes(y = v, label = label, hjust = hjust), parse = TRUE, size = 3.6) +
+    coord_cartesian(xlim = c(0, 5.5), ylim = c(0, ymax), expand = FALSE) +
+    labs(x = "s", y = quote(v == dot(s)))
+}
+```
+
 ## CNC kernel tasks
 
 **Kernel functions**
@@ -1406,13 +1759,58 @@ For every block:
 - limit acceleration
 - limit jerks
 
-![](images/profile-blocks.jpg){fig-align="center" height=210}
+```{r}
+#| fig-width: 10
+#| fig-height: 2.6
+#| out-width: "808px"
+#| out-height: "210px"
+#| fig-align: center
+# toolpath made of 5 blocks, each with its own trapezoidal profile (stop at the corners)
+trapz_pts <- function(l, fm = 2, a = 4) {
+  t1 <- fm / a
+  tm <- l / fm - t1
+  tibble(t = c(0, t1, t1 + tm, 2 * t1 + tm), f = c(0, fm, fm, 0))
+}
+path <- tibble(x = c(0, 3, 7, 8.5, 6, 4.2), y = c(3, 3.8, 3.4, 0.8, 1.2, 1.8))
+hl <- 3   # highlighted block
+prof <- path %>%
+  mutate(l = sqrt((lead(x) - x)^2 + (lead(y) - y)^2)) %>%
+  filter(!is.na(l)) %>%
+  mutate(id = row_number(), tp = map(l, trapz_pts),
+         t0 = lag(cumsum(map_dbl(tp, ~ max(.$t))), default = 0)) %>%
+  unnest(tp) %>%
+  mutate(t = t + t0)
+panels <- c("Toolpath (X, Y)", "Feed rate f(t)")
+bind_rows(
+  path %>% transmute(panel = panels[1], h = x, v = y, id = c(1:5, 5)),
+  prof %>% transmute(panel = panels[2], h = t, v = f, id = id)
+) %>%
+  mutate(panel = factor(panel, levels = panels)) %>%
+  ggplot(aes(h, v)) +
+  geom_area(data = ~ filter(.x, panel == panels[2], id == hl), fill = "firebrick", alpha = 0.3) +
+  geom_line(data = ~ filter(.x, panel == panels[2]), aes(group = id), linewidth = 0.8) +
+  geom_path(data = ~ filter(.x, panel == panels[1]), linewidth = 0.8) +
+  geom_path(data = ~ filter(.x, panel == panels[1]) %>% slice(hl:(hl + 1)), linewidth = 1.6, color = "firebrick") +
+  geom_point(data = ~ filter(.x, panel == panels[1]), size = 2) +
+  geom_text(data = tibble(panel = factor(panels[2], levels = panels), h = mean(range(prof$t[prof$id == hl])), v = 2.6),
+            label = "integral(f(tau)*d*tau, t[a], t[b]) == l", parse = TRUE, color = "firebrick") +
+  geom_blank(data = tibble(panel = factor(panels[2], levels = panels), h = 0, v = 3)) +
+  facet_wrap(~panel, scales = "free") +
+  labs(x = NULL, y = NULL)
+```
 
 ## Profiling
 
 Discrete time-base (clock)
 
-![](images/profiling-clock.jpg){fig-align="center" height=190}
+```{r}
+#| fig-width: 10
+#| fig-height: 2.4
+#| out-width: "792px"
+#| out-height: "190px"
+#| fig-align: center
+plot_clock()
+```
 
 $$
 \Delta t_1 = \frac{f_m - f_s}{a}, \quad
@@ -1429,7 +1827,14 @@ $$
 
 Discrete time-base (clock)
 
-![](images/profiling-clock.jpg){fig-align="center" height=170}
+```{r}
+#| fig-width: 10
+#| fig-height: 2.2
+#| out-width: "773px"
+#| out-height: "170px"
+#| fig-align: center
+plot_clock()
+```
 
 $$
 \int_{t_s}^{t_e} f(\tau)\,\mathrm{d}\tau = \frac{\Delta t_1}{2}(f_m^* + f_s) + \Delta t_m^* f_m^* + \frac{\Delta t_2}{2}(f_m^* + f_e) = l
@@ -1447,7 +1852,24 @@ Short segments, $\Delta t_m \le 0$
 
 :::: {.columns}
 ::: {.column width="35%"}
-![](images/profiling-short.jpg){fig-align="center" height=200}
+```{r}
+#| fig-width: 4.2
+#| fig-height: 2.8
+#| out-width: "300px"
+#| out-height: "200px"
+#| fig-align: center
+# short block: Delta t_m <= 0, the feed never reaches f_m
+a <- 1.6; d <- 1.2; l <- 3
+t1 <- sqrt(2 * l / (a + a^2 / d)); t2 <- a / d * t1
+tibble(t = c(0, t1, t1, t1 + t2), f = c(0, a * t1, a * t1, 0), phase = rep(c("acc", "dec"), each = 2)) %>%
+  ggplot(aes(t, f)) +
+  geom_area(aes(fill = phase), alpha = 0.6, show.legend = FALSE) +
+  geom_line(linewidth = 0.8) +
+  geom_vline(xintercept = seq(0, 3.2, by = 0.2), color = "gray55", linewidth = 0.25) +
+  annotate("text", x = c(t1 / 2, t1 + t2 / 2), y = 0.4, label = c("Delta*t[1]", "Delta*t[2]"), parse = TRUE) +
+  scale_fill_manual(values = c(acc = "orange", dec = "yellowgreen")) +
+  labs(x = "t", y = "f")
+```
 :::
 ::: {.column width="65%"}
 $$
@@ -1492,7 +1914,25 @@ Z(t) &= Z_0 + \Delta Z \lambda(t)
 $$
 :::
 ::: {.column width="40%"}
-![](images/interp-profiles.jpg){fig-align="center" height=430}
+```{r}
+#| fig-width: 3.6
+#| fig-height: 5
+#| out-width: "310px"
+#| out-height: "431px"
+#| fig-align: center
+# feed profile and normalised curvilinear abscissa lambda(t) = s(t) / l
+t1 <- 1; tm <- 2; t2 <- 1
+tibble(t = seq(0, t1 + tm + t2, length.out = 400)) %>%
+  mutate(`f(t)` = pmin(t / t1, 1, (t1 + tm + t2 - t) / t2),
+         `lambda(t)` = cumsum(`f(t)`) / sum(`f(t)`)) %>%
+  pivot_longer(-t) %>%
+  ggplot(aes(t, value)) +
+  geom_vline(xintercept = c(t1, t1 + tm), linetype = 2, color = "gray40") +
+  geom_line(linewidth = 0.9) +
+  facet_wrap(~name, ncol = 1, scales = "free_y", labeller = label_parsed, strip.position = "left") +
+  labs(x = "t", y = NULL) +
+  theme(strip.placement = "outside")
+```
 :::
 ::::
 
@@ -1517,7 +1957,7 @@ f_{m,a} = \min\left(f_m, \sqrt{aR}\right)
 $$
 :::
 ::: {.column width="45%"}
-![](images/arc-diagram.jpg){fig-align="center" height=330}
+![](images-1/arc-diagram.svg){fig-align="center" height=330}
 :::
 ::::
 
@@ -1530,7 +1970,7 @@ G-code syntax:
 
 :::: {.columns}
 ::: {.column width="55%"}
-![](images/arc-syntax.jpg){fig-align="center" height=280}
+![](images-1/arc-syntax.svg){fig-align="center" height=280}
 :::
 ::: {.column width="45%"}
 $$
@@ -1566,7 +2006,30 @@ $$
 
 Jerk-limited profiling: each segment is split into 7 ranges (vs. 3)
 
-![](images/jerk-profile.jpg){fig-align="center" height=430}
+```{r}
+#| fig-width: 7
+#| fig-height: 4.6
+#| out-width: "654px"
+#| out-height: "430px"
+#| fig-align: center
+# jerk-limited profile: 7 phases (jerk +j, 0, -j, cruise, -j, 0, +j)
+fm <- 1; amax <- 1; j <- 4; tm <- 1; dt <- 0.001
+tj <- amax / j; ta <- fm / amax - tj
+phases <- c(tj, ta, tj, tm, tj, ta, tj)
+jerk <- c(j, 0, -j, 0, -j, 0, j)
+bounds <- cumsum(c(0, phases))
+tibble(t = seq(0, sum(phases), by = dt)) %>%
+  mutate(j = jerk[findInterval(t, bounds, rightmost.closed = TRUE)],
+         a = cumsum(j) * dt, f = cumsum(a) * dt) %>%
+  pivot_longer(-t) %>%
+  mutate(name = factor(name, levels = c("f", "a", "j"), labels = c("f", "a", "dot(a)"))) %>%
+  ggplot(aes(t, value)) +
+  geom_vline(xintercept = bounds, linetype = 2, color = "gray40", linewidth = 0.3) +
+  geom_line(linewidth = 0.9, color = "firebrick") +
+  facet_wrap(~name, ncol = 1, scales = "free_y", labeller = label_parsed, strip.position = "left") +
+  labs(x = "t", y = NULL) +
+  theme(strip.placement = "outside")
+```
 
 ## Look-ahead feedrate profile
 
@@ -1605,7 +2068,25 @@ Step 1: calculate velocities:
 - $v_{f,i} = 0$ for last segment or if $v_{m,i} = 0$
 :::
 ::: {.column width="45%"}
-![](images/lookahead-velocities.jpg){fig-align="center" height=280}
+```{r}
+#| fig-width: 5.5
+#| fig-height: 3.6
+#| out-width: "428px"
+#| out-height: "280px"
+#| fig-align: center
+# blocks: length, nominal feed and angle with the next block (deg)
+blk <- tibble(l = c(5, 5, 3, 11, 6, 1, 1), f = c(8, 8, 7, 3, 7, 7, 7), alpha = c(40, 10, 0, 0, 0, 0, 90)) %>%
+  mutate(s0 = lag(cumsum(l), default = 0), s1 = cumsum(l),
+         vf = if_else(row_number() == n(), 0, (f + lead(f)) / 2 * cos(alpha * pi / 180)),
+         vf = pmin(vf, f, lead(f, default = 0)))
+first <- la_block(0, blk$f[1], blk$vf[1], sf = blk$l[1])
+ggplot(blk) +
+  geom_segment(aes(x = s0, xend = s1, y = f, yend = f), linetype = 2, linewidth = 0.8) +
+  geom_segment(aes(x = s1, xend = s1, y = 0, yend = pmax(f, lead(f, default = 0))), linetype = 3) +
+  geom_line(data = first, aes(s, final), color = "steelblue", linewidth = 1.6) +
+  geom_point(data = bind_rows(tibble(s1 = 0, vf = 0), blk), aes(s1, vf), color = "firebrick", size = 3) +
+  labs(x = "s", y = quote(v == dot(s)))
+```
 :::
 ::::
 
@@ -1619,10 +2100,22 @@ B. $v_f < v_m$, $s_0 < s_1 < s_f < s_2$
 
 :::: {.columns}
 ::: {.column width="50%"}
-![](images/la-fwd-long-a1.jpg){height=170}
+```{r}
+#| fig-width: 4.4
+#| fig-height: 3
+#| out-width: "520px"
+#| out-height: "355px"
+la_plot(1, 8, 9)
+```
 :::
 ::: {.column width="50%"}
-![](images/la-fwd-long-a2.jpg){height=170}
+```{r}
+#| fig-width: 4.4
+#| fig-height: 3
+#| out-width: "520px"
+#| out-height: "355px"
+la_plot(1, 8, 5)
+```
 :::
 ::::
 
@@ -1636,10 +2129,22 @@ B. $v_f < v_m$, $s_1 < s_0 < s_f < s_2$
 
 :::: {.columns}
 ::: {.column width="50%"}
-![](images/la-fwd-long-b1.jpg){height=170}
+```{r}
+#| fig-width: 4.4
+#| fig-height: 3
+#| out-width: "520px"
+#| out-height: "355px"
+la_plot(9, 8, 9)
+```
 :::
 ::: {.column width="50%"}
-![](images/la-fwd-long-b2.jpg){height=170}
+```{r}
+#| fig-width: 4.4
+#| fig-height: 3
+#| out-width: "520px"
+#| out-height: "355px"
+la_plot(9, 8, 5)
+```
 :::
 ::::
 
@@ -1652,10 +2157,22 @@ Short segments:
 
 :::: {.columns}
 ::: {.column width="50%"}
-![](images/la-fwd-short-1.jpg){height=200}
+```{r}
+#| fig-width: 4.4
+#| fig-height: 3
+#| out-width: "520px"
+#| out-height: "355px"
+la_plot(1, 8, 5, sf = 1.5)
+```
 :::
 ::: {.column width="50%"}
-![](images/la-fwd-short-2.jpg){height=200}
+```{r}
+#| fig-width: 4.4
+#| fig-height: 3
+#| out-width: "520px"
+#| out-height: "355px"
+la_plot(1, 8, 9, sf = 1.5)
+```
 :::
 ::::
 
@@ -1667,10 +2184,22 @@ Short segments:
 
 :::: {.columns}
 ::: {.column width="50%"}
-![](images/la-fwd-short-3.jpg){height=200}
+```{r}
+#| fig-width: 4.4
+#| fig-height: 3
+#| out-width: "520px"
+#| out-height: "355px"
+la_plot(7, 8, 9, sf = 1.5)
+```
 :::
 ::: {.column width="50%"}
-![](images/la-fwd-short-4.jpg){height=200}
+```{r}
+#| fig-width: 4.4
+#| fig-height: 3
+#| out-width: "520px"
+#| out-height: "355px"
+la_plot(7.5, 8, 6, sf = 1.5)
+```
 :::
 ::::
 
@@ -1681,38 +2210,51 @@ Short segments:
 
 :::: {.columns}
 ::: {.column width="50%"}
-![](images/la-bwd-1.jpg){height=200}
+```{r}
+#| fig-width: 4.4
+#| fig-height: 3
+#| out-width: "520px"
+#| out-height: "355px"
+la_plot(0, 8, 5.3, steps = c("fwd", "bwd"))
+```
 :::
 ::: {.column width="50%"}
-![](images/la-bwd-2.jpg){height=200}
+```{r}
+#| fig-width: 4.4
+#| fig-height: 3
+#| out-width: "520px"
+#| out-height: "355px"
+la_plot(9, 8, 5, steps = c("fwd", "bwd"))
+```
 :::
 ::::
 
 ## 9 Possible cases
 
-:::: {.columns}
-::: {.column width="33%"}
-![](images/case-ama.jpg){height=140}
-
-![](images/case-dmd.jpg){height=140}
-
-![](images/case-ad.jpg){height=140}
-:::
-::: {.column width="33%"}
-![](images/case-a.jpg){height=140}
-
-![](images/case-d.jpg){height=140}
-
-![](images/case-da.jpg){height=140}
-:::
-::: {.column width="33%"}
-![](images/case-m.jpg){height=140}
-
-![](images/case-amd.jpg){height=140}
-
-![](images/case-dma.jpg){height=140}
-:::
-::::
+```{r}
+#| fig-width: 10
+#| fig-height: 5.6
+#| out-width: "964px"
+#| out-height: "540px"
+#| fig-align: center
+# a = d = 10, sf = 5; red: forward step, green: backward step, gray: resulting profile
+tribble(
+  ~case, ~vi, ~vm, ~vf,
+  "AMA", 2, 6, 9,      "A", 1, 10.5, 10.05,  "M", 6, 6, 6,
+  "DMD", 9, 6, 2,      "D", 10, 10.5, 1,     "AMD", 2, 7, 2,
+  "AD", 1, 10.5, 1,    "DA", 9, 4, 9,        "DMA", 9, 6, 9
+) %>%
+  mutate(case = fct_inorder(case), prof = pmap(list(vi, vm, vf), la_block, a = 10)) %>%
+  unnest(prof) %>%
+  ggplot(aes(x = s)) +
+  geom_hline(aes(yintercept = vm), linetype = 2, color = "gray40") +
+  geom_line(aes(y = final), linewidth = 3.5, color = "gray75", lineend = "round") +
+  geom_line(aes(y = fwd), linewidth = 1, color = "firebrick") +
+  geom_line(aes(y = bwd), linewidth = 1, color = "forestgreen", linetype = "22") +
+  facet_wrap(~case, ncol = 3) +
+  coord_cartesian(ylim = c(0, 11)) +
+  labs(x = "s", y = quote(v == dot(s)))
+```
 
 ## Change variable
 
@@ -1745,7 +2287,7 @@ Convert **from curvilinear abscissa to time**, one block at a time:
 
 ## Machining error sources
 
-![](images/error-sources.jpg){fig-align="center" height=490}
+![](images-1/error-sources.svg){fig-align="center" height=490}
 
 ## Error Compensation (A5)
 
@@ -1762,21 +2304,97 @@ Convert **from curvilinear abscissa to time**, one block at a time:
 - When a sharp corner is needed, use curls
 :::
 ::: {.column width="55%"}
-![](images/profiling-error.jpg){fig-align="center" height=400}
+```{r}
+#| fig-width: 5
+#| fig-height: 4.2
+#| out-width: "476px"
+#| out-height: "400px"
+#| fig-align: center
+# 90-degree corner at constant feed, each axis follows its command with a first-order lag (Kv)
+corner <- function(feed, Kv = 40, dt = 1e-4, L = 2) {
+  v <- feed / 60
+  t <- seq(0, 2 * L / v + 0.2, by = dt)
+  xc <- 40 + pmin(v * t - L, 0)
+  yc <- -10 + pmax(v * t - L, 0)
+  xa <- ya <- numeric(length(t))
+  xa[1] <- xc[1] - v / Kv; ya[1] <- yc[1]
+  for (i in 2:length(t)) {
+    xa[i] <- xa[i - 1] + Kv * (xc[i - 1] - xa[i - 1]) * dt
+    ya[i] <- ya[i - 1] + Kv * (yc[i - 1] - ya[i - 1]) * dt
+  }
+  e <- min(sqrt((xa - 40)^2 + (ya + 10)^2))
+  tibble(x = xa, y = ya, F = sprintf("%d mm/min (error %.2f mm)", feed, e))
+}
+bind_rows(corner(500), corner(1500)) %>%
+  ggplot(aes(x, y, color = F)) +
+  geom_path(data = tibble(x = c(39.5, 40, 40), y = c(-10, -10, -9.5)), color = "black", linetype = 2) +
+  geom_path(linewidth = 1) +
+  coord_equal(xlim = c(39.5, 40.1), ylim = c(-10.1, -9.5)) +
+  labs(x = "X (mm)", y = "Y (mm)", color = "Feed rate") +
+  theme(legend.position = "bottom", legend.direction = "vertical")
+```
 :::
 ::::
 
 ## Feedrate-related errors
 
-![](images/feedrate-errors.jpg){fig-align="center" height=460}
+```{r}
+#| layout-ncol: 2
+#| fig-width: 5
+#| fig-height: 4.2
+#| out-width: "100%"
+# zig-zag toolpath (lines, a small kink, R5 arcs, square corners), nominal feed 10 m/min;
+# look-ahead with forward and backward passes limited by the axes acceleration
+feed <- 10000 / 60; acc <- 400; ds <- 0.05
+seg_line <- function(x0, y0, x1, y1) {
+  n <- max(2, ceiling(sqrt((x1 - x0)^2 + (y1 - y0)^2) / ds))
+  tibble(x = seq(x0, x1, length.out = n), y = seq(y0, y1, length.out = n), R = Inf)
+}
+seg_arc <- function(xc, yc, r, a0, a1) {
+  th <- seq(a0, a1, length.out = max(2, ceiling(abs(a1 - a0) * r / ds)))
+  tibble(x = xc + r * cos(th), y = yc + r * sin(th), R = r)
+}
+pass <- function(y, dir) {
+  xs <- if (dir > 0) c(-10, 20, 50) else c(50, 20, -10)
+  bind_rows(seg_line(xs[1], y, xs[2], y + 2), seg_line(xs[2], y + 2, xs[3], y))
+}
+path <- bind_rows(
+  pass(0, 1), seg_arc(50, 5, 5, -pi / 2, pi / 2), pass(10, -1), seg_line(-10, 10, -10, 20),
+  pass(20, 1), seg_arc(50, 25, 5, -pi / 2, pi / 2), pass(30, -1), seg_line(-10, 30, -10, 40),
+  pass(40, 1)
+) %>% distinct(x, y, .keep_all = TRUE)
+n <- nrow(path)
+step <- sqrt(diff(path$x)^2 + diff(path$y)^2)
+heading <- atan2(diff(path$y), diff(path$x))
+turn <- abs(atan2(sin(diff(heading)), cos(diff(heading))))
+vlim <- pmin(feed, sqrt(acc * path$R))                      # centripetal limit on arcs
+vlim[2:(n - 1)] <- pmin(vlim[2:(n - 1)], ifelse(turn > 0.02, feed * cos(pmin(turn, pi / 2)), feed))
+vlim[c(1, n)] <- 0
+v <- vlim
+for (i in 2:n) v[i] <- min(v[i], sqrt(v[i - 1]^2 + 2 * acc * step[i - 1]))     # forward
+for (i in (n - 1):1) v[i] <- min(v[i], sqrt(v[i + 1]^2 + 2 * acc * step[i]))   # backward
+tt <- c(0, cumsum(step / pmax((head(v, -1) + tail(v, -1)) / 2, 1e-3)))
+path <- mutate(path, t = tt, v = v * 60)
+ggplot(path, aes(x, y, color = v)) +
+  geom_path(linewidth = 1.2) +
+  scale_color_viridis_c(name = "Feed rate\n(mm/min)") +
+  coord_equal() +
+  labs(x = "X (mm)", y = "Y (mm)", title = "Tool path")
+ggplot(path, aes(t, v)) +
+  geom_line() +
+  geom_hline(yintercept = feed * 60, linetype = 2, color = "firebrick") +
+  geom_hline(yintercept = sum(step) / max(tt) * 60, color = "forestgreen") +
+  labs(x = "Time (s)", y = "Feed rate (mm/min)", title = "Feed rate profile",
+       caption = "dashed: nominal, solid: average")
+```
 
 ## Positioning errors
 
-![](images/positioning-errors.jpg){fig-align="center" height=460}
+![](images-1/positioning-errors.svg){fig-align="center" height=460}
 
 ## Squareness errors
 
-![](images/squareness-errors.jpg){fig-align="center" height=460}
+![](images-1/squareness-errors.svg){fig-align="center" height=460}
 
 ## Elementary errors
 
@@ -1788,7 +2406,7 @@ Convert **from curvilinear abscissa to time**, one block at a time:
 
 ## Laser interferometer
 
-![](images/interferometer-paths.jpg){fig-align="center" height=470}
+![](images-1/interferometer-paths.svg){fig-align="center" height=470}
 
 ## Laser interferometer
 
@@ -1806,7 +2424,7 @@ Convert **from curvilinear abscissa to time**, one block at a time:
 
 *Principles of operation of Wollaston's prism*
 
-![](images/straightness-prism.jpg){fig-align="center" height=400}
+![](images-1/straightness-prism.svg){fig-align="center" height=400}
 
 ## Straightness measurement
 
@@ -1818,7 +2436,33 @@ Convert **from curvilinear abscissa to time**, one block at a time:
 
 ## Calibration
 
-![](images/calibration.jpg){fig-align="center" height=470}
+```{r}
+#| layout-ncol: 2
+#| fig-width: 5
+#| fig-height: 4.2
+#| out-width: "100%"
+# simulated calibration of a 200 mm axis: 5 runs, measured every 10 mm
+set.seed(1)
+xs <- seq(0, 200, by = 10)
+shape <- 1.5 * sin(xs / 25) + 0.8 * sin(xs / 9 + 1)
+expand_grid(run = 1:5, x = xs) %>%
+  mutate(straightness = shape[match(x, xs)] + rnorm(n(), sd = 0.6)) %>%
+  ggplot(aes(x, straightness)) +
+  geom_line(aes(group = run), color = "gray60") +
+  geom_point(color = "gray40", size = 1) +
+  stat_summary(fun.data = ~ tibble(ymin = mean(.x) - 2 * sd(.x), ymax = mean(.x) + 2 * sd(.x)),
+               geom = "ribbon", alpha = 0.15, fill = "firebrick") +
+  stat_summary(fun = mean, geom = "line", color = "firebrick", linewidth = 1) +
+  labs(x = "Axis position (mm)", y = "Straightness (µm)", title = "Straightness residuals")
+expand_grid(run = 1:5, dir = c("forward", "backward"), x = xs) %>%
+  mutate(error = 0.025 * x + 0.8 * sin(x / 30) + if_else(dir == "forward", 1.2, -1.2) + rnorm(n(), sd = 0.3)) %>%
+  ggplot(aes(x, error, color = dir)) +
+  geom_point(size = 1, alpha = 0.6) +
+  stat_summary(fun = mean, geom = "line", linewidth = 1) +
+  labs(x = "Nominal position (mm)", y = "Positioning error (µm)", color = NULL,
+       title = "Linearity (positioning) error") +
+  theme(legend.position = "bottom")
+```
 
 ## Laser interferometer: three-axis machine tool installation
 

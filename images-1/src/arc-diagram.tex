@@ -1,0 +1,24 @@
+% Circular interpolation: parametric arc from the centre
+\documentclass[dvisvgm,tikz,border=4pt]{standalone}
+\input{preamble}
+\begin{document}
+\begin{tikzpicture}
+  \def\R{4}\def\tz{12}\def\dt{52}
+  \coordinate (C) at (2.2,1.6);
+  \coordinate (P0) at ($(C)+(\tz:\R)$);
+  \coordinate (Pf) at ($(C)+(\tz+\dt:\R)$);
+  \draw[->, thick] (0,0) -- (8.6,0) node[below left] {$X$};
+  \draw[->, thick] (0,0) -- (0,6.4) node[below left] {$Y$};
+  \draw[proj] (C) -- (C|-0,0) node[below, black] {$X_c$};
+  \draw[proj] (P0) -- (P0|-0,0) node[below, black] {$X_0$};
+  \draw[proj] (C) -- (0,0|-C) node[left, black] {$Y_c$};
+  \draw[proj] (Pf) -- (0,0|-Pf) node[left, black] {$Y_f$};
+  \draw[proj] (C) -- ++(0.9*\R,0);
+  \draw[->, thick] (C) -- (P0);
+  \draw[->, thick] (C) -- node[above left] {$R$} (Pf);
+  \draw[->] ($(C)+(0:2.9)$) arc[start angle=0, end angle=\tz, radius=2.9] node[midway, right] {$\vartheta_0$};
+  \draw[->] ($(C)+(\tz:1.4)$) arc[start angle=\tz, end angle=\tz+\dt, radius=1.4] node[midway, above right] {$\Delta\vartheta$};
+  \draw[->, line width=2.4pt, dmred] (P0) arc[start angle=\tz, end angle=\tz+\dt, radius=\R];
+  \fill (C) circle (2pt) (P0) circle (2pt);
+\end{tikzpicture}
+\end{document}

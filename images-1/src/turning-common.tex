@@ -1,0 +1,17 @@
+% Turning example (not compiled on its own). Coordinates in mm: x = Z axis, y = radius.
+% Profile of the finished part, upper half, from the G-code of the finishing pass.
+\newcommand\partprofile{(0,0) -- (0,15) -- (-20,15) -- (-25,12.5) -- (-52,12.5)
+  arc[start angle=-90, end angle=-180, x radius=10, y radius=10] -- (-85,22.5)
+  -- (-100,32.5) -- (-150,32.5) -- (-150,0)}
+% same profile mirrored about the axis (lower half)
+\newcommand\partprofilelow{(0,0) -- (0,-15) -- (-20,-15) -- (-25,-12.5) -- (-52,-12.5)
+  arc[start angle=90, end angle=180, x radius=10, y radius=10] -- (-85,-22.5)
+  -- (-100,-32.5) -- (-150,-32.5) -- (-150,0)}
+% roughing passes: (radius, Z end) from blocks N11, N15, N19, N23 (X is a diameter)
+\def\roughpasses{30.5/-94.5, 25.5/-88, 20.5/-59.4, 16/-57.6}
+\tikzset{mm/.style={x=0.06cm, y=0.06cm}}
+% chuck: body and jaws gripping the outer diameter of the stock (radius 32.5) near Z = -150
+\newcommand\chuck{%
+  \filldraw[thick, fill=metaldk!40] (-182,-54) rectangle (-168,54);
+  \foreach \s in {1,-1}
+    \filldraw[thick, fill=metaldk!70] (-168,{\s*32.5}) rectangle (-138,{\s*48});}

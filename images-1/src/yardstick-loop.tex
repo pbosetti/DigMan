@@ -1,0 +1,26 @@
+% A4 closed loop (measurement) plus A5 outer loop (process model)
+\documentclass[dvisvgm,tikz,border=4pt]{standalone}
+\input{preamble}
+\input{control-common}
+\begin{document}
+\begin{tikzpicture}[ctl, node distance=1cm]
+  \node[sum] (s) {};
+  \node[block, right=of s] (drv) {Driver /\\controller};
+  \node[block, right=of drv] (mot) {Motor};
+  \node[block, right=of mot] (proc) {Process};
+  \node[branch, right=0.7cm of proc] (b) {};
+  \node[hblock, above=0.9cm of mot] (model) {Process model};
+  \draw[sig] ($(s.west)+(-1.2,0)$) -- (s);
+  \draw[sig] (s) -- (drv);
+  \draw[sig] (drv) -- (mot);
+  \draw[sig] (mot) -- (proc);
+  \draw (proc) -- (b);
+  \draw[sig] (b) -- ++(1.2,0);
+  \draw[sig] (mot.south) -- ++(0,-1) -| node[pos=0.25, below, lbl] {Measurement (A4)} (s.south);
+  \draw[sig, dmred] (b) |- (model.east);
+  \draw[sig, dmred] (model.west) -| node[pos=0.25, above, lbl] {Evaluation (A5)} (s.north);
+  \sign{s}{150}{+}
+  \sign{s}{-45}{-}
+  \sign{s}{45}{+}
+\end{tikzpicture}
+\end{document}

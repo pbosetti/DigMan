@@ -1,0 +1,67 @@
+% Ball-screw feed axis, with section of a preloaded double nut
+\documentclass[dvisvgm,tikz,border=4pt]{standalone}
+\input{preamble}
+\input{drive-common}
+\begin{document}
+\begin{tikzpicture}[font=\large]
+  % ---------------- axis
+  \screw{0.2}{11.0}{0}
+  \draw[dash dot, gray] (-0.3,0) -- (12.8,0);
+  % angular-contact thrust bearings at both ends
+  \foreach \x in {0.7, 10.5}{
+    \draw[part, fill=metal!80] (\x-0.35,0.2) rectangle (\x+0.35,0.85);
+    \draw[part, fill=metal!80] (\x-0.35,-0.85) rectangle (\x+0.35,-0.2);
+    \foreach \s in {1,-1} \draw[thick, fill=white] (\x,{\s*0.52}) circle (0.17);
+  }
+  % guideways, table and double nut
+  \draw[part, fill=metaldk!40] (-0.2,0.95) rectangle (11.4,1.15);
+  \draw[part, fill=dmorange!55] (3.2,1.15) rectangle (8.2,1.75);
+  \draw[part, fill=dmorange!35] (4.6,-0.55) rectangle (5.45,1.15);
+  \draw[part, fill=dmorange!35] (5.55,-0.55) rectangle (6.4,1.15);
+  % workpiece, tool and loads
+  \draw[part, fill=steel] (4.4,1.75) rectangle (6.8,2.4);
+  \draw[part, fill=metal] (6.85,2.1) rectangle (7.15,3.8);
+  \draw[part, fill=dmorange] (6.85,2.1) rectangle (7.15,2.6);
+  \draw[->, very thick, dmred] (8.5,2.3) -- (7.2,2.3) node[pos=0, right, align=left, font=\normalsize] {$F$\\(cutting force)};
+  \draw[->, very thick, dmred] (5.6,3.5) -- (5.6,2.45) node[pos=0, above, align=center, font=\normalsize] {$W$\\(table + part)};
+  % gear pair and motor at the right end
+  \draw[part, fill=metaldk!50] (11.0,-1.0) rectangle (11.25,1.0);
+  \draw[part, fill=metaldk!50] (11.0,-1.75) rectangle (11.25,-1.0);
+  \foreach \y in {-0.9,-0.7,...,0.9} \draw[gray!50!black] (11.0,\y) -- (11.25,\y);
+  \shaft{11.25}{11.6}{-1.38}
+  \motor{11.6}{-1.38}
+  % labels
+  \draw[callout] (0.7,0.85) -- (0.4,1.9) node[above, black] {thrust bearing};
+  \draw[callout] (2.4,-0.18) -- (2.0,-1.0) node[below, black] {lead screw};
+  \draw[callout] (11.12,1.0) -- (11.6,1.6) node[right, black] {gear A};
+  \draw[callout] (11.12,-1.7) -- (10.6,-2.2) node[left, black] {gear B};
+  \node[below] at (12.3,-1.9) {motor};
+  \node[right] at (8.3,1.45) {table};
+  % ---------------- inset: preloaded double nut in section
+  \draw[dashed, gray] (4.6,-0.55) -- (2.2,-3.2) (6.4,-0.55) -- (8.8,-3.2);
+  \begin{scope}[shift={(5.5,-4.9)}]
+    \draw[gray, rounded corners=6pt] (-4.2,-2.0) rectangle (4.2,1.7);
+    % screw core with ball grooves
+    \fill[metal!60] (-3.9,-0.55) rectangle (3.9,0.55);
+    \foreach \x in {-3.3,-2.6,...,3.4}{
+      \fill[white] (\x,0.55) circle (0.22) (\x,-0.55) circle (0.22);}
+    \draw[thick] (-3.9,0.55) -- (3.9,0.55) (-3.9,-0.55) -- (3.9,-0.55);
+    % nut halves (A, B) with spacer, upper and lower section
+    \foreach \s in {1,-1}{
+      \draw[part, fill=dmorange!35] (-3.6,{\s*0.78}) rectangle (-0.3,{\s*1.45});
+      \draw[part, fill=dmorange!35] (0.3,{\s*0.78}) rectangle (3.6,{\s*1.45});
+      \draw[part, fill=dmgreen!30] (-0.3,{\s*0.78}) rectangle (0.3,{\s*1.45});
+    }
+    % balls: nut A loaded on the left flanks, nut B on the right flanks
+    \foreach \x in {-3.3,-2.6,-1.9,-1.2,-0.5}{
+      \draw[thick, fill=white] (\x-0.04,0.66) circle (0.17) (\x-0.04,-0.66) circle (0.17);}
+    \foreach \x in {0.9,1.6,2.3,3.0}{
+      \draw[thick, fill=white] (\x+0.04,0.66) circle (0.17) (\x+0.04,-0.66) circle (0.17);}
+    \draw[->, very thick, dmred] (-1.6,1.25) -- node[above] {$F_p$} (-2.8,1.25);
+    \draw[->, very thick, dmred] (1.6,1.25) -- node[above] {$F_p$} (2.8,1.25);
+    \node at (-1.95,-1.75) {nut A};
+    \node at (1.95,-1.75) {nut B};
+    \node[dmgreen!50!black] at (0,-1.75) {spacer};
+  \end{scope}
+\end{tikzpicture}
+\end{document}

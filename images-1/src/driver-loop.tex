@@ -1,0 +1,20 @@
+% Single closed loop: driver, motor, process
+\documentclass[dvisvgm,tikz,border=4pt]{standalone}
+\input{preamble}
+\input{control-common}
+\begin{document}
+\begin{tikzpicture}[ctl, node distance=1cm]
+  \node[sum] (s) {};
+  \node[block, right=of s] (drv) {Driver /\\controller};
+  \node[block, right=of drv] (mot) {Motor};
+  \node[block, right=of mot] (proc) {Process};
+  \draw[sig] ($(s.west)+(-1.2,0)$) -- (s);
+  \draw[sig] (s) -- (drv);
+  \draw[sig] (drv) -- (mot);
+  \draw[sig] (mot) -- (proc);
+  \draw[sig] (proc.east) -- ++(1.2,0);
+  \draw[sig] (mot.south) -- ++(0,-1) -| node[pos=0.25, below, lbl] {Position measure} (s.south);
+  \sign{s}{135}{+}
+  \sign{s}{-45}{-}
+\end{tikzpicture}
+\end{document}

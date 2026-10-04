@@ -1,0 +1,18 @@
+% Shared style for the control block diagrams (not compiled on its own)
+\definecolor{blockfill}{HTML}{F9F9FF}
+\tikzset{
+  ctl/.style={>={Stealth[length=6pt]}, line width=0.8pt, font=\large},
+  block/.style={draw=ink!80, fill=blockfill, minimum height=1cm, minimum width=2cm,
+                align=center, inner sep=5pt},
+  hblock/.style={block, draw=dmred, fill=fillred, text=dmred},
+  cblock/.style={block, draw=dmblue, fill=fillblue},
+  sum/.style={circle, draw=ink!80, fill=white, minimum size=0.45cm, inner sep=0pt},
+  branch/.style={circle, fill=ink, inner sep=0pt, minimum size=4.5pt},
+  sig/.style={->},
+  mech/.style={double=white, double distance=2.4pt, line width=0.7pt},
+  lbl/.style={font=\normalsize, inner sep=2pt},
+  group/.style={draw=#1, dashed, rounded corners=8pt, inner sep=12pt},
+  grouplabel/.style={font=\normalsize\bfseries, text=#1, anchor=north west, inner sep=4pt},
+}
+% \sign{sum node}{angle}{sign}: + or - next to the input of a summing junction
+\newcommand\sign[3]{\node[font=\normalsize, inner sep=0pt] at ($(#1)+(#2:0.48)$) {$#3$};}

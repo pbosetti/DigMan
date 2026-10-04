@@ -1,0 +1,25 @@
+// Sources of volumetric error in machine tools (render with neato: fixed positions)
+graph errsrc {
+  layout=neato
+  graph [bgcolor="transparent", fontname="Helvetica", splines=true, outputorder=nodesfirst]
+  node  [shape=ellipse, style="filled", fillcolor="#f9f9ff", color="#666666",
+         fontname="Helvetica", fontsize=15, width=1.9, height=0.85, fixedsize=true, pin=true]
+  edge  [color="#333333", arrowsize=0.7, dir=forward]
+
+  box  [pos="0,3.1!", shape=box, style="dashed,rounded", color="#880000", fillcolor="none",
+        width=7.0, height=1.75, label=""]
+  lab  [pos="-2.55,3.68!", shape=plaintext, style="", label="≈ 70% of total errors", fontcolor="#880000", fontsize=14, width=2.2, height=0.3]
+  geo  [pos="-2.3,2.9!",  label="Geometrical\nerrors", fillcolor="#e8e8f8", color="#000088"]
+  th   [pos="0,2.9!",    label="Thermal\nerrors", fillcolor="#e8e8f8", color="#000088"]
+  kin  [pos="2.3,2.9!",   label="Kinematic\nerrors", fillcolor="#e8e8f8", color="#000088"]
+  tot  [pos="0,0.9!", label="Total\nvolumetric\nerror", shape=box, style="rounded,filled", fillcolor="#f3eaea",
+        color="#880000", fontcolor="#880000", fontsize=17, width=1.8, height=1.1]
+  wear [pos="-4.3,0.9!",  label="Tool wear"]
+  mat  [pos="4.3,0.9!",   label="Material\ninstability"]
+  cut  [pos="-3.6,-1.0!", label="Cutting\nforces"]
+  fix  [pos="-1.3,-1.5!", label="Fixtures"]
+  ctl  [pos="1.3,-1.5!",  label="Control\ninterpolation"]
+  creep [pos="3.6,-1.0!", label="Creep at\njoints"]
+
+  tot -- {geo th kin wear mat cut fix ctl creep}
+}

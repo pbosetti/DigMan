@@ -1,0 +1,20 @@
+% Squareness error between two axes (exaggerated)
+\documentclass[dvisvgm,tikz,border=4pt]{standalone}
+\input{preamble}
+\begin{document}
+\begin{tikzpicture}[font=\large]
+  \def\a{7}
+  \fill[dmblue!25] (-1,-0.5) rectangle (7,0); \draw[thick, draw=dmblue!70!black] (-1,-0.5) rectangle (7,0);
+  \node[dmblue, anchor=west] at (7.2,-0.25) {axis 1};
+  \draw[thick, fill=dmorange!45, draw=dmorange!60!black] (1.6,0) rectangle (4.4,0.45);
+  \begin{scope}[rotate around={-\a:(3,0.45)}]
+    \draw[thick, fill=dmred!35, draw=dmred] (2.6,0.45) rectangle (3.4,6.5);
+    \draw[thick, fill=dmgreen!30, draw=dmgreen!50!black] (3.4,3.6) rectangle (4.2,4.8);
+    \draw[dash dot, dmred] (3,0.45) -- (3,7.2);
+    \node[dmred, anchor=south west] at (3,7.2) {axis 2};
+  \end{scope}
+  \draw[dashed, gray] (3,0.45) -- (3,7.3) node[above left=-2pt, black] {ideal};
+  \draw[->, thick] (3,5.6) arc[start angle=90, end angle=90-\a, radius=5.15];
+  \node[anchor=west] at (4.3,5.2) {$\alpha$: squareness error};
+\end{tikzpicture}
+\end{document}

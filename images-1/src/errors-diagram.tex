@@ -1,0 +1,35 @@
+% Position loop: what lies outside the measurement is not compensated
+\documentclass[dvisvgm,tikz,border=4pt]{standalone}
+\input{preamble}
+\input{control-common}
+\begin{document}
+\begin{tikzpicture}[ctl, node distance=0.9cm]
+  \node[block, fill=white] (cmd) {Digital\\command};
+  \node[sum, right=1.6cm of cmd] (s) {};
+  \node[block, right=of s] (amp) {Amplifier};
+  \node[block, below=1cm of amp] (pt) {Position\\transducer};
+  \node[block, right=1.3cm of amp] (mot) {Motor};
+  \node[block, right=0.8cm of mot] (kc1) {Kinematic\\chain};
+  \node[branch, right=0.8cm of kc1] (b) {};
+  \node[block, right=0.8cm of b] (kc2) {Kinematic\\chain};
+  \node[block, fill=white, right=1.1cm of kc2] (pos) {Actual\\position};
+  \node[block] (kc3) at (b|-pt) {Kinematic\\chain};
+  \begin{scope}[on background layer]
+    \node[group=gray, fit=(s) (amp) (pt), inner ysep=14pt, yshift=6pt] (mcu) {};
+  \end{scope}
+  \node[grouplabel=ink] at (mcu.north west) {Machine Control Unit};
+  % signals
+  \draw[sig] (cmd) -- node[above, pos=0.35, lbl] {$R$} (s);
+  \draw[sig] (s) -- node[above, lbl] {$\varepsilon$} (amp);
+  \draw[sig] (amp) -- (mot);
+  \draw[sig] (pt.west) -| node[pos=0.25, below, lbl] {$B$} (s.south);
+  \draw[sig] (kc2) -- node[above, lbl] {$C$} (pos);
+  \sign{s}{135}{+}
+  \sign{s}{-45}{-}
+  % mechanical links
+  \draw[mech] (mot) -- (kc1);
+  \draw[mech] (kc1) -- (b.center) -- (kc2);
+  \draw[mech] (b.center) -- (kc3);
+  \draw[mech] (kc3) -- (pt);
+\end{tikzpicture}
+\end{document}

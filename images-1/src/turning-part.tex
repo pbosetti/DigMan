@@ -1,0 +1,36 @@
+% Turning example: part drawing (dimensions in mm)
+\documentclass[dvisvgm,tikz,border=4pt]{standalone}
+\input{preamble}
+\input{turning-common}
+\begin{document}
+\begin{tikzpicture}[mm, x=0.075cm, y=0.075cm, font=\large]
+  \fill[pattern=north east lines, pattern color=gray!70] \partprofile -- cycle;
+  \fill[white] \partprofilelow -- cycle;
+  \draw[very thick] \partprofile;
+  \draw[very thick] \partprofilelow;
+  \draw[very thick] (0,-15) -- (0,15);
+  \foreach \z in {-20,-25,-52,-62,-85,-100} \draw[thin] (\z,-40) (\z,0) -- (\z,0);
+  \draw[thick] (-20,-15) -- (-20,15) (-25,-12.5) -- (-25,12.5) (-62,-22.5) -- (-62,22.5)
+               (-85,-22.5) -- (-85,22.5) (-100,-32.5) -- (-100,32.5);
+  \draw[dash dot, gray] (8,0) -- (-158,0);
+  \pic at (0,0) {wporigin};
+  % diameters (right side and left side)
+  \draw[dim] (10,-15) -- node[right] {$\varnothing$30} (10,15);
+  \draw[ext] (1,15) -- (13,15) (1,-15) -- (13,-15);
+  \draw[dim] (-38,-12.5) -- node[left, fill=white, inner sep=1pt] {$\varnothing$25} (-38,12.5);
+  \draw[dim] (-73,-22.5) -- node[left, fill=white, inner sep=1pt] {$\varnothing$45} (-73,22.5);
+  \draw[dim] (-160,-32.5) -- node[left] {$\varnothing$65} (-160,32.5);
+  \draw[ext] (-151,32.5) -- (-163,32.5) (-151,-32.5) -- (-163,-32.5);
+  % lengths from the right face (above the part)
+  \foreach \z/\l/\h in {-20/20/40, -25/25/48, -52/52/56, -62/62/64, -85/85/72}{
+    \draw[ext] (\z,{\z>-62 ? 16 : 23.5}) -- (\z,\h+2);
+    \draw[ext] (0,16) -- (0,\h+2);
+    \draw[dim] (0,\h) -- node[above, fill=white, inner sep=1pt] {\l} (\z,\h);}
+  % below the part
+  \draw[ext] (-100,-33.5) -- (-100,-44) (-85,-23.5) -- (-85,-44) (-150,-33.5) -- (-150,-56) (0,-16) -- (0,-56);
+  \draw[dim] (-85,-42) -- node[below] {15} (-100,-42);
+  \draw[dim] (0,-54) -- node[below] {150} (-150,-54);
+  % fillet radius
+  \draw[callout] (-55.5,15.3) -- (-46,30) node[above right=-2pt, black] {R10};
+\end{tikzpicture}
+\end{document}

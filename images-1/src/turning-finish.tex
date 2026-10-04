@@ -1,0 +1,29 @@
+% Turning example: finishing path (blocks N31-N44), upper half section
+\documentclass[dvisvgm,tikz,border=4pt]{standalone}
+\input{preamble}
+\input{turning-common}
+\begin{document}
+\begin{tikzpicture}[mm, x=0.075cm, y=0.075cm, font=\large]
+  \fill[pattern=north east lines, pattern color=gray!70] \partprofile -- cycle;
+  \draw[thick] \partprofile;
+  \draw[dash dot, gray] (8,0) -- (-158,0);
+  \tikzset{rapid/.style={dmgreen, thick, dashed, ->}, feed/.style={dmred, very thick, ->}}
+  % G00 rapids dashed, G01/G02 feeds solid; coordinates: (Z, X/2)
+  \draw[rapid] (0,35) -- (0,17.5);                                   % N32
+  \draw[feed] (0,17.5) -- (0,0);                                      % N33 facing
+  \draw[rapid] (0,0) -- (5,0);                                        % N34
+  \draw[rapid] (5,0) -- (5,15);                                       % N35
+  \draw[feed] (5,15) -- (-20,15) -- (-25,12.5) -- (-52,12.5)          % N36-N38
+    arc[start angle=-90, end angle=-180, x radius=10, y radius=10]    % N39 G02
+    -- (-85,22.5) -- (-100,32.5) -- (-150,32.5);                      % N40-N42
+  \draw[rapid] (-150,32.5) -- (-150,35);                              % N43
+  \draw[rapid] (-150,35) -- (20,35);                                  % N44
+  % block numbers at the end of each block
+  \foreach \p/\n/\a in {{(0,17.5)}/32/right, {(0,0)}/33/below right, {(5,0)}/34/right, {(5,15)}/35/right,
+                        {(-20,15)}/36/above, {(-25,12.5)}/37/above, {(-52,12.5)}/38/below,
+                        {(-62,22.5)}/39/above, {(-85,22.5)}/40/above, {(-100,32.5)}/41/above right,
+                        {(-150,32.5)}/42/below right, {(-150,35)}/43/above left, {(20,35)}/44/above}
+    \node[font=\small, \a, inner sep=2pt] at \p {\n};
+  \node[anchor=west] at (-140,8) {Finishing};
+\end{tikzpicture}
+\end{document}

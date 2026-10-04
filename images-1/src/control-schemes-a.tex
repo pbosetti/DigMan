@@ -1,0 +1,69 @@
+% Digital position loop of a feed drive: physical components
+% (after Altintas, Manufacturing Automation)
+\documentclass[dvisvgm,tikz,border=4pt]{standalone}
+\input{preamble}
+\input{control-common}
+\begin{document}
+\begin{tikzpicture}[ctl, node distance=0.6cm, font=\normalsize,
+    block/.append style={minimum width=1.7cm, minimum height=1.05cm, font=\normalsize},
+    u/.style={above, font=\footnotesize, inner sep=2pt}]
+  % main row
+  \node[align=center] (cmd) {Position\\command\\{}[counts]};
+  \node[sum, right=0.7cm of cmd] (s1) {};
+  \node[cblock, right=1.2cm of s1] (law) {Digital\\control law};
+  \node[cblock, right=of law, minimum width=1cm] (da) {D/A};
+  \node[block, right=1.4cm of da] (sga) {Signal\\gain};
+  \node[sum, right=of sga] (s2) {};
+  \node[block, right=of s2] (ca) {Current\\amplifier};
+  \node[sum, right=of ca] (s3) {};
+  \node[block, right=of s3] (pwm) {PWM\\amplifier};
+  \node[sum, right=0.9cm of pwm] (s4) {};
+  \node[block, right=of s4] (wind) {Motor\\winding};
+  \node[block, right=0.9cm of wind] (kt) {Motor\\constant};
+  \node[sum, right=0.9cm of kt] (s5) {};
+  \node[block, right=of s5] (mech) {Mechanical\\inertia};
+  \node[hblock, right=1.2cm of mech, text=ink] (enc) {Optical\\encoder};
+  \node[align=center, right=0.7cm of enc] (out) {Axis\\position\\{}[counts]};
+  % feedback blocks
+  \node[block] (emf) at ($(s4)!0.5!(mech)+(0,2.2)$) {Back-emf constant};
+  \node[align=center, font=\footnotesize] (dist) at ($(s5)+(0,1.25)$) {Cutting torque,\\friction};
+  \node[block] (cs) at ($(s3)!0.5!(wind)+(0,-1.9)$) {Current sensor};
+  \node[block] (tach) at ($(s2)!0.5!(mech)+(0,-3.2)$) {Tachogenerator};
+  % groups
+  \begin{scope}[on background layer]
+    \node[group=dmblue, fit=(law) (da), inner ysep=16pt, yshift=6pt] (pc) {};
+    \node[group=dmred, fit=(sga) (enc) (emf) (cs) (tach), inner xsep=10pt] (ph) {};
+  \end{scope}
+  \node[grouplabel=dmblue] at (pc.north west) {Computer};
+  \node[grouplabel=dmred] at (ph.north west) {Physical system};
+  % forward path
+  \draw[sig] (cmd) -- (s1);
+  \draw[sig] (s1) -- (law);
+  \draw[sig] (law) -- (da);
+  \draw[sig] (da) -- node[u, pos=0.3] {[V]} (sga);
+  \draw[sig] (sga) -- (s2);
+  \draw[sig] (s2) -- (ca);
+  \draw[sig] (ca) -- (s3);
+  \draw[sig] (s3) -- (pwm);
+  \draw[sig] (pwm) -- node[u] {[V]} (s4);
+  \draw[sig] (s4) -- (wind);
+  \draw[sig] (wind) -- node[u] {[A]} (kt);
+  \draw[sig] (kt) -- node[u] {[Nm]} (s5);
+  \draw[sig] (s5) -- (mech);
+  \draw[sig] (mech) -- node[u] {[rad/s]} (enc);
+  \draw[sig] (enc) -- (out);
+  % feedback paths
+  \draw[sig] (wind.south) |- (cs.east);
+  \draw[sig] (cs.west) -| (s3.south);
+  \draw[sig] (mech.north) |- (emf.east);
+  \draw[sig] (emf.west) -| (s4.north);
+  \draw[sig] (dist) -- (s5.north);
+  \draw[sig] (mech.south) |- node[pos=0.75, above, font=\footnotesize] {velocity feedback} (tach.east);
+  \draw[sig] (tach.west) -| (s2.south);
+  \draw[sig] (enc.south) -- ++(0,-4.3) -| node[pos=0.25, below, font=\footnotesize] {position feedback} (s1.south);
+  \foreach \s in {s1, s2} {\sign{\s}{135}{+} \sign{\s}{-45}{-}}
+  \sign{s3}{135}{+} \sign{s3}{-45}{-}
+  \sign{s4}{-135}{+} \sign{s4}{45}{-}
+  \sign{s5}{-135}{+} \sign{s5}{45}{-}
+\end{tikzpicture}
+\end{document}

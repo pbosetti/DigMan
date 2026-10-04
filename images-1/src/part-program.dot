@@ -1,0 +1,31 @@
+// Typical structure of a part-program
+digraph pp {
+  graph [rankdir=TB, bgcolor="transparent", fontname="Helvetica", nodesep=0.6, ranksep=0.22]
+  node  [shape=box, style="filled", fillcolor="#f9f9ff", color="#666666",
+         fontname="Helvetica", fontsize=20, height=0.55, width=2.8]
+  edge  [color="#333333", arrowsize=0.9, fontname="Helvetica", fontsize=16]
+
+  // subroutine-call shape: box with double vertical sides
+  node [group=main]
+  start [label="Start", style="rounded,filled", fillcolor="#ffffff", width=1.2]
+  raw   [label="Define raw WP"]
+  orig  [shape=plain, style="", label=<<table border="1" cellborder="1" cellspacing="0" cellpadding="6" bgcolor="#f9f9ff" color="#666666"><tr><td width="6"></td><td width="230"><font point-size="20">Load WP origin</font></td><td width="6"></td></tr></table>>]
+  ltr   [shape=plain, style="", label=<<table border="1" cellborder="1" cellspacing="0" cellpadding="6" bgcolor="#f9f9ff" color="#666666"><tr><td width="6"></td><td width="230"><font point-size="20">Load roughing tool</font></td><td width="6"></td></tr></table>>]
+  rough [label="Roughing toolpath", fillcolor="#fdf0dc", color="#b36b00"]
+  ltf   [shape=plain, style="", label=<<table border="1" cellborder="1" cellspacing="0" cellpadding="6" bgcolor="#f9f9ff" color="#666666"><tr><td width="6"></td><td width="230"><font point-size="20">Load finishing tool</font></td><td width="6"></td></tr></table>>]
+  fin   [label="Finishing toolpath", fillcolor="#e8f4e8", color="#008800"]
+  reset [shape=plain, style="", label=<<table border="1" cellborder="1" cellspacing="0" cellpadding="6" bgcolor="#f9f9ff" color="#666666"><tr><td width="6"></td><td width="230"><font point-size="20">Machine reset</font></td><td width="6"></td></tr></table>>]
+  stop  [label="Stop", style="rounded,filled", fillcolor="#ffffff", width=1.2]
+  node [group=""]
+  on1   [label="Spindle and\ncoolant ON", fontsize=18, width=2.0, height=0.7]
+  on2   [label="Spindle and\ncoolant ON", fontsize=18, width=2.0, height=0.7]
+
+  start -> raw -> orig -> ltr -> rough -> ltf -> fin
+  ltr -> on1 [style=dashed]
+  ltf -> on2 [style=dashed]
+  {rank=same; ltr; on1}
+  {rank=same; ltf; on2}
+  fin -> reset -> stop
+  rough:w -> ltr:w [style=dashed, color="#666666", label="  next tool  ", constraint=false]
+  fin:w -> ltf:w [style=dashed, color="#666666", label="  next tool  ", constraint=false]
+}

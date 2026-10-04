@@ -1,0 +1,31 @@
+% Parallel PID controller
+\documentclass[dvisvgm,tikz,border=4pt]{standalone}
+\input{preamble}
+\input{control-common}
+\begin{document}
+\begin{tikzpicture}[ctl]
+  \node[sum] (s1) at (0,0) {};
+  \node[branch] (b1) at (1.6,0) {};
+  \tikzset{pid/.style={block, minimum width=4.4cm, minimum height=1.25cm, anchor=west}}
+  \node[pid] (P) at (3,1.75) {\textbf{P}\quad $K_p\,e(t)$};
+  \node[pid] (I) at (3,0)    {\textbf{I}\quad $\displaystyle K_i\!\int_0^t e(\tau)\,\mathrm{d}\tau$};
+  \node[pid] (D) at (3,-1.75) {\textbf{D}\quad $\displaystyle K_d\,\frac{\mathrm{d}e(t)}{\mathrm{d}t}$};
+  \node[sum] (s2) at (8.6,0) {};
+  \node[hblock, minimum width=1.6cm] (M) at (10.8,0) {\textbf{M}};
+  \node[branch] (b2) at (12.5,0) {};
+  \draw[sig] (-2.8,0) node[above right, lbl] {setpoint} -- (s1);
+  \draw (s1) -- node[above, lbl] {$e(t)$} (b1);
+  \draw[sig] (b1) |- (P);
+  \draw[sig] (b1) -- (I);
+  \draw[sig] (b1) |- (D);
+  \draw[sig] (P) -| (s2);
+  \draw[sig] (I) -- (s2);
+  \draw[sig] (D) -| (s2);
+  \draw[sig] (s2) -- node[above, lbl] {$u(t)$} (M);
+  \draw (M) -- (b2);
+  \draw[sig] (b2) -- ++(1.6,0) node[above left, lbl] {output};
+  \draw[sig] (b2) -- ++(0,-3) -| (s1.south);
+  \sign{s1}{135}{+}
+  \sign{s1}{-45}{-}
+\end{tikzpicture}
+\end{document}

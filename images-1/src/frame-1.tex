@@ -1,0 +1,20 @@
+% Machine reference frame: all axes at zero
+\documentclass[dvisvgm,tikz,border=4pt]{standalone}
+\input{preamble}
+\input{frame-common}
+\begin{document}
+\begin{tikzpicture}
+  \machine{0}{0}
+  \pic at (\XZ-2,\YZ) {machorigin};
+  \node[font=\small\itshape, align=center, gray!50!black, below] at (\XZ-2,\YZ-0.3) {machine\\origin};
+  % offsets of the support point
+  \draw[ext] (\XZ,\YZ-0.6) -- (\XZ,\YZ-2.3);
+  \draw[ext] (\XZ+\OX,\YZ+\OY-0.2) -- (\XZ+\OX,\YZ-2.3);
+  \draw[dim] (\XZ,\YZ-2.1) -- node[above] {$O_x$} (\XZ+\OX,\YZ-2.1);
+  \draw[ext] (\XZ+3.5,\YZ) -- (\XZ+\OX+1.3,\YZ);
+  \draw[ext] (\XZ+\OX+0.2,\YZ+\OY) -- (\XZ+\OX+1.3,\YZ+\OY);
+  \draw[dim] (\XZ+\OX+1.1,\YZ) -- node[right] {$O_y$} (\XZ+\OX+1.1,\YZ+\OY);
+  \draw[callout] (\XZ+\OX+0.1,\YZ+\OY-0.15) -- (\XZ+\OX+0.9,\YZ+\OY-1.0)
+    node[right, font=\small\itshape, black] {support point};
+\end{tikzpicture}
+\end{document}

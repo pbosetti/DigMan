@@ -1,0 +1,26 @@
+% Turning example: roughing passes (blocks N10-N25), upper half section
+\documentclass[dvisvgm,tikz,border=4pt]{standalone}
+\input{preamble}
+\input{turning-common}
+\begin{document}
+\begin{tikzpicture}[mm, x=0.075cm, y=0.075cm, font=\large]
+  % raw stock: diameter 65, faced later at Z = 0
+  \fill[metal!50] (-150,0) rectangle (1,32.5);
+  % material removed by each pass: from the previous radius down to the pass radius
+  \def\rprev{32.5}
+  \foreach \r/\z [remember=\r as \rprev (initially 32.5)] in \roughpasses {
+    \filldraw[thick, fill=dmorange!70, draw=dmorange!60!black] (1,\r) rectangle (\z,\rprev);
+  }
+  % finished part plus allowance hides what the passes did not remove
+  \fill[white] \partprofile -- cycle;
+  \fill[pattern=north east lines, pattern color=gray!70] \partprofile -- cycle;
+  \draw[very thick] \partprofile;
+  \draw[thick] (-150,0) rectangle (1,32.5);
+  \draw[dash dot, gray] (8,0) -- (-158,0);
+  % pass numbers and tool approach
+  \foreach \r/\z [count=\i, remember=\r as \rprev (initially 32.5)] in \roughpasses {
+    \node[font=\small\bfseries, dmorange!40!black] at (5,{(\r+\rprev)/2}) {\i};
+  }
+  \node[anchor=west] at (-140,8) {Roughing};
+\end{tikzpicture}
+\end{document}
