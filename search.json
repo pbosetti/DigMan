@@ -1117,7 +1117,7 @@
     "href": "1-machine_tools.html#drivers",
     "title": "Digital Manufacturing – Part 1",
     "section": "Drivers",
-    "text": "Drivers\n\n\n\n\n\n\n\nRequirements:\n\nFast response\nQuick stabilization\nNo overshoot"
+    "text": "Drivers\n\n\n\n\n\n\n\nRequirements:\n\nFast response (acceleration)\nQuick stabilization (minimum number of oscillations)\nNo overshoot (or risk of damages)"
   },
   {
     "objectID": "1-machine_tools.html#feedback",
@@ -1176,123 +1176,81 @@
     "text": "Actual control schemes"
   },
   {
+    "objectID": "1-machine_tools.html#plc-programmable-logic-controller",
+    "href": "1-machine_tools.html#plc-programmable-logic-controller",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "PLC: Programmable Logic Controller",
+    "text": "PLC: Programmable Logic Controller\n\n\nPLC is a controller taht implemets logic relationships between inputs and outputs. It provides a range of interfaces and registers:\n\nAnalog and digital I/O (&gt; 2048)\nRelay (1000)\nMemories (200)\nTimers (200)\nCounters (200)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\nCan be either a separate hardware, or a software process running on the same computer that runs the CNC"
+  },
+  {
     "objectID": "1-machine_tools.html#plc",
     "href": "1-machine_tools.html#plc",
     "title": "Digital Manufacturing – Part 1",
     "section": "PLC",
-    "text": "PLC\n\n\nInterfaces and Registers:\n\nAnalog and digital I/O (&gt; 2048)\nRelay (1000)\nMemories (200)\nTimers (200)\nCounters (200)\n\nCan be integrated in the CNC"
+    "text": "PLC\n\nBeside GPIO, PLC can also have advanced I/O and communication capabilities:\n\nGeneral purpose communication: RS232, RS422, Ethernet\nDeterministic communication: Profibus, DeviceNet, Modbus, Industrial EtherNET, CAN-BUS\nSpecial I/O: counters, virtual cams, PIDs and controllers\n\nPLC programming languages have been designed to facilitate the transition form wired logics to software logics: the languages had to be intuitive and immediately productive for technicians with different backgrounds: electrical engineering, control engineering, firmware programming"
   },
   {
     "objectID": "1-machine_tools.html#plc-1",
     "href": "1-machine_tools.html#plc-1",
     "title": "Digital Manufacturing – Part 1",
     "section": "PLC",
-    "text": "PLC\nAdvanced I/O\n\nGeneral purpose communication: RS232, RS422, Ethernet\nDeterministic communication: Profibus, DeviceNet, Modbus, Industrial EtherNET, CAN-BUS\nSpecial I/O: counters, virtual cams, PIDs and controllers"
-  },
-  {
-    "objectID": "1-machine_tools.html#plc-2",
-    "href": "1-machine_tools.html#plc-2",
-    "title": "Digital Manufacturing – Part 1",
-    "section": "PLC",
-    "text": "PLC\nProgramming standard IEC 61131-3\n\n\nGraphical\n\nLadder Logic\nFunction Block Diagram\nSequential Function Chart\n\nTextual\n\nStructured Text\nInstruction List"
+    "text": "PLC\nThe programming standard IEC 61131-3 provided this transition:\n\n\n\nLanguage\nType\nDescription\n\n\n\n\nLadder Logic\nGraphical\nResembles relay logic diagrams, intuitive for electricians\n\n\nFunction Block Diagram\nGraphical\nResembles block diagrams, intuitive for control engineers\n\n\nSequential Function Chart\nGraphical\nResembles flow charts and finite state machines, intuitive for process engineers\n\n\nStructured Text\nTextual\nResembles Pascal, intuitive for software engineers\n\n\nInstruction List\nTextual\nResembles assembly, intuitive for firmware engineers\n\n\n\n\n\n\n\n\n\nNote\n\n\nThe standard states that languages must be interchangeable, i.e., the same program can be written in any language and must have the same behavior, different parts of a program can be written in different languages, and the program can be converted from one language to another"
   },
   {
     "objectID": "1-machine_tools.html#plc-ladder-diagram",
     "href": "1-machine_tools.html#plc-ladder-diagram",
     "title": "Digital Manufacturing – Part 1",
     "section": "PLC: Ladder diagram",
-    "text": "PLC: Ladder diagram"
+    "text": "PLC: Ladder diagram\n\n\n\n\n\n\n\n\nNote\n\n\n\nOn the left side there are contactors (inputs), on the right side there are coils (outputs).\nparallel branches represent OR logic, series branches represent AND logic; contactors can be normally open or normally closed (NOT).\nThe program is read from left to right, top to bottom. The program is executed in a cyclic scan: all inputs are read, the logic is evaluated, and the outputs are updated."
   },
   {
     "objectID": "1-machine_tools.html#plc-function-block-diagram",
     "href": "1-machine_tools.html#plc-function-block-diagram",
     "title": "Digital Manufacturing – Part 1",
     "section": "PLC: Function Block Diagram",
-    "text": "PLC: Function Block Diagram"
+    "text": "PLC: Function Block Diagram\n\n\n\n\n\n\n\n\nNote\n\n\n\nEach block implements a function, which can be a logic function, a timer, a counter, or even a more complicated one as a PID controller\nAppeals to control engineers, being quite similar to Simulink and other block-diagram-based control design software\nComplex programs tend to become quite messy, so FBD is often used in combination with other languages and limited to implement specific functions related to control and signal processing"
   },
   {
     "objectID": "1-machine_tools.html#plc-sequential-function-chart",
     "href": "1-machine_tools.html#plc-sequential-function-chart",
     "title": "Digital Manufacturing – Part 1",
     "section": "PLC: Sequential Function Chart",
-    "text": "PLC: Sequential Function Chart"
+    "text": "PLC: Sequential Function Chart\n\n\n\n\n\n\n\n\nNote\n\n\n\nSFC is a graphical language that implements a finite state machine\nEach block is a state, each line a transition with its activation condition\nIt is very intuitive for process engineers, and it is often used in combination with other languages to implement the overall logic of a process, while the other languages are used to implement the details of each state"
   },
   {
     "objectID": "1-machine_tools.html#plc-textual-languages",
     "href": "1-machine_tools.html#plc-textual-languages",
     "title": "Digital Manufacturing – Part 1",
     "section": "PLC: Textual languages",
-    "text": "PLC: Textual languages\n\n\n\n\nStructured Text (ST)\n\n(* motor start/stop with seal-in *)\nMotor := (Start_PB OR Motor)\n         AND NOT Stop_PB\n         AND NOT Overload;\nInlet_Valve := Motor AND NOT Level_Hi;\nT1(IN := Motor, PT := T#10s);\nIF T1.Q THEN\n  Run_Lamp := TRUE;\nEND_IF;\n\n\n\n\nInstruction List (IL)\n\nLD   Start_PB\nOR   Motor\nANDN Stop_PB\nANDN Overload\nST   Motor\nLD   Motor\nANDN Level_Hi\nST   Inlet_Valve\nCAL  T1(IN := Motor, PT := T#10s)\nLD   T1.Q\nS    Run_Lamp"
+    "text": "PLC: Textual languages\n\n\n\n\nStructured Text (ST)\n\n(* motor start/stop with seal-in *)\nMotor := (Start_PB OR Motor)\n         AND NOT Stop_PB\n         AND NOT Overload;\nInlet_Valve := Motor AND NOT Level_Hi;\nT1(IN := Motor, PT := T#10s);\nIF T1.Q THEN\n  Run_Lamp := TRUE;\nEND_IF;\n\n\n\n\nInstruction List (IL)\n\nLD   Start_PB\nOR   Motor\nANDN Stop_PB\nANDN Overload\nST   Motor\nLD   Motor\nANDN Level_Hi\nST   Inlet_Valve\nCAL  T1(IN := Motor, PT := T#10s)\nLD   T1.Q\nS    Run_Lamp\n\n\n\n\n\n\n\n\nNote\n\n\nTextual languages are the most easy to implement and always available even on low-cost PLC and PLC IDEs"
   },
   {
-    "objectID": "1-machine_tools.html#numerical-control",
-    "href": "1-machine_tools.html#numerical-control",
+    "objectID": "1-machine_tools.html#computer-numerical-control",
+    "href": "1-machine_tools.html#computer-numerical-control",
     "title": "Digital Manufacturing – Part 1",
-    "section": "Numerical Control",
-    "text": "Numerical Control\n\nTypes of motion interpolation\nNumber of controlled axes\nCoordinate systems and reference frames"
+    "section": "(Computer) Numerical Control",
+    "text": "(Computer) Numerical Control\nThe CNC controller is the brain of the machine tool. It implements the judgement (A4) of Amber’s scale, and it is responsible for:\n\nparsing the part-program\nconverting it into motion commands for the machine tool actuators\nprovinding action inputs to the PLC controller for auxiliary functions (coolant, tool change rutines, etc.)\n\nCNC controllers are characterized by:\n\nTypes of motion interpolation\nNumber of controlled axes"
   },
   {
-    "objectID": "1-machine_tools.html#types-of-interpolation",
-    "href": "1-machine_tools.html#types-of-interpolation",
+    "objectID": "1-machine_tools.html#types-of-motion-interpolation",
+    "href": "1-machine_tools.html#types-of-motion-interpolation",
     "title": "Digital Manufacturing – Part 1",
-    "section": "Types of interpolation",
-    "text": "Types of interpolation\n\n\n\nPoint to point\nParaxial\nContinuous"
+    "section": "Types of motion interpolation",
+    "text": "Types of motion interpolation\nCNC can control axes with increasing levels of sophistication:\n\n\n\nPoint to point: only the start and end points are controlled, the path is not controlled (drilling, pick-and-place)\nParaxial: one axis at a time can be controlled in feed (semi-automatic machines, machines that don’t need axes interpolation as sawing machines, presses)\nContinuous: all axes can be controlled simultaneously, and the path is controlled in position and velocity"
   },
   {
     "objectID": "1-machine_tools.html#number-of-controlled-axes",
     "href": "1-machine_tools.html#number-of-controlled-axes",
     "title": "Digital Manufacturing – Part 1",
     "section": "Number of controlled axes",
-    "text": "Number of controlled axes\n\n\n\n2 Axes\n2 Axes and 1/2\n3 Axes\n5 Axes"
+    "text": "Number of controlled axes\n\n\n\n2 Axes: third axis is manually adjusted (manual lathes, manual mills)\n2 Axes and 1/2: only two axes at a time can be controlled, the third is for positioning\n3 Axes: full 3-D trajectory control of TCP\n5 Axes: full trajectory control of TCP and tool orientation"
   },
   {
     "objectID": "1-machine_tools.html#coordinate-systems",
     "href": "1-machine_tools.html#coordinate-systems",
     "title": "Digital Manufacturing – Part 1",
     "section": "Coordinate systems",
-    "text": "Coordinate systems\n\nMachine reference frame\n\nMachine origin\nMachine reference points\n\nWP reference frame\n\nWP origin\n\nTool reference frame\n\nRegistration point\nSupport point"
-  },
-  {
-    "objectID": "1-machine_tools.html#coordinate-systems-1",
-    "href": "1-machine_tools.html#coordinate-systems-1",
-    "title": "Digital Manufacturing – Part 1",
-    "section": "Coordinate systems",
-    "text": "Coordinate systems\n\n\n\n\n\nMachine reference frame: arbitrary position corresponding to the support point when all axes are at 0"
-  },
-  {
-    "objectID": "1-machine_tools.html#coordinate-systems-2",
-    "href": "1-machine_tools.html#coordinate-systems-2",
-    "title": "Digital Manufacturing – Part 1",
-    "section": "Coordinate systems",
-    "text": "Coordinate systems\n\n\n\n\n\n\n\n\n\\[\n\\begin{aligned}\nx_m &= O_x + x \\\\\ny_m &= O_y + y\n\\end{aligned}\n\\]\n\\((x_m, y_m)\\)"
-  },
-  {
-    "objectID": "1-machine_tools.html#coordinate-systems-3",
-    "href": "1-machine_tools.html#coordinate-systems-3",
-    "title": "Digital Manufacturing – Part 1",
-    "section": "Coordinate systems",
-    "text": "Coordinate systems\nIn general, the offset must also include the tool length and radius (\\(T_x\\) and \\(T_y\\)) and possibly the angle \\(\\theta\\) of the machine \\((X, Y)\\) frame with the workpiece frame:\n\\[\n\\begin{bmatrix} x_m \\\\ y_m \\\\ 1 \\end{bmatrix} =\n\\begin{bmatrix} \\cos\\theta & -\\sin\\theta & O_x + T_x \\\\ \\sin\\theta & \\cos\\theta & O_y + T_y \\\\ 0 & 0 & 1 \\end{bmatrix}\n\\begin{bmatrix} x \\\\ y \\\\ 1 \\end{bmatrix}\n\\]\nIn 3-D, you use 4x4 homogeneous transformation matrices"
-  },
-  {
-    "objectID": "1-machine_tools.html#machine-reference-frame",
-    "href": "1-machine_tools.html#machine-reference-frame",
-    "title": "Digital Manufacturing – Part 1",
-    "section": "Machine reference frame",
-    "text": "Machine reference frame\n\n\n\n\n\n\nEncoders give raw distance of spindle nose wrt machine reference\nMachine reference position is defined by manufacturer\nAxes drivers work in machine coordinates"
-  },
-  {
-    "objectID": "1-machine_tools.html#machine-reference-points",
-    "href": "1-machine_tools.html#machine-reference-points",
-    "title": "Digital Manufacturing – Part 1",
-    "section": "Machine reference points",
-    "text": "Machine reference points\n\nOnly used in incremental encoders\nOne or more per axis\nTypes:\n\nSwitch/contactor\nAdditional encoder readout position"
-  },
-  {
-    "objectID": "1-machine_tools.html#wp-coordinates",
-    "href": "1-machine_tools.html#wp-coordinates",
-    "title": "Digital Manufacturing – Part 1",
-    "section": "WP coordinates",
-    "text": "WP coordinates\n\n\n\nSelected by operator/programmer\nPart program can use WP coordinates and/or machine coordinates\nAfter fixturing, WP origin has to be set up wrt machine origin\n\nby touching with tool and compensating for tool radius\nBy 3-D touch probe"
+    "text": "Coordinate systems\n\n\n\nAxes references combine to give machine origin\nAxes references are used to reset encoders (homing)\nMachine controller works in machine coordinates\nWorkpiece origin is set up by the operator\nRegistration point is the reference to measure tool length and diameter\nSupport point is the reference to mount the tool on the spindle (when mounted, reference = support)\n\n\n\n\n\n\n\n\n\nReference\nSymbol\n\n\n\n\nAxis reference\n\n\n\nMachine origin\n\n\n\nWorkpiece origin\n\n\n\nRegistration point\n\n\n\nSupport point"
   },
   {
     "objectID": "1-machine_tools.html#tool-reference",
@@ -1302,32 +1260,53 @@
     "text": "Tool reference\n\n\n\nSupport point:\n\nAbutment plane (lathes)\nSpindle nose (mills)\n\nRegistration point:\n\non the tool, the point that matches the SP when mounted\n\nTo be measured:\n\nLength and offset (lathes)\nLength, diameter, and toric radius (mills)"
   },
   {
+    "objectID": "1-machine_tools.html#wp-coordinates",
+    "href": "1-machine_tools.html#wp-coordinates",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "WP coordinates",
+    "text": "WP coordinates\n\n\n\nSelected by operator/programmer\nPart program can use WP coordinates and/or machine coordinates\nAfter fixturing, WP origin has to be set up wrt machine origin\n\nby touching with tool and compensating for tool radius\nBy 3-D touch probe"
+  },
+  {
     "objectID": "1-machine_tools.html#coordinate-transformations",
     "href": "1-machine_tools.html#coordinate-transformations",
     "title": "Digital Manufacturing – Part 1",
     "section": "Coordinate transformations",
-    "text": "Coordinate transformations\n\n\nAny coordinate \\(P_{wp}\\) given in the workpiece reference frame \\(O_{wp}\\) is converted in machine coordinates \\(P_m\\), including tool length offset\n\\[\nP_m = T_{wp \\to m} P_{wp}; \\qquad\nT_{wp \\to m} = \\begin{bmatrix} r_{11} & r_{12} & r_{13} & d_x \\\\ r_{21} & r_{22} & r_{23} & d_y \\\\ r_{31} & r_{32} & r_{33} & d_z + l_t \\\\ 0 & 0 & 0 & 1 \\end{bmatrix}\n\\]\n\\(d_{x-z}\\) are coordinates of \\(O_{wp}\\) in \\(O_m\\)"
+    "text": "Coordinate transformations\n\nThe part program defines the toolpath as the trajectory of the tool center position (TCP) in the workpiece reference frame\nThe CNC controller converts the TCP coordinates into machine coordinates by applying a roto-translation transformation that accounts for:\n\nthe workpiece origin\nthe tool length\n\nTool diameter is accounted for by the tool radius compensation function, which offsets the toolpath by the tool radius in a direction perpendicular to the toolpath\n\n\n\n\n\n\n\nNote\n\n\nIn turning, there is no tool radius compensation; rather, tool is measured by length and abuttment, the latter being the offset w.r.t. the registration point"
   },
   {
     "objectID": "1-machine_tools.html#coordinate-transformations-1",
     "href": "1-machine_tools.html#coordinate-transformations-1",
     "title": "Digital Manufacturing – Part 1",
     "section": "Coordinate transformations",
+    "text": "Coordinate transformations\n\n\nAny coordinate \\(P_{wp}\\) given in the workpiece reference frame \\(O_{wp}\\) is converted in machine coordinates \\(P_m\\), including tool length offset\n\\[\nP_m = T_{wp \\to m} P_{wp}; \\qquad\nT_{wp \\to m} = \\begin{bmatrix} r_{11} & r_{12} & r_{13} & d_x \\\\ r_{21} & r_{22} & r_{23} & d_y \\\\ r_{31} & r_{32} & r_{33} & d_z + l_t \\\\ 0 & 0 & 0 & 1 \\end{bmatrix}\n\\]\n\\(d_{x-z}\\) are coordinates of \\(O_{wp}\\) in \\(O_m\\)"
+  },
+  {
+    "objectID": "1-machine_tools.html#coordinate-transformations-2",
+    "href": "1-machine_tools.html#coordinate-transformations-2",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Coordinate transformations",
     "text": "Coordinate transformations\nRemember that the roto-translation matrix is:\n\\[\nT = \\begin{bmatrix}\n\\cos\\alpha\\cos\\beta & \\cos\\alpha\\sin\\beta\\sin\\gamma - \\sin\\alpha\\cos\\beta & \\cos\\alpha\\sin\\beta\\cos\\gamma + \\sin\\alpha\\sin\\gamma & d_x \\\\\n\\sin\\alpha\\cos\\beta & \\sin\\alpha\\sin\\beta\\sin\\gamma + \\cos\\alpha\\cos\\beta & \\sin\\alpha\\sin\\beta\\cos\\gamma - \\cos\\alpha\\sin\\gamma & d_y \\\\\n-\\sin\\beta & \\cos\\beta\\sin\\gamma & \\cos\\beta\\cos\\gamma & d_z \\\\\n0 & 0 & 0 & 1\n\\end{bmatrix}\n\\]\n\n\nThe order of transformations is:\n\nRoll by \\(\\gamma\\)\nPitch by \\(\\beta\\)\nYaw by \\(\\alpha\\)\nTranslate by \\((d_x, d_y, d_z)\\)"
   },
   {
-    "objectID": "1-machine_tools.html#touch-probe",
-    "href": "1-machine_tools.html#touch-probe",
+    "objectID": "1-machine_tools.html#coordinate-transformations-3-axes-machines",
+    "href": "1-machine_tools.html#coordinate-transformations-3-axes-machines",
     "title": "Digital Manufacturing – Part 1",
-    "section": "Touch probe",
-    "text": "Touch probe\n\n\n\n\\(O_{wp}\\) position is measured with a touch probe\nThe 3 contact points are also electric switches\nWhen a switch opens, the current coordinate plus the sphere radius in the direction of motion gives the touch point coordinate"
+    "section": "Coordinate transformations (3-axes machines)",
+    "text": "Coordinate transformations (3-axes machines)\nMachines with 3 controlled axes (no tool alignment) typically implement a simplified transformation that only accounts for the workpiece origin translation and rotation \\(\\theta\\) about \\(z\\) and tool length:\n\\[\n\\begin{bmatrix} x_m \\\\ y_m \\\\ z_m \\\\1 \\end{bmatrix} =\n\\begin{bmatrix} \\cos\\theta & -\\sin\\theta & 0 & d_x \\\\\n\\sin\\theta & \\cos\\theta & 0 & d_y \\\\\n0 & 0 & 1 & d_z + l_t \\\\\n0 & 0 & 0 & 1 \\end{bmatrix}\n\\begin{bmatrix} x \\\\ y \\\\ z \\\\ 1 \\end{bmatrix}\n\\]\n\n\n\n\n\n\n\nWorkplane tilt compensation\n\n\nEven for 3 axes machines, it is customary to also include small rotations about \\(x\\) and \\(y\\) in the transformation matrix, to account for misalignments of the working plane and tool holder: this comes especially handy for 3-D printers"
   },
   {
-    "objectID": "1-machine_tools.html#tool-reference-1",
-    "href": "1-machine_tools.html#tool-reference-1",
+    "objectID": "1-machine_tools.html#measuring-positions-touch-probe",
+    "href": "1-machine_tools.html#measuring-positions-touch-probe",
     "title": "Digital Manufacturing – Part 1",
-    "section": "Tool reference",
-    "text": "Tool reference\nMeasurement systems:\n\nMT itself\nTool presetting systems\nIn-machine presetting"
+    "section": "Measuring positions: touch probe",
+    "text": "Measuring positions: touch probe\n\n\nReference positions (as \\(O_{wp}\\)can be measure in machine thanks to a touch probe:\n\na special non-rotating tool with a deflecting stylus and spherical tip that can be used to touch the workpiece and measure its position in machine coordinates\nThe 3 contact points provide a kinematic mount are also electric switches\nWhen a switch opens, the current coordinate plus the sphere radius in the direction of motion gives the touch point coordinate"
+  },
+  {
+    "objectID": "1-machine_tools.html#tool-reference-presetting",
+    "href": "1-machine_tools.html#tool-reference-presetting",
+    "title": "Digital Manufacturing – Part 1",
+    "section": "Tool reference (presetting)",
+    "text": "Tool reference (presetting)\nTool geometry can be measured in machine (exposed time) or by a tool presetter (masked time). The latter is preferred because it is faster and more accurate, and it allows to measure the tool geometry without having to mount it on the machine.\n\n\n\nOn-board presetting uses a fixed stylus/switched contact point in known position reachable by the tool\nTool presetting systems have a dummy spindle mount, a camera and a shadow projector"
   },
   {
     "objectID": "1-machine_tools.html#on-board-presetting",
@@ -1348,56 +1327,56 @@
     "href": "1-machine_tools.html#automation-1",
     "title": "Digital Manufacturing – Part 1",
     "section": "Automation",
-    "text": "Automation\n\n\n\nYardstick of Automation\nLevel A4\nLevel A5\nPart Programs"
+    "text": "Automation\n\n\nAccording to the Yardstick of Automation:\n\nmost CNC machines are at Level A4\nLevel A5 requires post-machining automated inspection and feedback to the CNC controller and to the part-program\n\n\n\n\n\n\n\n\n\na validated process model can be required to implement A5, which is not necessarilyavailable for most machining processes\nempirical models (machine learning) can be used to implement A5, but they require a lot of data and are not always reliable"
   },
   {
     "objectID": "1-machine_tools.html#machining-cycle",
     "href": "1-machine_tools.html#machining-cycle",
     "title": "Digital Manufacturing – Part 1",
     "section": "Machining cycle",
-    "text": "Machining cycle\nGeneral sequence:"
+    "text": "Machining cycle\nThe general sequence for machining a part is:\n\n\n\n\n\nThe section within the red box is the mcahining cycle, i.e. the sequence of operations that can be cyclically repeated for each part"
   },
   {
     "objectID": "1-machine_tools.html#part-program-structure",
     "href": "1-machine_tools.html#part-program-structure",
     "title": "Digital Manufacturing – Part 1",
     "section": "Part-program structure",
-    "text": "Part-program structure"
+    "text": "Part-program structure\n\n\nThe structure of a part program generally follows a common structure:\n\nsetups\nroughing section: removes the bulk of the material, usually with a large tool and high feedrate, leaving a small allowance for finishing\nfinishing section: removes the remaining material with a small tool and low feedrate (final geometry)\nreset of the machine to a safe position and end of program"
   },
   {
     "objectID": "1-machine_tools.html#toolpaths",
     "href": "1-machine_tools.html#toolpaths",
     "title": "Digital Manufacturing – Part 1",
     "section": "Toolpaths",
-    "text": "Toolpaths"
+    "text": "Toolpaths\n\n\n\n\n\n\n\n\n\nRoughing and finishing may require different tools for different geometries\nRoughing typically follows simple, stepped trajectories\nRoughing allowance (excess material) is usually in the range of\n\n0.5–1 mm for turning\n0.2–0.5 mm for milling"
   },
   {
     "objectID": "1-machine_tools.html#workpiece-origin",
     "href": "1-machine_tools.html#workpiece-origin",
     "title": "Digital Manufacturing – Part 1",
     "section": "Workpiece Origin",
-    "text": "Workpiece Origin\nIn turning, X coordinates are in diameters. Two typical choices for origin:\n\nrightmost axial point on finished workpiece (\\(z &lt; 0\\))\non the machine origin (fixtures must be taken into consideration)"
+    "text": "Workpiece Origin\nIn turning, X coordinates are in diameters. Two typical choices for origin:\n\nrightmost axial point on finished workpiece\non the machine origin (fixtures must be taken into consideration)\n\nCommon choice for WP origin among machinists is the rightmost axial point on finished workpiece (turning) and topmost point on the finished workpiece (milling). This choice allows to quickly spot in a program safe fast motions (positive \\(z\\)), from dangerous fast motions (negative \\(z\\)) that can crash the tool into the workpiece or fixture."
   },
   {
     "objectID": "1-machine_tools.html#g-code",
     "href": "1-machine_tools.html#g-code",
     "title": "Digital Manufacturing – Part 1",
     "section": "G-Code",
-    "text": "G-Code\nISO language (ISO/DIN 6983)\n\n\n\nCod.\nCommand\nCod.\nCommand\n\n\n\n\nA\nRotation about X\nN\nBlock number\n\n\nB\nRotation about Y\nO\n—\n\n\nC\nRotation about Z\nP\nThird motion along X\n\n\nD\nTool diameter compensation\nQ\nThird motion along Y\n\n\nE\nSecondary feedrate\nR\nThird motion along Z\n\n\nF\nFeedrate\nS\nSpindle speed\n\n\nG\nPreparatory function\nT\nTool number\n\n\nH\n—\nU\nSecond motion along X\n\n\nI\nCircle center, X\nV\nSecond motion along Y\n\n\nJ\nCircle center, Y\nW\nSecond motion along Z\n\n\nK\nCircle center, Z\nX\nMotion along X\n\n\nL\n—\nY\nMotion along Y\n\n\nM\nMachine function\nZ\nMotion along Z"
+    "text": "G-Code\nISO language (ISO/DIN 6983): sequence of [C][arg] where C is a letter and arg is a number. Valid commands are:\n\n\n\n\n\nCod.\nCommand\n\n\n\n\nA\nRotation about X\n\n\nB\nRotation about Y\n\n\nC\nRotation about Z\n\n\nD\nTool diameter compensation\n\n\nE\nSecondary feedrate\n\n\nF\nFeedrate\n\n\nG\nPreparatory function\n\n\nH\n—\n\n\nI\nCircle center, X\n\n\n\n\n\n\n\nCod.\nCommand\n\n\n\n\nJ\nCircle center, Y\n\n\nK\nCircle center, Z\n\n\nL\n—\n\n\nM\nMachine function\n\n\nN\nBlock number\n\n\nO\n—\n\n\nP\nThird motion along X\n\n\nQ\nThird motion along Y\n\n\n\n\n\n\n\n\n\n\n\nCod.\nCommand\n\n\n\n\nR\nThird motion along Z\n\n\nS\nSpindle speed\n\n\nT\nTool number\n\n\nU\nSecond motion along X\n\n\nV\nSecond motion along Y\n\n\nW\nSecond motion along Z\n\n\nX\nMotion along X\n\n\nY\nMotion along Y\n\n\nZ\nMotion along Z"
   },
   {
     "objectID": "1-machine_tools.html#punch-tape",
     "href": "1-machine_tools.html#punch-tape",
     "title": "Digital Manufacturing – Part 1",
     "section": "Punch tape",
-    "text": "Punch tape\n\n\nG-Code"
+    "text": "Punch tape\n\nG-Code was developed during 1950s\nComputers only had punch tapes as input devices\nLanguage had to be concise"
   },
   {
     "objectID": "1-machine_tools.html#g-code-functions",
     "href": "1-machine_tools.html#g-code-functions",
     "title": "Digital Manufacturing – Part 1",
     "section": "G-code functions",
-    "text": "G-code functions\n\nPreparatory functions (G,T)\nPositioning functions (X, Y, Z)\nMachine functions (M)\n\nN1 T1 S500.0 M3;              tool n°1, CW rotation, 500 rpm\nN2 M8;                        fluid jets ON\nN3 G00 X60.0 Z0.0;            rapid positioning\nN4 G01 X-0.5 Z0.0 F1000.0;    facing\nN5 G01 X20.0 F1000.0\nN6 G03 X40.0 Z-5.0 I30.0 K-10.0 F1000.0;    arc R=10.0\n...\nN128 M30;                     fine programma"
+    "text": "G-code functions\n\n\nTypes of functions:\n\nPreparatory functions (G, T)\nPositioning functions (X, Y, Z, A, B, C)\nMachine functions (M)\n\n\nG functions:\n\nG00: rapid positioning\nG01: linear interpolation\nG02/G03: circular interpolation (CW/CCW)\n\n\nN1 T1 S500.0 M3                             ; tool n°1, CW rotation, 500 rpm\nN2 M8;                                      ; fluid jets ON\nN3 G00 X60.0 Z0.0;                          ; rapid positioning\nN4 G01 X-0.5 Z0.0 F1000.0                   ; facing\nN5 G01 X20.0 F1000.0\nN6 G03 X40.0 Z-5.0 I30.0 K-10.0 F1000.0     ; arc R=10.0\n...\nN128 M30                                    ; fine programma"
   },
   {
     "objectID": "1-machine_tools.html#example-turning",
@@ -1411,7 +1390,7 @@
     "href": "1-machine_tools.html#example-turning-roughing",
     "title": "Digital Manufacturing – Part 1",
     "section": "Example: turning — roughing",
-    "text": "Example: turning — roughing\n\n\n\n\n\n\n\nN10 G00 X61.0 Z7.0\nN11 G01 Z-94.5 F1000.0\nN12 G01 G91 X5.0 F2000.0\nN13 G00 Z7.0\nN14 G00 X51.0\nN15 G01 Z-92.2 F1000.0\nN16 G01 G91 X5.0 F2000.0\nN17 G00 Z7.0\n\nN18 G00 X41.0 Z7.0\nN19 G01 Z-59.4 F1000.0\nN20 G01 G91 X5.0 F2000.0\nN21 G00 Z7.0\nN22 G00 X32.0\nN23 G01 Z-57.6 F1000.0\nN24 G01 G91 X5.0 F2000.0\nN25 G00 Z7.0"
+    "text": "Example: turning — roughing\n\n\n\n\n\n\n\nN10 G00 X61.0 Z7.0\nN11 G01 Z-94.5 F1000.0\nN12 G01 G91 X5.0 F2000.0\nN13 G00 Z7.0\nN14 G00 X51.0\nN15 G01 Z-88 F1000.0\nN16 G01 G91 X5.0 F2000.0\nN17 G00 Z7.0\n\nN18 G00 X41.0 Z7.0\nN19 G01 Z-59.4 F1000.0\nN20 G01 G91 X5.0 F2000.0\nN21 G00 Z7.0\nN22 G00 X32.0\nN23 G01 Z-57.6 F1000.0\nN24 G01 G91 X5.0 F2000.0\nN25 G00 Z7.0"
   },
   {
     "objectID": "1-machine_tools.html#example-turning-finishing",
@@ -1425,63 +1404,63 @@
     "href": "1-machine_tools.html#example-milling",
     "title": "Digital Manufacturing – Part 1",
     "section": "Example: milling",
-    "text": "Example: milling"
+    "text": "Example: milling\n\n\n\nWP origin is usually placed in \\(y,y\\) plane on a geometry feature where most of the dimensions are referenced to, e.g. the bottom-left corner of a rectangular pocket\nThe \\(z\\) coordinate is set to the topmost surface on the finished part:\n\nthe very first roughing operation will remove the excess material and reach the finished surface, which will be used as reference for all subsequent operations\nany subsequent operation is carried out at a negative \\(z\\) coordinate, which is the depth of cut below the finished surface"
   },
   {
     "objectID": "1-machine_tools.html#example-milling-1",
     "href": "1-machine_tools.html#example-milling-1",
     "title": "Digital Manufacturing – Part 1",
     "section": "Example: milling",
-    "text": "Example: milling\n\n\n%es1 G71 *\nN10 G30 G17 X+0 Y+0 Z-20*\nN20 G31 X+150 Y+150 Z+0*\nN30 G247 Q339=+1*\nN40 T1 G17 S5000 F4000*\nN50 G00 G90 X+14 Y-15 Z+10 G40 M8*\nN60 G00 Z-10 G40*\nN70 G01 Y+95 G41 F4000*\nN80 G01 X+36 Y+140*\nN90 G25 R10*\nN100 G01 X+105*\nN110 G24 R4*\nN120 G01 G91 Y-55*\nN130 G25 R14*\nN140 G01 G91 X+35*\nN150 G25 R5*\nN160 G01 G90 X+105 Y+14*\nN170 G24 R8*\nN180 G01 X-15*\nN190 G00 Z+10 G40*\nN200 G38 M30*\nN99999999 %es1 G71 *"
+    "text": "Example: milling\n\n\n\n\nG-code language\n\n%es1 G71 *\nN10 G30 G17 X+0 Y+0 Z-20*\nN20 G31 X+150 Y+150 Z+0*\nN30 G247 Q339=+1*\nN40 T1 G17 S5000 F4000*\nN50 G00 G90 X+14 Y-15 Z+10 G40 M8*\nN60 G00 Z-10 G40*\nN70 G01 Y+95 G41 F4000*\nN80 G01 X+36 Y+140*\nN90 G25 R10*\nN100 G01 X+105*\nN110 G24 R4*\nN120 G01 G91 Y-55*\nN130 G25 R14*\nN140 G01 G91 X+35*\nN150 G25 R5*\nN160 G01 G90 X+105 Y+14*\nN170 G24 R8*\nN180 G01 X-15*\nN190 G00 Z+10 G40*\nN200 G38 M30*\nN99999999 %es1 G71 *\n\n\n\n\n\nHeidenhain CNC - interactive programming"
   },
   {
     "objectID": "1-machine_tools.html#program-check",
     "href": "1-machine_tools.html#program-check",
     "title": "Digital Manufacturing – Part 1",
     "section": "Program check",
-    "text": "Program check"
+    "text": "Program check\n\n\n\n\nG-code language\n\n%es1 G71 *\nN10 G30 G17 X+0 Y+0 Z-20*\nN20 G31 X+150 Y+150 Z+0*\nN30 G247 Q339=+1*\nN40 T1 G17 S5000 F4000*\nN50 G00 G90 X+14 Y-15 Z+10 G40 M8*\nN60 G00 Z-10 G40*\nN70 G01 Y+95 G41 F4000*\nN80 G01 X+36 Y+140*\nN90 G25 R10*\nN100 G01 X+105*\nN110 G24 R4*\nN120 G01 G91 Y-55*\nN130 G25 R14*\nN140 G01 G91 X+35*\nN150 G25 R5*\nN160 G01 G90 X+105 Y+14*\nN170 G24 R8*\nN180 G01 X-15*\nN190 G00 Z+10 G40*\nN200 G38 M30*\nN99999999 %es1 G71 *\n\n\n\n\n\nHeidenhain CNC - program preview"
   },
   {
     "objectID": "1-machine_tools.html#advanced-languages",
     "href": "1-machine_tools.html#advanced-languages",
     "title": "Digital Manufacturing – Part 1",
     "section": "Advanced languages",
-    "text": "Advanced languages\n\n\n\nExplicit syntax\nConversational\nMacros\nParametric programming\n\n\n0  BEGIN PGM es1 MM\n1  BLK FORM 0.1 Z  X+0  Y+0  Z-20\n2  BLK FORM 0.2  X+150  Y+150  Z+0\n3  CYCL DEF 247 DEF. ZERO PEZZO ~\n    Q339=+1    ;NUMERO ORIGINE\n4  TOOL CALL 1 Z S5000 F4000\n5  M8\n6  L  X+10  Y-10  Z+10 R0 FMAX\n7  L  Z-10 R0 FMAX\n8  L  Y+95 RL F AUTO\n9  L  X+36  Y+140\n10 RND R10 F AUTO\n11 L  X+105\n12 CHF 4\n13 L IY-55\n14 RND R14\n15 L IX+35\n16 RND R5\n17 L  X+105  Y+14\n18 CHF 8\n19 L  X-15\n20 L  Z+10 R0 FMAX\n21 STOP M30\n22 END PGM es1 MM"
+    "text": "Advanced languages\n\n\nDifferent CNC manufacturers implement proprietary languages that extend the basic G-code with advanced features:\n\nExplicit, reacher syntax\nConversational/interactive programming (zero-handbook)\nMacros\nParametric programming\n\n\n\n\nHeidenhain language\n\n0  BEGIN PGM es1 MM\n1  BLK FORM 0.1 Z  X+0  Y+0  Z-20\n2  BLK FORM 0.2  X+150  Y+150  Z+0\n3  CYCL DEF 247 DEF. ZERO PEZZO ~\n    Q339=+1    ;NUMERO ORIGINE\n4  TOOL CALL 1 Z S5000 F4000\n5  M8\n6  L  X+10  Y-10  Z+10 R0 FMAX\n7  L  Z-10 R0 FMAX\n8  L  Y+95 RL F AUTO\n9  L  X+36  Y+140\n10 RND R10 F AUTO\n11 L  X+105\n12 CHF 4\n13 L IY-55\n14 RND R14\n15 L IX+35\n16 RND R5\n17 L  X+105  Y+14\n18 CHF 8\n19 L  X-15\n20 L  Z+10 R0 FMAX\n21 STOP M30\n22 END PGM es1 MM"
   },
   {
     "objectID": "1-machine_tools.html#cnc-kernel-tasks",
     "href": "1-machine_tools.html#cnc-kernel-tasks",
     "title": "Digital Manufacturing – Part 1",
     "section": "CNC kernel tasks",
-    "text": "CNC kernel tasks\nKernel functions\n\nUnderstanding a part-program (parsing)\nGenerate velocity profiles (profiling)\nPosition interpolation\nGenerate command signals"
+    "text": "CNC kernel tasks\nThe CNC kernel is the part of the CNC controller that implements the real-time control loop. It is responsible for:\n\nUnderstanding a part-program (parsing)\nGenerate velocity profiles (profiling)\nPosition interpolation (project trajectoryb on the machine axes)\nGenerate command signals (actuation) to the axes drives\n\n\n\n\n\n\n\nNote\n\n\nBeside these tasks, the rest of the CNC also takes care of the GUI, programs selection, editing and storing, networking, tables management (presets and tools), interaction with the PLC, and other non-real-time tasks. The CNC kernel is the part of the CNC that is real-time and must be implemented in a real-time operating system (RTOS)"
   },
   {
     "objectID": "1-machine_tools.html#profiling",
     "href": "1-machine_tools.html#profiling",
     "title": "Digital Manufacturing – Part 1",
     "section": "Profiling",
-    "text": "Profiling\nFor every block:\n\npreserve block length: \\(\\displaystyle\\int_{t_a}^{t_b} f(\\tau)\\,\\mathrm{d}\\tau = l\\)\nlimit acceleration\nlimit jerks"
+    "text": "Profiling\nProfiling is where motion algorithms are implemented. For every block:\n\npreserve block length: \\(\\displaystyle\\int_{t_a}^{t_b} f(\\tau)\\,\\mathrm{d}\\tau = l\\)\nlimit acceleration to the maximum allowed by the machine\nlimit jerks, to minimize vibrations and mechanical stress"
   },
   {
     "objectID": "1-machine_tools.html#profiling-1",
     "href": "1-machine_tools.html#profiling-1",
     "title": "Digital Manufacturing – Part 1",
     "section": "Profiling",
-    "text": "Profiling\nDiscrete time-base (clock)\n\n\n\n\n\n\n\n\n\n\\[\n\\Delta t_1 = \\frac{f_m - f_s}{a}, \\quad\n\\Delta t_2 = \\frac{f_m - f_e}{d}, \\quad\n\\Delta t_m = \\frac{l}{f_m} - \\Delta t_1 \\frac{f_m + f_s}{2 f_m} - \\Delta t_2 \\frac{f_e + f_m}{2 f_m}\n\\]\n\\[\n\\Delta t^* = \\mathrm{int}\\left(\\frac{\\Delta t}{t_q} + 1\\right) t_q = \\Delta t_1 + \\Delta t_m^* + \\Delta t_2, \\qquad\n\\Delta t_m^* = \\Delta t_m + \\Delta t^* - \\Delta t\n\\]"
+    "text": "Profiling\nDiscrete time-base (clock steps of \\(t_q\\)) and feedrate quantization. Block durations must be scaled to a multiple of \\(t_q\\) yet maintaining the same block length. The actual feedrate is reduced accordingly.\n\n\n\n\n\n\n\n\n\n\\[\n\\Delta t_1 = \\frac{f_m - f_s}{a}, \\quad\n\\Delta t_2 = \\frac{f_m - f_e}{d}, \\quad\n\\Delta t_m = \\frac{l}{f_m} - \\Delta t_1 \\frac{f_m + f_s}{2 f_m} - \\Delta t_2 \\frac{f_e + f_m}{2 f_m}\n\\]\n\\[\n\\Delta t^* = \\mathrm{int}\\left(\\frac{\\Delta t}{t_q} + 1\\right) t_q = \\Delta t_1 + \\Delta t_m^* + \\Delta t_2, \\qquad\n\\Delta t_m^* = \\Delta t_m + \\Delta t^* - \\Delta t\n\\]"
   },
   {
     "objectID": "1-machine_tools.html#profiling-2",
     "href": "1-machine_tools.html#profiling-2",
     "title": "Digital Manufacturing – Part 1",
     "section": "Profiling",
-    "text": "Profiling\nDiscrete time-base (clock)\n\n\n\n\n\n\n\n\n\n\\[\n\\int_{t_s}^{t_e} f(\\tau)\\,\\mathrm{d}\\tau = \\frac{\\Delta t_1}{2}(f_m^* + f_s) + \\Delta t_m^* f_m^* + \\frac{\\Delta t_2}{2}(f_m^* + f_e) = l\n\\]\n\\[\nf_m^* = \\frac{2l - f_s \\Delta t_1 - f_e \\Delta t_2}{\\Delta t_1 + \\Delta t_2 + 2\\Delta t_m^*}, \\qquad\na^* = \\frac{f_m^* - f_s}{\\Delta t_1}, \\qquad\nd^* = \\frac{f_e - f_m^*}{\\Delta t_2}\n\\]"
+    "text": "Profiling\nDiscrete time-base (clock steps of \\(t_q\\)) and feedrate quantization. Block durations must be scaled to a multiple of \\(t_q\\) yet maintaining the same block length. The actual feedrate is reduced accordingly.\n\n\n\n\n\n\n\n\n\n\\[\n\\int_{t_s}^{t_e} f(\\tau)\\,\\mathrm{d}\\tau = \\frac{\\Delta t_1}{2}(f_m^* + f_s) + \\Delta t_m^* f_m^* + \\frac{\\Delta t_2}{2}(f_m^* + f_e) = l\n\\]\n\\[\nf_m^* = \\frac{2l - f_s \\Delta t_1 - f_e \\Delta t_2}{\\Delta t_1 + \\Delta t_2 + 2\\Delta t_m^*}, \\qquad\na^* = \\frac{f_m^* - f_s}{\\Delta t_1}, \\qquad\nd^* = \\frac{f_e - f_m^*}{\\Delta t_2}\n\\]"
   },
   {
     "objectID": "1-machine_tools.html#profiling-3",
     "href": "1-machine_tools.html#profiling-3",
     "title": "Digital Manufacturing – Part 1",
     "section": "Profiling",
-    "text": "Profiling\nShort segments, \\(\\Delta t_m \\le 0\\)\n\n\n\n\n\n\n\n\n\n\n\n\n\\[\n\\int_{t_s}^{t_e} f(\\tau)\\,\\mathrm{d}\\tau = \\frac{a\\Delta t_1^2 + d\\Delta t_2^2}{2}; \\quad a\\Delta t_1 = d\\Delta t_2\n\\]\n\\[\n\\frac{\\Delta t_1^2 (a + a^2/d)}{2} = l\n\\]\n\n\\[\n\\begin{aligned}\n\\Delta t_1 &= \\sqrt{\\frac{2l}{a + a^2/d}} \\\\\n\\Delta t_2 &= \\frac{a}{d}\\Delta t_1 \\\\\n\\Delta t_2^* &= \\Delta t^* - \\Delta t_1\n\\end{aligned}\n\\qquad\nf_m^*(\\Delta t_1 + \\Delta t_2^*) = 2l\n\\qquad\n\\begin{aligned}\na^* &= \\frac{f_m^* - f_s}{\\Delta t_1} \\\\\nd^* &= \\frac{f_e - f_m^*}{\\Delta t_2^*}\n\\end{aligned}\n\\]"
+    "text": "Profiling\nIn short segments there’s no time enough to reach the nominal feedrate: \\(\\Delta t_m \\le 0\\)\n\n\n\n\n\n\n\n\n\n\n\n\n\\[\n\\int_{t_s}^{t_e} f(\\tau)\\,\\mathrm{d}\\tau = \\frac{a\\Delta t_1^2 + d\\Delta t_2^2}{2}; \\quad a\\Delta t_1 = d\\Delta t_2\n\\]\n\\[\n\\frac{\\Delta t_1^2 (a + a^2/d)}{2} = l\n\\]\n\n\\[\n\\begin{aligned}\n\\Delta t_1 &= \\sqrt{\\frac{2l}{a + a^2/d}} \\\\\n\\Delta t_2 &= \\frac{a}{d}\\Delta t_1 \\\\\n\\Delta t_2^* &= \\Delta t^* - \\Delta t_1\n\\end{aligned}\n\\qquad\nf_m^*(\\Delta t_1 + \\Delta t_2^*) = 2l\n\\qquad\n\\begin{aligned}\na^* &= \\frac{f_m^* - f_s}{\\Delta t_1} \\\\\nd^* &= \\frac{f_e - f_m^*}{\\Delta t_2^*}\n\\end{aligned}\n\\]"
   },
   {
     "objectID": "1-machine_tools.html#motion-interpolation",
@@ -1502,7 +1481,7 @@
     "href": "1-machine_tools.html#motion-interpolation-2",
     "title": "Digital Manufacturing – Part 1",
     "section": "Motion interpolation",
-    "text": "Motion interpolation\nG-code syntax:\n\nG[02|03] X[\\(X_f\\)] Y[\\(Y_f\\)] I[\\(I\\)] J[\\(J\\)]\nG[02|03] X[\\(X_f\\)] Y[\\(Y_f\\)] R[\\(\\pm R\\)]\n\n\n\n\n\n\n\n\n\n\\[\n\\begin{aligned}\n\\vartheta_0 &= \\cos^{-1} I/R \\\\\n\\vartheta_f &= \\cos^{-1} (X_f - X_c)/R \\\\\nX_c &= X_0 + I \\\\\nY_c &= Y_0 + J \\\\\nR &= \\sqrt{I^2 + J^2} \\\\\nR^2 &= (X_f - X_c)^2 + (Y_f - Y_c)^2\n\\end{aligned}\n\\]"
+    "text": "Motion interpolation\nTwo alternative G-code syntax for arcs:\n\narch center: G[02|03] X[\\(X_f\\)] Y[\\(Y_f\\)] I[\\(I\\)] J[\\(J\\)]\nradius: G[02|03] X[\\(X_f\\)] Y[\\(Y_f\\)] R[\\(\\pm R\\)] (radius sign discriminates which arc to take)\n\n\n\n\n\n\n\n\n\n\\[\n\\begin{aligned}\n\\vartheta_0 &= \\cos^{-1} I/R \\\\\n\\vartheta_f &= \\cos^{-1} (X_f - X_c)/R \\\\\nX_c &= X_0 + I \\\\\nY_c &= Y_0 + J \\\\\nR &= \\sqrt{I^2 + J^2} \\\\\nR^2 &= (X_f - X_c)^2 + (Y_f - Y_c)^2\n\\end{aligned}\n\\]"
   },
   {
     "objectID": "1-machine_tools.html#motion-interpolation-3",
@@ -1516,14 +1495,14 @@
     "href": "1-machine_tools.html#jerk",
     "title": "Digital Manufacturing – Part 1",
     "section": "Jerk",
-    "text": "Jerk\nJerk-limited profiling: each segment is split into 7 ranges (vs. 3)"
+    "text": "Jerk\n\n\nJerk-limited profiling:\n\ncorners in feedrate imply discontinuous acceleration\ndiscontinuous acceleration mean infinite jerk\ninfinite jerk produces vibrations and mechanical stress\nfor limited jerk profiling each segment is split into 7 ranges (vs. 3)"
   },
   {
     "objectID": "1-machine_tools.html#look-ahead-feedrate-profile",
     "href": "1-machine_tools.html#look-ahead-feedrate-profile",
     "title": "Digital Manufacturing – Part 1",
     "section": "Look-ahead feedrate profile",
-    "text": "Look-ahead feedrate profile\n\nProblem 1: tangent or semi-tangent blocks shall have non-zero speed at the corner.\nProblem 2: it shall be possible to accelerate to nominal feedrate with continuous acceleration over \\(n\\) short segments, and it may take more than one segment to decelerate down to stop"
+    "text": "Look-ahead feedrate profile\nThe above presented algorithm assumes that the instant speed goes to zero at each corner. This is not acceptable in real CNC machines, for two reasons:\n\nProblem 1: tangent or semi-tangent blocks would result in excessive reduction of feedrate wrt nominal\nProblem 2: it shall be possible to accelerate to nominal feedrate with continuous acceleration over \\(n\\) short segments, and it may take more than one segment to decelerate down to stop\n\nTo solve these issue we need to plan the velocity profile across multiple blocks of G-Code. This is called look-ahead"
   },
   {
     "objectID": "1-machine_tools.html#look-ahead-feedrate-profile-1",
@@ -1589,18 +1568,11 @@
     "text": "9 Possible cases"
   },
   {
-    "objectID": "1-machine_tools.html#change-variable",
-    "href": "1-machine_tools.html#change-variable",
+    "objectID": "1-machine_tools.html#change-of-variable",
+    "href": "1-machine_tools.html#change-of-variable",
     "title": "Digital Manufacturing – Part 1",
-    "section": "Change variable",
-    "text": "Change variable\nConvert from curvilinear abscissa to time, one block at a time:\n\nCalculate \\(v(t) = v_0 + at\\), \\(s(t) = s_0 + v_0 t + at^2/2\\) in the ranges \\([s_i, s_1]\\), \\([s_1, s_2]\\), \\([s_2, s_f]\\)\nCalculate timings \\(t_1\\), \\(t_2\\), \\(t_f\\)"
-  },
-  {
-    "objectID": "1-machine_tools.html#reshape-for-discrete-time",
-    "href": "1-machine_tools.html#reshape-for-discrete-time",
-    "title": "Digital Manufacturing – Part 1",
-    "section": "Reshape for discrete time",
-    "text": "Reshape for discrete time\n\nCalculate \\(t_f^* = \\lceil t_f / t_q + 1 \\rceil t_q\\)\nCalculate \\(k = t_f^* / t_f\\)\nRescale feedrate so that \\(v^*(t) = \\dfrac{v(t)}{k}\\)"
+    "section": "Change of variable",
+    "text": "Change of variable\nBack to time abscissa\nConvert back from curvilinear abscissa to time, one block at a time:\n\nCalculate \\(v(t) = v_0 + at\\), \\(s(t) = s_0 + v_0 t + at^2/2\\) in the ranges \\([s_i, s_1]\\), \\([s_1, s_2]\\), \\([s_2, s_f]\\)\nCalculate timings \\(t_1\\), \\(t_2\\), \\(t_f\\)\n\nReshape for discrete time\n\nCalculate \\(t_f^* = \\lceil t_f / t_q + 1 \\rceil t_q\\)\nCalculate \\(k = t_f^* / t_f\\)\nRescale feedrate so that \\(v^*(t) = \\dfrac{v(t)}{k}\\)"
   },
   {
     "objectID": "1-machine_tools.html#receding-horizon",
@@ -1628,14 +1600,14 @@
     "href": "1-machine_tools.html#profiling-errors",
     "title": "Digital Manufacturing – Part 1",
     "section": "Profiling errors",
-    "text": "Profiling errors\n\n\n\nMore evident at high speed\nWhen a sharp corner is needed, use curls"
+    "text": "Profiling errors\n\n\nLook-ahead can alter trajectory, especially at corners:\n\nMore evident at high speed\nWhen a sharp corner is needed, use curls or disable look-ahead"
   },
   {
     "objectID": "1-machine_tools.html#feedrate-related-errors",
     "href": "1-machine_tools.html#feedrate-related-errors",
     "title": "Digital Manufacturing – Part 1",
     "section": "Feedrate-related errors",
-    "text": "Feedrate-related errors"
+    "text": "Feedrate-related errors\n\n\n\n\n\nToolpath with sharp and shallow corners, long and short segments\n\n\n\n\n\n\nFeedrate profile: actual feedrate is rarely nominal"
   },
   {
     "objectID": "1-machine_tools.html#positioning-errors",

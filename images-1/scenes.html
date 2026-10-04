@@ -71,17 +71,31 @@ function textSprite(text, { size = 0.32, color = "#333333", weight = "500", ital
   return s;
 }
 
-function datumSprite(size = 0.45) {
-  // origin symbol: circle with two opposite black quadrants
+function symbolSprite(kind, size = 0.5) {
+  // reference symbols, as in the 2D figures:
+  // "wp" WP origin (filled lower-right quadrant), "machine" machine origin (filled upper-left),
+  // "support" support point (circle with cross)
   const c = document.createElement("canvas");
   c.width = c.height = 128;
-  const g = c.getContext("2d"), r = 56;
+  const g = c.getContext("2d"), R = 58, r = 35;
   g.translate(64, 64);
-  g.fillStyle = "#fff"; g.beginPath(); g.arc(0, 0, r, 0, 2 * Math.PI); g.fill();
-  g.fillStyle = "#000";
-  g.beginPath(); g.moveTo(0, 0); g.arc(0, 0, r, 0, Math.PI / 2); g.fill();
-  g.beginPath(); g.moveTo(0, 0); g.arc(0, 0, r, Math.PI, 1.5 * Math.PI); g.fill();
-  g.lineWidth = 8; g.beginPath(); g.arc(0, 0, r, 0, 2 * Math.PI); g.stroke();
+  g.lineWidth = 5;
+  g.strokeStyle = "#000";
+  g.fillStyle = "#fff";
+  const circle = (rad) => { g.beginPath(); g.arc(0, 0, rad, 0, 2 * Math.PI); };
+  if (kind === "support") {
+    // no fill: at home it outlines the inner circle of the machine origin
+    circle(R); g.stroke();
+    g.beginPath(); g.moveTo(-R, 0); g.lineTo(R, 0); g.moveTo(0, -R); g.lineTo(0, R); g.stroke();
+  } else {
+    circle(R); g.fill(); g.stroke();
+    // canvas y points down: 0..90 deg is the lower-right quadrant, 180..270 the upper-left one
+    const a0 = kind === "wp" ? 0 : Math.PI;
+    g.fillStyle = "#000";
+    g.beginPath(); g.moveTo(0, 0); g.arc(0, 0, r, a0, a0 + Math.PI / 2); g.closePath(); g.fill();
+    circle(r); g.stroke();
+    g.beginPath(); g.moveTo(-R, 0); g.lineTo(R, 0); g.moveTo(0, -R); g.lineTo(0, R); g.stroke();
+  }
   const tex = new THREE.CanvasTexture(c);
   tex.colorSpace = THREE.SRGBColorSpace;
   const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, depthTest: false }));
@@ -198,7 +212,7 @@ class PathAnim {
       // the trace sits on the stock surface above the tip (or on the given surface)
       const pos = smp.p.clone();
       if (surface) pos.add(smp.n.clone().multiplyScalar(0.025));
-      else pos.y = 0.012;
+      else pos.y = 0.012 + 0.01 * Math.max(-smp.p.y, 0);   // deeper passes drawn on top
       m4.compose(pos, q, s);
       this.trace.setMatrixAt(i, m4);
       const depth = surface ? 0 : -smp.p.y;
@@ -206,6 +220,7 @@ class PathAnim {
       this.trace.setColorAt(i, col);
     });
     this.trace.count = 0;
+    this.trace.frustumCulled = false;   // instances are revealed progressively
     parent.add(this.trace);
   }
   update(time) {
@@ -271,10 +286,12 @@ scenes.axes = (root) => {
   // 2 axes: XY contour at a fixed depth
   const two = [W(0.6, 0.6, H, false), W(0.6, 0.6, -0.3, false), W(3.4, 0.6, -0.3), W(3.4, 2.4, -0.3),
     W(0.6, 2.4, -0.3), W(0.6, 0.6, -0.3), W(0.6, 0.6, H, false)];
-  // 2 1/2 axes: XY contours on two levels, Z moves only between them
-  const twoHalf = [W(0.6, 0.6, H, false), W(0.6, 0.6, -0.25, false), W(3.4, 0.6, -0.25), W(3.4, 2.4, -0.25),
-    W(0.6, 2.4, -0.25), W(0.6, 0.6, -0.25), W(1.3, 1.1, -0.25), W(1.3, 1.1, -0.6, false),
-    W(2.7, 1.1, -0.6), W(2.7, 1.9, -0.6), W(1.3, 1.9, -0.6), W(1.3, 1.1, -0.6), W(1.3, 1.1, H, false)];
+  // 2 1/2 axes: the same D-shaped contour at two increasing depths; X and Y interpolate,
+  // Z is only a positioning axis (it moves alone, between the two passes)
+  const dPass = (z) => [W(0.6, 2.4, z), W(2.5, 2.4, z), ...arcWps(2.5, 1.5, 0.9, Math.PI / 2, -Math.PI / 2, z).slice(1),
+    W(0.6, 0.6, z)];
+  const twoHalf = [W(0.6, 0.6, H, false), W(0.6, 0.6, 0.1, false), W(0.6, 0.6, -0.25),
+    ...dPass(-0.25), W(0.6, 0.6, -0.55), ...dPass(-0.55), W(0.6, 0.6, H, false)];
   // 3 axes: raster on a free-form surface, X, Y and Z move together (ball-end tool)
   const f3 = (x, y) => 0.35 * Math.sin(x * 1.3) * Math.cos(y * 1.1) - 0.1;
   const three = [W(0.3, 0.3, H, false), W(0.3, 0.3, f3(0.3, 0.3), false)];
@@ -384,13 +401,13 @@ scenes.machine = (root) => {
   // machine origin: where the support point (spindle nose) sits with all axes at 0
   const home0 = M(0, -0.6, 1.05);
   root.add(triad(home0, 1.6));
-  const o = datumSprite(0.55); o.position.copy(home0); root.add(o);
+  const o = symbolSprite("machine", 0.6); o.position.copy(home0); root.add(o);
   const l1 = textSprite("machine origin", { size: 0.5, italic: true, color: "#555555" });
   l1.position.copy(M(-2.4, -0.6, 0.6)); root.add(l1);
   // support point travels with the spindle head
-  const sp = datumSprite(0.4); sp.position.set(0, -1.1, 0); head.add(sp);
+  const sp = symbolSprite("support", 0.35); sp.position.set(0, -1.1, 0); head.add(sp);
   const l2 = textSprite("support point", { size: 0.45, italic: true, color: "#555555" });
-  l2.position.set(1.9, -1.1, 0); head.add(l2);
+  l2.position.set(1.7, -1.6, 0); head.add(l2);
   // gentle motion of the three axes, to show which part carries which axis
   const anims = [{
     update(t) {
@@ -409,7 +426,7 @@ scenes.wp = (root) => {
   const wps = [W(1.0, 0.7, 1.2, false), W(1.0, 0.7, -0.4, false), W(2.4, 0.7, -0.4),
     ...arcWps(2.4, 1.5, 0.8, -Math.PI / 2, Math.PI / 2, -0.4), W(1.0, 2.3, -0.4), W(1.0, 0.7, -0.4), W(1.0, 0.7, 1.2, false)];
   const anim = new PathAnim(root, wps, { radius: 0.13 });
-  const d = datumSprite(0.55); d.position.copy(M(0, 0, 0)); root.add(d);
+  const d = symbolSprite("wp", 0.6); d.position.copy(M(0, 0, 0)); root.add(d);
   root.add(triad(M(0, 0, 0), 1.3, ["x", "y", "z"]));
   const l = textSprite("WP origin", { size: 0.34, italic: true, color: "#555555" });
   l.position.copy(M(-0.9, -0.5, 0.2)); root.add(l);

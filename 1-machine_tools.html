@@ -216,7 +216,7 @@ Paolo Bosetti
     </div>
 </div>
 
-  <p class="date"><em>Updated:</em> 02/10/2026</p>
+  <p class="date"><em>Updated:</em> 04/10/2026</p>
 </section>
 <section>
 <section id="manufacturing-systems" class="title-slide slide level1 center">
@@ -1251,9 +1251,9 @@ T_{0,t} &amp;= (1/n -1)T_c
 <div class="column" style="width:45%;">
 <p>Requirements:</p>
 <ul>
-<li>Fast response</li>
-<li>Quick stabilization</li>
-<li><strong>No overshoot</strong></li>
+<li>Fast response (acceleration)</li>
+<li>Quick stabilization (minimum number of oscillations)</li>
+<li><strong>No overshoot</strong> (or risk of damages)</li>
 </ul>
 </div><div class="column" style="width:55%;">
 <div class="cell" data-layout-align="center">
@@ -1409,20 +1409,20 @@ T_{0,t} &amp;= (1/n -1)T_c
 <h2>Actual control schemes</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images-1/control-schemes-a.svg" class="quarto-figure quarto-figure-center" height="245"></p>
+<p><img data-src="images-1/control-schemes-a.svg" class="quarto-figure quarto-figure-center" height="280"></p>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images-1/control-schemes-b.svg" class="quarto-figure quarto-figure-center" height="215"></p>
+<p><img data-src="images-1/control-schemes-b.svg" class="quarto-figure quarto-figure-center" height="240"></p>
 </figure>
 </div>
 </section>
-<section id="plc" class="slide level2">
-<h2>PLC</h2>
+<section id="plc-programmable-logic-controller" class="slide level2">
+<h2>PLC: Programmable Logic Controller</h2>
 <div class="columns">
 <div class="column" style="width:55%;">
-<p>Interfaces and Registers:</p>
+<p>PLC is a controller taht implemets logic relationships between inputs and outputs. It provides a range of interfaces and registers:</p>
 <ul>
 <li>Analog and digital I/O (&gt; 2048)</li>
 <li>Relay (1000)</li>
@@ -1430,7 +1430,6 @@ T_{0,t} &amp;= (1/n -1)T_c
 <li>Timers (200)</li>
 <li>Counters (200)</li>
 </ul>
-<p>Can be integrated in the CNC</p>
 </div><div class="column" style="width:45%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1438,57 +1437,171 @@ T_{0,t} &amp;= (1/n -1)T_c
 </figure>
 </div>
 </div></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Can be either a separate hardware, or a software process running on the same computer that runs the CNC</p>
+</div>
+</div>
+</div>
 </section>
-<section id="plc-1" class="slide level2">
+<section id="plc" class="slide level2">
 <h2>PLC</h2>
-<p><strong>Advanced I/O</strong></p>
+<ul>
+<li>Beside GPIO, PLC can also have advanced I/O and communication capabilities:
 <ul>
 <li>General purpose communication: RS232, RS422, Ethernet</li>
 <li>Deterministic communication: Profibus, DeviceNet, Modbus, Industrial EtherNET, CAN-BUS</li>
 <li>Special I/O: counters, virtual cams, PIDs and controllers</li>
+</ul></li>
+<li>PLC programming languages have been designed to facilitate the transition form <strong>wired logics</strong> to <strong>software logics</strong>: the languages had to be intuitive and immediately productive for technicians with different backgrounds: <strong>electrical engineering</strong>, control engineering, firmware programming</li>
 </ul>
 </section>
-<section id="plc-2" class="slide level2">
+<section id="plc-1" class="slide level2">
 <h2>PLC</h2>
-<p>Programming standard <strong>IEC 61131-3</strong></p>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><strong>Graphical</strong></p>
-<ul>
-<li>Ladder Logic</li>
-<li>Function Block Diagram</li>
-<li>Sequential Function Chart</li>
-</ul>
-<p><strong>Textual</strong></p>
-<ul>
-<li>Structured Text</li>
-<li>Instruction List</li>
-</ul>
-</div></div>
+<p>The programming standard <strong>IEC 61131-3</strong> provided this transition:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Language</th>
+<th style="text-align: center;">Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Ladder Logic</td>
+<td style="text-align: center;">Graphical</td>
+<td>Resembles relay logic diagrams, intuitive for electricians</td>
+</tr>
+<tr class="even">
+<td>Function Block Diagram</td>
+<td style="text-align: center;">Graphical</td>
+<td>Resembles block diagrams, intuitive for control engineers</td>
+</tr>
+<tr class="odd">
+<td>Sequential Function Chart</td>
+<td style="text-align: center;">Graphical</td>
+<td>Resembles flow charts and <a href="https://en.wikipedia.org/wiki/Finite-state_machine">finite state machines</a>, intuitive for process engineers</td>
+</tr>
+<tr class="even">
+<td>Structured Text</td>
+<td style="text-align: center;">Textual</td>
+<td>Resembles Pascal, intuitive for software engineers</td>
+</tr>
+<tr class="odd">
+<td>Instruction List</td>
+<td style="text-align: center;">Textual</td>
+<td>Resembles assembly, intuitive for firmware engineers</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>The standard states that languages must be interchangeable, i.e., the same program can be written in any language and must have the same behavior, different parts of a program can be written in different languages, and the program can be converted from one language to another</p>
+</div>
+</div>
+</div>
 </section>
 <section id="plc-ladder-diagram" class="slide level2">
 <h2>PLC: Ladder diagram</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>On the left side there are <strong>contactors</strong> (inputs), on the right side there are <strong>coils</strong> (outputs).</li>
+<li>parallel branches represent <strong>OR</strong> logic, series branches represent <strong>AND</strong> logic; contactors can be <strong>normally open</strong> or <strong>normally closed</strong> (<strong>NOT</strong>).</li>
+<li>The program is read from left to right, top to bottom. The program is executed in a <strong>cyclic scan</strong>: all inputs are read, the logic is evaluated, and the outputs are updated.</li>
+</ul>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:70%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images-1/plc-ladder.svg" class="quarto-figure quarto-figure-center" height="470"></p>
 </figure>
 </div>
+</div></div>
 </section>
 <section id="plc-function-block-diagram" class="slide level2">
 <h2>PLC: Function Block Diagram</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Each block implements a function, which can be a logic function, a timer, a counter, or even a more complicated one as a PID controller</li>
+<li>Appeals to control engineers, being quite similar to <a href="https://www.mathworks.com/products/simulink.html">Simulink</a> and other block-diagram-based control design software</li>
+<li>Complex programs tend to become quite messy, so FBD is often used in combination with other languages and limited to implement specific functions related to control and signal processing</li>
+</ul>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:70%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images-1/plc-fbd.svg" class="quarto-figure quarto-figure-center" height="470"></p>
 </figure>
 </div>
+</div></div>
 </section>
 <section id="plc-sequential-function-chart" class="slide level2">
 <h2>PLC: Sequential Function Chart</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>SFC is a graphical language that implements a <strong>finite state machine</strong></li>
+<li>Each block is a <strong>state</strong>, each line a transition with its activation condition</li>
+<li>It is very intuitive for process engineers, and it is often used in combination with other languages to implement the <strong>overall logic</strong> of a process, while the other languages are used to implement the <strong>details</strong> of each state</li>
+</ul>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:70%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images-1/plc-sfc.svg" class="quarto-figure quarto-figure-center" height="470"></p>
 </figure>
 </div>
+</div></div>
 </section>
 <section id="plc-textual-languages" class="slide level2">
 <h2>PLC: Textual languages</h2>
@@ -1526,23 +1639,43 @@ T_{0,t} &amp;= (1/n -1)T_c
 <span id="cb2-11"><a aria-hidden="true" tabindex="-1"></a>S    Run_Lamp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Textual languages are the most easy to implement and always available even on low-cost PLC and PLC IDEs</p>
+</div>
+</div>
+</div>
 </section>
-<section id="numerical-control" class="slide level2">
-<h2>Numerical Control</h2>
+<section id="computer-numerical-control" class="slide level2">
+<h2>(Computer) Numerical Control</h2>
+<p>The CNC controller is the <strong>brain</strong> of the machine tool. It implements the <strong>judgement</strong> (A4) of Amber’s scale, and it is responsible for:</p>
 <ul>
-<li>Types of motion interpolation</li>
-<li>Number of controlled axes</li>
-<li>Coordinate systems and reference frames</li>
+<li>parsing the <strong>part-program</strong></li>
+<li>converting it into <strong>motion commands</strong> for the machine tool actuators</li>
+<li>provinding action inputs to the <strong>PLC controller</strong> for auxiliary functions (coolant, tool change rutines, etc.)</li>
+</ul>
+<p>CNC controllers are characterized by:</p>
+<ul>
+<li>Types of <strong>motion interpolation</strong></li>
+<li>Number of <strong>controlled axes</strong></li>
 </ul>
 </section>
-<section id="types-of-interpolation" class="slide level2">
-<h2>Types of interpolation</h2>
+<section id="types-of-motion-interpolation" class="slide level2">
+<h2>Types of motion interpolation</h2>
+<p>CNC can control axes with increasing levels of sophistication:</p>
 <div class="columns">
-<div class="column" style="width:40%;">
+<div class="column smaller" style="width:40%;">
 <ul>
-<li>Point to point</li>
-<li>Paraxial</li>
-<li>Continuous</li>
+<li><strong>Point to point</strong>: only the start and end points are controlled, the path is not controlled (drilling, pick-and-place)</li>
+<li><strong>Paraxial</strong>: one axis at a time can be <strong>controlled in feed</strong> (semi-automatic machines, machines that don’t need axes interpolation as sawing machines, presses)</li>
+<li><span class="bgreen">Continuous</span>: all axes can be controlled simultaneously, and the path is controlled in position and velocity</li>
 </ul>
 </div><div class="column" style="width:60%;">
 <iframe data-src="images-1/scenes.html#interp" title="3D view, drag to rotate" style="width:100%; height:430px; border:none;">
@@ -1554,10 +1687,10 @@ T_{0,t} &amp;= (1/n -1)T_c
 <div class="columns">
 <div class="column" style="width:40%;">
 <ul>
-<li>2 Axes</li>
-<li>2 Axes and 1/2</li>
-<li>3 Axes</li>
-<li>5 Axes</li>
+<li>2 Axes: third axis is manually adjusted (manual lathes, manual mills)</li>
+<li>2 Axes and 1/2: only two axes at a time can be controlled, the third is for positioning</li>
+<li>3 Axes: full 3-D trajectory control of TCP</li>
+<li>5 Axes: full trajectory control of TCP and tool orientation</li>
 </ul>
 </div><div class="column" style="width:60%;">
 <iframe data-src="images-1/scenes.html#axes" title="3D view, drag to rotate" style="width:100%; height:450px; border:none;">
@@ -1566,103 +1699,51 @@ T_{0,t} &amp;= (1/n -1)T_c
 </section>
 <section id="coordinate-systems" class="slide level2">
 <h2>Coordinate systems</h2>
-<ul>
-<li><strong>Machine reference frame</strong>
-<ul>
-<li>Machine origin</li>
-<li>Machine reference points</li>
-</ul></li>
-<li><strong>WP reference frame</strong>
-<ul>
-<li>WP origin</li>
-</ul></li>
-<li><strong>Tool reference frame</strong>
-<ul>
-<li>Registration point</li>
-<li>Support point</li>
-</ul></li>
-</ul>
-</section>
-<section id="coordinate-systems-1" class="slide level2">
-<h2>Coordinate systems</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images-1/frame-1.svg" class="quarto-figure quarto-figure-center" height="470"></p>
-</figure>
-</div>
-<p><strong>Machine reference frame:</strong> arbitrary position corresponding to the support point when all axes are at 0</p>
-</section>
-<section id="coordinate-systems-2" class="slide level2">
-<h2>Coordinate systems</h2>
 <div class="columns">
-<div class="column" style="width:55%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images-1/frame-2.svg" class="quarto-figure quarto-figure-center" height="430"></p>
-</figure>
-</div>
-</div><div class="column" style="width:45%;">
-<p><span class="math display">\[
-\begin{aligned}
-x_m &amp;= O_x + x \\
-y_m &amp;= O_y + y
-\end{aligned}
-\]</span></p>
-<p><span class="math inline">\((x_m, y_m)\)</span></p>
-</div></div>
-</section>
-<section id="coordinate-systems-3" class="slide level2">
-<h2>Coordinate systems</h2>
-<p>In general, the offset must also include the tool length and radius (<span class="math inline">\(T_x\)</span> and <span class="math inline">\(T_y\)</span>) and possibly the angle <span class="math inline">\(\theta\)</span> of the machine <span class="math inline">\((X, Y)\)</span> frame with the workpiece frame:</p>
-<p><span class="math display">\[
-\begin{bmatrix} x_m \\ y_m \\ 1 \end{bmatrix} =
-\begin{bmatrix} \cos\theta &amp; -\sin\theta &amp; O_x + T_x \\ \sin\theta &amp; \cos\theta &amp; O_y + T_y \\ 0 &amp; 0 &amp; 1 \end{bmatrix}
-\begin{bmatrix} x \\ y \\ 1 \end{bmatrix}
-\]</span></p>
-<p>In 3-D, you use 4x4 <strong>homogeneous transformation matrices</strong></p>
-</section>
-<section id="machine-reference-frame" class="slide level2">
-<h2>Machine reference frame</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<iframe data-src="images-1/scenes.html#machine" title="3D view, drag to rotate" style="width:100%; height:380px; border:none;">
-</iframe>
-</div><div class="column" style="width:50%;">
+<div class="column">
 <ul>
-<li>Encoders give raw distance of spindle nose wrt machine reference</li>
-<li>Machine reference position is defined by manufacturer</li>
-<li>Axes drivers work in machine coordinates</li>
+<li>Axes references combine to give machine origin</li>
+<li>Axes references are used to reset encoders (<em>homing</em>)</li>
+<li>Machine controller works in <strong>machine coordinates</strong></li>
+<li>Workpiece origin is <strong>set up by the operator</strong></li>
+<li>Registration point is the reference to measure tool length and diameter</li>
+<li>Support point is the reference to mount the tool on the spindle (when mounted, <em>reference = support</em>)</li>
 </ul>
-</div></div>
-</section>
-<section id="machine-reference-points" class="slide level2">
-<h2>Machine reference points</h2>
-<ul>
-<li>Only used in incremental encoders</li>
-<li>One or more per axis</li>
-<li>Types:
-<ul>
-<li>Switch/contactor</li>
-<li>Additional encoder readout position</li>
-</ul></li>
-</ul>
-</section>
-<section id="wp-coordinates" class="slide level2">
-<h2>WP coordinates</h2>
-<div class="columns">
-<div class="column" style="width:60%;">
-<ul>
-<li>Selected by operator/programmer</li>
-<li>Part program can use WP coordinates and/or machine coordinates</li>
-<li>After fixturing, WP origin has to be set up wrt machine origin
-<ul>
-<li>by touching with tool and compensating for tool radius</li>
-<li>By 3-D touch probe</li>
-</ul></li>
-</ul>
-</div><div class="column" style="width:40%;">
-<iframe data-src="images-1/scenes.html#wp" title="3D view, drag to rotate" style="width:100%; height:400px; border:none;">
-</iframe>
+</div><div class="column">
+<table class="caption-top">
+<colgroup>
+<col style="width: 75%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Reference</th>
+<th style="text-align: center;">Symbol</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Axis reference</td>
+<td style="text-align: center;"><img data-src="images-1/axis-reference.png" class="quarto-figure quarto-figure-center" height="30"></td>
+</tr>
+<tr class="even">
+<td>Machine origin</td>
+<td style="text-align: center;"><img data-src="images-1/machine-origin.png" class="quarto-figure quarto-figure-center" height="30"></td>
+</tr>
+<tr class="odd">
+<td>Workpiece origin</td>
+<td style="text-align: center;"><img data-src="images-1/wp-origin.png" class="quarto-figure quarto-figure-center" height="30"></td>
+</tr>
+<tr class="even">
+<td>Registration point</td>
+<td style="text-align: center;"><img data-src="images-1/registration-point.png" class="quarto-figure quarto-figure-center" height="30"></td>
+</tr>
+<tr class="odd">
+<td>Support point</td>
+<td style="text-align: center;"><img data-src="images-1/support-point.png" class="quarto-figure quarto-figure-center" height="30"></td>
+</tr>
+</tbody>
+</table>
 </div></div>
 </section>
 <section id="tool-reference" class="slide level2">
@@ -1693,7 +1774,50 @@ y_m &amp;= O_y + y
 </div>
 </div></div>
 </section>
+<section id="wp-coordinates" class="slide level2">
+<h2>WP coordinates</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<ul>
+<li>Selected by operator/programmer</li>
+<li>Part program can use WP coordinates and/or machine coordinates</li>
+<li>After fixturing, WP origin has to be set up wrt machine origin
+<ul>
+<li>by touching with tool and compensating for tool radius</li>
+<li>By 3-D touch probe</li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:40%;">
+<iframe data-src="images-1/scenes.html#wp" title="3D view, drag to rotate" style="width:100%; height:400px; border:none;">
+</iframe>
+</div></div>
+</section>
 <section id="coordinate-transformations" class="slide level2">
+<h2>Coordinate transformations</h2>
+<ul>
+<li>The part program defines the toolpath as the trajectory of the <strong>tool center position</strong> (TCP) in the workpiece reference frame</li>
+<li>The CNC controller converts the TCP coordinates into <strong>machine coordinates</strong> by applying a roto-translation transformation that accounts for:
+<ul>
+<li>the workpiece origin</li>
+<li>the tool length</li>
+</ul></li>
+<li>Tool diameter is accounted for by the <strong>tool radius compensation</strong> function, which offsets the toolpath by the tool radius in a direction perpendicular to the toolpath</li>
+</ul>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>In turning, there is no tool radius compensation; rather, tool is measured by <strong>length</strong> and <strong>abuttment</strong>, the latter being the offset w.r.t. the registration point</p>
+</div>
+</div>
+</div>
+</section>
+<section id="coordinate-transformations-1" class="slide level2">
 <h2>Coordinate transformations</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
@@ -1711,7 +1835,7 @@ T_{wp \to m} = \begin{bmatrix} r_{11} &amp; r_{12} &amp; r_{13} &amp; d_x \\ r_{
 </div>
 </div></div>
 </section>
-<section id="coordinate-transformations-1" class="slide level2">
+<section id="coordinate-transformations-2" class="slide level2">
 <h2>Coordinate transformations</h2>
 <p>Remember that the roto-translation matrix is:</p>
 <p><span class="math display">\[
@@ -1738,19 +1862,47 @@ T = \begin{bmatrix}
 </figure>
 </div>
 </div></div>
+</section>
+<section id="coordinate-transformations-3-axes-machines" class="slide level2">
+<h2>Coordinate transformations (3-axes machines)</h2>
+<p>Machines with 3 controlled axes (no tool alignment) typically implement a simplified transformation that only accounts for the workpiece origin translation and rotation <span class="math inline">\(\theta\)</span> about <span class="math inline">\(z\)</span> and tool length:</p>
+<p><span class="math display">\[
+\begin{bmatrix} x_m \\ y_m \\ z_m \\1 \end{bmatrix} =
+\begin{bmatrix} \cos\theta &amp; -\sin\theta &amp; 0 &amp; d_x \\
+\sin\theta &amp; \cos\theta &amp; 0 &amp; d_y \\
+0 &amp; 0 &amp; 1 &amp; d_z + l_t \\
+0 &amp; 0 &amp; 0 &amp; 1 \end{bmatrix}
+\begin{bmatrix} x \\ y \\ z \\ 1 \end{bmatrix}
+\]</span></p>
+<div title="Workplane tilt compensation">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Workplane tilt compensation</strong></p>
+</div>
+<div class="callout-content">
+<p>Even for 3 axes machines, it is customary to also include <strong>small</strong> rotations about <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> in the transformation matrix, to account for <strong>misalignments</strong> of the working plane and tool holder: this comes especially handy for <strong>3-D printers</strong></p>
+</div>
+</div>
+</div>
+</div>
 </section></section>
 <section>
 <section id="section" class="title-slide slide level1 center" data-background-iframe="MillCoordinates/machine-frames.html" data-background-interactive="true">
 <h1></h1>
 
 </section>
-<section id="touch-probe" class="slide level2">
-<h2>Touch probe</h2>
+<section id="measuring-positions-touch-probe" class="slide level2">
+<h2>Measuring positions: touch probe</h2>
 <div class="columns">
 <div class="column" style="width:55%;">
+<p>Reference positions (as <span class="math inline">\(O_{wp}\)</span>can be measure in machine thanks to a <strong>touch probe</strong>:</p>
 <ul>
-<li><span class="math inline">\(O_{wp}\)</span> position is measured with a touch probe</li>
-<li>The 3 contact points are also electric switches</li>
+<li>a special non-rotating tool with a deflecting stylus and spherical tip that can be used to touch the workpiece and measure its position in machine coordinates</li>
+<li>The 3 contact points provide a <a href="https://en.wikipedia.org/wiki/Kinematic_coupling">kinematic mount</a> are also electric switches</li>
 <li>When a switch opens, the current coordinate plus the <strong>sphere radius in the direction of motion</strong> gives the touch point coordinate</li>
 </ul>
 </div><div class="column" style="width:45%;">
@@ -1761,33 +1913,17 @@ T = \begin{bmatrix}
 </div>
 </div></div>
 </section>
-<section id="tool-reference-1" class="slide level2 smaller">
-<h2>Tool reference</h2>
-<p>Measurement systems:</p>
-<ul>
-<li>MT itself</li>
-<li>Tool presetting systems</li>
-<li>In-machine presetting</li>
-</ul>
+<section id="tool-reference-presetting" class="slide level2">
+<h2>Tool reference (<em>presetting</em>)</h2>
+<p>Tool geometry can be measured in machine (<strong>exposed time</strong>) or by a <strong>tool presetter</strong> (<strong>masked time</strong>). The latter is preferred because it is faster and more accurate, and it allows to measure the tool geometry without having to mount it on the machine.</p>
 <div class="columns">
-<div class="column" style="width:35%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/presetting-1.jpg" class="quarto-figure quarto-figure-center" height="200"></p>
-</figure>
-</div>
-</div><div class="column" style="width:30%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/presetting-2.jpg" class="quarto-figure quarto-figure-center" height="200"></p>
-</figure>
-</div>
-</div><div class="column" style="width:35%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/presetting-3.jpg" class="quarto-figure quarto-figure-center" height="200"></p>
-</figure>
-</div>
+<div class="column" style="width:37%;">
+<ul>
+<li>On-board presetting uses a fixed stylus/switched contact point in known position reachable by the tool</li>
+<li>Tool presetting systems have a dummy spindle mount, a camera and a shadow projector</li>
+</ul>
+</div><div class="column" style="width:63%;">
+<p><img data-src="images/presetting-1.jpg" class="quarto-figure quarto-figure-center" height="250"> <img data-src="images/presetting-3.jpg" class="quarto-figure quarto-figure-center" height="250"> <img data-src="images/presetting-2.jpg" class="quarto-figure quarto-figure-center" height="250"></p>
 </div></div>
 </section>
 <section id="on-board-presetting" class="slide level2">
@@ -1804,11 +1940,10 @@ T = \begin{bmatrix}
 <h2>Automation</h2>
 <div class="columns">
 <div class="column" style="width:40%;">
+<p>According to the Yardstick of Automation:</p>
 <ul>
-<li>Yardstick of Automation</li>
-<li>Level A4</li>
-<li>Level A5</li>
-<li>Part Programs</li>
+<li>most CNC machines are at Level A4</li>
+<li>Level A5 requires post-machining automated inspection and feedback to the CNC controller and <strong>to the part-program</strong></li>
 </ul>
 </div><div class="column" style="width:60%;">
 <div class="quarto-figure quarto-figure-center">
@@ -1817,167 +1952,265 @@ T = \begin{bmatrix}
 </figure>
 </div>
 </div></div>
+<ul>
+<li>a validated <strong>process model</strong> can be required to implement A5, which is not necessarilyavailable for most machining processes</li>
+<li>empirical models (<em>machine learning</em>) can be used to implement A5, but they require a lot of data and are not always reliable</li>
+</ul>
 </section>
 <section id="machining-cycle" class="slide level2">
 <h2>Machining cycle</h2>
-<p>General sequence:</p>
+<p>The general sequence for machining a part is:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images-1/machining-cycle.svg" class="quarto-figure quarto-figure-center" height="260"></p>
 </figure>
 </div>
+<p>The section within the red box is the <strong>mcahining cycle</strong>, i.e.&nbsp;the sequence of operations that can be cyclically repeated for each part</p>
 </section>
 <section id="part-program-structure" class="slide level2">
 <h2>Part-program structure</h2>
+<div class="columns">
+<div class="column">
+<p>The structure of a part program generally follows a common structure:</p>
+<ul>
+<li><strong>setups</strong></li>
+<li><strong>roughing</strong> section: removes the bulk of the material, usually with a large tool and high feedrate, leaving a small allowance for finishing</li>
+<li><strong>finishing</strong> section: removes the remaining material with a small tool and low feedrate (final geometry)</li>
+<li><strong>reset</strong> of the machine to a safe position and end of program</li>
+</ul>
+</div><div class="column">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images-1/part-program.svg" class="quarto-figure quarto-figure-center" height="490"></p>
+<p><img data-src="images-1/part-program.png" class="quarto-figure quarto-figure-center" height="490"></p>
 </figure>
 </div>
+</div></div>
 </section>
 <section id="toolpaths" class="slide level2">
 <h2>Toolpaths</h2>
+<div class="columns">
+<div class="column">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images-1/toolpaths.svg" class="quarto-figure quarto-figure-center" height="490"></p>
+<p><img data-src="images-1/turning-process.png" class="quarto-figure quarto-figure-center" height="490"></p>
 </figure>
 </div>
+</div><div class="column">
+<ul>
+<li>Roughing and finishing may require different tools for different geometries</li>
+<li>Roughing typically follows simple, stepped trajectories</li>
+<li>Roughing allowance (excess material) is usually in the range of
+<ul>
+<li>0.5–1 mm for turning</li>
+<li>0.2–0.5 mm for milling</li>
+</ul></li>
+</ul>
+</div></div>
 </section>
 <section id="workpiece-origin" class="slide level2">
 <h2>Workpiece Origin</h2>
 <p>In turning, X coordinates are in <strong>diameters</strong>. Two typical choices for origin:</p>
 <ul>
-<li>rightmost axial point on finished workpiece (<span class="math inline">\(z &lt; 0\)</span>)</li>
+<li>rightmost axial point on finished workpiece</li>
 <li>on the machine origin (fixtures must be taken into consideration)</li>
 </ul>
+<p>Common choice for WP origin among machinists is the <strong>rightmost axial point on finished workpiece</strong> (turning) and <strong>topmost point on the finished workpiece</strong> (milling). This choice allows to quickly spot in a program <strong>safe</strong> fast motions (positive <span class="math inline">\(z\)</span>), from <strong>dangerous</strong> fast motions (negative <span class="math inline">\(z\)</span>) that can crash the tool into the workpiece or fixture.</p>
 </section>
-<section id="g-code" class="slide level2 smaller">
+<section id="g-code" class="slide level2">
 <h2>G-Code</h2>
-<p>ISO language (ISO/DIN 6983)</p>
+<p><strong>ISO language</strong> (ISO/DIN 6983): sequence of <code>[C][arg]</code> where <code>C</code> is a letter and <code>arg</code> is a number. Valid commands are:</p>
+<div class="columns smaller">
+<div class="column">
 <table class="caption-top">
 <thead>
 <tr class="header">
-<th style="text-align: center;">Cod.</th>
-<th style="text-align: left;">Command</th>
-<th style="text-align: center;">Cod.</th>
-<th style="text-align: left;">Command</th>
+<th>Cod.</th>
+<th>Command</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;">A</td>
-<td style="text-align: left;">Rotation about X</td>
-<td style="text-align: center;">N</td>
-<td style="text-align: left;">Block number</td>
+<td>A</td>
+<td>Rotation about X</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">B</td>
-<td style="text-align: left;">Rotation about Y</td>
-<td style="text-align: center;">O</td>
-<td style="text-align: left;">—</td>
+<td>B</td>
+<td>Rotation about Y</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">C</td>
-<td style="text-align: left;">Rotation about Z</td>
-<td style="text-align: center;">P</td>
-<td style="text-align: left;">Third motion along X</td>
+<td>C</td>
+<td>Rotation about Z</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">D</td>
-<td style="text-align: left;">Tool diameter compensation</td>
-<td style="text-align: center;">Q</td>
-<td style="text-align: left;">Third motion along Y</td>
+<td>D</td>
+<td>Tool diameter compensation</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">E</td>
-<td style="text-align: left;">Secondary feedrate</td>
-<td style="text-align: center;">R</td>
-<td style="text-align: left;">Third motion along Z</td>
+<td>E</td>
+<td>Secondary feedrate</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">F</td>
-<td style="text-align: left;">Feedrate</td>
-<td style="text-align: center;">S</td>
-<td style="text-align: left;">Spindle speed</td>
+<td>F</td>
+<td>Feedrate</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">G</td>
-<td style="text-align: left;">Preparatory function</td>
-<td style="text-align: center;">T</td>
-<td style="text-align: left;">Tool number</td>
+<td>G</td>
+<td>Preparatory function</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">H</td>
-<td style="text-align: left;">—</td>
-<td style="text-align: center;">U</td>
-<td style="text-align: left;">Second motion along X</td>
+<td>H</td>
+<td>—</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">I</td>
-<td style="text-align: left;">Circle center, X</td>
-<td style="text-align: center;">V</td>
-<td style="text-align: left;">Second motion along Y</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">J</td>
-<td style="text-align: left;">Circle center, Y</td>
-<td style="text-align: center;">W</td>
-<td style="text-align: left;">Second motion along Z</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">K</td>
-<td style="text-align: left;">Circle center, Z</td>
-<td style="text-align: center;">X</td>
-<td style="text-align: left;">Motion along X</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">L</td>
-<td style="text-align: left;">—</td>
-<td style="text-align: center;">Y</td>
-<td style="text-align: left;">Motion along Y</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">M</td>
-<td style="text-align: left;">Machine function</td>
-<td style="text-align: center;">Z</td>
-<td style="text-align: left;">Motion along Z</td>
+<td>I</td>
+<td>Circle center, X</td>
 </tr>
 </tbody>
 </table>
+</div><div class="column">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Cod.</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>J</td>
+<td>Circle center, Y</td>
+</tr>
+<tr class="even">
+<td>K</td>
+<td>Circle center, Z</td>
+</tr>
+<tr class="odd">
+<td>L</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>M</td>
+<td>Machine function</td>
+</tr>
+<tr class="odd">
+<td>N</td>
+<td>Block number</td>
+</tr>
+<tr class="even">
+<td>O</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>P</td>
+<td>Third motion along X</td>
+</tr>
+<tr class="even">
+<td>Q</td>
+<td>Third motion along Y</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div><div class="column">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Cod.</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>R</td>
+<td>Third motion along Z</td>
+</tr>
+<tr class="even">
+<td>S</td>
+<td>Spindle speed</td>
+</tr>
+<tr class="odd">
+<td>T</td>
+<td>Tool number</td>
+</tr>
+<tr class="even">
+<td>U</td>
+<td>Second motion along X</td>
+</tr>
+<tr class="odd">
+<td>V</td>
+<td>Second motion along Y</td>
+</tr>
+<tr class="even">
+<td>W</td>
+<td>Second motion along Z</td>
+</tr>
+<tr class="odd">
+<td>X</td>
+<td>Motion along X</td>
+</tr>
+<tr class="even">
+<td>Y</td>
+<td>Motion along Y</td>
+</tr>
+<tr class="odd">
+<td>Z</td>
+<td>Motion along Z</td>
+</tr>
+</tbody>
+</table>
+</div></div>
 </section>
 <section id="punch-tape" class="slide level2">
 <h2>Punch tape</h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/G-code" target="wiki">G-Code</a> was developed during 1950s</li>
+<li>Computers only had <strong>punch tapes</strong> as input devices</li>
+<li>Language had to be concise</li>
+</ul>
 <div class="columns">
 <div class="column" style="width:35%;">
-<p>G-Code</p>
-</div><div class="column" style="width:65%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/punch-tape-photo.jpg" class="quarto-figure quarto-figure-center" height="190"></p>
+<p><img data-src="images/punch-tape-photo.jpg" class="quarto-figure quarto-figure-center" height="280"></p>
 </figure>
 </div>
-</div></div>
+</div><div class="column" style="width:65%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images-1/punch-tape.svg" class="quarto-figure quarto-figure-center" height="280"></p>
 </figure>
 </div>
+</div></div>
 </section>
 <section id="g-code-functions" class="slide level2">
 <h2>G-code functions</h2>
+<div class="columns">
+<div class="column">
+<p>Types of functions:</p>
 <ul>
-<li>Preparatory functions (G,T)</li>
-<li>Positioning functions (X, Y, Z)</li>
-<li>Machine functions (M)</li>
+<li>Preparatory functions (<code>G</code>, <code>T</code>)</li>
+<li>Positioning functions (<code>X</code>, <code>Y</code>, <code>Z</code>, <code>A</code>, <code>B</code>, <code>C</code>)</li>
+<li>Machine functions (<code>M</code>)</li>
 </ul>
-<pre class="gcode"><code>N1 T1 S500.0 M3;              tool n°1, CW rotation, 500 rpm
-N2 M8;                        fluid jets ON
-N3 G00 X60.0 Z0.0;            rapid positioning
-N4 G01 X-0.5 Z0.0 F1000.0;    facing
+</div><div class="column">
+<p><code>G</code> functions:</p>
+<ul>
+<li><code>G00</code>: <strong>rapid positioning</strong></li>
+<li><code>G01</code>: <strong>linear interpolation</strong></li>
+<li><code>G02/G03</code>: <strong>circular interpolation</strong> (CW/CCW)</li>
+</ul>
+</div></div>
+<pre class="gcode"><code>N1 T1 S500.0 M3                             ; tool n°1, CW rotation, 500 rpm
+N2 M8;                                      ; fluid jets ON
+N3 G00 X60.0 Z0.0;                          ; rapid positioning
+N4 G01 X-0.5 Z0.0 F1000.0                   ; facing
 N5 G01 X20.0 F1000.0
-N6 G03 X40.0 Z-5.0 I30.0 K-10.0 F1000.0;    arc R=10.0
+N6 G03 X40.0 Z-5.0 I30.0 K-10.0 F1000.0     ; arc R=10.0
 ...
-N128 M30;                     fine programma</code></pre>
+N128 M30                                    ; fine programma</code></pre>
 </section>
 <section id="example-turning" class="slide level2">
 <h2>Example: turning</h2>
@@ -1987,7 +2220,7 @@ N128 M30;                     fine programma</code></pre>
 </figure>
 </div>
 </section>
-<section id="example-turning-roughing" class="slide level2 smaller">
+<section id="example-turning-roughing" class="slide level2">
 <h2>Example: turning — roughing</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -2001,7 +2234,7 @@ N11 G01 Z-94.5 F1000.0
 N12 G01 G91 X5.0 F2000.0
 N13 G00 Z7.0
 N14 G00 X51.0
-N15 G01 Z-92.2 F1000.0
+N15 G01 Z-88 F1000.0
 N16 G01 G91 X5.0 F2000.0
 N17 G00 Z7.0</code></pre>
 </div><div class="column" style="width:50%;">
@@ -2015,7 +2248,7 @@ N24 G01 G91 X5.0 F2000.0
 N25 G00 Z7.0</code></pre>
 </div></div>
 </section>
-<section id="example-turning-finishing" class="slide level2 smaller">
+<section id="example-turning-finishing" class="slide level2">
 <h2>Example: turning — finishing</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -2045,17 +2278,33 @@ N98 M30</code></pre>
 </section>
 <section id="example-milling" class="slide level2">
 <h2>Example: milling</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>WP origin is usually placed in <span class="math inline">\(y,y\)</span> plane on a geometry feature where most of the dimensions are referenced to, e.g.&nbsp;the bottom-left corner of a rectangular pocket</li>
+<li>The <span class="math inline">\(z\)</span> coordinate is set to the topmost surface on the <strong>finished part</strong>:
+<ul>
+<li>the very first roughing operation will remove the excess material and reach the finished surface, which will be used as reference for all subsequent operations</li>
+<li>any subsequent operation is carried out at a <strong>negative <span class="math inline">\(z\)</span></strong> coordinate, which is the depth of cut below the finished surface</li>
+</ul></li>
+</ul>
+</div><div class="column">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images-1/milling-part.svg" class="quarto-figure quarto-figure-center" height="480"></p>
+<p><img data-src="images-1/milling-part.png" class="quarto-figure quarto-figure-center" height="480"></p>
 </figure>
 </div>
+</div></div>
 </section>
 <section id="example-milling-1" class="slide level2 smaller">
 <h2>Example: milling</h2>
 <div class="columns">
-<div class="column" style="width:42%;">
-<pre class="gcode"><code>%es1 G71 *
+<div class="column" style="width:30%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>G-code language</strong></pre>
+</div>
+<pre class="gcode" data-filename="G-code language"><code>%es1 G71 *
 N10 G30 G17 X+0 Y+0 Z-20*
 N20 G31 X+150 Y+150 Z+0*
 N30 G247 Q339=+1*
@@ -2077,34 +2326,73 @@ N180 G01 X-15*
 N190 G00 Z+10 G40*
 N200 G38 M30*
 N99999999 %es1 G71 *</code></pre>
-</div><div class="column" style="width:58%;">
+</div>
+</div><div class="column" style="width:60%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/xp-editing.jpg" class="quarto-figure quarto-figure-center" height="380"></p>
+<p><img data-src="images-1/heidenhain-1.png"></p>
+<figcaption>Heidenhain CNC - interactive programming</figcaption>
 </figure>
 </div>
 </div></div>
 </section>
-<section id="program-check" class="slide level2">
+<section id="program-check" class="slide level2 smaller">
 <h2>Program check</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>G-code language</strong></pre>
+</div>
+<pre class="gcode" data-filename="G-code language"><code>%es1 G71 *
+N10 G30 G17 X+0 Y+0 Z-20*
+N20 G31 X+150 Y+150 Z+0*
+N30 G247 Q339=+1*
+N40 T1 G17 S5000 F4000*
+N50 G00 G90 X+14 Y-15 Z+10 G40 M8*
+N60 G00 Z-10 G40*
+N70 G01 Y+95 G41 F4000*
+N80 G01 X+36 Y+140*
+N90 G25 R10*
+N100 G01 X+105*
+N110 G24 R4*
+N120 G01 G91 Y-55*
+N130 G25 R14*
+N140 G01 G91 X+35*
+N150 G25 R5*
+N160 G01 G90 X+105 Y+14*
+N170 G24 R8*
+N180 G01 X-15*
+N190 G00 Z+10 G40*
+N200 G38 M30*
+N99999999 %es1 G71 *</code></pre>
+</div>
+</div><div class="column" style="width:60%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/xp-check.jpg" class="quarto-figure quarto-figure-center" height="480"></p>
+<p><img data-src="images-1/heidenhain-2.png"></p>
+<figcaption>Heidenhain CNC - program preview</figcaption>
 </figure>
 </div>
+</div></div>
 </section>
-<section id="advanced-languages" class="slide level2 smaller">
+<section id="advanced-languages" class="slide level2">
 <h2>Advanced languages</h2>
 <div class="columns">
-<div class="column" style="width:40%;">
+<div class="column" style="width:60%;">
+<p>Different CNC manufacturers implement proprietary languages that extend the basic G-code with advanced features:</p>
 <ul>
-<li>Explicit syntax</li>
-<li>Conversational</li>
+<li>Explicit, reacher syntax</li>
+<li>Conversational/interactive programming (<em>zero-handbook</em>)</li>
 <li>Macros</li>
 <li>Parametric programming</li>
 </ul>
-</div><div class="column" style="width:60%;">
-<pre class="gcode"><code>0  BEGIN PGM es1 MM
+</div><div class="column smaller" style="width:40%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Heidenhain language</strong></pre>
+</div>
+<pre class="gcode" data-filename="Heidenhain language"><code>0  BEGIN PGM es1 MM
 1  BLK FORM 0.1 Z  X+0  Y+0  Z-20
 2  BLK FORM 0.2  X+150  Y+150  Z+0
 3  CYCL DEF 247 DEF. ZERO PEZZO ~
@@ -2128,6 +2416,7 @@ N99999999 %es1 G71 *</code></pre>
 20 L  Z+10 R0 FMAX
 21 STOP M30
 22 END PGM es1 MM</code></pre>
+</div>
 </div></div>
 </section></section>
 <section>
@@ -2142,21 +2431,34 @@ N99999999 %es1 G71 *</code></pre>
 </section>
 <section id="cnc-kernel-tasks" class="slide level2">
 <h2>CNC kernel tasks</h2>
-<p><strong>Kernel functions</strong></p>
+<p>The <strong>CNC kernel</strong> is the part of the CNC controller that implements the <strong>real-time control loop</strong>. It is responsible for:</p>
 <ul>
 <li>Understanding a part-program (parsing)</li>
 <li>Generate velocity profiles (profiling)</li>
-<li>Position interpolation</li>
-<li>Generate command signals</li>
+<li>Position interpolation (project trajectoryb on the machine axes)</li>
+<li>Generate command signals (actuation) to the axes drives</li>
 </ul>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Beside these tasks, the rest of the CNC also takes care of the GUI, programs selection, editing and storing, networking, tables management (presets and tools), interaction with the PLC, and other non-real-time tasks. The CNC kernel is the part of the CNC that is <strong>real-time</strong> and must be implemented in a <strong>real-time operating system</strong> (RTOS)</p>
+</div>
+</div>
+</div>
 </section>
 <section id="profiling" class="slide level2">
 <h2>Profiling</h2>
-<p>For every block:</p>
+<p>Profiling is where motion algorithms are implemented. For every block:</p>
 <ul>
 <li>preserve block length: <span class="math inline">\(\displaystyle\int_{t_a}^{t_b} f(\tau)\,\mathrm{d}\tau = l\)</span></li>
-<li>limit acceleration</li>
-<li>limit jerks</li>
+<li>limit acceleration to the maximum allowed by the machine</li>
+<li>limit jerks, to minimize vibrations and mechanical stress</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -2170,7 +2472,7 @@ N99999999 %es1 G71 *</code></pre>
 </section>
 <section id="profiling-1" class="slide level2">
 <h2>Profiling</h2>
-<p>Discrete time-base (clock)</p>
+<p>Discrete time-base (clock steps of <span class="math inline">\(t_q\)</span>) and feedrate quantization. Block durations must be scaled to a multiple of <span class="math inline">\(t_q\)</span> yet maintaining the same block length. The actual feedrate is reduced accordingly.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -2192,12 +2494,12 @@ N99999999 %es1 G71 *</code></pre>
 </section>
 <section id="profiling-2" class="slide level2">
 <h2>Profiling</h2>
-<p>Discrete time-base (clock)</p>
+<p>Discrete time-base (clock steps of <span class="math inline">\(t_q\)</span>) and feedrate quantization. Block durations must be scaled to a multiple of <span class="math inline">\(t_q\)</span> yet maintaining the same block length. The actual feedrate is reduced accordingly.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center" width="773" height="170"></p>
+<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center" width="792" height="190"></p>
 </figure>
 </div>
 </div>
@@ -2213,7 +2515,7 @@ d^* = \frac{f_e - f_m^*}{\Delta t_2}
 </section>
 <section id="profiling-3" class="slide level2">
 <h2>Profiling</h2>
-<p>Short segments, <span class="math inline">\(\Delta t_m \le 0\)</span></p>
+<p>In <strong>short segments</strong> there’s no time enough to reach the nominal feedrate: <span class="math inline">\(\Delta t_m \le 0\)</span></p>
 <div class="columns">
 <div class="column" style="width:35%;">
 <div class="cell" data-layout-align="center">
@@ -2300,12 +2602,12 @@ f_{m,a} = \min\left(f_m, \sqrt{aR}\right)
 </div>
 </div></div>
 </section>
-<section id="motion-interpolation-2" class="slide level2 smaller">
+<section id="motion-interpolation-2" class="slide level2">
 <h2>Motion interpolation</h2>
-<p>G-code syntax:</p>
+<p>Two alternative G-code syntax for arcs:</p>
 <ul>
-<li><code>G[02|03] X[</code><span class="math inline">\(X_f\)</span><code>] Y[</code><span class="math inline">\(Y_f\)</span><code>] I[</code><span class="math inline">\(I\)</span><code>] J[</code><span class="math inline">\(J\)</span><code>]</code></li>
-<li><code>G[02|03] X[</code><span class="math inline">\(X_f\)</span><code>] Y[</code><span class="math inline">\(Y_f\)</span><code>] R[</code><span class="math inline">\(\pm R\)</span><code>]</code></li>
+<li>arch center: <code>G[02|03] X[</code><span class="math inline">\(X_f\)</span><code>] Y[</code><span class="math inline">\(Y_f\)</span><code>] I[</code><span class="math inline">\(I\)</span><code>] J[</code><span class="math inline">\(J\)</span><code>]</code></li>
+<li>radius: <code>G[02|03] X[</code><span class="math inline">\(X_f\)</span><code>] Y[</code><span class="math inline">\(Y_f\)</span><code>] R[</code><span class="math inline">\(\pm R\)</span><code>]</code> (radius sign discriminates which arc to take)</li>
 </ul>
 <div class="columns">
 <div class="column" style="width:55%;">
@@ -2342,7 +2644,16 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
 </section>
 <section id="jerk" class="slide level2">
 <h2>Jerk</h2>
-<p>Jerk-limited profiling: each segment is split into 7 ranges (vs.&nbsp;3)</p>
+<div class="columns">
+<div class="column">
+<p>Jerk-limited profiling:</p>
+<ul>
+<li>corners in feedrate imply discontinuous acceleration</li>
+<li>discontinuous acceleration mean <strong>infinite jerk</strong></li>
+<li>infinite jerk produces vibrations and mechanical stress</li>
+<li>for <strong>limited jerk profiling</strong> each segment is split into 7 ranges (vs.&nbsp;3)</li>
+</ul>
+</div><div class="column">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -2352,13 +2663,16 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
 </div>
 </div>
 </div>
+</div></div>
 </section>
 <section id="look-ahead-feedrate-profile" class="slide level2">
 <h2>Look-ahead feedrate profile</h2>
+<p>The above presented algorithm assumes that the instant speed goes to zero at each corner. This is not acceptable in real CNC machines, for two reasons:</p>
 <ul>
-<li><strong>Problem 1:</strong> tangent or semi-tangent blocks shall have non-zero speed at the corner.</li>
+<li><strong>Problem 1:</strong> tangent or semi-tangent blocks would result in excessive reduction of feedrate wrt nominal</li>
 <li><strong>Problem 2:</strong> it shall be possible to accelerate to nominal feedrate with continuous acceleration over <span class="math inline">\(n\)</span> short segments, and it may take more than one segment to decelerate down to stop</li>
 </ul>
+<p>To solve these issue we need to plan the velocity profile <strong>across multiple blocks</strong> of G-Code. This is called <strong>look-ahead</strong></p>
 </section>
 <section id="look-ahead-feedrate-profile-1" class="slide level2">
 <h2>Look-ahead feedrate profile</h2>
@@ -2387,7 +2701,7 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
 <section id="look-ahead-feedrate" class="slide level2">
 <h2>Look-ahead feedrate</h2>
 <div class="columns">
-<div class="column" style="width:55%;">
+<div class="column">
 <p>Step 1: calculate velocities:</p>
 <ul>
 <li><span class="math inline">\(v_{i,i} = v_{f,i-1}\)</span>, or 0 for first sg.</li>
@@ -2396,12 +2710,12 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
 <li><span class="math inline">\(v_{f,i} = \dfrac{v_{m,i} + v_{m,i+1}}{2}\cos\alpha_i\)</span></li>
 <li><span class="math inline">\(v_{f,i} = 0\)</span> for last segment or if <span class="math inline">\(v_{m,i} = 0\)</span></li>
 </ul>
-</div><div class="column" style="width:45%;">
+</div><div class="column">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center" width="428" height="280"></p>
+<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center" width="1500"></p>
 </figure>
 </div>
 </div>
@@ -2564,16 +2878,15 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
 </div>
 </div>
 </section>
-<section id="change-variable" class="slide level2">
-<h2>Change variable</h2>
-<p>Convert <strong>from curvilinear abscissa to time</strong>, one block at a time:</p>
+<section id="change-of-variable" class="slide level2">
+<h2>Change of variable</h2>
+<h3 id="back-to-time-abscissa">Back to time abscissa</h3>
+<p>Convert back <strong>from curvilinear abscissa to time</strong>, one block at a time:</p>
 <ul>
 <li>Calculate <span class="math inline">\(v(t) = v_0 + at\)</span>, <span class="math inline">\(s(t) = s_0 + v_0 t + at^2/2\)</span> in the ranges <span class="math inline">\([s_i, s_1]\)</span>, <span class="math inline">\([s_1, s_2]\)</span>, <span class="math inline">\([s_2, s_f]\)</span></li>
 <li>Calculate timings <span class="math inline">\(t_1\)</span>, <span class="math inline">\(t_2\)</span>, <span class="math inline">\(t_f\)</span></li>
 </ul>
-</section>
-<section id="reshape-for-discrete-time" class="slide level2">
-<h2>Reshape for discrete time</h2>
+<h3 id="reshape-for-discrete-time">Reshape for discrete time</h3>
 <ul>
 <li>Calculate <span class="math inline">\(t_f^* = \lceil t_f / t_q + 1 \rceil t_q\)</span></li>
 <li>Calculate <span class="math inline">\(k = t_f^* / t_f\)</span></li>
@@ -2584,7 +2897,7 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
 <h2>Receding horizon</h2>
 <ul>
 <li>This algorithm requires a sequence of blocks starting and ending at zero feedrate</li>
-<li>You can assume that G00 blocks mark full stops at corners</li>
+<li>You can assume that <code>G00</code> blocks mark full stops at corners</li>
 <li>Nonetheless, a program can consist in thousands of sequential G01/G02/G03 blocks: memory problem</li>
 <li><strong>Solution:</strong>
 <ul>
@@ -2626,35 +2939,44 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
 <section id="profiling-errors" class="slide level2">
 <h2>Profiling errors</h2>
 <div class="columns">
-<div class="column" style="width:45%;">
+<div class="column" style="width:30%;">
+<p>Look-ahead can alter trajectory, especially at corners:</p>
 <ul>
 <li>More evident at high speed</li>
-<li>When a sharp corner is needed, use curls</li>
+<li>When a sharp corner is needed, use curls or disable look-ahead</li>
 </ul>
-</div><div class="column" style="width:55%;">
-<div class="cell" data-layout-align="center">
+</div><div class="column" style="width:40%;">
+<div class="cell">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure>
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-25-1.png" class="quarto-figure quarto-figure-center" width="476" height="400"></p>
+<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-25-1.png" width="1500"></p>
 </figure>
 </div>
 </div>
 </div>
+</div><div class="column" style="width:30%;">
+<p><img data-src="images-1/corner.png"></p>
 </div></div>
 </section>
 <section id="feedrate-related-errors" class="slide level2">
 <h2>Feedrate-related errors</h2>
-<div class="cell quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-26-1.png"></p>
+<div class="columns">
+<div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images-1/toolpath.png"></p>
+<figcaption>Toolpath with sharp and shallow corners, long and short segments</figcaption>
+</figure>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-26-2.png"></p>
+</div><div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images-1/feed_rate.png"></p>
+<figcaption>Feedrate profile: actual feedrate is rarely nominal</figcaption>
+</figure>
 </div>
-</div>
-</div>
+</div></div>
 </section>
 <section id="positioning-errors" class="slide level2">
 <h2>Positioning errors</h2>
@@ -2710,7 +3032,7 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
 <h2>Angle measurement</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/angle-meas.jpg" class="quarto-figure quarto-figure-center" height="470"></p>
+<p><img data-src="images-1/angle-meas.png" class="quarto-figure quarto-figure-center" height="470"></p>
 </figure>
 </div>
 </section>
@@ -2727,7 +3049,7 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
 <h2>Straightness measurement</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/straightness-meas.jpg" class="quarto-figure quarto-figure-center" height="490"></p>
+<p><img data-src="images-1/straightness-meas.png" class="quarto-figure quarto-figure-center" height="490"></p>
 </figure>
 </div>
 </section>
@@ -2735,7 +3057,7 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
 <h2>Squareness measurement</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/squareness-meas.jpg" class="quarto-figure quarto-figure-center" height="490"></p>
+<p><img data-src="images-1/squareness-meas.png" class="quarto-figure quarto-figure-center" height="490"></p>
 </figure>
 </div>
 </section>
@@ -2744,10 +3066,10 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-27-1.png"></p>
+<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-26-1.png"></p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-27-2.png"></p>
+<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-26-2.png"></p>
 </div>
 </div>
 </div>
