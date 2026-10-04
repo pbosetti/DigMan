@@ -1737,27 +1737,33 @@ la_plot <- function(vi, vm, vf, sf = 5, a = 15, steps = "fwd", ymax = 11) {
     geom_point(data = marks, aes(y = v), shape = 21, fill = "white", size = 2.5) +
     geom_text(data = marks, aes(y = v + 0.9, label = label), parse = TRUE, size = 3.6) +
     geom_text(data = lab, aes(y = v, label = label, hjust = hjust), parse = TRUE, size = 3.6) +
-    coord_cartesian(xlim = c(0, 5.5), ylim = c(0, ymax), expand = FALSE) +
+    coord_cartesian(xlim = c(-0.5, 5.5), ylim = c(-0.5, ymax), expand = FALSE) +
     labs(x = "s", y = quote(v == dot(s)))
 }
 ```
 
 ## CNC kernel tasks
 
-**Kernel functions**
+The **CNC kernel** is the part of the CNC controller that implements the **real-time control loop**. It is responsible for:
 
 - Understanding a part-program (parsing)
 - Generate velocity profiles (profiling)
-- Position interpolation
-- Generate command signals
+- Position interpolation (project trajectoryb on the machine axes)
+- Generate command signals (actuation) to the axes drives
+
+
+::: {.callout-note}
+Beside these tasks, the rest of the CNC also takes care of the GUI, programs selection, editing and storing, networking, tables management (presets and tools), interaction with the PLC, and other non-real-time tasks. The CNC kernel is the part of the CNC that is **real-time** and must be implemented in a **real-time operating system** (RTOS)
+:::
+
 
 ## Profiling
 
-For every block:
+Profiling is where motion algorithms are implemented. For every block:
 
 - preserve block length: $\displaystyle\int_{t_a}^{t_b} f(\tau)\,\mathrm{d}\tau = l$
-- limit acceleration
-- limit jerks
+- limit acceleration to the maximum allowed by the machine
+- limit jerks, to minimize vibrations and mechanical stress
 
 ```{r}
 #| fig-width: 10
@@ -1801,7 +1807,7 @@ bind_rows(
 
 ## Profiling
 
-Discrete time-base (clock)
+Discrete time-base (clock steps of $t_q$) and feedrate quantization. Block durations must be scaled to a multiple of $t_q$ yet maintaining the same block length. The actual feedrate is reduced accordingly.
 
 ```{r}
 #| fig-width: 10
@@ -1825,13 +1831,13 @@ $$
 
 ## Profiling
 
-Discrete time-base (clock)
+Discrete time-base (clock steps of $t_q$) and feedrate quantization. Block durations must be scaled to a multiple of $t_q$ yet maintaining the same block length. The actual feedrate is reduced accordingly.
 
 ```{r}
 #| fig-width: 10
-#| fig-height: 2.2
-#| out-width: "773px"
-#| out-height: "170px"
+#| fig-height: 2.4
+#| out-width: "792px"
+#| out-height: "190px"
 #| fig-align: center
 plot_clock()
 ```
@@ -1848,13 +1854,13 @@ $$
 
 ## Profiling
 
-Short segments, $\Delta t_m \le 0$
+In **short segments** there's no time enough to reach the nominal feedrate:  $\Delta t_m \le 0$
 
 :::: {.columns}
 ::: {.column width="35%"}
 ```{r}
-#| fig-width: 4.2
-#| fig-height: 2.8
+#| fig-width: 4
+#| fig-height: 2.67
 #| out-width: "300px"
 #| out-height: "200px"
 #| fig-align: center
@@ -1961,12 +1967,12 @@ $$
 :::
 ::::
 
-## Motion interpolation {.smaller}
+## Motion interpolation
 
-G-code syntax:
+Two alternative G-code syntax for arcs:
 
-- `G[02|03] X[`$X_f$`] Y[`$Y_f$`] I[`$I$`] J[`$J$`]`
-- `G[02|03] X[`$X_f$`] Y[`$Y_f$`] R[`$\pm R$`]`
+- arch center: `G[02|03] X[`$X_f$`] Y[`$Y_f$`] I[`$I$`] J[`$J$`]`
+- radius: `G[02|03] X[`$X_f$`] Y[`$Y_f$`] R[`$\pm R$`]` (radius sign discriminates which arc to take)
 
 :::: {.columns}
 ::: {.column width="55%"}
@@ -2004,8 +2010,17 @@ $$
 
 ## Jerk
 
-Jerk-limited profiling: each segment is split into 7 ranges (vs. 3)
+:::: columns
+::: column
+Jerk-limited profiling: 
 
+* corners in feedrate imply discontinuous acceleration
+* discontinuous acceleration mean **infinite jerk**
+* infinite jerk produces vibrations and mechanical stress
+* for **limited jerk profiling** each segment is split into 7 ranges (vs. 3)
+:::
+
+:::column
 ```{r}
 #| fig-width: 7
 #| fig-height: 4.6
@@ -2030,11 +2045,17 @@ tibble(t = seq(0, sum(phases), by = dt)) %>%
   labs(x = "t", y = NULL) +
   theme(strip.placement = "outside")
 ```
+:::
+::::
 
 ## Look-ahead feedrate profile
 
-- **Problem 1:** tangent or semi-tangent blocks shall have non-zero speed at the corner.
+The above presented algorithm assumes that the instant speed goes to zero at each corner. This is not acceptable in real CNC machines, for two reasons:
+
+- **Problem 1:** tangent or semi-tangent blocks would result in excessive reduction of feedrate wrt nominal
 - **Problem 2:** it shall be possible to accelerate to nominal feedrate with continuous acceleration over $n$ short segments, and it may take more than one segment to decelerate down to stop
+
+To solve these issue we need to plan the velocity profile **across multiple blocks** of G-Code. This is called **look-ahead**
 
 ## Look-ahead feedrate profile
 
@@ -2058,7 +2079,7 @@ Approach:
 ## Look-ahead feedrate
 
 :::: {.columns}
-::: {.column width="55%"}
+::: {.column}
 Step 1: calculate velocities:
 
 - $v_{i,i} = v_{f,i-1}$, or 0 for first sg.
@@ -2067,12 +2088,8 @@ Step 1: calculate velocities:
 - $v_{f,i} = \dfrac{v_{m,i} + v_{m,i+1}}{2}\cos\alpha_i$
 - $v_{f,i} = 0$ for last segment or if $v_{m,i} = 0$
 :::
-::: {.column width="45%"}
+::: {.column}
 ```{r}
-#| fig-width: 5.5
-#| fig-height: 3.6
-#| out-width: "428px"
-#| out-height: "280px"
 #| fig-align: center
 # blocks: length, nominal feed and angle with the next block (deg)
 blk <- tibble(l = c(5, 5, 3, 11, 6, 1, 1), f = c(8, 8, 7, 3, 7, 7, 7), alpha = c(40, 10, 0, 0, 0, 0, 90)) %>%
@@ -2256,14 +2273,15 @@ tribble(
   labs(x = "s", y = quote(v == dot(s)))
 ```
 
-## Change variable
+## Change of variable
 
-Convert **from curvilinear abscissa to time**, one block at a time:
+### Back to time abscissa
+Convert back **from curvilinear abscissa to time**, one block at a time:
 
-- Calculate $v(t) = v_0 + at$, $s(t) = s_0 + v_0 t + at^2/2$ in the ranges $[s_i, s_1]$, $[s_1, s_2]$, $[s_2, s_f]$
-- Calculate timings $t_1$, $t_2$, $t_f$
+* Calculate $v(t) = v_0 + at$, $s(t) = s_0 + v_0 t + at^2/2$ in the ranges $[s_i, s_1]$, $[s_1, s_2]$, $[s_2, s_f]$
+* Calculate timings $t_1$, $t_2$, $t_f$
 
-## Reshape for discrete time
+### Reshape for discrete time
 
 - Calculate $t_f^* = \lceil t_f / t_q + 1 \rceil t_q$
 - Calculate $k = t_f^* / t_f$
@@ -2272,7 +2290,7 @@ Convert **from curvilinear abscissa to time**, one block at a time:
 ## Receding horizon
 
 - This algorithm requires a sequence of blocks starting and ending at zero feedrate
-- You can assume that G00 blocks mark full stops at corners
+- You can assume that `G00` blocks mark full stops at corners
 - Nonetheless, a program can consist in thousands of sequential G01/G02/G03 blocks: memory problem
 - **Solution:**
   - At run time, pre-elaborate a buffer made of a limited number of blocks (say 100) assuming the last one stops (look-ahead buffer)
@@ -2299,17 +2317,14 @@ Convert **from curvilinear abscissa to time**, one block at a time:
 ## Profiling errors
 
 :::: {.columns}
-::: {.column width="45%"}
+::: {.column width="30%"}
+Look-ahead can alter trajectory, especially at corners:
+
 - More evident at high speed
-- When a sharp corner is needed, use curls
+- When a sharp corner is needed, use curls or disable look-ahead
 :::
-::: {.column width="55%"}
+::: {.column width="40%"}
 ```{r}
-#| fig-width: 5
-#| fig-height: 4.2
-#| out-width: "476px"
-#| out-height: "400px"
-#| fig-align: center
 # 90-degree corner at constant feed, each axis follows its command with a first-order lag (Kv)
 corner <- function(feed, Kv = 40, dt = 1e-4, L = 2) {
   v <- feed / 60
@@ -2334,59 +2349,26 @@ bind_rows(corner(500), corner(1500)) %>%
   theme(legend.position = "bottom", legend.direction = "vertical")
 ```
 :::
+
+:::{.column width="30%"}
+![](images-1/corner.png)
+:::
 ::::
 
 ## Feedrate-related errors
 
-```{r}
-#| layout-ncol: 2
-#| fig-width: 5
-#| fig-height: 4.2
-#| out-width: "100%"
-# zig-zag toolpath (lines, a small kink, R5 arcs, square corners), nominal feed 10 m/min;
-# look-ahead with forward and backward passes limited by the axes acceleration
-feed <- 10000 / 60; acc <- 400; ds <- 0.05
-seg_line <- function(x0, y0, x1, y1) {
-  n <- max(2, ceiling(sqrt((x1 - x0)^2 + (y1 - y0)^2) / ds))
-  tibble(x = seq(x0, x1, length.out = n), y = seq(y0, y1, length.out = n), R = Inf)
-}
-seg_arc <- function(xc, yc, r, a0, a1) {
-  th <- seq(a0, a1, length.out = max(2, ceiling(abs(a1 - a0) * r / ds)))
-  tibble(x = xc + r * cos(th), y = yc + r * sin(th), R = r)
-}
-pass <- function(y, dir) {
-  xs <- if (dir > 0) c(-10, 20, 50) else c(50, 20, -10)
-  bind_rows(seg_line(xs[1], y, xs[2], y + 2), seg_line(xs[2], y + 2, xs[3], y))
-}
-path <- bind_rows(
-  pass(0, 1), seg_arc(50, 5, 5, -pi / 2, pi / 2), pass(10, -1), seg_line(-10, 10, -10, 20),
-  pass(20, 1), seg_arc(50, 25, 5, -pi / 2, pi / 2), pass(30, -1), seg_line(-10, 30, -10, 40),
-  pass(40, 1)
-) %>% distinct(x, y, .keep_all = TRUE)
-n <- nrow(path)
-step <- sqrt(diff(path$x)^2 + diff(path$y)^2)
-heading <- atan2(diff(path$y), diff(path$x))
-turn <- abs(atan2(sin(diff(heading)), cos(diff(heading))))
-vlim <- pmin(feed, sqrt(acc * path$R))                      # centripetal limit on arcs
-vlim[2:(n - 1)] <- pmin(vlim[2:(n - 1)], ifelse(turn > 0.02, feed * cos(pmin(turn, pi / 2)), feed))
-vlim[c(1, n)] <- 0
-v <- vlim
-for (i in 2:n) v[i] <- min(v[i], sqrt(v[i - 1]^2 + 2 * acc * step[i - 1]))     # forward
-for (i in (n - 1):1) v[i] <- min(v[i], sqrt(v[i + 1]^2 + 2 * acc * step[i]))   # backward
-tt <- c(0, cumsum(step / pmax((head(v, -1) + tail(v, -1)) / 2, 1e-3)))
-path <- mutate(path, t = tt, v = v * 60)
-ggplot(path, aes(x, y, color = v)) +
-  geom_path(linewidth = 1.2) +
-  scale_color_viridis_c(name = "Feed rate\n(mm/min)") +
-  coord_equal() +
-  labs(x = "X (mm)", y = "Y (mm)", title = "Tool path")
-ggplot(path, aes(t, v)) +
-  geom_line() +
-  geom_hline(yintercept = feed * 60, linetype = 2, color = "firebrick") +
-  geom_hline(yintercept = sum(step) / max(tt) * 60, color = "forestgreen") +
-  labs(x = "Time (s)", y = "Feed rate (mm/min)", title = "Feed rate profile",
-       caption = "dashed: nominal, solid: average")
-```
+
+::: {.columns}
+::: {.column}
+![Toolpath with sharp and shallow corners, long and short segments](images-1/toolpath.png)
+:::
+
+::: {.column}
+![Feedrate profile: actual feedrate is rarely nominal](images-1/feed_rate.png)
+:::
+:::
+
+
 
 ## Positioning errors
 
@@ -2418,7 +2400,7 @@ ggplot(path, aes(t, v)) +
 
 ## Angle measurement
 
-![](images/angle-meas.jpg){fig-align="center" height=470}
+![](images-1/angle-meas.png){fig-align="center" height=470}
 
 ## Straightness measurement
 
@@ -2428,11 +2410,11 @@ ggplot(path, aes(t, v)) +
 
 ## Straightness measurement
 
-![](images/straightness-meas.jpg){fig-align="center" height=490}
+![](images-1/straightness-meas.png){fig-align="center" height=490}
 
 ## Squareness measurement
 
-![](images/squareness-meas.jpg){fig-align="center" height=490}
+![](images-1/squareness-meas.png){fig-align="center" height=490}
 
 ## Calibration
 
