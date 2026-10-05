@@ -1,5 +1,8 @@
 project:
   type: website
+  preview:
+    port: 4200
+    browser: true
   resources:
     - videos/*
     - MillCoordinates/**
@@ -14,6 +17,11 @@ format:
     code-line-numbers: true
     code-annotations: below
     preview-links: auto
+    # html-math-method: mathjax
+    # html-math-method: katex
+    html-math-method: 
+      method: mathjax
+      url: "https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"
     theme: [default, slides.scss]
     chalkboard: true
     footer: "paolo.bosetti@unitn.it --- [https://pbosetti.github.io/DigMan/](https://pbosetti.github.io/DigMan/)"
