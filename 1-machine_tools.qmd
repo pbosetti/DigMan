@@ -2457,6 +2457,10 @@ bind_rows(corner(500), corner(1500)) %>%
 
 ![](images-1/squareness-meas.png){fig-align="center" height=490}
 
+
+# {background-iframe="Interferometer/laser-interferometer.html" background-interactive="true"}
+
+
 ## Calibration
 
 ```{r}

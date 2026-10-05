@@ -6,6 +6,7 @@ project:
   resources:
     - videos/*
     - MillCoordinates/**
+    - Interferometer/**
     - images-1/scenes.html
 
 format:
