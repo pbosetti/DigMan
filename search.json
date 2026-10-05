@@ -1439,7 +1439,7 @@
     "href": "1-machine_tools.html#profiling",
     "title": "Digital Manufacturing – Part 1",
     "section": "Profiling",
-    "text": "Profiling\nProfiling is where motion algorithms are implemented. For every block:\n\npreserve block length: \\(\\displaystyle\\int_{t_a}^{t_b} f(\\tau)\\,\\mathrm{d}\\tau = l\\)\nlimit acceleration to the maximum allowed by the machine\nlimit jerks, to minimize vibrations and mechanical stress"
+    "text": "Profiling\n\n\nProfiling is where motion algorithms are implemented. For every block:\n\npreserve block length: \\(\\displaystyle\\int_{t_a}^{t_b} f(\\tau)\\,\\mathrm{d}\\tau = l\\)\nlimit acceleration to the maximum allowed by the machine\nlimit jerks, to minimize vibrations and mechanical stress"
   },
   {
     "objectID": "1-machine_tools.html#profiling-1",
@@ -1467,7 +1467,7 @@
     "href": "1-machine_tools.html#motion-interpolation",
     "title": "Digital Manufacturing – Part 1",
     "section": "Motion interpolation",
-    "text": "Motion interpolation\n\n\n\nThe speed profile is evaluated and integrated at each time tick\nThe axes set-points are calculated with the parametric equation of the path\nFor a linear motion:\n\n\\[\n\\begin{aligned}\nX(t) &= X_0 + \\Delta X \\lambda(t) \\\\\nY(t) &= Y_0 + \\Delta Y \\lambda(t) \\\\\nZ(t) &= Z_0 + \\Delta Z \\lambda(t)\n\\end{aligned}\n\\]"
+    "text": "Motion interpolation\n\n\n\nThe speed profile is evaluated and integrated at each time tick: \\(\\lambda(t) = 1/L\\int_0^t f(\\tau)\\,d\\tau\\)\nThe axes set-points are calculated with the parametric equation of the path\nFor a linear motion:\n\n\\[\n\\begin{aligned}\nX(t) &= X_0 + \\Delta X \\lambda(t) \\\\\nY(t) &= Y_0 + \\Delta Y \\lambda(t) \\\\\nZ(t) &= Z_0 + \\Delta Z \\lambda(t)\n\\end{aligned}\n\\]"
   },
   {
     "objectID": "1-machine_tools.html#motion-interpolation-1",
@@ -1586,14 +1586,14 @@
     "href": "1-machine_tools.html#machining-error-sources",
     "title": "Digital Manufacturing – Part 1",
     "section": "Machining error sources",
-    "text": "Machining error sources"
+    "text": "Machining error sources\n\n\n\nProcess error sources: tool/workpiece interaction (minimized by proper process conditions)\nStructural error sources: time-dependent, eventually become stable and can be compensated\nMachine error sources: more difficult to compensate, potentially ever changing\n\n\n\n\n\n\n\n\n\nerrsrc\n\n\nbox\n\n\n\n\nlab\n≈ 70% of total errors\n\n\n\ngeo\n\nGeometrical\nerrors\n\n\n\nth\n\nThermal\nerrors\n\n\n\nkin\n\nKinematic\nerrors\n\n\n\ntot\n\nTotal\nvolumetric\nerror\n\n\n\nwear\n\nTool wear\n\n\n\ncut\n\nCutting\nforces\n\n\n\nfix\n\nFixtures\n\n\n\nmat\n\nMaterial\ninstability\n\n\n\nctl\n\nControl\ninterpolation\n\n\n\ncreep\n\nCreep at\njoints\n\n\n\ntot--geo\n\n\n\n\n\ntot--th\n\n\n\n\n\ntot--kin\n\n\n\n\n\ntot--wear\n\n\n\n\n\ntot--cut\n\n\n\n\n\ntot--fix\n\n\n\n\n\ntot--mat\n\n\n\n\n\ntot--ctl\n\n\n\n\n\ntot--creep"
   },
   {
     "objectID": "1-machine_tools.html#error-compensation-a5",
     "href": "1-machine_tools.html#error-compensation-a5",
     "title": "Digital Manufacturing – Part 1",
     "section": "Error Compensation (A5)",
-    "text": "Error Compensation (A5)\n\nAdaptive control systems (A/C) = evaluation attribute (A5)\nFactors under evaluation:\n\nmachining errors\nthermoelastic dilatations/deformations"
+    "text": "Error Compensation (A5)\nCompensating for error means to measure errors and to apply corrections to the machine tool commands. This is a closed-loop control approach\n\nAdaptive control systems (A/C) = evaluation attribute (A5)\nFactors under evaluation:\n\nforces/deflections\nmachining errors\nthermoelastic dilatations/deformations"
   },
   {
     "objectID": "1-machine_tools.html#profiling-errors",
