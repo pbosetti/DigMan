@@ -1891,7 +1891,7 @@ T = \begin{bmatrix}
 </div>
 </section></section>
 <section>
-<section id="section" class="title-slide slide level1 center" data-background-iframe="MillCoordinates/machine-frames.html" data-background-interactive="true">
+<section id="section" class="title-slide slide level1 center" data-background-iframe="MillCoordinates/machine-frames.html" data-background-interactive="true" data-footer="false">
 <h1></h1>
 
 </section>
@@ -3174,29 +3174,50 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
 <h2>Laser interferometer</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/interferometer-optics.jpg" class="quarto-figure quarto-figure-center" height="470"></p>
+<p><img data-src="images/interferometer-optics.jpg" height="470"></p>
+<figcaption>Agilent beam splitter and retro-reflector</figcaption>
 </figure>
 </div>
 </section>
 <section id="linearity-measurement" class="slide level2">
 <h2>Linearity measurement</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>This is the simnplest measurement</li>
+<li>The laser beam is reflected by a mirror mounted on the axis and the interferometer measures the distance travelled by the axis</li>
+<li>It is a way to <strong>calibrate</strong> and to verify the <strong>positioning accuracy</strong> of the axis encoder</li>
+</ul>
+</div><div class="column">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/linearity-meas.jpg" class="quarto-figure quarto-figure-center" height="470"></p>
+<p><img data-src="images/linearity-meas.jpg"></p>
+<figcaption>Linearity measurement</figcaption>
 </figure>
 </div>
+</div></div>
 </section>
 <section id="angle-measurement" class="slide level2">
 <h2>Angle measurement</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>An angle interferometer only changes the optical paths difference upon rotation</li>
+<li>Rotation can happen either on the splitter or in the retro-reflector</li>
+<li>The action plane can be selected to measure the pitch or the yaw angles</li>
+</ul>
+</div><div class="column">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images-1/angle-meas.png" class="quarto-figure quarto-figure-center" height="470"></p>
+<p><img data-src="images-1/angle-meas.png"></p>
+<figcaption>Angle measurement</figcaption>
 </figure>
 </div>
+</div></div>
 </section>
 <section id="straightness-measurement" class="slide level2">
 <h2>Straightness measurement</h2>
-<p><em>Principles of operation of Wollaston’s prism</em></p>
+<p>A <a href="https://en.wikipedia.org/wiki/Wollaston_prism">Wollaston prism</a> is a <strong>beam-splitting prism</strong> that splits a beam of light into two beams with orthogonal polarizations. The two beams are <strong>diverging</strong> at a small angle (typically 15–30 arcmin). The prism is used to measure the straightness of an axis by measuring the lateral displacement of the reflected beam.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images-1/straightness-prism.svg" class="quarto-figure quarto-figure-center" height="400"></p>
@@ -3205,22 +3226,39 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
 </section>
 <section id="straightness-measurement-1" class="slide level2">
 <h2>Straightness measurement</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>By aligning the wollastone prism action plane with XY and with XZ planes it is possible to measure the straightness of the X axis in Y and Z directions</li>
+</ul>
+</div><div class="column">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images-1/straightness-meas.png" class="quarto-figure quarto-figure-center" height="490"></p>
+<p><img data-src="images-1/straightness-meas.png"></p>
+<figcaption>Wollaston prism</figcaption>
 </figure>
 </div>
+</div></div>
 </section>
 <section id="squareness-measurement" class="slide level2">
 <h2>Squareness measurement</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>By combining lateral displacement measurement with an <strong>optical square</strong> it is possible to measure the squareness between two axes.</li>
+<li>The optical square is a <strong>reflecting prism</strong> that reflects the laser beam at 90° its incoming direction</li>
+</ul>
+</div><div class="column">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images-1/squareness-meas.png" class="quarto-figure quarto-figure-center" height="490"></p>
+<p><img data-src="images-1/squareness-meas.png"></p>
+<figcaption>Wollaston prism and optical square</figcaption>
 </figure>
 </div>
+</div></div>
 </section></section>
 <section>
-<section id="section-1" class="title-slide slide level1 center" data-background-iframe="Interferometer/laser-interferometer.html" data-background-interactive="true">
+<section id="section-1" class="title-slide slide level1 center" data-background-iframe="Interferometer/laser-interferometer.html" data-background-interactive="true" data-footer="false">
 <h1></h1>
 
 </section>
@@ -3239,11 +3277,35 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
 </section>
 <section id="laser-interferometer-three-axis-machine-tool-installation" class="slide level2">
 <h2>Laser interferometer: three-axis machine tool installation</h2>
+<div class="columns">
+<div class="column">
+<p>High precision machine tools are equipped with a laser interferometer to measure the actual position of the axes.</p>
+<ul>
+<li>one laser head (emitter only)</li>
+<li>one receiver per axis</li>
+<li>beam splitters direct 1/3 of the toutal source power to each axis</li>
+</ul>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Laser beam can be affected by refraction index changes and by air turbulence, so the machine is usually equipped with a <strong>temperature and pressure sensor</strong> to correct the measured distance and the laser is usually enclosed in a <strong>protective tube</strong> to avoid air turbulence.</p>
+</div>
+</div>
+</div>
+</div><div class="column">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/three-axis.jpg" class="quarto-figure quarto-figure-center" height="470"></p>
+<p><img data-src="images/three-axis.jpg" height="470"></p>
+<figcaption>Using <strong>LIF</strong> as measurement tool</figcaption>
 </figure>
 </div>
+</div></div>
 
 
 </section></section>
