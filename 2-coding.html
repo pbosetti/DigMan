@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Paolo Bosetti">
-  <title>Digital Manufacturing – Part 2</title>
+  <title>Tool Radius Compensation</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -34,72 +34,6 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-    /* CSS for syntax highlighting */
-    html { -webkit-text-size-adjust: 100%; }
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      { color: #003b4f; background-color: #f1f3f5; }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span { color: #003b4f; } /* Normal */
-    code span.al { color: #ad0000; } /* Alert */
-    code span.an { color: #5e5e5e; } /* Annotation */
-    code span.at { color: #657422; } /* Attribute */
-    code span.bn { color: #ad0000; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #20794d; } /* Char */
-    code span.cn { color: #8f5902; } /* Constant */
-    code span.co { color: #5e5e5e; } /* Comment */
-    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
-    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
-    code span.dt { color: #ad0000; } /* DataType */
-    code span.dv { color: #ad0000; } /* DecVal */
-    code span.er { color: #ad0000; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #ad0000; } /* Float */
-    code span.fu { color: #4758ab; } /* Function */
-    code span.im { color: #00769e; } /* Import */
-    code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
-    code span.op { color: #5e5e5e; } /* Operator */
-    code span.ot { color: #003b4f; } /* Other */
-    code span.pp { color: #ad0000; } /* Preprocessor */
-    code span.sc { color: #5e5e5e; } /* SpecialChar */
-    code span.ss { color: #20794d; } /* SpecialString */
-    code span.st { color: #20794d; } /* String */
-    code span.va { color: #111111; } /* Variable */
-    code span.vs { color: #20794d; } /* VerbatimString */
-    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-3c42783efb589def58cebd2c5d808515.css">
   <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -201,7 +135,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Digital Manufacturing – Part 2</h1>
+  <h1 class="title">Tool Radius Compensation</h1>
   <p class="subtitle">Digital Manufacturing<br>
 <img data-src="images/by-nc-sa.png" height="30"></p>
 
@@ -216,921 +150,15 @@ Paolo Bosetti
     </div>
 </div>
 
-  <p class="date"><em>Updated:</em> 05/10/2026</p>
-</section>
-<section id="c-programming-recap" class="slide level2 smaller">
-<h2>C Programming recap</h2>
-<div class="columns">
-<div class="column" style="width:58%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-code-line-numbers="1-2"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb1-1"><a aria-label="1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
-<span id="cb1-2"><a aria-label="2"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb1-3"><a aria-label="3"></a></span>
-<span id="cb1-4"><a aria-label="4"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="dt">const</span> <span class="op">*</span>argv<span class="op">[])</span> <span class="op">{</span></span>
-<span id="cb1-5"><a aria-label="5"></a>  <span class="co">/* declarations */</span></span>
-<span id="cb1-6"><a aria-label="6"></a>  <span class="dt">double</span> result<span class="op">,</span> factor<span class="op">[</span><span class="dv">2</span><span class="op">];</span></span>
-<span id="cb1-7"><a aria-label="7"></a>  <span class="dt">unsigned</span> <span class="dt">int</span> i<span class="op">;</span></span>
-<span id="cb1-8"><a aria-label="8"></a>  <span class="dt">int</span> result <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb1-9"><a aria-label="9"></a></span>
-<span id="cb1-10"><a aria-label="10"></a>  <span class="co">// code</span></span>
-<span id="cb1-11"><a aria-label="11"></a>  <span class="cf">if</span> <span class="op">(</span>argc <span class="op">!=</span> <span class="dv">3</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-12"><a aria-label="12"></a>    fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">"I need two arguments, got </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> argc<span class="op">);</span></span>
-<span id="cb1-13"><a aria-label="13"></a>    result <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
-<span id="cb1-14"><a aria-label="14"></a>  <span class="op">}</span></span>
-<span id="cb1-15"><a aria-label="15"></a>  <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">2</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
-<span id="cb1-16"><a aria-label="16"></a>    factor<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> atof<span class="op">(</span>argv<span class="op">[</span>i <span class="op">+</span> <span class="dv">1</span><span class="op">]);</span></span>
-<span id="cb1-17"><a aria-label="17"></a>  <span class="op">}</span></span>
-<span id="cb1-18"><a aria-label="18"></a>  result <span class="op">=</span> factor<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">*</span> factor<span class="op">[</span><span class="dv">1</span><span class="op">];</span></span>
-<span id="cb1-19"><a aria-label="19"></a>  printf<span class="op">(</span><span class="st">"</span><span class="sc">%f</span><span class="st"> * </span><span class="sc">%f</span><span class="st"> = </span><span class="sc">%f\n</span><span class="st">"</span><span class="op">,</span> factor<span class="op">[</span><span class="dv">0</span><span class="op">],</span> factor<span class="op">[</span><span class="dv">1</span><span class="op">],</span> result<span class="op">);</span></span>
-<span id="cb1-20"><a aria-label="20"></a></span>
-<span id="cb1-21"><a aria-label="21"></a>  <span class="cf">return</span> result<span class="op">;</span></span>
-<span id="cb1-22"><a aria-label="22"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div><div class="column" style="width:42%;">
-<ul>
-<li>keywords starting with “<code>#</code>” are <strong>preprocessor directives</strong></li>
-<li><code>#include</code> loads locally an external C file</li>
-<li><code>#include &lt;...&gt;</code> searches in system path</li>
-<li><code>#include "..."</code> searches locally</li>
-</ul>
-</div></div>
-</section>
-<section id="c-programming-recap-1" class="slide level2 smaller">
-<h2>C Programming recap</h2>
-<div class="columns">
-<div class="column" style="width:58%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-code-line-numbers="4,22"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb2-1"><a aria-label="1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
-<span id="cb2-2"><a aria-label="2"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb2-3"><a aria-label="3"></a></span>
-<span id="cb2-4"><a aria-label="4"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="dt">const</span> <span class="op">*</span>argv<span class="op">[])</span> <span class="op">{</span></span>
-<span id="cb2-5"><a aria-label="5"></a>  <span class="co">/* declarations */</span></span>
-<span id="cb2-6"><a aria-label="6"></a>  <span class="dt">double</span> result<span class="op">,</span> factor<span class="op">[</span><span class="dv">2</span><span class="op">];</span></span>
-<span id="cb2-7"><a aria-label="7"></a>  <span class="dt">unsigned</span> <span class="dt">int</span> i<span class="op">;</span></span>
-<span id="cb2-8"><a aria-label="8"></a>  <span class="dt">int</span> result <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb2-9"><a aria-label="9"></a></span>
-<span id="cb2-10"><a aria-label="10"></a>  <span class="co">// code</span></span>
-<span id="cb2-11"><a aria-label="11"></a>  <span class="cf">if</span> <span class="op">(</span>argc <span class="op">!=</span> <span class="dv">3</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb2-12"><a aria-label="12"></a>    fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">"I need two arguments, got </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> argc<span class="op">);</span></span>
-<span id="cb2-13"><a aria-label="13"></a>    result <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
-<span id="cb2-14"><a aria-label="14"></a>  <span class="op">}</span></span>
-<span id="cb2-15"><a aria-label="15"></a>  <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">2</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
-<span id="cb2-16"><a aria-label="16"></a>    factor<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> atof<span class="op">(</span>argv<span class="op">[</span>i <span class="op">+</span> <span class="dv">1</span><span class="op">]);</span></span>
-<span id="cb2-17"><a aria-label="17"></a>  <span class="op">}</span></span>
-<span id="cb2-18"><a aria-label="18"></a>  result <span class="op">=</span> factor<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">*</span> factor<span class="op">[</span><span class="dv">1</span><span class="op">];</span></span>
-<span id="cb2-19"><a aria-label="19"></a>  printf<span class="op">(</span><span class="st">"</span><span class="sc">%f</span><span class="st"> * </span><span class="sc">%f</span><span class="st"> = </span><span class="sc">%f\n</span><span class="st">"</span><span class="op">,</span> factor<span class="op">[</span><span class="dv">0</span><span class="op">],</span> factor<span class="op">[</span><span class="dv">1</span><span class="op">],</span> result<span class="op">);</span></span>
-<span id="cb2-20"><a aria-label="20"></a></span>
-<span id="cb2-21"><a aria-label="21"></a>  <span class="cf">return</span> result<span class="op">;</span></span>
-<span id="cb2-22"><a aria-label="22"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div><div class="column" style="width:42%;">
-<ul>
-<li>Functions are <strong>declared</strong> with:
-<ul>
-<li>return type</li>
-<li>name</li>
-<li>list of arguments</li>
-</ul></li>
-<li>Functions are <strong>defined</strong> with:
-<ul>
-<li>everything above</li>
-<li>plus body</li>
-</ul></li>
-</ul>
-</div></div>
-</section>
-<section id="c-programming-recap-2" class="slide level2 smaller">
-<h2>C Programming recap</h2>
-<div class="columns">
-<div class="column" style="width:58%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-code-line-numbers="4"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb3-1"><a aria-label="1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
-<span id="cb3-2"><a aria-label="2"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb3-3"><a aria-label="3"></a></span>
-<span id="cb3-4"><a aria-label="4"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="dt">const</span> <span class="op">*</span>argv<span class="op">[])</span> <span class="op">{</span></span>
-<span id="cb3-5"><a aria-label="5"></a>  <span class="co">/* declarations */</span></span>
-<span id="cb3-6"><a aria-label="6"></a>  <span class="dt">double</span> result<span class="op">,</span> factor<span class="op">[</span><span class="dv">2</span><span class="op">];</span></span>
-<span id="cb3-7"><a aria-label="7"></a>  <span class="dt">unsigned</span> <span class="dt">int</span> i<span class="op">;</span></span>
-<span id="cb3-8"><a aria-label="8"></a>  <span class="dt">int</span> result <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb3-9"><a aria-label="9"></a></span>
-<span id="cb3-10"><a aria-label="10"></a>  <span class="co">// code</span></span>
-<span id="cb3-11"><a aria-label="11"></a>  <span class="cf">if</span> <span class="op">(</span>argc <span class="op">!=</span> <span class="dv">3</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb3-12"><a aria-label="12"></a>    fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">"I need two arguments, got </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> argc<span class="op">);</span></span>
-<span id="cb3-13"><a aria-label="13"></a>    result <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
-<span id="cb3-14"><a aria-label="14"></a>  <span class="op">}</span></span>
-<span id="cb3-15"><a aria-label="15"></a>  <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">2</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
-<span id="cb3-16"><a aria-label="16"></a>    factor<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> atof<span class="op">(</span>argv<span class="op">[</span>i <span class="op">+</span> <span class="dv">1</span><span class="op">]);</span></span>
-<span id="cb3-17"><a aria-label="17"></a>  <span class="op">}</span></span>
-<span id="cb3-18"><a aria-label="18"></a>  result <span class="op">=</span> factor<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">*</span> factor<span class="op">[</span><span class="dv">1</span><span class="op">];</span></span>
-<span id="cb3-19"><a aria-label="19"></a>  printf<span class="op">(</span><span class="st">"</span><span class="sc">%f</span><span class="st"> * </span><span class="sc">%f</span><span class="st"> = </span><span class="sc">%f\n</span><span class="st">"</span><span class="op">,</span> factor<span class="op">[</span><span class="dv">0</span><span class="op">],</span> factor<span class="op">[</span><span class="dv">1</span><span class="op">],</span> result<span class="op">);</span></span>
-<span id="cb3-20"><a aria-label="20"></a></span>
-<span id="cb3-21"><a aria-label="21"></a>  <span class="cf">return</span> result<span class="op">;</span></span>
-<span id="cb3-22"><a aria-label="22"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div><div class="column" style="width:42%;">
-<ul>
-<li><code>int main(int, char const **)</code> is the mandatory entry point for any C program</li>
-<li><code>argc</code> is the number of arguments received from command line, plus 1</li>
-<li><code>argv[]</code> is the array of arguments</li>
-<li><code>argv[0]</code> is the program name</li>
-</ul>
-</div></div>
-</section>
-<section id="c-programming-recap-3" class="slide level2 smaller">
-<h2>C Programming recap</h2>
-<div class="columns">
-<div class="column" style="width:58%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-code-line-numbers="5,10"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb4-1"><a aria-label="1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
-<span id="cb4-2"><a aria-label="2"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb4-3"><a aria-label="3"></a></span>
-<span id="cb4-4"><a aria-label="4"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="dt">const</span> <span class="op">*</span>argv<span class="op">[])</span> <span class="op">{</span></span>
-<span id="cb4-5"><a aria-label="5"></a>  <span class="co">/* declarations */</span></span>
-<span id="cb4-6"><a aria-label="6"></a>  <span class="dt">double</span> result<span class="op">,</span> factor<span class="op">[</span><span class="dv">2</span><span class="op">];</span></span>
-<span id="cb4-7"><a aria-label="7"></a>  <span class="dt">unsigned</span> <span class="dt">int</span> i<span class="op">;</span></span>
-<span id="cb4-8"><a aria-label="8"></a>  <span class="dt">int</span> result <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb4-9"><a aria-label="9"></a></span>
-<span id="cb4-10"><a aria-label="10"></a>  <span class="co">// code</span></span>
-<span id="cb4-11"><a aria-label="11"></a>  <span class="cf">if</span> <span class="op">(</span>argc <span class="op">!=</span> <span class="dv">3</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb4-12"><a aria-label="12"></a>    fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">"I need two arguments, got </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> argc<span class="op">);</span></span>
-<span id="cb4-13"><a aria-label="13"></a>    result <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
-<span id="cb4-14"><a aria-label="14"></a>  <span class="op">}</span></span>
-<span id="cb4-15"><a aria-label="15"></a>  <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">2</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
-<span id="cb4-16"><a aria-label="16"></a>    factor<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> atof<span class="op">(</span>argv<span class="op">[</span>i <span class="op">+</span> <span class="dv">1</span><span class="op">]);</span></span>
-<span id="cb4-17"><a aria-label="17"></a>  <span class="op">}</span></span>
-<span id="cb4-18"><a aria-label="18"></a>  result <span class="op">=</span> factor<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">*</span> factor<span class="op">[</span><span class="dv">1</span><span class="op">];</span></span>
-<span id="cb4-19"><a aria-label="19"></a>  printf<span class="op">(</span><span class="st">"</span><span class="sc">%f</span><span class="st"> * </span><span class="sc">%f</span><span class="st"> = </span><span class="sc">%f\n</span><span class="st">"</span><span class="op">,</span> factor<span class="op">[</span><span class="dv">0</span><span class="op">],</span> factor<span class="op">[</span><span class="dv">1</span><span class="op">],</span> result<span class="op">);</span></span>
-<span id="cb4-20"><a aria-label="20"></a></span>
-<span id="cb4-21"><a aria-label="21"></a>  <span class="cf">return</span> result<span class="op">;</span></span>
-<span id="cb4-22"><a aria-label="22"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div><div class="column" style="width:42%;">
-<p>Comments can be:</p>
-<ul>
-<li><code>// single line</code></li>
-<li><code>/* multiline */</code></li>
-</ul>
-</div></div>
-</section>
-<section id="c-programming-recap-4" class="slide level2 smaller">
-<h2>C Programming recap</h2>
-<div class="columns">
-<div class="column" style="width:58%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-code-line-numbers="11-14"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb5-1"><a aria-label="1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
-<span id="cb5-2"><a aria-label="2"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb5-3"><a aria-label="3"></a></span>
-<span id="cb5-4"><a aria-label="4"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="dt">const</span> <span class="op">*</span>argv<span class="op">[])</span> <span class="op">{</span></span>
-<span id="cb5-5"><a aria-label="5"></a>  <span class="co">/* declarations */</span></span>
-<span id="cb5-6"><a aria-label="6"></a>  <span class="dt">double</span> result<span class="op">,</span> factor<span class="op">[</span><span class="dv">2</span><span class="op">];</span></span>
-<span id="cb5-7"><a aria-label="7"></a>  <span class="dt">unsigned</span> <span class="dt">int</span> i<span class="op">;</span></span>
-<span id="cb5-8"><a aria-label="8"></a>  <span class="dt">int</span> result <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb5-9"><a aria-label="9"></a></span>
-<span id="cb5-10"><a aria-label="10"></a>  <span class="co">// code</span></span>
-<span id="cb5-11"><a aria-label="11"></a>  <span class="cf">if</span> <span class="op">(</span>argc <span class="op">!=</span> <span class="dv">3</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb5-12"><a aria-label="12"></a>    fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">"I need two arguments, got </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> argc<span class="op">);</span></span>
-<span id="cb5-13"><a aria-label="13"></a>    result <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
-<span id="cb5-14"><a aria-label="14"></a>  <span class="op">}</span></span>
-<span id="cb5-15"><a aria-label="15"></a>  <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">2</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
-<span id="cb5-16"><a aria-label="16"></a>    factor<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> atof<span class="op">(</span>argv<span class="op">[</span>i <span class="op">+</span> <span class="dv">1</span><span class="op">]);</span></span>
-<span id="cb5-17"><a aria-label="17"></a>  <span class="op">}</span></span>
-<span id="cb5-18"><a aria-label="18"></a>  result <span class="op">=</span> factor<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">*</span> factor<span class="op">[</span><span class="dv">1</span><span class="op">];</span></span>
-<span id="cb5-19"><a aria-label="19"></a>  printf<span class="op">(</span><span class="st">"</span><span class="sc">%f</span><span class="st"> * </span><span class="sc">%f</span><span class="st"> = </span><span class="sc">%f\n</span><span class="st">"</span><span class="op">,</span> factor<span class="op">[</span><span class="dv">0</span><span class="op">],</span> factor<span class="op">[</span><span class="dv">1</span><span class="op">],</span> result<span class="op">);</span></span>
-<span id="cb5-20"><a aria-label="20"></a></span>
-<span id="cb5-21"><a aria-label="21"></a>  <span class="cf">return</span> result<span class="op">;</span></span>
-<span id="cb5-22"><a aria-label="22"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div><div class="column" style="width:42%;">
-<p>Conditionals:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb6-1"><a aria-label="1"></a><span class="cf">if</span> <span class="op">(</span>condition<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb6-2"><a aria-label="2"></a>  <span class="co">/* code */</span></span>
-<span id="cb6-3"><a aria-label="3"></a><span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>condition<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb6-4"><a aria-label="4"></a>  <span class="co">// code</span></span>
-<span id="cb6-5"><a aria-label="5"></a><span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
-<span id="cb6-6"><a aria-label="6"></a>  <span class="co">// other code</span></span>
-<span id="cb6-7"><a aria-label="7"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div></div>
-</section>
-<section id="c-programming-recap-5" class="slide level2 smaller">
-<h2>C Programming recap</h2>
-<div class="columns">
-<div class="column" style="width:58%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" data-code-line-numbers="15-17"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb7-1"><a aria-label="1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
-<span id="cb7-2"><a aria-label="2"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb7-3"><a aria-label="3"></a></span>
-<span id="cb7-4"><a aria-label="4"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="dt">const</span> <span class="op">*</span>argv<span class="op">[])</span> <span class="op">{</span></span>
-<span id="cb7-5"><a aria-label="5"></a>  <span class="co">/* declarations */</span></span>
-<span id="cb7-6"><a aria-label="6"></a>  <span class="dt">double</span> result<span class="op">,</span> factor<span class="op">[</span><span class="dv">2</span><span class="op">];</span></span>
-<span id="cb7-7"><a aria-label="7"></a>  <span class="dt">unsigned</span> <span class="dt">int</span> i<span class="op">;</span></span>
-<span id="cb7-8"><a aria-label="8"></a>  <span class="dt">int</span> result <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb7-9"><a aria-label="9"></a></span>
-<span id="cb7-10"><a aria-label="10"></a>  <span class="co">// code</span></span>
-<span id="cb7-11"><a aria-label="11"></a>  <span class="cf">if</span> <span class="op">(</span>argc <span class="op">!=</span> <span class="dv">3</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb7-12"><a aria-label="12"></a>    fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">"I need two arguments, got </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> argc<span class="op">);</span></span>
-<span id="cb7-13"><a aria-label="13"></a>    result <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
-<span id="cb7-14"><a aria-label="14"></a>  <span class="op">}</span></span>
-<span id="cb7-15"><a aria-label="15"></a>  <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">2</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
-<span id="cb7-16"><a aria-label="16"></a>    factor<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> atof<span class="op">(</span>argv<span class="op">[</span>i <span class="op">+</span> <span class="dv">1</span><span class="op">]);</span></span>
-<span id="cb7-17"><a aria-label="17"></a>  <span class="op">}</span></span>
-<span id="cb7-18"><a aria-label="18"></a>  result <span class="op">=</span> factor<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">*</span> factor<span class="op">[</span><span class="dv">1</span><span class="op">];</span></span>
-<span id="cb7-19"><a aria-label="19"></a>  printf<span class="op">(</span><span class="st">"</span><span class="sc">%f</span><span class="st"> * </span><span class="sc">%f</span><span class="st"> = </span><span class="sc">%f\n</span><span class="st">"</span><span class="op">,</span> factor<span class="op">[</span><span class="dv">0</span><span class="op">],</span> factor<span class="op">[</span><span class="dv">1</span><span class="op">],</span> result<span class="op">);</span></span>
-<span id="cb7-20"><a aria-label="20"></a></span>
-<span id="cb7-21"><a aria-label="21"></a>  <span class="cf">return</span> result<span class="op">;</span></span>
-<span id="cb7-22"><a aria-label="22"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div><div class="column" style="width:42%;">
-<p>Loops:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb8-1"><a aria-label="1"></a><span class="cf">for</span> <span class="op">(</span>start<span class="op">;</span> cond<span class="op">;</span> incr<span class="op">)</span> <span class="op">{</span> <span class="co">/* code */</span> <span class="op">}</span></span>
-<span id="cb8-2"><a aria-label="2"></a><span class="cf">while</span> <span class="op">(</span><span class="kw">true</span><span class="op">)</span> <span class="op">{</span> <span class="co">// }</span></span>
-<span id="cb8-3"><a aria-label="3"></a><span class="cf">do</span> <span class="op">{</span> <span class="co">// } while (true)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div></div>
-</section>
-<section id="c-programming-recap-6" class="slide level2 smaller">
-<h2>C Programming recap</h2>
-<div class="columns">
-<div class="column" style="width:58%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" data-code-line-numbers="12,19"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb9-1"><a aria-label="1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
-<span id="cb9-2"><a aria-label="2"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb9-3"><a aria-label="3"></a></span>
-<span id="cb9-4"><a aria-label="4"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="dt">const</span> <span class="op">*</span>argv<span class="op">[])</span> <span class="op">{</span></span>
-<span id="cb9-5"><a aria-label="5"></a>  <span class="co">/* declarations */</span></span>
-<span id="cb9-6"><a aria-label="6"></a>  <span class="dt">double</span> result<span class="op">,</span> factor<span class="op">[</span><span class="dv">2</span><span class="op">];</span></span>
-<span id="cb9-7"><a aria-label="7"></a>  <span class="dt">unsigned</span> <span class="dt">int</span> i<span class="op">;</span></span>
-<span id="cb9-8"><a aria-label="8"></a>  <span class="dt">int</span> result <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb9-9"><a aria-label="9"></a></span>
-<span id="cb9-10"><a aria-label="10"></a>  <span class="co">// code</span></span>
-<span id="cb9-11"><a aria-label="11"></a>  <span class="cf">if</span> <span class="op">(</span>argc <span class="op">!=</span> <span class="dv">3</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb9-12"><a aria-label="12"></a>    fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">"I need two arguments, got </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> argc<span class="op">);</span></span>
-<span id="cb9-13"><a aria-label="13"></a>    result <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
-<span id="cb9-14"><a aria-label="14"></a>  <span class="op">}</span></span>
-<span id="cb9-15"><a aria-label="15"></a>  <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">2</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
-<span id="cb9-16"><a aria-label="16"></a>    factor<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> atof<span class="op">(</span>argv<span class="op">[</span>i <span class="op">+</span> <span class="dv">1</span><span class="op">]);</span></span>
-<span id="cb9-17"><a aria-label="17"></a>  <span class="op">}</span></span>
-<span id="cb9-18"><a aria-label="18"></a>  result <span class="op">=</span> factor<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">*</span> factor<span class="op">[</span><span class="dv">1</span><span class="op">];</span></span>
-<span id="cb9-19"><a aria-label="19"></a>  printf<span class="op">(</span><span class="st">"</span><span class="sc">%f</span><span class="st"> * </span><span class="sc">%f</span><span class="st"> = </span><span class="sc">%f\n</span><span class="st">"</span><span class="op">,</span> factor<span class="op">[</span><span class="dv">0</span><span class="op">],</span> factor<span class="op">[</span><span class="dv">1</span><span class="op">],</span> result<span class="op">);</span></span>
-<span id="cb9-20"><a aria-label="20"></a></span>
-<span id="cb9-21"><a aria-label="21"></a>  <span class="cf">return</span> result<span class="op">;</span></span>
-<span id="cb9-22"><a aria-label="22"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div><div class="column" style="width:42%;">
-<p>Output: <code>printf</code>, <code>fprintf</code>, <code>sprintf</code>, <code>asprintf</code></p>
-<p>Channels:</p>
-<ul>
-<li><code>stdout</code></li>
-<li><code>stderr</code></li>
-<li><code>FILE</code> pointer</li>
-</ul>
-</div></div>
-</section>
-<section id="c-programming-recap-7" class="slide level2 smaller">
-<h2>C Programming recap</h2>
-<div class="columns">
-<div class="column" style="width:58%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" data-code-line-numbers="16"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb10-1"><a aria-label="1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
-<span id="cb10-2"><a aria-label="2"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb10-3"><a aria-label="3"></a></span>
-<span id="cb10-4"><a aria-label="4"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="dt">const</span> <span class="op">*</span>argv<span class="op">[])</span> <span class="op">{</span></span>
-<span id="cb10-5"><a aria-label="5"></a>  <span class="co">/* declarations */</span></span>
-<span id="cb10-6"><a aria-label="6"></a>  <span class="dt">double</span> result<span class="op">,</span> factor<span class="op">[</span><span class="dv">2</span><span class="op">];</span></span>
-<span id="cb10-7"><a aria-label="7"></a>  <span class="dt">unsigned</span> <span class="dt">int</span> i<span class="op">;</span></span>
-<span id="cb10-8"><a aria-label="8"></a>  <span class="dt">int</span> result <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb10-9"><a aria-label="9"></a></span>
-<span id="cb10-10"><a aria-label="10"></a>  <span class="co">// code</span></span>
-<span id="cb10-11"><a aria-label="11"></a>  <span class="cf">if</span> <span class="op">(</span>argc <span class="op">!=</span> <span class="dv">3</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb10-12"><a aria-label="12"></a>    fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">"I need two arguments, got </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> argc<span class="op">);</span></span>
-<span id="cb10-13"><a aria-label="13"></a>    result <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
-<span id="cb10-14"><a aria-label="14"></a>  <span class="op">}</span></span>
-<span id="cb10-15"><a aria-label="15"></a>  <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">2</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
-<span id="cb10-16"><a aria-label="16"></a>    factor<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> atof<span class="op">(</span>argv<span class="op">[</span>i <span class="op">+</span> <span class="dv">1</span><span class="op">]);</span></span>
-<span id="cb10-17"><a aria-label="17"></a>  <span class="op">}</span></span>
-<span id="cb10-18"><a aria-label="18"></a>  result <span class="op">=</span> factor<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">*</span> factor<span class="op">[</span><span class="dv">1</span><span class="op">];</span></span>
-<span id="cb10-19"><a aria-label="19"></a>  printf<span class="op">(</span><span class="st">"</span><span class="sc">%f</span><span class="st"> * </span><span class="sc">%f</span><span class="st"> = </span><span class="sc">%f\n</span><span class="st">"</span><span class="op">,</span> factor<span class="op">[</span><span class="dv">0</span><span class="op">],</span> factor<span class="op">[</span><span class="dv">1</span><span class="op">],</span> result<span class="op">);</span></span>
-<span id="cb10-20"><a aria-label="20"></a></span>
-<span id="cb10-21"><a aria-label="21"></a>  <span class="cf">return</span> result<span class="op">;</span></span>
-<span id="cb10-22"><a aria-label="22"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div><div class="column" style="width:42%;">
-<p>Input:</p>
-<ul>
-<li>from command line (<code>argv</code>)</li>
-<li>from environment</li>
-<li>from files</li>
-<li>from sockets</li>
-<li>from <code>stdin</code></li>
-</ul>
-<p>Never interactive (<code>gets()</code>, <code>scanf()</code>)</p>
-</div></div>
-</section>
-<section id="c-compound-types" class="slide level2">
-<h2>C Compound Types</h2>
-<ul>
-<li><strong>Structs:</strong> for collecting many variables in a single “object”</li>
-<li><strong>Unions:</strong> for accessing the same memory as if it were of different types</li>
-<li><strong>Enums:</strong> for finite set of symbols</li>
-</ul>
-</section>
-<section id="best-practices" class="slide level2 smaller">
-<h2>Best Practices</h2>
-<div class="columns">
-<div class="column" style="width:58%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
-<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="dt">const</span> <span class="op">*</span>argv<span class="op">[])</span> <span class="op">{</span></span>
-<span id="cb11-5"><a aria-hidden="true" tabindex="-1"></a><span class="co">/* declarations */</span></span>
-<span id="cb11-6"><a aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> result<span class="op">,</span> factor<span class="op">[</span><span class="dv">2</span><span class="op">];</span></span>
-<span id="cb11-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="dt">unsigned</span> <span class="dt">int</span> i<span class="op">;</span></span>
-<span id="cb11-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> result <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb11-9"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-10"><a aria-hidden="true" tabindex="-1"></a>  <span class="co">// code</span></span>
-<span id="cb11-11"><a aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span><span class="op">(</span>argc<span class="op">!=</span><span class="dv">3</span><span class="op">){</span></span>
-<span id="cb11-12"><a aria-hidden="true" tabindex="-1"></a>  fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">"I need two arguments, got </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> argc<span class="op">);</span></span>
-<span id="cb11-13"><a aria-hidden="true" tabindex="-1"></a>  result<span class="op">=-</span><span class="dv">1</span><span class="op">;</span></span>
-<span id="cb11-14"><a aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
-<span id="cb11-15"><a aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">2</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
-<span id="cb11-16"><a aria-hidden="true" tabindex="-1"></a>            factor<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> atof<span class="op">(</span>argv<span class="op">[</span>i <span class="op">+</span> <span class="dv">1</span><span class="op">]);</span></span>
-<span id="cb11-17"><a aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
-<span id="cb11-18"><a aria-hidden="true" tabindex="-1"></a>  result <span class="op">=</span> factor<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">*</span> factor<span class="op">[</span><span class="dv">1</span><span class="op">];</span></span>
-<span id="cb11-19"><a aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">"</span><span class="sc">%f</span><span class="st"> * </span><span class="sc">%f</span><span class="st"> = </span><span class="sc">%f\n</span><span class="st">"</span><span class="op">,</span> factor<span class="op">[</span><span class="dv">0</span><span class="op">],</span> factor<span class="op">[</span><span class="dv">1</span><span class="op">],</span> result<span class="op">);</span></span>
-<span id="cb11-20"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-21"><a aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> result<span class="op">;</span></span>
-<span id="cb11-22"><a aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div><div class="column" style="width:42%;">
-<ul>
-<li>Proper indentation (if not, &lt; 18/30)</li>
-<li>Proper spacing</li>
-<li>On Visual Studio Code, use <em>Format Document</em></li>
-</ul>
-</div></div>
-<p><strong>Compare this with code in previous slides!</strong></p>
-</section>
-<section id="best-practices-1" class="slide level2">
-<h2>Best Practices</h2>
-<ul>
-<li>Put variables declarations at the beginning of each block</li>
-<li>Only one exit point per function (except for errors)</li>
-<li>Factorize code (= Don’t Repeat Yourself: DRY)</li>
-<li>Use clean, extended names for functions and variables of general usage (short names OK for local variables)</li>
-</ul>
-</section>
-<section id="from-source-to-runtime" class="slide level2">
-<h2>From Source to Runtime</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/source-to-runtime.png" class="quarto-figure quarto-figure-center" height="540"></p>
-</figure>
-</div>
-</section>
-<section id="from-source-to-runtime-1" class="slide level2">
-<h2>From Source to Runtime</h2>
-<ul>
-<li><strong>C Header files (.h)</strong> — elegant solution for:
-<ul>
-<li>organizing code on many files</li>
-<li>reusing code, even in form of compiled library</li>
-</ul></li>
-<li>On build-time, only headers are used</li>
-<li>On link-time and runtime, only libraries are needed and used (no headers)</li>
-</ul>
-</section>
-<section id="building-your-code" class="slide level2">
-<h2>Building your code</h2>
-<p>Build command needs:</p>
-<p><strong>Build time</strong></p>
-<ul>
-<li>switches for compile configuration</li>
-<li>location of system and special header files</li>
-<li>list of files to compile</li>
-</ul>
-<p><strong>Link time</strong></p>
-<ul>
-<li>switches for linking configuration</li>
-<li>location of system and special libraries</li>
-<li>list of files to link</li>
-</ul>
-</section>
-<section id="building-your-code-1" class="slide level2 smaller">
-<h2>Building your code</h2>
-<p>Typical compilation command:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a aria-label="1"></a><span class="fu">clang</span> <span class="pp">[</span><span class="ss">options</span><span class="pp">]</span> <span class="at">-Ipath</span>/to/includes <span class="at">-Lpath</span>/to/libs <span class="at">-llibrary_name</span> <span class="dt">\</span></span>
-<span id="cb12-2"><a aria-label="2"></a>  <span class="at">-o</span> output_file source1.c source2.c source3.c</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li>Most common compilers are <code>gcc</code> and <code>clang</code> (we’ll use <code>clang</code>)</li>
-<li>The <code>[options]</code> list and the list of source files can be long and tedious to type</li>
-</ul>
-</section>
-<section id="building-assistants-ide-or-cli" class="slide level2 smaller">
-<h2>Building assistants: IDE or CLI</h2>
-<ul>
-<li><strong>GNU Make:</strong> command-line program for building complex projects via special scripts called <em>Makefiles</em>. A Makefile is typically complex to write and maintain</li>
-<li><strong>CMake:</strong> command-line program that takes a configuration file (<code>CMakeLists.txt</code>) and generates a temporary building environment (typically using GNU Make). Easier to write and maintain than Makefile</li>
-</ul>
-</section>
-<section id="cmake-script" class="slide level2">
-<h2>CMake Script</h2>
-<div class="columns">
-<div class="column" style="width:30%;">
-<p>Steps:</p>
-<ul>
-<li>project setup</li>
-<li>define common switches</li>
-<li>define headers and library locations</li>
-<li>define targets</li>
-<li>define install behavior</li>
-</ul>
-</div><div class="column" style="width:70%;">
-<div class="tiny">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode cmake code-with-copy"><code class="sourceCode cmake"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a><span class="kw">cmake_minimum_required</span>(<span class="ot">VERSION</span> <span class="dt">3.9</span>)</span>
-<span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a><span class="kw">set</span>(<span class="dv">CMAKE_C_COMPILER</span> <span class="st">"clang"</span>)</span>
-<span id="cb13-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Set project name, version, and language</span></span>
-<span id="cb13-4"><a aria-hidden="true" tabindex="-1"></a><span class="kw">project</span>(<span class="ot">C</span>-CNC <span class="ot">VERSION</span> <span class="dt">0.0.1</span> <span class="ot">LANGUAGES</span> <span class="ot">C</span>)</span>
-<span id="cb13-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Set common compile options and preprocessor definitions</span></span>
-<span id="cb13-6"><a aria-hidden="true" tabindex="-1"></a><span class="kw">add_compile_options</span>(-std=gnu11 -fPIC)</span>
-<span id="cb13-7"><a aria-hidden="true" tabindex="-1"></a><span class="kw">add_definitions</span>(-D_GNU_SOURCE)</span>
-<span id="cb13-8"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Define the list of source files</span></span>
-<span id="cb13-9"><a aria-hidden="true" tabindex="-1"></a><span class="kw">set</span>(SOURCE_DIR <span class="dv">${</span><span class="va">CMAKE_HOME_DIRECTORY</span><span class="dv">}</span>/src) <span class="co">#set a variable</span></span>
-<span id="cb13-10"><a aria-hidden="true" tabindex="-1"></a><span class="kw">file</span>(<span class="ot">GLOB</span> LIB_SOURCES <span class="st">"</span><span class="dv">${SOURCE_DIR}</span><span class="st">/*.c"</span>) <span class="co">#put into LIB_SOURCES the globbed list</span></span>
-<span id="cb13-11"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Parametrically create some file from template</span></span>
-<span id="cb13-12"><a aria-hidden="true" tabindex="-1"></a><span class="kw">configure_file</span>(</span>
-<span id="cb13-13"><a aria-hidden="true" tabindex="-1"></a>  <span class="dv">${SOURCE_DIR}</span>/version.h.in</span>
-<span id="cb13-14"><a aria-hidden="true" tabindex="-1"></a>  <span class="dv">${SOURCE_DIR}</span>/version.h</span>
-<span id="cb13-15"><a aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-16"><a aria-hidden="true" tabindex="-1"></a><span class="co"># define header directories</span></span>
-<span id="cb13-17"><a aria-hidden="true" tabindex="-1"></a><span class="kw">include_directories</span>(</span>
-<span id="cb13-18"><a aria-hidden="true" tabindex="-1"></a>  <span class="dv">${</span><span class="va">CMAKE_HOME_DIRECTORY</span><span class="dv">}</span>/machine/src</span>
-<span id="cb13-19"><a aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-20"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-21"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Define TARGETS, i.e. output objects</span></span>
-<span id="cb13-22"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Library target:</span></span>
-<span id="cb13-23"><a aria-hidden="true" tabindex="-1"></a><span class="kw">add_library</span>(<span class="bn">ccnclib</span> <span class="ot">STATIC</span> <span class="dv">${LIB_SOURCES}</span>)</span>
-<span id="cb13-24"><a aria-hidden="true" tabindex="-1"></a><span class="kw">target_link_libraries</span>(<span class="bn">ccnclib</span> machine)</span>
-<span id="cb13-25"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Main executable</span></span>
-<span id="cb13-26"><a aria-hidden="true" tabindex="-1"></a><span class="kw">add_executable</span>(<span class="bn">ccnc</span> <span class="dv">${SOURCE_DIR}</span>/main/ccnc.c)</span>
-<span id="cb13-27"><a aria-hidden="true" tabindex="-1"></a><span class="kw">add_dependencies</span>(<span class="bn">ccnc</span> <span class="bn">ccnclib</span>)</span>
-<span id="cb13-28"><a aria-hidden="true" tabindex="-1"></a><span class="kw">target_link_libraries</span>(<span class="bn">ccnc</span> ccnclib)</span>
-<span id="cb13-29"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-30"><a aria-hidden="true" tabindex="-1"></a><span class="co"># INSTALL</span></span>
-<span id="cb13-31"><a aria-hidden="true" tabindex="-1"></a><span class="kw">set</span>(<span class="dv">CMAKE_INSTALL_PREFIX</span> <span class="dv">${</span><span class="va">CMAKE_HOME_DIRECTORY</span><span class="dv">}</span>)</span>
-<span id="cb13-32"><a aria-hidden="true" tabindex="-1"></a><span class="kw">install</span>(<span class="ot">TARGETS</span> <span class="bn">ccnclib</span> <span class="bn">ccnc</span></span>
-<span id="cb13-33"><a aria-hidden="true" tabindex="-1"></a>  <span class="ot">RUNTIME</span> <span class="ot">DESTINATION</span> bin</span>
-<span id="cb13-34"><a aria-hidden="true" tabindex="-1"></a>  <span class="ot">LIBRARY</span> <span class="ot">DESTINATION</span> lib</span>
-<span id="cb13-35"><a aria-hidden="true" tabindex="-1"></a>  <span class="ot">ARCHIVE</span> <span class="ot">DESTINATION</span> lib</span>
-<span id="cb13-36"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div></div>
-</section>
-<section id="cmake" class="slide level2">
-<h2>CMake</h2>
-<p>Building with <code>cmake</code> takes 2+1 steps:</p>
-<ul>
-<li>Configuration: <code>cmake -Bbuild_dir</code></li>
-<li>Building: <code>cmake --build build_dir</code></li>
-<li>Installing: <code>cmake --build build_dir -t install</code></li>
-</ul>
-<p>Alternatively, after configuration, <code>make</code> can be used:</p>
-<ul>
-<li><code>make -Cbuild_dir</code></li>
-<li><code>make -Cbuild_dir install</code></li>
-</ul>
-</section>
-<section id="programming-c-as-a-pro" class="slide level2">
-<h2>Programming C as a Pro</h2>
-<p><strong>Problem 1:</strong></p>
-<ul>
-<li>complex programs are made of many functions that have to pass around data. C function arguments are passed by value (i.e.&nbsp;copied!)</li>
-<li>for good performance you need to minimize info passed by functions</li>
-</ul>
-<p><strong>Solution:</strong> learn to use pointers</p>
-</section>
-<section id="programming-c-as-a-pro-1" class="slide level2">
-<h2>Programming C as a Pro</h2>
-<p><strong>Problem 2:</strong></p>
-<ul>
-<li>C function can only return a single value</li>
-<li>C functions cannot return compound types (arrays!)</li>
-</ul>
-<p><strong>Solution:</strong> learn to use pointers</p>
-</section>
-<section id="programming-c-as-a-pro-2" class="slide level2">
-<h2>Programming C as a Pro</h2>
-<p><strong>Problem 3:</strong></p>
-<ul>
-<li>complex programs are made of many functions</li>
-<li>they also depend on external libraries</li>
-<li>the code must be readable and understandable</li>
-</ul>
-<p><strong>Solution:</strong> carefully distribute code in different files, and use flexible build software</p>
-</section>
-<section id="stack-vs.-heap-memory" class="slide level2">
-<h2>Stack vs.&nbsp;Heap memory</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/stack.png" class="quarto-figure quarto-figure-center" height="330"></p>
-</figure>
-</div>
-<p>FIFO access (fast)</p>
-<p>Typ. ~8 Mb capacity per thread (check with command <code>ulimit -s</code>)</p>
-</div><div class="column" style="width:50%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/heap.png" class="quarto-figure quarto-figure-center" height="330"></p>
-</figure>
-</div>
-<p>Random access (slower)</p>
-<p>Virtually unlimited</p>
-</div></div>
-</section>
-<section id="tricky-pointers" class="slide level2">
-<h2>Tricky Pointers</h2>
-<ul>
-<li>Standard variables are defined on the <strong>stack</strong> memory</li>
-<li>You get the pointer to variable <code>var</code> with <code>&amp;var</code></li>
-<li>You get the value of pointer <code>var_p</code> with <code>*var_p</code></li>
-<li>Arrays are pointers to their first element, but stack arrays have a limited maximum size (system dependent)</li>
-<li>Variables on stack are eliminated from memory on exiting from local scope</li>
-</ul>
-</section>
-<section id="tricky-pointers-1" class="slide level2">
-<h2>Tricky Pointers</h2>
-<ul>
-<li>Pointers requiring large (or dynamic) memory can be defined on the <strong>heap</strong> memory</li>
-<li>You allocate a pointer on the heap with the <code>malloc()</code> family of functions</li>
-<li><code>malloc</code>’d variables are <strong>not</strong> freed upon exiting from local scope</li>
-<li>For every <code>malloc()</code> you need one <code>free()</code>, or you have a <strong>memory leak</strong> ☠️☠️☠️</li>
-</ul>
-</section>
-<section id="ways-for-returning-an-array-in-c" class="slide level2">
-<h2>Ways for returning an array in C</h2>
-<ul>
-<li>Use <code>malloc()</code> in the caller and pass the pointer as an <em>inout</em> argument (easier)</li>
-<li>Call <code>malloc()</code> inside the function and return that pointer (easy, but you cannot return anything else, like error status)</li>
-<li>Pass a double pointer to the callee as an <em>inout</em> argument, use <code>malloc()</code> inside the function (not so easy, but you can also return a status value)</li>
-</ul>
-</section>
-<section id="not-so-easy-case-one-not-working" class="slide level2">
-<h2>NOT SO easy: Case one (not working)</h2>
-</section>
-<section id="case-one-step-1" class="slide level2">
-<h2>Case one — step 1</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/mem-28.png" class="quarto-figure quarto-figure-center" height="540"></p>
-</figure>
-</div>
-</section>
-<section id="case-one-step-2" class="slide level2">
-<h2>Case one — step 2</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/mem-29.png" class="quarto-figure quarto-figure-center" height="540"></p>
-</figure>
-</div>
-</section>
-<section id="case-one-step-3" class="slide level2">
-<h2>Case one — step 3</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/mem-30.png" class="quarto-figure quarto-figure-center" height="540"></p>
-</figure>
-</div>
-</section>
-<section id="case-one-step-4" class="slide level2">
-<h2>Case one — step 4</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/mem-31.png" class="quarto-figure quarto-figure-center" height="540"></p>
-</figure>
-</div>
-</section>
-<section id="not-so-easy-case-two-working" class="slide level2">
-<h2>NOT SO easy: Case TWO (working)</h2>
-</section>
-<section id="case-two-step-1" class="slide level2">
-<h2>Case two — step 1</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/mem-33.png" class="quarto-figure quarto-figure-center" height="540"></p>
-</figure>
-</div>
-</section>
-<section id="case-two-step-2" class="slide level2">
-<h2>Case two — step 2</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/mem-34.png" class="quarto-figure quarto-figure-center" height="540"></p>
-</figure>
-</div>
-</section>
-<section id="case-two-step-3" class="slide level2">
-<h2>Case two — step 3</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/mem-35.png" class="quarto-figure quarto-figure-center" height="540"></p>
-</figure>
-</div>
-</section>
-<section id="case-two-step-3-cont." class="slide level2">
-<h2>Case two — step 3 (cont.)</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/mem-36.png" class="quarto-figure quarto-figure-center" height="540"></p>
-</figure>
-</div>
-</section>
-<section id="case-two-step-5" class="slide level2">
-<h2>Case two — step 5</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/mem-37.png" class="quarto-figure quarto-figure-center" height="540"></p>
-</figure>
-</div>
-</section>
-<section id="memory-leaks" class="slide level2">
-<h2>Memory leaks</h2>
-</section>
-<section id="memory-leaks-step-3" class="slide level2">
-<h2>Memory leaks — step 3</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/mem-39.png" class="quarto-figure quarto-figure-center" height="540"></p>
-</figure>
-</div>
-</section>
-<section id="memory-leaks-step-4" class="slide level2">
-<h2>Memory leaks — step 4</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/mem-40.png" class="quarto-figure quarto-figure-center" height="540"></p>
-</figure>
-</div>
-</section>
-<section id="memory-leaks-1" class="slide level2 smaller">
-<h2>Memory leaks</h2>
-<ul>
-<li>There must be exactly one <code>free()</code> for every <code>malloc()</code></li>
-<li>Sometimes the <code>malloc()</code> is implicit, e.g.&nbsp;<code>asprintf()</code> and similar functions (those that take double pointers for allocating and returning an array!)</li>
-<li>Leaked memory is restored on process exit</li>
-<li><strong>BUT</strong>, long running processes <strong>MUST</strong> avoid memory leaks, especially when the leak occurs within loops</li>
-</ul>
+  <p class="date"><em>Updated:</em> 06/10/2026</p>
 </section>
 <section>
-<section id="mqtt-basics" class="title-slide slide level1 center">
-<h1>MQTT basics</h1>
-<p><em>MQ Telemetry Transport protocol — using C language and Mosquitto broker</em></p>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/mqtt-logo.png" class="quarto-figure quarto-figure-center" height="300"></p>
-</figure>
-</div>
+<section id="tool-radius-compensation-trc" class="title-slide slide level1 center">
+<h1>Tool radius compensation (TRC)</h1>
+<p>A possible feature to implemet for the personal project</p>
 </section>
-<section id="mqtt-protocol" class="slide level2 smaller">
-<h2>MQTT protocol</h2>
-<ul>
-<li>MQTT stands for <strong>M</strong>essage <strong>Q</strong>ueue <strong>T</strong>elemetry <strong>T</strong>ransport</li>
-<li>Actually, there is no queue but rather a <strong>publish-subscribe</strong> architecture</li>
-<li>The protocol is lightweight: it minimizes the overhead of messages</li>
-<li>It is about 100 times faster than REST HTTP messaging (in terms of maximum msg/s)</li>
-<li>It is not the fastest protocol (ZeroMQ is faster), but it is simple to implement and well balanced</li>
-</ul>
-</section>
-<section id="mqtt-protocol-1" class="slide level2 smaller">
-<h2>MQTT protocol</h2>
-<ul>
-<li>In MQTT there are 3 different roles: <strong>publisher</strong>, <strong>subscriber</strong>, <strong>broker</strong>
-<ul>
-<li>The publisher is the information producer (to be implemented)</li>
-<li>The subscriber is the information consumer (to be implemented)</li>
-<li>The broker is a server that relays publisher messages to (possibly many) subscribers (already available)</li>
-</ul></li>
-<li>Messages are published under <strong>topics</strong></li>
-<li>Topics are arranged hierarchically: <code>ccnc/x/pos</code>, <code>ccnc/y/vel</code></li>
-</ul>
-</section>
-<section id="mqtt-protocol-2" class="slide level2 smaller">
-<h2>MQTT protocol</h2>
-<p>Subscribers can subscribe to more than one topic, possibly also using wildcards (<code>+</code> or <code>#</code>):</p>
-<ul>
-<li><code>ccnc/+/pos</code> means any single word in between <code>ccnc</code> and <code>pos</code> (as <code>ccnc/x/pos</code> and <code>ccnc/y/pos</code>, but not <code>ccnc/x/nominal/pos</code>)</li>
-<li><code>ccnc/#/pos</code> means anything (including multiple branches) under <code>ccnc</code> and ending with <code>/pos</code></li>
-</ul>
-</section>
-<section id="mqtt-protocol-3" class="slide level2">
-<h2>MQTT protocol</h2>
-<ul>
-<li><strong>Publishers</strong> can publish messages to many different topics, but one at a time (no wildcards!)</li>
-<li>A message is also called a <strong>payload</strong>: any sequence of bytes, up to a maximum 268435456 bytes (<span class="math inline">\(2^{28}\)</span>, ~<strong>260 Mb</strong>)</li>
-<li>Bigger payloads need to be split (or compressed)</li>
-<li>Messages are assigned with a quality of service level (<strong>QoS</strong>) and with an optional <strong>retain flag</strong></li>
-</ul>
-</section>
-<section id="mqtt-protocol-4" class="slide level2 smaller">
-<h2>MQTT protocol</h2>
-<p>The QoS level states the reliability of a message:</p>
-<ul>
-<li>QoS 0: a message is delivered at most once</li>
-<li>QoS 1: a message is delivered at least once</li>
-<li>QoS 2: a message is delivered exactly once</li>
-</ul>
-<p>QoS 0 is “fire-and-forget”: less reliable but with minimum information exchange. QoS 2 has a delivery confirmation: 100% reliable, but slower</p>
-</section>
-<section id="mqtt-protocol-5" class="slide level2 smaller">
-<h2>MQTT protocol</h2>
-<ul>
-<li>The <strong>retain flag</strong>, when set, instructs the broker to deliver the message to any subscriber connecting in the future
-<ul>
-<li>It is a kind of “last known value” clause</li>
-</ul></li>
-<li>There are also <strong>last will and testament</strong> (LWT) messages: these are messages delivered as soon as the broker detects that the client has disconnected</li>
-<li><em>Note:</em> the roles of publisher and subscriber are semantic: any given process can simultaneously act as publisher and subscriber, if needed. Both are clients of the broker server</li>
-</ul>
-</section>
-<section id="mqtt-applications" class="slide level2 smaller">
-<h2>MQTT Applications</h2>
-<ul>
-<li>There are many available broker services, like mosquitto, Paho, HiveMQ, Mosca, EMQ X, VerneMQ.</li>
-<li>As well, there are many libraries for implementing MQTT clients (pub+sub) in virtually any known programming language</li>
-<li>We will refer to <code>mosquitto</code> (the broker) and <code>libmosquitto</code> (the C library)</li>
-</ul>
-</section>
-<section id="mqtt-broker" class="slide level2 smaller">
-<h2>MQTT Broker</h2>
-<p>The mosquitto broker can be installed as a linux service, but it is much quicker and easier to use a docker container:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a aria-label="1"></a><span class="ex">docker</span> run <span class="at">-d</span> <span class="at">--rm</span> <span class="dt">\</span></span>
-<span id="cb14-2"><a aria-label="2"></a>  <span class="at">--name</span> mosquitto <span class="dt">\</span></span>
-<span id="cb14-3"><a aria-label="3"></a>  <span class="at">-p</span> 1883:1883 <span class="dt">\</span></span>
-<span id="cb14-4"><a aria-label="4"></a>  <span class="at">-v</span> <span class="st">"</span><span class="va">${PWD}</span><span class="st">/mosquitto.conf:/mosquitto/config/mosquitto.conf"</span> <span class="dt">\</span></span>
-<span id="cb14-5"><a aria-label="5"></a>  eclipse-mosquitto</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li><code>-d --rm</code>: as daemon, remove on exit</li>
-<li><code>--name mosquitto</code>: give it a name</li>
-<li><code>-p 1883:1883</code>: expose port 1883</li>
-<li><code>-v ...</code>: config file</li>
-<li><code>eclipse-mosquitto</code>: name of the image</li>
-</ul>
-</section>
-<section id="mqtt-broker-1" class="slide level2">
-<h2>MQTT Broker</h2>
-<p>The mosquitto config file (<code>mosquitto.conf</code>) typically contains at minimum:</p>
-<pre><code>allow_anonymous true
-listener 1883
-protocol mqtt</code></pre>
-<p>This accepts any connection. In production, you might want to require passwords and encrypted connections.</p>
-</section>
-<section id="mqtt-library" class="slide level2 smaller">
-<h2>MQTT library</h2>
-<ul>
-<li>Documentation is on <a href="https://mosquitto.org/api" class="uri">https://mosquitto.org/api</a></li>
-<li>The library namespace is <code>mosqpp</code>, the main class is <code>mosquittopp</code></li>
-<li>Typical sequence of operation:
-<ul>
-<li>Start &gt; library init &gt; client init &gt; client connect &gt; set callbacks &gt; loop { publish messages &amp; update sockets } &gt; free resources &gt; stop</li>
-</ul></li>
-<li><strong>Callbacks</strong> are methods automatically called on given events (e.g.&nbsp;successful connection, receiving subscribed message, …)</li>
-</ul>
-</section>
-<section id="mqtt-library-1" class="slide level2">
-<h2>MQTT library</h2>
-<ul>
-<li><strong>Library init:</strong> <code>mosqpp::lib_init()</code>
-<ul>
-<li>It simply MUST be called before any other mosquitto call</li>
-</ul></li>
-<li><strong>Library cleanup:</strong> <code>mosqpp::lib_cleanup()</code> (in destructor)</li>
-</ul>
-</section>
-<section id="mqtt-library-2" class="slide level2">
-<h2>MQTT library</h2>
-<ul>
-<li><strong>Client init:</strong> <code>auto mqt = mosquittopp(id, clean)</code>
-<ul>
-<li><code>id</code>: can be a name (useful for debugging, only visible to the broker)</li>
-<li><code>clean</code>: ask the broker to delete all messages and subscriptions on disconnect</li>
-</ul></li>
-<li>Typically, you derive a class from <code>mosquittopp</code></li>
-</ul>
-</section>
-<section id="mqtt-library-3" class="slide level2">
-<h2>MQTT library</h2>
-<ul>
-<li><strong>Client connect:</strong> <code>mosquittopp::connect(broker_addr, broker_port, keepalive)</code>
-<ul>
-<li>Connect the object to a given broker host and port</li>
-<li>The broker pings the client (if no messages arrive) every <code>keepalive</code> seconds to verify if it is connected</li>
-</ul></li>
-</ul>
-</section>
-<section id="mqtt-library-4" class="slide level2">
-<h2>MQTT library</h2>
-<ul>
-<li><strong>Implement callbacks:</strong> <code>mosquittopp::on_message(const struct mosquitto_message *message)</code> (<em>et similia</em>)
-<ul>
-<li>Object calls <code>on_message</code> each time a message is received</li>
-</ul></li>
-</ul>
-</section>
-<section id="mqtt-library-5" class="slide level2 smaller">
-<h2>MQTT library</h2>
-<p>All network operations are just <em>scheduled</em> by subscribe and publish functions. They are actually performed in two alternative ways:</p>
-<ul>
-<li>By repeatedly/cyclically calling <code>mosquittopp::loop()</code> (preferred if you already have a loop)</li>
-<li>By starting a parallel thread that iteratively calls <code>mosquittopp::loop()</code>: this is done by calling <code>mosquittopp::loop_start()</code> just after <code>mosquittopp::connect()</code></li>
-</ul>
-</section>
-<section id="mqtt-library-6" class="slide level2 smaller">
-<h2>MQTT library</h2>
-<ul>
-<li>To schedule the publishing of a message, use <code>mosquittopp::publish(mid, topic, len, payload, qos, retain)</code>
-<ul>
-<li>The payload is any sequence of <code>len</code> bytes (a string or a binary object)</li>
-<li>The message ID <code>mid</code> is typically <code>NULL</code></li>
-</ul></li>
-</ul>
-</section>
-<section id="mqtt-library-7" class="slide level2 smaller">
-<h2>MQTT library</h2>
-<ul>
-<li>When a message is received, the <code>on_message</code> callback is executed</li>
-<li>It gets the message as a <code>struct mosquitto_message</code>, which contains:
-<ul>
-<li>Message ID (if any), topic, payload, payload length, QoS level, retain flag.</li>
-</ul></li>
-<li>It does <strong>not</strong> contain any info on the publisher!</li>
-<li>The subscriber <strong>HAS NO WAY</strong> for identifying the publisher (unless it is written in the payload or topic)</li>
-</ul>
-</section>
-<section id="mqtt-library-8" class="slide level2">
-<h2>MQTT library</h2>
-<p>When done, you should, in this order:</p>
-<ol type="1">
-<li>Unsubscribe all subscriptions</li>
-<li>Call <code>mosquittopp::loop</code> or <code>mosquittopp::loop_stop</code></li>
-<li>Disconnect from broker</li>
-<li>Call <code>mosqpp::lib_cleanup</code></li>
-</ol>
-</section>
-<section id="mqtt-tools" class="slide level2">
-<h2>MQTT tools</h2>
-<div class="columns">
-<div class="column" style="width:45%;">
-<ul>
-<li>The <code>mosquitto-clients</code> package installs the pair of commands <code>mosquitto_pub</code> and <code>mosquitto_sub</code></li>
-<li>MQTT explorer is a useful graphical tool for tapping into MQTT dataflows: <a href="http://mqtt-explorer.com" class="uri">http://mqtt-explorer.com</a></li>
-</ul>
-</div><div class="column" style="width:55%;">
-<p><img data-src="images/mqtt-explorer.png" height="430"></p>
-</div></div>
-</section></section>
-<section>
-<section id="cargo-cult" class="title-slide slide level1 center">
-<h1>Cargo Cult</h1>
-<p><em>If it looks like a plane, that doesn’t necessarily mean it can fly.</em> What you definitely don’t want to do in engineering!</p>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/cargo-cult.jpg" class="quarto-figure quarto-figure-center" height="300"></p>
-</figure>
-</div>
-</section>
-<section id="cargo-cult-in-anthropology" class="slide level2">
-<h2>Cargo cult in anthropology</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<ul>
-<li>A <strong>cargo cult</strong> is a belief system, in which adherents perform rituals which they believe will cause a more technologically advanced society to deliver goods</li>
-<li>Many examples in remote Pacific islands, where inhabitants replicate US army “rituals” in the hope of calling a cargo delivery</li>
-</ul>
-</div><div class="column" style="width:50%;">
-<p><img data-src="images/cargo-cult-1.jpg" height="230"></p>
-<p><img data-src="images/cargo-cult-2.jpg" height="230"></p>
-</div></div>
-</section>
-<section id="cargo-cult-programmingengineering" class="slide level2">
-<h2>Cargo Cult programming/engineering</h2>
-<p>Typical pattern:</p>
-<ul>
-<li>You don’t know how to solve a problem</li>
-<li>You type “How to do <em>something</em> in <em>my language</em>?” in Google (or ChatGPT!)</li>
-<li>You end up on Stackoverflow (or similar sites) or get an AI-generated code</li>
-<li>You copy and paste the first solution, which you cannot fully understand but it seems to work</li>
-</ul>
-</section>
-<section id="why-is-that-a-bad-habit" class="slide level2 smaller">
-<h2>Why is that a bad habit?</h2>
-<ul>
-<li>At best, it messes up your coding style (e.g.&nbsp;using <code>variableNames</code> rather than <code>variable_names</code>)</li>
-<li>You may look amateur and naïve to those who read your code (among them, your prospective employer!)</li>
-<li>Foremost, you are losing control on your code, which may work fine in the stackoverflow/AI example, but much probably does hidden nasty things once embedded in your code</li>
-<li>Additionally, your problem understanding does not improve</li>
-</ul>
-</section>
-<section id="doesnt-happen-only-when-you-code" class="slide level2 smaller">
-<h2>Doesn’t happen only when you code</h2>
-<ul>
-<li>There are many examples of cargo cult engineering as well</li>
-<li>Each time you accept an existing solution just because it works in another emplacement, and without fully understanding it, you are a cargo cultist</li>
-<li>Always question any solution; ask why; do not accept any solution that you cannot fully understand, at least in its outer structure (input/output relations, interfaces, specifications)</li>
-</ul>
-</section></section>
-<section>
-<section id="personal-project-tool-diameter-compensation" class="title-slide slide level1 center">
-<h1>Personal project: tool diameter compensation</h1>
-<p><em>Complete this to skip the exam</em></p>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/trc-example-1.png" class="quarto-figure quarto-figure-center" height="380"></p>
-</figure>
-</div>
-</section>
-<section id="tool-radius-compensation" class="slide level2 smaller">
-<h2>Tool radius compensation</h2>
+<section id="trc-and-g-code" class="slide level2">
+<h2>TRC and G-code</h2>
 <ul>
 <li>G-code standard supports a feature for offsetting the tool trajectory to the left or to the right of the trajectory by an amount equal to the tool radius</li>
 <li>This is only affecting the X-Y projection of the trajectory, Z values remain unchanged</li>
@@ -1138,7 +166,7 @@ protocol mqtt</code></pre>
 <li>TRC is fully active at the end of the current block</li>
 </ul>
 </section>
-<section id="tool-radius-compensation-1" class="slide level2 smaller">
+<section id="tool-radius-compensation" class="slide level2">
 <h2>Tool radius compensation</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -1151,34 +179,19 @@ protocol mqtt</code></pre>
 <p><img data-src="images/trc-offset.png" height="460"></p>
 </div></div>
 </section>
-<section id="tool-radius-compensation-2" class="slide level2">
-<h2>Tool radius compensation</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/trc-example-1.png" class="quarto-figure quarto-figure-center" height="470"></p>
-</figure>
-</div>
-<p>Interactive example on <a href="https://www.geogebra.org/m/mcv4egvk" class="uri">https://www.geogebra.org/m/mcv4egvk</a></p>
+<section id="tool-radius-compensation-line-line" class="slide level2">
+<h2>Tool radius compensation: Line-Line</h2>
+<iframe scrolling="no" title="LL offset" src="https://www.geogebra.org/material/iframe/id/mcv4egvk/width/2443/height/1183/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/false/ctl/false" width="2443px" height="1183px" style="border:0px;">
+</iframe>
+<!-- Interactive example on <https://www.geogebra.org/m/mcv4egvk -->
 </section>
-<section id="tool-radius-compensation-3" class="slide level2">
-<h2>Tool radius compensation</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/trc-example-2.png" class="quarto-figure quarto-figure-center" height="470"></p>
-</figure>
-</div>
-<p>Interactive example on <a href="https://www.geogebra.org/m/uwaa7u4v" class="uri">https://www.geogebra.org/m/uwaa7u4v</a></p>
+<section id="tool-radius-compensation-line-circle" class="slide level2">
+<h2>Tool radius compensation: Line-Circle</h2>
+<iframe scrolling="no" title="lcl_intersection" src="https://www.geogebra.org/material/iframe/id/uwaa7u4v/width/2056/height/1031/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/false/ctl/false" width="2056px" height="1031px" style="border:0px;">
+</iframe>
+<!-- Interactive example on <https://www.geogebra.org/m/uwaa7u4v -->
 </section>
-<section id="tool-radius-compensation-4" class="slide level2">
-<h2>Tool radius compensation</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/trc-example-3.png" class="quarto-figure quarto-figure-center" height="470"></p>
-</figure>
-</div>
-<p>Interactive example on <a href="https://www.geogebra.org/m/uwaa7u4v" class="uri">https://www.geogebra.org/m/uwaa7u4v</a></p>
-</section>
-<section id="line-line-case" class="slide level2 smaller">
+<section id="line-line-case" class="slide level2">
 <h2>Line-Line case</h2>
 <div class="columns">
 <div class="column" style="width:45%;">
@@ -1191,7 +204,7 @@ protocol mqtt</code></pre>
 <p><img data-src="images/trc-line-line-1.png" height="430"></p>
 </div></div>
 </section>
-<section id="line-line-case-1" class="slide level2 smaller">
+<section id="line-line-case-1" class="slide level2">
 <h2>Line-Line case</h2>
 <div class="columns">
 <div class="column" style="width:55%;">
@@ -1205,7 +218,7 @@ protocol mqtt</code></pre>
 <p><img data-src="images/trc-line-line-2.png" height="470"></p>
 </div></div>
 </section>
-<section id="line-line-case-2" class="slide level2 smaller">
+<section id="line-line-case-2" class="slide level2">
 <h2>Line-Line case</h2>
 <div class="columns">
 <div class="column" style="width:55%;">
@@ -1219,7 +232,7 @@ protocol mqtt</code></pre>
 <p><img data-src="images/trc-line-line-1.png" height="430"></p>
 </div></div>
 </section>
-<section id="line-line-case-3" class="slide level2 smaller">
+<section id="line-line-case-3" class="slide level2">
 <h2>Line-Line case</h2>
 <div class="columns">
 <div class="column" style="width:58%;">
@@ -1228,35 +241,43 @@ protocol mqtt</code></pre>
 <li>The new intersection node is set at an offset <span class="math inline">\(r\)</span> <strong>perpendicular</strong> to the segments</li>
 </ul>
 <p><span class="math display">\[C = \begin{cases} (0, -r), &amp; \text{when } a = 0 \\ r(s, -s/a) \text{ with } s = \frac{a}{|a|}\sqrt{\frac{a^2}{1 + a^2}}, &amp; \text{otherwise} \end{cases}\]</span></p>
-<p>Interactive example on <a href="https://www.geogebra.org/m/pmdtaprr" class="uri">https://www.geogebra.org/m/pmdtaprr</a></p>
 </div><div class="column" style="width:42%;">
-<p><img data-src="images/trc-line-line-3.png" height="470"></p>
+<iframe scrolling="no" title="intersection points" src="https://www.geogebra.org/material/iframe/id/pmdtaprr/width/600/height/500/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/false/ctl/false" width="600px" height="500px" style="border:0px;">
+</iframe>
 </div></div>
 </section>
-<section id="line-arc-or-arc-line-case" class="slide level2 smaller">
-<h2>Line-Arc (or Arc-Line) case</h2>
+<section id="line-arc-or-arc-line" class="slide level2">
+<h2>Line-Arc (or Arc-Line)</h2>
 <div class="columns">
 <div class="column" style="width:55%;">
 <p>Similar to line-line case, but with a caveat:</p>
 <ul>
 <li>Line-circle intersection gives two points, <span class="math inline">\(G\)</span> and <span class="math inline">\(B_r\)</span>: you have to select the intersection that is closer to the node to be offset (<span class="math inline">\(B\)</span> in figure)</li>
 </ul>
-<p>Interactive example on <a href="https://www.geogebra.org/m/uwaa7u4v" class="uri">https://www.geogebra.org/m/uwaa7u4v</a></p>
 </div><div class="column" style="width:45%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
 <p><img data-src="images/trc-line-arc-1.png" height="470"></p>
+<figcaption>Non-tangent line-arc case</figcaption>
+</figure>
+</div>
 </div></div>
 </section>
-<section id="line-arc-or-arc-line-case-1" class="slide level2 smaller">
-<h2>Line-Arc (or Arc-Line) case</h2>
+<section id="line-arc-or-arc-line-1" class="slide level2">
+<h2>Line-Arc (or Arc-Line)</h2>
 <div class="columns">
 <div class="column" style="width:55%;">
 <p>Similar to line-line case, but with a caveat:</p>
 <ul>
 <li>Line-circle intersection gives two points, <span class="math inline">\(G\)</span> and <span class="math inline">\(B_r\)</span>: you have to select the intersection that is closer to the node to be offset (<span class="math inline">\(B\)</span> in figure)</li>
 </ul>
-<p>Interactive example on <a href="https://www.geogebra.org/m/uwaa7u4v" class="uri">https://www.geogebra.org/m/uwaa7u4v</a></p>
 </div><div class="column" style="width:45%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
 <p><img data-src="images/trc-line-arc-2.png" height="470"></p>
+<figcaption>Tangent line-arc case</figcaption>
+</figure>
+</div>
 </div></div>
 </section>
 <section id="code-changes" class="slide level2">
@@ -1269,11 +290,11 @@ protocol mqtt</code></pre>
 <li><code>_trc</code> shall be managed as a <em>modal</em> field (i.e.&nbsp;inherited from previous block)</li>
 </ul>
 </section>
-<section id="code-changes-1" class="slide level2 smaller">
+<section id="code-changes-1" class="slide level2">
 <h2>Code changes</h2>
 <p><strong>Support for tool radius</strong></p>
 <ul>
-<li>The YML file needs to have a field as: <code>tools: [10.0, 8.0, 5.0, 2.5]</code> giving the list of available tools and respective radiuses</li>
+<li>The YAML file needs to have a field as: <code>tools: [10.0, 8.0, 5.0, 2.5]</code> giving the list of available tools and respective radiuses</li>
 <li>The <code>Machine</code> class needs to properly load the tool list into a new field: <code>vector&lt;data_t&gt; _tools</code></li>
 <li>Add <code>machine::tool_radius()</code>, which returns the radius of a given tool number</li>
 </ul>
@@ -1286,7 +307,7 @@ protocol mqtt</code></pre>
 <li>The target must be changed according to the equations shown above and the radius of the current tool</li>
 </ul>
 </section>
-<section id="code-changes-3" class="slide level2 smaller">
+<section id="code-changes-3" class="slide level2">
 <h2>Code changes</h2>
 <p><strong>Support for offset calculation</strong></p>
 <ul>
@@ -1300,22 +321,21 @@ protocol mqtt</code></pre>
 </section>
 <section id="advanced-trc" class="slide level2">
 <h2>Advanced TRC</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/trc-advanced.png" class="quarto-figure quarto-figure-center" height="560"></p>
-</figure>
-</div>
+<iframe scrolling="no" title="Advanced TRC" src="https://www.geogebra.org/material/iframe/id/yaqfn8ha/width/2056/height/1031/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/false/ctl/false" width="2056px" height="1031px" style="border:0px;">
+</iframe>
 </section>
-<section id="rules" class="slide level2 smaller">
+<section id="rules" class="slide level2">
 <h2>Rules</h2>
 <ul>
 <li>You must work alone (I’ll check and compare results!)</li>
+<li>Document progress with commits published on GitHub (<strong>private</strong> repo shared with me)</li>
 <li>No help from my side, except these slides</li>
-<li>Set up a private GitHub repo and share it with me since the beginning</li>
-<li>When you are done, you must discuss your work with me</li>
-<li>If it works (no warnings) and it is not copied, you get 30/30</li>
+<li>When you are done, you must discuss your work with me
+<ul>
+<li>If it works (no warnings, errors/errors, works as expected) and it is not copied, you get 30/30</li>
+</ul></li>
 <li>If you implement advanced TRC or impress me with some other clever addition, you get 30/30 <em>cum laude</em></li>
-<li>Must be done before the start of lessons in Sept.&nbsp;2025</li>
+<li>Must be done before the end of next year</li>
 </ul>
 
 
@@ -1645,7 +665,7 @@ protocol mqtt</code></pre>
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/pbosetti\.github\.io\/DigMan\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

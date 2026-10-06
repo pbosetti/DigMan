@@ -1,754 +1,5 @@
 [
   {
-    "objectID": "2-coding.html#c-programming-recap",
-    "href": "2-coding.html#c-programming-recap",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "C Programming recap",
-    "text": "C Programming recap\n\n\n#include &lt;stdlib.h&gt;\n#include &lt;stdio.h&gt;\n\nint main(int argc, char const *argv[]) {\n  /* declarations */\n  double result, factor[2];\n  unsigned int i;\n  int result = 0;\n\n  // code\n  if (argc != 3) {\n    fprintf(stderr, \"I need two arguments, got %d\\n\", argc);\n    result = -1;\n  }\n  for (i = 0; i &lt; 2; i++) {\n    factor[i] = atof(argv[i + 1]);\n  }\n  result = factor[0] * factor[1];\n  printf(\"%f * %f = %f\\n\", factor[0], factor[1], result);\n\n  return result;\n}\n\n\nkeywords starting with “#” are preprocessor directives\n#include loads locally an external C file\n#include &lt;...&gt; searches in system path\n#include \"...\" searches locally"
-  },
-  {
-    "objectID": "2-coding.html#c-programming-recap-1",
-    "href": "2-coding.html#c-programming-recap-1",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "C Programming recap",
-    "text": "C Programming recap\n\n\n#include &lt;stdlib.h&gt;\n#include &lt;stdio.h&gt;\n\nint main(int argc, char const *argv[]) {\n  /* declarations */\n  double result, factor[2];\n  unsigned int i;\n  int result = 0;\n\n  // code\n  if (argc != 3) {\n    fprintf(stderr, \"I need two arguments, got %d\\n\", argc);\n    result = -1;\n  }\n  for (i = 0; i &lt; 2; i++) {\n    factor[i] = atof(argv[i + 1]);\n  }\n  result = factor[0] * factor[1];\n  printf(\"%f * %f = %f\\n\", factor[0], factor[1], result);\n\n  return result;\n}\n\n\nFunctions are declared with:\n\nreturn type\nname\nlist of arguments\n\nFunctions are defined with:\n\neverything above\nplus body"
-  },
-  {
-    "objectID": "2-coding.html#c-programming-recap-2",
-    "href": "2-coding.html#c-programming-recap-2",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "C Programming recap",
-    "text": "C Programming recap\n\n\n#include &lt;stdlib.h&gt;\n#include &lt;stdio.h&gt;\n\nint main(int argc, char const *argv[]) {\n  /* declarations */\n  double result, factor[2];\n  unsigned int i;\n  int result = 0;\n\n  // code\n  if (argc != 3) {\n    fprintf(stderr, \"I need two arguments, got %d\\n\", argc);\n    result = -1;\n  }\n  for (i = 0; i &lt; 2; i++) {\n    factor[i] = atof(argv[i + 1]);\n  }\n  result = factor[0] * factor[1];\n  printf(\"%f * %f = %f\\n\", factor[0], factor[1], result);\n\n  return result;\n}\n\n\nint main(int, char const **) is the mandatory entry point for any C program\nargc is the number of arguments received from command line, plus 1\nargv[] is the array of arguments\nargv[0] is the program name"
-  },
-  {
-    "objectID": "2-coding.html#c-programming-recap-3",
-    "href": "2-coding.html#c-programming-recap-3",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "C Programming recap",
-    "text": "C Programming recap\n\n\n#include &lt;stdlib.h&gt;\n#include &lt;stdio.h&gt;\n\nint main(int argc, char const *argv[]) {\n  /* declarations */\n  double result, factor[2];\n  unsigned int i;\n  int result = 0;\n\n  // code\n  if (argc != 3) {\n    fprintf(stderr, \"I need two arguments, got %d\\n\", argc);\n    result = -1;\n  }\n  for (i = 0; i &lt; 2; i++) {\n    factor[i] = atof(argv[i + 1]);\n  }\n  result = factor[0] * factor[1];\n  printf(\"%f * %f = %f\\n\", factor[0], factor[1], result);\n\n  return result;\n}\n\nComments can be:\n\n// single line\n/* multiline */"
-  },
-  {
-    "objectID": "2-coding.html#c-programming-recap-4",
-    "href": "2-coding.html#c-programming-recap-4",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "C Programming recap",
-    "text": "C Programming recap\n\n\n#include &lt;stdlib.h&gt;\n#include &lt;stdio.h&gt;\n\nint main(int argc, char const *argv[]) {\n  /* declarations */\n  double result, factor[2];\n  unsigned int i;\n  int result = 0;\n\n  // code\n  if (argc != 3) {\n    fprintf(stderr, \"I need two arguments, got %d\\n\", argc);\n    result = -1;\n  }\n  for (i = 0; i &lt; 2; i++) {\n    factor[i] = atof(argv[i + 1]);\n  }\n  result = factor[0] * factor[1];\n  printf(\"%f * %f = %f\\n\", factor[0], factor[1], result);\n\n  return result;\n}\n\nConditionals:\nif (condition) {\n  /* code */\n} else if (condition) {\n  // code\n} else {\n  // other code\n}"
-  },
-  {
-    "objectID": "2-coding.html#c-programming-recap-5",
-    "href": "2-coding.html#c-programming-recap-5",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "C Programming recap",
-    "text": "C Programming recap\n\n\n#include &lt;stdlib.h&gt;\n#include &lt;stdio.h&gt;\n\nint main(int argc, char const *argv[]) {\n  /* declarations */\n  double result, factor[2];\n  unsigned int i;\n  int result = 0;\n\n  // code\n  if (argc != 3) {\n    fprintf(stderr, \"I need two arguments, got %d\\n\", argc);\n    result = -1;\n  }\n  for (i = 0; i &lt; 2; i++) {\n    factor[i] = atof(argv[i + 1]);\n  }\n  result = factor[0] * factor[1];\n  printf(\"%f * %f = %f\\n\", factor[0], factor[1], result);\n\n  return result;\n}\n\nLoops:\nfor (start; cond; incr) { /* code */ }\nwhile (true) { // }\ndo { // } while (true)"
-  },
-  {
-    "objectID": "2-coding.html#c-programming-recap-6",
-    "href": "2-coding.html#c-programming-recap-6",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "C Programming recap",
-    "text": "C Programming recap\n\n\n#include &lt;stdlib.h&gt;\n#include &lt;stdio.h&gt;\n\nint main(int argc, char const *argv[]) {\n  /* declarations */\n  double result, factor[2];\n  unsigned int i;\n  int result = 0;\n\n  // code\n  if (argc != 3) {\n    fprintf(stderr, \"I need two arguments, got %d\\n\", argc);\n    result = -1;\n  }\n  for (i = 0; i &lt; 2; i++) {\n    factor[i] = atof(argv[i + 1]);\n  }\n  result = factor[0] * factor[1];\n  printf(\"%f * %f = %f\\n\", factor[0], factor[1], result);\n\n  return result;\n}\n\nOutput: printf, fprintf, sprintf, asprintf\nChannels:\n\nstdout\nstderr\nFILE pointer"
-  },
-  {
-    "objectID": "2-coding.html#c-programming-recap-7",
-    "href": "2-coding.html#c-programming-recap-7",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "C Programming recap",
-    "text": "C Programming recap\n\n\n#include &lt;stdlib.h&gt;\n#include &lt;stdio.h&gt;\n\nint main(int argc, char const *argv[]) {\n  /* declarations */\n  double result, factor[2];\n  unsigned int i;\n  int result = 0;\n\n  // code\n  if (argc != 3) {\n    fprintf(stderr, \"I need two arguments, got %d\\n\", argc);\n    result = -1;\n  }\n  for (i = 0; i &lt; 2; i++) {\n    factor[i] = atof(argv[i + 1]);\n  }\n  result = factor[0] * factor[1];\n  printf(\"%f * %f = %f\\n\", factor[0], factor[1], result);\n\n  return result;\n}\n\nInput:\n\nfrom command line (argv)\nfrom environment\nfrom files\nfrom sockets\nfrom stdin\n\nNever interactive (gets(), scanf())"
-  },
-  {
-    "objectID": "2-coding.html#c-compound-types",
-    "href": "2-coding.html#c-compound-types",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "C Compound Types",
-    "text": "C Compound Types\n\nStructs: for collecting many variables in a single “object”\nUnions: for accessing the same memory as if it were of different types\nEnums: for finite set of symbols"
-  },
-  {
-    "objectID": "2-coding.html#best-practices",
-    "href": "2-coding.html#best-practices",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Best Practices",
-    "text": "Best Practices\n\n\n#include &lt;stdlib.h&gt;\n#include &lt;stdio.h&gt;\n\nint main(int argc, char const *argv[]) {\n/* declarations */\ndouble result, factor[2];\n  unsigned int i;\n  int result = 0;\n\n  // code\n  if(argc!=3){\n  fprintf(stderr, \"I need two arguments, got %d\\n\", argc);\n  result=-1;\n  }\n  for (i = 0; i &lt; 2; i++) {\n            factor[i] = atof(argv[i + 1]);\n  }\n  result = factor[0] * factor[1];\n  printf(\"%f * %f = %f\\n\", factor[0], factor[1], result);\n\n  return result;\n}\n\n\nProper indentation (if not, &lt; 18/30)\nProper spacing\nOn Visual Studio Code, use Format Document\n\n\nCompare this with code in previous slides!"
-  },
-  {
-    "objectID": "2-coding.html#best-practices-1",
-    "href": "2-coding.html#best-practices-1",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Best Practices",
-    "text": "Best Practices\n\nPut variables declarations at the beginning of each block\nOnly one exit point per function (except for errors)\nFactorize code (= Don’t Repeat Yourself: DRY)\nUse clean, extended names for functions and variables of general usage (short names OK for local variables)"
-  },
-  {
-    "objectID": "2-coding.html#from-source-to-runtime",
-    "href": "2-coding.html#from-source-to-runtime",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "From Source to Runtime",
-    "text": "From Source to Runtime"
-  },
-  {
-    "objectID": "2-coding.html#from-source-to-runtime-1",
-    "href": "2-coding.html#from-source-to-runtime-1",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "From Source to Runtime",
-    "text": "From Source to Runtime\n\nC Header files (.h) — elegant solution for:\n\norganizing code on many files\nreusing code, even in form of compiled library\n\nOn build-time, only headers are used\nOn link-time and runtime, only libraries are needed and used (no headers)"
-  },
-  {
-    "objectID": "2-coding.html#building-your-code",
-    "href": "2-coding.html#building-your-code",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Building your code",
-    "text": "Building your code\nBuild command needs:\nBuild time\n\nswitches for compile configuration\nlocation of system and special header files\nlist of files to compile\n\nLink time\n\nswitches for linking configuration\nlocation of system and special libraries\nlist of files to link"
-  },
-  {
-    "objectID": "2-coding.html#building-your-code-1",
-    "href": "2-coding.html#building-your-code-1",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Building your code",
-    "text": "Building your code\nTypical compilation command:\nclang [options] -Ipath/to/includes -Lpath/to/libs -llibrary_name \\\n  -o output_file source1.c source2.c source3.c\n\nMost common compilers are gcc and clang (we’ll use clang)\nThe [options] list and the list of source files can be long and tedious to type"
-  },
-  {
-    "objectID": "2-coding.html#building-assistants-ide-or-cli",
-    "href": "2-coding.html#building-assistants-ide-or-cli",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Building assistants: IDE or CLI",
-    "text": "Building assistants: IDE or CLI\n\nGNU Make: command-line program for building complex projects via special scripts called Makefiles. A Makefile is typically complex to write and maintain\nCMake: command-line program that takes a configuration file (CMakeLists.txt) and generates a temporary building environment (typically using GNU Make). Easier to write and maintain than Makefile"
-  },
-  {
-    "objectID": "2-coding.html#cmake-script",
-    "href": "2-coding.html#cmake-script",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "CMake Script",
-    "text": "CMake Script\n\n\nSteps:\n\nproject setup\ndefine common switches\ndefine headers and library locations\ndefine targets\ndefine install behavior\n\n\n\ncmake_minimum_required(VERSION 3.9)\nset(CMAKE_C_COMPILER \"clang\")\n# Set project name, version, and language\nproject(C-CNC VERSION 0.0.1 LANGUAGES C)\n# Set common compile options and preprocessor definitions\nadd_compile_options(-std=gnu11 -fPIC)\nadd_definitions(-D_GNU_SOURCE)\n# Define the list of source files\nset(SOURCE_DIR ${CMAKE_HOME_DIRECTORY}/src) #set a variable\nfile(GLOB LIB_SOURCES \"${SOURCE_DIR}/*.c\") #put into LIB_SOURCES the globbed list\n# Parametrically create some file from template\nconfigure_file(\n  ${SOURCE_DIR}/version.h.in\n  ${SOURCE_DIR}/version.h\n)\n# define header directories\ninclude_directories(\n  ${CMAKE_HOME_DIRECTORY}/machine/src\n)\n\n# Define TARGETS, i.e. output objects\n# Library target:\nadd_library(ccnclib STATIC ${LIB_SOURCES})\ntarget_link_libraries(ccnclib machine)\n# Main executable\nadd_executable(ccnc ${SOURCE_DIR}/main/ccnc.c)\nadd_dependencies(ccnc ccnclib)\ntarget_link_libraries(ccnc ccnclib)\n\n# INSTALL\nset(CMAKE_INSTALL_PREFIX ${CMAKE_HOME_DIRECTORY})\ninstall(TARGETS ccnclib ccnc\n  RUNTIME DESTINATION bin\n  LIBRARY DESTINATION lib\n  ARCHIVE DESTINATION lib\n)"
-  },
-  {
-    "objectID": "2-coding.html#cmake",
-    "href": "2-coding.html#cmake",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "CMake",
-    "text": "CMake\nBuilding with cmake takes 2+1 steps:\n\nConfiguration: cmake -Bbuild_dir\nBuilding: cmake --build build_dir\nInstalling: cmake --build build_dir -t install\n\nAlternatively, after configuration, make can be used:\n\nmake -Cbuild_dir\nmake -Cbuild_dir install"
-  },
-  {
-    "objectID": "2-coding.html#programming-c-as-a-pro",
-    "href": "2-coding.html#programming-c-as-a-pro",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Programming C as a Pro",
-    "text": "Programming C as a Pro\nProblem 1:\n\ncomplex programs are made of many functions that have to pass around data. C function arguments are passed by value (i.e. copied!)\nfor good performance you need to minimize info passed by functions\n\nSolution: learn to use pointers"
-  },
-  {
-    "objectID": "2-coding.html#programming-c-as-a-pro-1",
-    "href": "2-coding.html#programming-c-as-a-pro-1",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Programming C as a Pro",
-    "text": "Programming C as a Pro\nProblem 2:\n\nC function can only return a single value\nC functions cannot return compound types (arrays!)\n\nSolution: learn to use pointers"
-  },
-  {
-    "objectID": "2-coding.html#programming-c-as-a-pro-2",
-    "href": "2-coding.html#programming-c-as-a-pro-2",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Programming C as a Pro",
-    "text": "Programming C as a Pro\nProblem 3:\n\ncomplex programs are made of many functions\nthey also depend on external libraries\nthe code must be readable and understandable\n\nSolution: carefully distribute code in different files, and use flexible build software"
-  },
-  {
-    "objectID": "2-coding.html#stack-vs.-heap-memory",
-    "href": "2-coding.html#stack-vs.-heap-memory",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Stack vs. Heap memory",
-    "text": "Stack vs. Heap memory\n\n\n\n\n\n\n\nFIFO access (fast)\nTyp. ~8 Mb capacity per thread (check with command ulimit -s)\n\n\n\n\n\n\nRandom access (slower)\nVirtually unlimited"
-  },
-  {
-    "objectID": "2-coding.html#tricky-pointers",
-    "href": "2-coding.html#tricky-pointers",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Tricky Pointers",
-    "text": "Tricky Pointers\n\nStandard variables are defined on the stack memory\nYou get the pointer to variable var with &var\nYou get the value of pointer var_p with *var_p\nArrays are pointers to their first element, but stack arrays have a limited maximum size (system dependent)\nVariables on stack are eliminated from memory on exiting from local scope"
-  },
-  {
-    "objectID": "2-coding.html#tricky-pointers-1",
-    "href": "2-coding.html#tricky-pointers-1",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Tricky Pointers",
-    "text": "Tricky Pointers\n\nPointers requiring large (or dynamic) memory can be defined on the heap memory\nYou allocate a pointer on the heap with the malloc() family of functions\nmalloc’d variables are not freed upon exiting from local scope\nFor every malloc() you need one free(), or you have a memory leak ☠️☠️☠️"
-  },
-  {
-    "objectID": "2-coding.html#ways-for-returning-an-array-in-c",
-    "href": "2-coding.html#ways-for-returning-an-array-in-c",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Ways for returning an array in C",
-    "text": "Ways for returning an array in C\n\nUse malloc() in the caller and pass the pointer as an inout argument (easier)\nCall malloc() inside the function and return that pointer (easy, but you cannot return anything else, like error status)\nPass a double pointer to the callee as an inout argument, use malloc() inside the function (not so easy, but you can also return a status value)"
-  },
-  {
-    "objectID": "2-coding.html#not-so-easy-case-one-not-working",
-    "href": "2-coding.html#not-so-easy-case-one-not-working",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "NOT SO easy: Case one (not working)",
-    "text": "NOT SO easy: Case one (not working)"
-  },
-  {
-    "objectID": "2-coding.html#case-one-step-1",
-    "href": "2-coding.html#case-one-step-1",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Case one — step 1",
-    "text": "Case one — step 1"
-  },
-  {
-    "objectID": "2-coding.html#case-one-step-2",
-    "href": "2-coding.html#case-one-step-2",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Case one — step 2",
-    "text": "Case one — step 2"
-  },
-  {
-    "objectID": "2-coding.html#case-one-step-3",
-    "href": "2-coding.html#case-one-step-3",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Case one — step 3",
-    "text": "Case one — step 3"
-  },
-  {
-    "objectID": "2-coding.html#case-one-step-4",
-    "href": "2-coding.html#case-one-step-4",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Case one — step 4",
-    "text": "Case one — step 4"
-  },
-  {
-    "objectID": "2-coding.html#not-so-easy-case-two-working",
-    "href": "2-coding.html#not-so-easy-case-two-working",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "NOT SO easy: Case TWO (working)",
-    "text": "NOT SO easy: Case TWO (working)"
-  },
-  {
-    "objectID": "2-coding.html#case-two-step-1",
-    "href": "2-coding.html#case-two-step-1",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Case two — step 1",
-    "text": "Case two — step 1"
-  },
-  {
-    "objectID": "2-coding.html#case-two-step-2",
-    "href": "2-coding.html#case-two-step-2",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Case two — step 2",
-    "text": "Case two — step 2"
-  },
-  {
-    "objectID": "2-coding.html#case-two-step-3",
-    "href": "2-coding.html#case-two-step-3",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Case two — step 3",
-    "text": "Case two — step 3"
-  },
-  {
-    "objectID": "2-coding.html#case-two-step-3-cont.",
-    "href": "2-coding.html#case-two-step-3-cont.",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Case two — step 3 (cont.)",
-    "text": "Case two — step 3 (cont.)"
-  },
-  {
-    "objectID": "2-coding.html#case-two-step-5",
-    "href": "2-coding.html#case-two-step-5",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Case two — step 5",
-    "text": "Case two — step 5"
-  },
-  {
-    "objectID": "2-coding.html#memory-leaks",
-    "href": "2-coding.html#memory-leaks",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Memory leaks",
-    "text": "Memory leaks"
-  },
-  {
-    "objectID": "2-coding.html#memory-leaks-step-3",
-    "href": "2-coding.html#memory-leaks-step-3",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Memory leaks — step 3",
-    "text": "Memory leaks — step 3"
-  },
-  {
-    "objectID": "2-coding.html#memory-leaks-step-4",
-    "href": "2-coding.html#memory-leaks-step-4",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Memory leaks — step 4",
-    "text": "Memory leaks — step 4"
-  },
-  {
-    "objectID": "2-coding.html#memory-leaks-1",
-    "href": "2-coding.html#memory-leaks-1",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Memory leaks",
-    "text": "Memory leaks\n\nThere must be exactly one free() for every malloc()\nSometimes the malloc() is implicit, e.g. asprintf() and similar functions (those that take double pointers for allocating and returning an array!)\nLeaked memory is restored on process exit\nBUT, long running processes MUST avoid memory leaks, especially when the leak occurs within loops"
-  },
-  {
-    "objectID": "2-coding.html#mqtt-protocol",
-    "href": "2-coding.html#mqtt-protocol",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "MQTT protocol",
-    "text": "MQTT protocol\n\nMQTT stands for Message Queue Telemetry Transport\nActually, there is no queue but rather a publish-subscribe architecture\nThe protocol is lightweight: it minimizes the overhead of messages\nIt is about 100 times faster than REST HTTP messaging (in terms of maximum msg/s)\nIt is not the fastest protocol (ZeroMQ is faster), but it is simple to implement and well balanced"
-  },
-  {
-    "objectID": "2-coding.html#mqtt-protocol-1",
-    "href": "2-coding.html#mqtt-protocol-1",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "MQTT protocol",
-    "text": "MQTT protocol\n\nIn MQTT there are 3 different roles: publisher, subscriber, broker\n\nThe publisher is the information producer (to be implemented)\nThe subscriber is the information consumer (to be implemented)\nThe broker is a server that relays publisher messages to (possibly many) subscribers (already available)\n\nMessages are published under topics\nTopics are arranged hierarchically: ccnc/x/pos, ccnc/y/vel"
-  },
-  {
-    "objectID": "2-coding.html#mqtt-protocol-2",
-    "href": "2-coding.html#mqtt-protocol-2",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "MQTT protocol",
-    "text": "MQTT protocol\nSubscribers can subscribe to more than one topic, possibly also using wildcards (+ or #):\n\nccnc/+/pos means any single word in between ccnc and pos (as ccnc/x/pos and ccnc/y/pos, but not ccnc/x/nominal/pos)\nccnc/#/pos means anything (including multiple branches) under ccnc and ending with /pos"
-  },
-  {
-    "objectID": "2-coding.html#mqtt-protocol-3",
-    "href": "2-coding.html#mqtt-protocol-3",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "MQTT protocol",
-    "text": "MQTT protocol\n\nPublishers can publish messages to many different topics, but one at a time (no wildcards!)\nA message is also called a payload: any sequence of bytes, up to a maximum 268435456 bytes (\\(2^{28}\\), ~260 Mb)\nBigger payloads need to be split (or compressed)\nMessages are assigned with a quality of service level (QoS) and with an optional retain flag"
-  },
-  {
-    "objectID": "2-coding.html#mqtt-protocol-4",
-    "href": "2-coding.html#mqtt-protocol-4",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "MQTT protocol",
-    "text": "MQTT protocol\nThe QoS level states the reliability of a message:\n\nQoS 0: a message is delivered at most once\nQoS 1: a message is delivered at least once\nQoS 2: a message is delivered exactly once\n\nQoS 0 is “fire-and-forget”: less reliable but with minimum information exchange. QoS 2 has a delivery confirmation: 100% reliable, but slower"
-  },
-  {
-    "objectID": "2-coding.html#mqtt-protocol-5",
-    "href": "2-coding.html#mqtt-protocol-5",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "MQTT protocol",
-    "text": "MQTT protocol\n\nThe retain flag, when set, instructs the broker to deliver the message to any subscriber connecting in the future\n\nIt is a kind of “last known value” clause\n\nThere are also last will and testament (LWT) messages: these are messages delivered as soon as the broker detects that the client has disconnected\nNote: the roles of publisher and subscriber are semantic: any given process can simultaneously act as publisher and subscriber, if needed. Both are clients of the broker server"
-  },
-  {
-    "objectID": "2-coding.html#mqtt-applications",
-    "href": "2-coding.html#mqtt-applications",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "MQTT Applications",
-    "text": "MQTT Applications\n\nThere are many available broker services, like mosquitto, Paho, HiveMQ, Mosca, EMQ X, VerneMQ.\nAs well, there are many libraries for implementing MQTT clients (pub+sub) in virtually any known programming language\nWe will refer to mosquitto (the broker) and libmosquitto (the C library)"
-  },
-  {
-    "objectID": "2-coding.html#mqtt-broker",
-    "href": "2-coding.html#mqtt-broker",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "MQTT Broker",
-    "text": "MQTT Broker\nThe mosquitto broker can be installed as a linux service, but it is much quicker and easier to use a docker container:\ndocker run -d --rm \\\n  --name mosquitto \\\n  -p 1883:1883 \\\n  -v \"${PWD}/mosquitto.conf:/mosquitto/config/mosquitto.conf\" \\\n  eclipse-mosquitto\n\n-d --rm: as daemon, remove on exit\n--name mosquitto: give it a name\n-p 1883:1883: expose port 1883\n-v ...: config file\neclipse-mosquitto: name of the image"
-  },
-  {
-    "objectID": "2-coding.html#mqtt-broker-1",
-    "href": "2-coding.html#mqtt-broker-1",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "MQTT Broker",
-    "text": "MQTT Broker\nThe mosquitto config file (mosquitto.conf) typically contains at minimum:\nallow_anonymous true\nlistener 1883\nprotocol mqtt\nThis accepts any connection. In production, you might want to require passwords and encrypted connections."
-  },
-  {
-    "objectID": "2-coding.html#mqtt-library",
-    "href": "2-coding.html#mqtt-library",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "MQTT library",
-    "text": "MQTT library\n\nDocumentation is on https://mosquitto.org/api\nThe library namespace is mosqpp, the main class is mosquittopp\nTypical sequence of operation:\n\nStart &gt; library init &gt; client init &gt; client connect &gt; set callbacks &gt; loop { publish messages & update sockets } &gt; free resources &gt; stop\n\nCallbacks are methods automatically called on given events (e.g. successful connection, receiving subscribed message, …)"
-  },
-  {
-    "objectID": "2-coding.html#mqtt-library-1",
-    "href": "2-coding.html#mqtt-library-1",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "MQTT library",
-    "text": "MQTT library\n\nLibrary init: mosqpp::lib_init()\n\nIt simply MUST be called before any other mosquitto call\n\nLibrary cleanup: mosqpp::lib_cleanup() (in destructor)"
-  },
-  {
-    "objectID": "2-coding.html#mqtt-library-2",
-    "href": "2-coding.html#mqtt-library-2",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "MQTT library",
-    "text": "MQTT library\n\nClient init: auto mqt = mosquittopp(id, clean)\n\nid: can be a name (useful for debugging, only visible to the broker)\nclean: ask the broker to delete all messages and subscriptions on disconnect\n\nTypically, you derive a class from mosquittopp"
-  },
-  {
-    "objectID": "2-coding.html#mqtt-library-3",
-    "href": "2-coding.html#mqtt-library-3",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "MQTT library",
-    "text": "MQTT library\n\nClient connect: mosquittopp::connect(broker_addr, broker_port, keepalive)\n\nConnect the object to a given broker host and port\nThe broker pings the client (if no messages arrive) every keepalive seconds to verify if it is connected"
-  },
-  {
-    "objectID": "2-coding.html#mqtt-library-4",
-    "href": "2-coding.html#mqtt-library-4",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "MQTT library",
-    "text": "MQTT library\n\nImplement callbacks: mosquittopp::on_message(const struct mosquitto_message *message) (et similia)\n\nObject calls on_message each time a message is received"
-  },
-  {
-    "objectID": "2-coding.html#mqtt-library-5",
-    "href": "2-coding.html#mqtt-library-5",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "MQTT library",
-    "text": "MQTT library\nAll network operations are just scheduled by subscribe and publish functions. They are actually performed in two alternative ways:\n\nBy repeatedly/cyclically calling mosquittopp::loop() (preferred if you already have a loop)\nBy starting a parallel thread that iteratively calls mosquittopp::loop(): this is done by calling mosquittopp::loop_start() just after mosquittopp::connect()"
-  },
-  {
-    "objectID": "2-coding.html#mqtt-library-6",
-    "href": "2-coding.html#mqtt-library-6",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "MQTT library",
-    "text": "MQTT library\n\nTo schedule the publishing of a message, use mosquittopp::publish(mid, topic, len, payload, qos, retain)\n\nThe payload is any sequence of len bytes (a string or a binary object)\nThe message ID mid is typically NULL"
-  },
-  {
-    "objectID": "2-coding.html#mqtt-library-7",
-    "href": "2-coding.html#mqtt-library-7",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "MQTT library",
-    "text": "MQTT library\n\nWhen a message is received, the on_message callback is executed\nIt gets the message as a struct mosquitto_message, which contains:\n\nMessage ID (if any), topic, payload, payload length, QoS level, retain flag.\n\nIt does not contain any info on the publisher!\nThe subscriber HAS NO WAY for identifying the publisher (unless it is written in the payload or topic)"
-  },
-  {
-    "objectID": "2-coding.html#mqtt-library-8",
-    "href": "2-coding.html#mqtt-library-8",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "MQTT library",
-    "text": "MQTT library\nWhen done, you should, in this order:\n\nUnsubscribe all subscriptions\nCall mosquittopp::loop or mosquittopp::loop_stop\nDisconnect from broker\nCall mosqpp::lib_cleanup"
-  },
-  {
-    "objectID": "2-coding.html#mqtt-tools",
-    "href": "2-coding.html#mqtt-tools",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "MQTT tools",
-    "text": "MQTT tools\n\n\n\nThe mosquitto-clients package installs the pair of commands mosquitto_pub and mosquitto_sub\nMQTT explorer is a useful graphical tool for tapping into MQTT dataflows: http://mqtt-explorer.com"
-  },
-  {
-    "objectID": "2-coding.html#cargo-cult-in-anthropology",
-    "href": "2-coding.html#cargo-cult-in-anthropology",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Cargo cult in anthropology",
-    "text": "Cargo cult in anthropology\n\n\n\nA cargo cult is a belief system, in which adherents perform rituals which they believe will cause a more technologically advanced society to deliver goods\nMany examples in remote Pacific islands, where inhabitants replicate US army “rituals” in the hope of calling a cargo delivery"
-  },
-  {
-    "objectID": "2-coding.html#cargo-cult-programmingengineering",
-    "href": "2-coding.html#cargo-cult-programmingengineering",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Cargo Cult programming/engineering",
-    "text": "Cargo Cult programming/engineering\nTypical pattern:\n\nYou don’t know how to solve a problem\nYou type “How to do something in my language?” in Google (or ChatGPT!)\nYou end up on Stackoverflow (or similar sites) or get an AI-generated code\nYou copy and paste the first solution, which you cannot fully understand but it seems to work"
-  },
-  {
-    "objectID": "2-coding.html#why-is-that-a-bad-habit",
-    "href": "2-coding.html#why-is-that-a-bad-habit",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Why is that a bad habit?",
-    "text": "Why is that a bad habit?\n\nAt best, it messes up your coding style (e.g. using variableNames rather than variable_names)\nYou may look amateur and naïve to those who read your code (among them, your prospective employer!)\nForemost, you are losing control on your code, which may work fine in the stackoverflow/AI example, but much probably does hidden nasty things once embedded in your code\nAdditionally, your problem understanding does not improve"
-  },
-  {
-    "objectID": "2-coding.html#doesnt-happen-only-when-you-code",
-    "href": "2-coding.html#doesnt-happen-only-when-you-code",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Doesn’t happen only when you code",
-    "text": "Doesn’t happen only when you code\n\nThere are many examples of cargo cult engineering as well\nEach time you accept an existing solution just because it works in another emplacement, and without fully understanding it, you are a cargo cultist\nAlways question any solution; ask why; do not accept any solution that you cannot fully understand, at least in its outer structure (input/output relations, interfaces, specifications)"
-  },
-  {
-    "objectID": "2-coding.html#tool-radius-compensation",
-    "href": "2-coding.html#tool-radius-compensation",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Tool radius compensation",
-    "text": "Tool radius compensation\n\nG-code standard supports a feature for offsetting the tool trajectory to the left or to the right of the trajectory by an amount equal to the tool radius\nThis is only affecting the X-Y projection of the trajectory, Z values remain unchanged\nThe TRC is set to the left with G41, to the right with G42 and is disabled with G40\nTRC is fully active at the end of the current block"
-  },
-  {
-    "objectID": "2-coding.html#tool-radius-compensation-1",
-    "href": "2-coding.html#tool-radius-compensation-1",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Tool radius compensation",
-    "text": "Tool radius compensation\n\n\n\nTRC offsets the tool center path (programmed points) according to G41/G42\nNew target points are calculated for each block on the basis of the offset intersection with the next block (arc or line)\nDisabled for rapid motions"
-  },
-  {
-    "objectID": "2-coding.html#tool-radius-compensation-2",
-    "href": "2-coding.html#tool-radius-compensation-2",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Tool radius compensation",
-    "text": "Tool radius compensation\n\n\n\n\n\nInteractive example on https://www.geogebra.org/m/mcv4egvk"
-  },
-  {
-    "objectID": "2-coding.html#tool-radius-compensation-3",
-    "href": "2-coding.html#tool-radius-compensation-3",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Tool radius compensation",
-    "text": "Tool radius compensation\n\n\n\n\n\nInteractive example on https://www.geogebra.org/m/uwaa7u4v"
-  },
-  {
-    "objectID": "2-coding.html#tool-radius-compensation-4",
-    "href": "2-coding.html#tool-radius-compensation-4",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Tool radius compensation",
-    "text": "Tool radius compensation\n\n\n\n\n\nInteractive example on https://www.geogebra.org/m/uwaa7u4v"
-  },
-  {
-    "objectID": "2-coding.html#line-line-case",
-    "href": "2-coding.html#line-line-case",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Line-Line case",
-    "text": "Line-Line case\n\n\nWe need to calculate the point \\(D\\):\n\nGiven the line equation \\(y = ax + b\\), we need to calculate the equation of the offset line(s)\nCalculate \\(D\\) as intercept between the two offset lines"
-  },
-  {
-    "objectID": "2-coding.html#line-line-case-1",
-    "href": "2-coding.html#line-line-case-1",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Line-Line case",
-    "text": "Line-Line case\n\n\n\nGiven \\(y = ax + b\\), the equation of the offset line is \\(y = ax + b - v\\)\nBeing \\(a = u/r\\), it follows that: \\(v = \\sqrt{u^2 + r^2} = r\\sqrt{a^2 + 1}\\)\nSo, \\(y = ax + b \\pm r\\sqrt{a^2 + 1}\\)\nThe sign depends on G41/G42 and on the path direction"
-  },
-  {
-    "objectID": "2-coding.html#line-line-case-2",
-    "href": "2-coding.html#line-line-case-2",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Line-Line case",
-    "text": "Line-Line case\n\n\nIntersection \\(D\\) between\n\\(y = a_1 x + b_1 - v_1 = a_1 x + b_{o,1}\\)\nand\n\\(y = a_2 x + b_2 - v_2 = a_2 x + b_{o,2}\\)\nhas coordinates:\n\\[(x_i, y_i) = \\left(\\frac{b_{o,2} - b_{o,1}}{a_1 - a_2}, \\frac{b_{o,1}a_2 - b_{o,2}a_1}{a_2 - a_1}\\right)\\]"
-  },
-  {
-    "objectID": "2-coding.html#line-line-case-3",
-    "href": "2-coding.html#line-line-case-3",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Line-Line case",
-    "text": "Line-Line case\n\n\n\nException: when two segments are collinear (\\(a = a_1 = a_2\\)), the intercept is undefined\nThe new intersection node is set at an offset \\(r\\) perpendicular to the segments\n\n\\[C = \\begin{cases} (0, -r), & \\text{when } a = 0 \\\\ r(s, -s/a) \\text{ with } s = \\frac{a}{|a|}\\sqrt{\\frac{a^2}{1 + a^2}}, & \\text{otherwise} \\end{cases}\\]\nInteractive example on https://www.geogebra.org/m/pmdtaprr"
-  },
-  {
-    "objectID": "2-coding.html#line-arc-or-arc-line-case",
-    "href": "2-coding.html#line-arc-or-arc-line-case",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Line-Arc (or Arc-Line) case",
-    "text": "Line-Arc (or Arc-Line) case\n\n\nSimilar to line-line case, but with a caveat:\n\nLine-circle intersection gives two points, \\(G\\) and \\(B_r\\): you have to select the intersection that is closer to the node to be offset (\\(B\\) in figure)\n\nInteractive example on https://www.geogebra.org/m/uwaa7u4v"
-  },
-  {
-    "objectID": "2-coding.html#line-arc-or-arc-line-case-1",
-    "href": "2-coding.html#line-arc-or-arc-line-case-1",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Line-Arc (or Arc-Line) case",
-    "text": "Line-Arc (or Arc-Line) case\n\n\nSimilar to line-line case, but with a caveat:\n\nLine-circle intersection gives two points, \\(G\\) and \\(B_r\\): you have to select the intersection that is closer to the node to be offset (\\(B\\) in figure)\n\nInteractive example on https://www.geogebra.org/m/uwaa7u4v"
-  },
-  {
-    "objectID": "2-coding.html#code-changes",
-    "href": "2-coding.html#code-changes",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Code changes",
-    "text": "Code changes\nSupport for G40/G41/G42\n\nAn enum class TRCType with NONE, LEFT, RIGHT\nAn TRCType _trc field in the BlockTRC class\nProper code in BlockTRC::parse()\n_trc shall be managed as a modal field (i.e. inherited from previous block)"
-  },
-  {
-    "objectID": "2-coding.html#code-changes-1",
-    "href": "2-coding.html#code-changes-1",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Code changes",
-    "text": "Code changes\nSupport for tool radius\n\nThe YML file needs to have a field as: tools: [10.0, 8.0, 5.0, 2.5] giving the list of available tools and respective radiuses\nThe Machine class needs to properly load the tool list into a new field: vector&lt;data_t&gt; _tools\nAdd machine::tool_radius(), which returns the radius of a given tool number"
-  },
-  {
-    "objectID": "2-coding.html#code-changes-2",
-    "href": "2-coding.html#code-changes-2",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Code changes",
-    "text": "Code changes\nSupport for offset calculation\n\nThe method Block::parse() needs to change the target of the previous block if the previous block has _trc != TRCType::NONE\nThe target must be changed according to the equations shown above and the radius of the current tool"
-  },
-  {
-    "objectID": "2-coding.html#code-changes-3",
-    "href": "2-coding.html#code-changes-3",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Code changes",
-    "text": "Code changes\nSupport for offset calculation\n\nEquations for intersections possibly require:\n\nBlock::angle_with_prev(): angle in radians with previous block\nBlock::equation(): returns \\(a\\) and \\(b\\) as output parameters (refs); for an arc, parameters of the implicit equation \\((x - x_c)^2 + (y - y_c)^2 = r^2\\) are available already\n\nThese functions can be private"
-  },
-  {
-    "objectID": "2-coding.html#advanced-trc",
-    "href": "2-coding.html#advanced-trc",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Advanced TRC",
-    "text": "Advanced TRC"
-  },
-  {
-    "objectID": "2-coding.html#rules",
-    "href": "2-coding.html#rules",
-    "title": "Digital Manufacturing – Part 2",
-    "section": "Rules",
-    "text": "Rules\n\nYou must work alone (I’ll check and compare results!)\nNo help from my side, except these slides\nSet up a private GitHub repo and share it with me since the beginning\nWhen you are done, you must discuss your work with me\nIf it works (no warnings) and it is not copied, you get 30/30\nIf you implement advanced TRC or impress me with some other clever addition, you get 30/30 cum laude\nMust be done before the start of lessons in Sept. 2025"
-  },
-  {
-    "objectID": "0-intro.html#digital-manufacturing",
-    "href": "0-intro.html#digital-manufacturing",
-    "title": "Course Introduction",
-    "section": "Digital Manufacturing",
-    "text": "Digital Manufacturing\n\nDM is the evolution of manufacturing, where an integrated approach is centered around a computer system\nEvolution: purely mechanical machinery ➡︎ CNC machines ➡︎ systems of computer-controlled machines\nDM goes within the framework of Industry 4.0\nIndustry 4.0 is the 4th industrial revolution"
-  },
-  {
-    "objectID": "0-intro.html#evolution-of-manufacturing",
-    "href": "0-intro.html#evolution-of-manufacturing",
-    "title": "Course Introduction",
-    "section": "Evolution of manufacturing",
-    "text": "Evolution of manufacturing\n\n\n\n\n\nMilling machine\n\n\n\n\n\nCNC milling center\n\n\n\n\n\n\n1st NC machine tool (MIT, 1952)\n\n\n\n\n\nDM plant"
-  },
-  {
-    "objectID": "0-intro.html#industry-4.0",
-    "href": "0-intro.html#industry-4.0",
-    "title": "Course Introduction",
-    "section": "Industry 4.0",
-    "text": "Industry 4.0\n\nMotivation — reaction from EU and USA to 2008 economical crisis\nName origin — 2011 Hannover Messe (Angela Merkel)\n\n\n\n\nHannover Messe 2013 — presentation of final report of the Industrie 4.0 committee, tasked by German government in 2011:\n\nDesign principles\nChallenges\nImpacts"
-  },
-  {
-    "objectID": "0-intro.html#previous-industrial-revolutions",
-    "href": "0-intro.html#previous-industrial-revolutions",
-    "title": "Course Introduction",
-    "section": "Previous industrial revolutions",
-    "text": "Previous industrial revolutions\n\n\nFirst Industrial Revolution\n\n\n\nMechanical loom, E. Cartwright, 1784\n\n\n\nSecond Industrial Revolution\n\n\n\nConveyor belt, Cincinnati Slaughterhouse, 1870\n\n\n\n\n\nConveyor belt, Ford Motor Company, 1913\n\n\n\nThird Industrial Revolution\n\n\n\nPLC, Modicon 084, 1969"
-  },
-  {
-    "objectID": "0-intro.html#industry-4.0-1",
-    "href": "0-intro.html#industry-4.0-1",
-    "title": "Course Introduction",
-    "section": "Industry 4.0",
-    "text": "Industry 4.0\nObjectives:\n\nRe-shoring of added value in western countries\nSustain salaries of working- and middle-class\nSustain e-commerce\nMass customization (added value shifts from manufacturing to design)\nTime compression (life cycle of a car from 5 to 2 years)"
-  },
-  {
-    "objectID": "0-intro.html#industry-4.0-2",
-    "href": "0-intro.html#industry-4.0-2",
-    "title": "Course Introduction",
-    "section": "Industry 4.0",
-    "text": "Industry 4.0\nDesign principles:\n\nInteroperability (IoT, IIoT, IoP)\nCyber-Physical Systems (CPS)\nInformation transparency: public, open protocols; digital twins\nSelf-support and in-line help to operators\nDecision de-centralization: autonomy, stratification, prioritization"
-  },
-  {
-    "objectID": "0-intro.html#industry-4.0-3",
-    "href": "0-intro.html#industry-4.0-3",
-    "title": "Course Introduction",
-    "section": "Industry 4.0",
-    "text": "Industry 4.0\nDesign principles:\n\nAkin to the Yardstick of Automation (Amber & Amber, 1962)\n\n\n\n\n\n\n\nOrder\nHuman attribute\nExample\n\n\n\n\n0\nNone\nManual tools\n\n\n1\nEnergy\nPowered machines and tools\n\n\n2\nDexterity\nSingle-cycle automatics (dexterity = self-feeding)\n\n\n3\nDiligence\nRepeats cycle; open-loop control\n\n\n4\nJudgment\nClosed loop; numerical control; self-measuring\n\n\n5\nEvaluation\nComputer control; model of process required for automation\n\n\n6\nLearning\nLimited self-programming; some artificial intelligence\n\n\n7\nReasoning\nInductive reasoning (cause-effects)\n\n\n8\nCreativity\nPerforms (original) design unaided\n\n\n9\nDominance\nMachine is master (HAL 9000)"
-  },
-  {
-    "objectID": "0-intro.html#industry-4.0-4",
-    "href": "0-intro.html#industry-4.0-4",
-    "title": "Course Introduction",
-    "section": "Industry 4.0",
-    "text": "Industry 4.0\nChallenges:\n\nCybersecurity\nReliability and resiliency of M2M communication (bandwidth and latency)\nDrop-in, plug-in approach on existing processes\nIntellectual property (IP) protection\nReluctancy to change, operators re-training\nCorporate IT\nInitial loss of labor"
-  },
-  {
-    "objectID": "0-intro.html#industry-4.0-5",
-    "href": "0-intro.html#industry-4.0-5",
-    "title": "Course Introduction",
-    "section": "Industry 4.0",
-    "text": "Industry 4.0\nImpacts:\n\nServitization (from selling goods to selling services)\nProductivity, and its resilience\nSafety\nIntegrated design of product/process\nCost structure\nSocio-economical factors\nBig Data analytics"
-  },
-  {
-    "objectID": "0-intro.html#digital-manufacturing-1",
-    "href": "0-intro.html#digital-manufacturing-1",
-    "title": "Course Introduction",
-    "section": "Digital Manufacturing",
-    "text": "Digital Manufacturing\nSome core, enabling technologies are grounding I4.0 and DM:\n\nCyber-Physical Systems (M2M connectivity)\nIIoT (connectivity layer)\nAdditive Manufacturing (dematerialization of design)\nMachine Learning and AI (autonomous decisions)"
-  },
-  {
-    "objectID": "0-intro.html#digital-manufacturing-2",
-    "href": "0-intro.html#digital-manufacturing-2",
-    "title": "Course Introduction",
-    "section": "Digital Manufacturing",
-    "text": "Digital Manufacturing\n\nCyber-Physical Systems: in short, they are mechatronic systems, i.e., mechanisms, whose actuators are controlled by a computer system based on output from sensors and logics provided by algorithms\nI4.0/DM-enabled CPS must be IoT-connected\n\nProvide the plant controller with information on its own status\nAccept incoming tasks"
-  },
-  {
-    "objectID": "0-intro.html#digital-manufacturing-3",
-    "href": "0-intro.html#digital-manufacturing-3",
-    "title": "Course Introduction",
-    "section": "Digital Manufacturing",
-    "text": "Digital Manufacturing\n\nIndustrial Internet of Things (IIoT): has to support communications among CPSs (M2M communication)\nIP protocol: IPv4 has \\(2^{32} \\simeq 4.3 \\times 10^9\\) addresses, IPv6 has \\(2^{128} \\simeq 3.4 \\times 10^{39}\\) addresses. IPv6 adoption is slow because of NAT and its rescue for IPv4 addresses exhaustion problem"
-  },
-  {
-    "objectID": "0-intro.html#osi-networking-model",
-    "href": "0-intro.html#osi-networking-model",
-    "title": "Course Introduction",
-    "section": "OSI Networking Model",
-    "text": "OSI Networking Model\n\nNetworking stack: according to the Internet model, networking happens over a stack of 4 layers\n\n\n\n\nLink layer (L0): physical carrier (Ethernet Cable, WiFi, etc) and its protocol (MAC, 802.11, ARP, etc)\nInternet (or network) layer (L1): IPv4, IPv6, ICMP\nTransport layer (L2): TCP, UDP\nApplication layer (L3): HTTP, FTP, IMAP, LDAP, …\n\n\n\n\n\nOSI layers"
-  },
-  {
-    "objectID": "0-intro.html#digital-manufacturing-4",
-    "href": "0-intro.html#digital-manufacturing-4",
-    "title": "Course Introduction",
-    "section": "Digital Manufacturing",
-    "text": "Digital Manufacturing\n\nIndustrial Internet of Things (IIoT): has to support communications among CPSs (M2M communication)\nLevel 0 protocols: 5G (low latency!)\nIP protocol (L1): beside address space, IPv6 has other advantages (complex multicasting, autoconfiguration, IPsec). Its adoption is still slow, though\nLevel 3 protocols: from REST (HTTPS) to lightweight protocols (MQTT, ZeroMQ, AMQP, OPC-UA)"
-  },
-  {
-    "objectID": "0-intro.html#rest-vs-message-queuing",
-    "href": "0-intro.html#rest-vs-message-queuing",
-    "title": "Course Introduction",
-    "section": "REST vs Message Queuing",
-    "text": "REST vs Message Queuing\n\n\n\nREpresentational State Transfer: IoT extension of HTTP\n\nVerbose (large overhead)\nComplex (PUT/GET/POST/DELETE)\nPolling-based\nPoint-to-point (n clients to 1 server)"
-  },
-  {
-    "objectID": "0-intro.html#http-overhead",
-    "href": "0-intro.html#http-overhead",
-    "title": "Course Introduction",
-    "section": "HTTP overhead",
-    "text": "HTTP overhead\n\n\nRequest phrase: GET / HTTP/1.1 (14 × 2 bytes)\nThe HTTP frame takes 153 bytes total\nThe full request stack takes 437 bytes\n\n\n\n\nWireshark capture"
-  },
-  {
-    "objectID": "0-intro.html#http-overhead-1",
-    "href": "0-intro.html#http-overhead-1",
-    "title": "Course Introduction",
-    "section": "HTTP overhead",
-    "text": "HTTP overhead\n\n\nResponse phrase: 77 bytes + HTML\nThe whole HTTP frame takes 937 bytes (including 819 bytes of HTML)\nThe full response stack takes 1201 bytes, 382 bytes for a blank page\n\n\n\n\nWireshark capture"
-  },
-  {
-    "objectID": "0-intro.html#how-to-reduce-overhead",
-    "href": "0-intro.html#how-to-reduce-overhead",
-    "title": "Course Introduction",
-    "section": "How to reduce overhead",
-    "text": "How to reduce overhead\n\nSimpler transport layer (L2) protocol: UDP has no SYN/ACK/FIN frames (but no confirmation of delivery!)\n\nAND/OR\n\nSimpler application layer (L3) protocols, where the data frame is as naked as possible\nTrade reliability and robustness for bandwidth and latency"
-  },
-  {
-    "objectID": "0-intro.html#how-to-reduce-overhead-1",
-    "href": "0-intro.html#how-to-reduce-overhead-1",
-    "title": "Course Introduction",
-    "section": "How to reduce overhead",
-    "text": "How to reduce overhead\n\nReliability and robustness are very important for IoP communications: variety of web servers, web browsers and document formats, and the web must “just work”\nThey are also important in IoT (things must do their tasks) but we can enforce standards and minimize possible sources of unexpected conditions"
-  },
-  {
-    "objectID": "0-intro.html#rest-vs-message-queuing-1",
-    "href": "0-intro.html#rest-vs-message-queuing-1",
-    "title": "Course Introduction",
-    "section": "REST vs Message Queuing",
-    "text": "REST vs Message Queuing\n\n\n\nIoT messages are typically smaller but much more frequent than IoP messages, and may need to follow routes more complex than n-to-1 (clients–server)\n\nNeed to minimize overhead\nNeed to support flexible topologies\n\nMessage Queuing protocols (like MQTT and ZeroMQ)\n\n\n\n\n\n\n\nflowchart LR\n  P1[Publisher] --&gt; B[Broker]\n  P2[Publisher] --&gt; B\n  B --&gt; S1[Subscriber]\n  B --&gt; S2[Subscriber]\n  B --&gt; S3[Subscriber]\n  B --&gt; S4[Subscriber]"
-  },
-  {
-    "objectID": "0-intro.html#rest-vs-message-queuing-2",
-    "href": "0-intro.html#rest-vs-message-queuing-2",
-    "title": "Course Introduction",
-    "section": "REST vs Message Queuing",
-    "text": "REST vs Message Queuing"
-  },
-  {
-    "objectID": "0-intro.html#digital-manufacturing-5",
-    "href": "0-intro.html#digital-manufacturing-5",
-    "title": "Course Introduction",
-    "section": "Digital Manufacturing",
-    "text": "Digital Manufacturing\n\nConventional machining: Designer ➡︎ CAM operator ➡︎ CNC machine tool\nAdditive Manufacturing: Designer ➡︎ Machine tool (printer)\nEntirely digital workflow"
-  },
-  {
-    "objectID": "0-intro.html#digital-manufacturing-6",
-    "href": "0-intro.html#digital-manufacturing-6",
-    "title": "Course Introduction",
-    "section": "Digital Manufacturing",
-    "text": "Digital Manufacturing\nMachine Learning and Artificial Intelligence:\n\nClassification of operating conditions\nAutonomous and de-centralized decision making\nLevel 7 automation on Amber & Amber’s scale"
-  },
-  {
-    "objectID": "0-intro.html#course-matter",
-    "href": "0-intro.html#course-matter",
-    "title": "Course Introduction",
-    "section": "Course Matter",
-    "text": "Course Matter\n\n\n\n\n\nDevelopment and testing\n\n\n\n\n\n\nDeployment (MADS on BeagleBone)\n\n\n\n\n\n\nCPS simulation (Digital Twin)\n\n\n\n\n\n\n3D printer\n\n\n\nDevelopment and testing ➡︎ Deployment ➡︎ (ZeroMQ) ➡︎ CPS simulation, and/or 3D printer"
-  },
-  {
-    "objectID": "0-intro.html#tools",
-    "href": "0-intro.html#tools",
-    "title": "Course Introduction",
-    "section": "Tools",
-    "text": "Tools\n\nProgramming in C++: high performance, general purpose language, suitable for real-time systems (controllers), more complex to learn than C (bigger) but more abstract (does not need understanding of hardware)\nGNU-Unix toolchain (much more common than Windows in automation)\n\nLinux exposed via WSL in Windows (MacOS is UNIX already)\nAnd/or custom machine simulator (faster)"
-  },
-  {
-    "objectID": "0-intro.html#teaching-material",
-    "href": "0-intro.html#teaching-material",
-    "title": "Course Introduction",
-    "section": "Teaching Material",
-    "text": "Teaching Material\n\n\n\nAll teaching materials are provided via Moodle\nSoftware will be made available on GitHub platform\nReference textbook is Manufacturing Automation, by Y. Altintas (2000), available @BUM (2 copies)\n\n\n\n\n\nReference book"
-  },
-  {
-    "objectID": "0-intro.html#exam",
-    "href": "0-intro.html#exam",
-    "title": "Course Introduction",
-    "section": "Exam",
-    "text": "Exam\n\nEach Session is made up by a mandatory written exam and an optional oral exam\n\nWritten exam: on Moodle platform, max 26/30\nOral exam: optional, max 30L/30, must be given in the same session\n\nFinal mark: starting from written mark, oral exam can improve or degrade it"
-  },
-  {
     "objectID": "1-machine_tools.html#manufacturing-systems-1",
     "href": "1-machine_tools.html#manufacturing-systems-1",
     "title": "Digital Manufacturing – Part 1",
@@ -1692,5 +943,285 @@
     "title": "Digital Manufacturing – Part 1",
     "section": "Laser interferometer: three-axis machine tool installation",
     "text": "Laser interferometer: three-axis machine tool installation\n\n\nHigh precision machine tools are equipped with a laser interferometer to measure the actual position of the axes.\n\none laser head (emitter only)\none receiver per axis\nbeam splitters direct 1/3 of the toutal source power to each axis\n\n\n\n\n\n\n\nNote\n\n\nLaser beam can be affected by refraction index changes and by air turbulence, so the machine is usually equipped with a temperature and pressure sensor to correct the measured distance and the laser is usually enclosed in a protective tube to avoid air turbulence.\n\n\n\n\n\n\n\nUsing LIF as measurement tool"
+  },
+  {
+    "objectID": "2-trc.html#trc-and-g-code",
+    "href": "2-trc.html#trc-and-g-code",
+    "title": "Tool Radius Compensation",
+    "section": "TRC and G-code",
+    "text": "TRC and G-code\n\nG-code standard supports a feature for offsetting the tool trajectory to the left or to the right of the trajectory by an amount equal to the tool radius\nThis is only affecting the X-Y projection of the trajectory, Z values remain unchanged\nThe TRC is set to the left with G41, to the right with G42 and is disabled with G40\nTRC is fully active at the end of the current block"
+  },
+  {
+    "objectID": "2-trc.html#tool-radius-compensation",
+    "href": "2-trc.html#tool-radius-compensation",
+    "title": "Tool Radius Compensation",
+    "section": "Tool radius compensation",
+    "text": "Tool radius compensation\n\n\n\nTRC offsets the tool center path (programmed points) according to G41/G42\nNew target points are calculated for each block on the basis of the offset intersection with the next block (arc or line)\nDisabled for rapid motions"
+  },
+  {
+    "objectID": "2-trc.html#tool-radius-compensation-line-line",
+    "href": "2-trc.html#tool-radius-compensation-line-line",
+    "title": "Tool Radius Compensation",
+    "section": "Tool radius compensation: Line-Line",
+    "text": "Tool radius compensation: Line-Line"
+  },
+  {
+    "objectID": "2-trc.html#tool-radius-compensation-line-circle",
+    "href": "2-trc.html#tool-radius-compensation-line-circle",
+    "title": "Tool Radius Compensation",
+    "section": "Tool radius compensation: Line-Circle",
+    "text": "Tool radius compensation: Line-Circle"
+  },
+  {
+    "objectID": "2-trc.html#line-line-case",
+    "href": "2-trc.html#line-line-case",
+    "title": "Tool Radius Compensation",
+    "section": "Line-Line case",
+    "text": "Line-Line case\n\n\nWe need to calculate the point \\(D\\):\n\nGiven the line equation \\(y = ax + b\\), we need to calculate the equation of the offset line(s)\nCalculate \\(D\\) as intercept between the two offset lines"
+  },
+  {
+    "objectID": "2-trc.html#line-line-case-1",
+    "href": "2-trc.html#line-line-case-1",
+    "title": "Tool Radius Compensation",
+    "section": "Line-Line case",
+    "text": "Line-Line case\n\n\n\nGiven \\(y = ax + b\\), the equation of the offset line is \\(y = ax + b - v\\)\nBeing \\(a = u/r\\), it follows that: \\(v = \\sqrt{u^2 + r^2} = r\\sqrt{a^2 + 1}\\)\nSo, \\(y = ax + b \\pm r\\sqrt{a^2 + 1}\\)\nThe sign depends on G41/G42 and on the path direction"
+  },
+  {
+    "objectID": "2-trc.html#line-line-case-2",
+    "href": "2-trc.html#line-line-case-2",
+    "title": "Tool Radius Compensation",
+    "section": "Line-Line case",
+    "text": "Line-Line case\n\n\nIntersection \\(D\\) between\n\\(y = a_1 x + b_1 - v_1 = a_1 x + b_{o,1}\\)\nand\n\\(y = a_2 x + b_2 - v_2 = a_2 x + b_{o,2}\\)\nhas coordinates:\n\\[(x_i, y_i) = \\left(\\frac{b_{o,2} - b_{o,1}}{a_1 - a_2}, \\frac{b_{o,1}a_2 - b_{o,2}a_1}{a_2 - a_1}\\right)\\]"
+  },
+  {
+    "objectID": "2-trc.html#line-line-case-3",
+    "href": "2-trc.html#line-line-case-3",
+    "title": "Tool Radius Compensation",
+    "section": "Line-Line case",
+    "text": "Line-Line case\n\n\n\nException: when two segments are collinear (\\(a = a_1 = a_2\\)), the intercept is undefined\nThe new intersection node is set at an offset \\(r\\) perpendicular to the segments\n\n\\[C = \\begin{cases} (0, -r), & \\text{when } a = 0 \\\\ r(s, -s/a) \\text{ with } s = \\frac{a}{|a|}\\sqrt{\\frac{a^2}{1 + a^2}}, & \\text{otherwise} \\end{cases}\\]"
+  },
+  {
+    "objectID": "2-trc.html#line-arc-or-arc-line",
+    "href": "2-trc.html#line-arc-or-arc-line",
+    "title": "Tool Radius Compensation",
+    "section": "Line-Arc (or Arc-Line)",
+    "text": "Line-Arc (or Arc-Line)\n\n\nSimilar to line-line case, but with a caveat:\n\nLine-circle intersection gives two points, \\(G\\) and \\(B_r\\): you have to select the intersection that is closer to the node to be offset (\\(B\\) in figure)\n\n\n\n\n\nNon-tangent line-arc case"
+  },
+  {
+    "objectID": "2-trc.html#line-arc-or-arc-line-1",
+    "href": "2-trc.html#line-arc-or-arc-line-1",
+    "title": "Tool Radius Compensation",
+    "section": "Line-Arc (or Arc-Line)",
+    "text": "Line-Arc (or Arc-Line)\n\n\nSimilar to line-line case, but with a caveat:\n\nLine-circle intersection gives two points, \\(G\\) and \\(B_r\\): you have to select the intersection that is closer to the node to be offset (\\(B\\) in figure)\n\n\n\n\n\nTangent line-arc case"
+  },
+  {
+    "objectID": "2-trc.html#code-changes",
+    "href": "2-trc.html#code-changes",
+    "title": "Tool Radius Compensation",
+    "section": "Code changes",
+    "text": "Code changes\nSupport for G40/G41/G42\n\nAn enum class TRCType with NONE, LEFT, RIGHT\nAn TRCType _trc field in the BlockTRC class\nProper code in BlockTRC::parse()\n_trc shall be managed as a modal field (i.e. inherited from previous block)"
+  },
+  {
+    "objectID": "2-trc.html#code-changes-1",
+    "href": "2-trc.html#code-changes-1",
+    "title": "Tool Radius Compensation",
+    "section": "Code changes",
+    "text": "Code changes\nSupport for tool radius\n\nThe YAML file needs to have a field as: tools: [10.0, 8.0, 5.0, 2.5] giving the list of available tools and respective radiuses\nThe Machine class needs to properly load the tool list into a new field: vector&lt;data_t&gt; _tools\nAdd machine::tool_radius(), which returns the radius of a given tool number"
+  },
+  {
+    "objectID": "2-trc.html#code-changes-2",
+    "href": "2-trc.html#code-changes-2",
+    "title": "Tool Radius Compensation",
+    "section": "Code changes",
+    "text": "Code changes\nSupport for offset calculation\n\nThe method Block::parse() needs to change the target of the previous block if the previous block has _trc != TRCType::NONE\nThe target must be changed according to the equations shown above and the radius of the current tool"
+  },
+  {
+    "objectID": "2-trc.html#code-changes-3",
+    "href": "2-trc.html#code-changes-3",
+    "title": "Tool Radius Compensation",
+    "section": "Code changes",
+    "text": "Code changes\nSupport for offset calculation\n\nEquations for intersections possibly require:\n\nBlock::angle_with_prev(): angle in radians with previous block\nBlock::equation(): returns \\(a\\) and \\(b\\) as output parameters (refs); for an arc, parameters of the implicit equation \\((x - x_c)^2 + (y - y_c)^2 = r^2\\) are available already\n\nThese functions can be private"
+  },
+  {
+    "objectID": "2-trc.html#advanced-trc",
+    "href": "2-trc.html#advanced-trc",
+    "title": "Tool Radius Compensation",
+    "section": "Advanced TRC",
+    "text": "Advanced TRC"
+  },
+  {
+    "objectID": "2-trc.html#rules",
+    "href": "2-trc.html#rules",
+    "title": "Tool Radius Compensation",
+    "section": "Rules",
+    "text": "Rules\n\nYou must work alone (I’ll check and compare results!)\nDocument progress with commits published on GitHub (private repo shared with me)\nNo help from my side, except these slides\nWhen you are done, you must discuss your work with me\n\nIf it works (no warnings, errors/errors, works as expected) and it is not copied, you get 30/30\n\nIf you implement advanced TRC or impress me with some other clever addition, you get 30/30 cum laude\nMust be done before the end of next year"
+  },
+  {
+    "objectID": "0-intro.html#digital-manufacturing",
+    "href": "0-intro.html#digital-manufacturing",
+    "title": "Course Introduction",
+    "section": "Digital Manufacturing",
+    "text": "Digital Manufacturing\n\nDM is the evolution of manufacturing, where an integrated approach is centered around a computer system\nEvolution: purely mechanical machinery ➡︎ CNC machines ➡︎ systems of computer-controlled machines\nDM goes within the framework of Industry 4.0\nIndustry 4.0 is the 4th industrial revolution"
+  },
+  {
+    "objectID": "0-intro.html#evolution-of-manufacturing",
+    "href": "0-intro.html#evolution-of-manufacturing",
+    "title": "Course Introduction",
+    "section": "Evolution of manufacturing",
+    "text": "Evolution of manufacturing\n\n\n\n\n\nMilling machine\n\n\n\n\n\nCNC milling center\n\n\n\n\n\n\n1st NC machine tool (MIT, 1952)\n\n\n\n\n\nDM plant"
+  },
+  {
+    "objectID": "0-intro.html#industry-4.0",
+    "href": "0-intro.html#industry-4.0",
+    "title": "Course Introduction",
+    "section": "Industry 4.0",
+    "text": "Industry 4.0\nThe term is a marketing slogan for the 4th industrial revolution, which is the digitalization of manufacturing. It was coined in Germany in 2011, and it is now a worldwide concept.\n\nMotivation — reaction from EU and USA to 2008 economical crisis\nName origin — 2011 Hannover Messe (Angela Merkel)\n\n\n\n\nHannover Messe 2013 — presentation of final report of the Industrie 4.0 committee, tasked by German government in 2011:\n\nDesign principles\nChallenges\nImpacts"
+  },
+  {
+    "objectID": "0-intro.html#previous-industrial-revolutions",
+    "href": "0-intro.html#previous-industrial-revolutions",
+    "title": "Course Introduction",
+    "section": "Previous industrial revolutions",
+    "text": "Previous industrial revolutions\n\n\nFirst Industrial Revolution\n\n\n\nMechanical loom, E. Cartwright, 1784\n\n\n\nSecond Industrial Revolution\n\n\n\nConveyor belt, Cincinnati Slaughterhouse, 1870\n\n\n\n\n\nConveyor belt, Ford Motor Company, 1913\n\n\n\nThird Industrial Revolution\n\n\n\nPLC, Modicon 084, 1969"
+  },
+  {
+    "objectID": "0-intro.html#industry-4.0-1",
+    "href": "0-intro.html#industry-4.0-1",
+    "title": "Course Introduction",
+    "section": "Industry 4.0",
+    "text": "Industry 4.0\nObjectives:\n\nRe-shoring of added value in western countries\nSustain salaries of working- and middle-class\nSustain e-commerce\nMass customization (added value shifts from manufacturing to design)\nTime compression (life cycle of a car from 5 to 2 years)"
+  },
+  {
+    "objectID": "0-intro.html#industry-4.0-2",
+    "href": "0-intro.html#industry-4.0-2",
+    "title": "Course Introduction",
+    "section": "Industry 4.0",
+    "text": "Industry 4.0\nDesign principles:\n\nInteroperability (IoT, IIoT, IoP)\nCyber-Physical Systems (CPS)\nInformation transparency: public, open protocols; digital twins\nSelf-support and in-line help to operators\nDecision de-centralization: autonomy, stratification, prioritization"
+  },
+  {
+    "objectID": "0-intro.html#industry-4.0-3",
+    "href": "0-intro.html#industry-4.0-3",
+    "title": "Course Introduction",
+    "section": "Industry 4.0",
+    "text": "Industry 4.0\n\nAkin to the Yardstick of Automation (Amber & Amber, 1962)\n\n\n\n\n\n\n\nOrder\nHuman attribute\nExample\n\n\n\n\n0\nNone\nManual tools\n\n\n1\nEnergy\nPowered machines and tools\n\n\n2\nDexterity\nSingle-cycle automatics (dexterity = self-feeding)\n\n\n3\nDiligence\nRepeats cycle; open-loop control\n\n\n4\nJudgment\nClosed loop; numerical control; self-measuring\n\n\n5\nEvaluation\nComputer control; model of process required for automation\n\n\n6\nLearning\nLimited self-programming; some artificial intelligence\n\n\n7\nReasoning\nInductive reasoning (cause-effects)\n\n\n8\nCreativity\nPerforms (original) design unaided\n\n\n9\nDominance\nMachine is master (HAL 9000)"
+  },
+  {
+    "objectID": "0-intro.html#industry-4.0-4",
+    "href": "0-intro.html#industry-4.0-4",
+    "title": "Course Introduction",
+    "section": "Industry 4.0",
+    "text": "Industry 4.0\nChallenges:\n\nCybersecurity\nReliability and resiliency of M2M communication (bandwidth and latency)\nDrop-in, plug-in approach on existing processes\nIntellectual property (IP) protection\nReluctancy to change, operators re-training\nCorporate IT\nInitial loss of labor"
+  },
+  {
+    "objectID": "0-intro.html#industry-4.0-5",
+    "href": "0-intro.html#industry-4.0-5",
+    "title": "Course Introduction",
+    "section": "Industry 4.0",
+    "text": "Industry 4.0\nImpacts:\n\nServitization (from selling goods to selling services)\nProductivity, and its resilience\nSafety\nIntegrated design of product/process\nCost structure\nSocio-economical factors\nBig Data analytics"
+  },
+  {
+    "objectID": "0-intro.html#digital-manufacturing-1",
+    "href": "0-intro.html#digital-manufacturing-1",
+    "title": "Course Introduction",
+    "section": "Digital Manufacturing",
+    "text": "Digital Manufacturing\nA set of core, enabling technologies are grounding I4.0 and DM:\n\nCyber-Physical Systems (M2M connectivity): in short, they are mechatronic systems, i.e., mechanisms, whose actuators are controlled by a computer system based on output from sensors and logics provided by algorithms\nCPSs provide the plant controller with information on its own status\nIIoT (connectivity layer): Industrial Internet of Things\nAdditive Manufacturing (dematerialization of design): paradigm of fully digital manufacturing process\nMachine Learning and AI: strategy to further enhance the level of automation and enable autonomous decisions"
+  },
+  {
+    "objectID": "0-intro.html#digital-manufacturing-2",
+    "href": "0-intro.html#digital-manufacturing-2",
+    "title": "Course Introduction",
+    "section": "Digital Manufacturing",
+    "text": "Digital Manufacturing\n\nIndustrial Internet of Things (IIoT): has to support communications among CPSs (M2M communication)\nEvery device is on the newtork: we have tens of billions of devices globally connected, and the number is growing fast\nProblem: IP protocol: IPv4 has \\(2^{32} \\simeq 4.3 \\times 10^9\\) addresses\nSolutions:\n\nIPv6 has \\(2^{128} \\simeq 3.4 \\times 10^{39}\\) addresses, but IPv6 adoption is slow because of the added costs and complexities\nNAT (Network Address Translation) keeps IPv4 and addresses exhaustion problem by allowing multiple devices to share a single public IP address behind a gateway"
+  },
+  {
+    "objectID": "0-intro.html#osi-networking-model",
+    "href": "0-intro.html#osi-networking-model",
+    "title": "Course Introduction",
+    "section": "OSI Networking Model",
+    "text": "OSI Networking Model\n\nNetworking stack: according to the Internet model, networking happens over a stack of 4 layers\n\n\n\n\nLink layer (L0): physical carrier (Ethernet Cable, WiFi, etc) and its protocol (MAC, 802.11, ARP, etc)\nInternet (or network) layer (L1): IPv4, IPv6, ICMP\nTransport layer (L2): TCP, UDP\nApplication layer (L3): HTTP, FTP, IMAP, LDAP, …\n\n\n\n\n\nOSI layers"
+  },
+  {
+    "objectID": "0-intro.html#digital-manufacturing-3",
+    "href": "0-intro.html#digital-manufacturing-3",
+    "title": "Course Introduction",
+    "section": "Digital Manufacturing",
+    "text": "Digital Manufacturing\nIndustrial Internet of Things (IIoT): has to support communications among CPSs (M2M communication)\n\nLevel 0 protocols: as fast as possible; currently introducing 5G (wireless yet extra-low latency!)\nIP protocol (L1): beside address space, IPv6 has other advantages (complex multicasting, autoconfiguration, IPsec). Its adoption is still slow, though\nLevel 3 protocols: moving from REST (HTTPS) to more lightweight message queuing protocols (MQTT, ZeroMQ, AMQP, OPC-UA)"
+  },
+  {
+    "objectID": "0-intro.html#rest-vs-message-queuing",
+    "href": "0-intro.html#rest-vs-message-queuing",
+    "title": "Course Introduction",
+    "section": "REST vs Message Queuing",
+    "text": "REST vs Message Queuing\n\n\n\nREpresentational State Transfer: it is an IoT extension of HTTP\nIt is not ideal:\n\nVerbose: large overhead\nComplex: PUT/GET/POST/DELETE verbs that make sense for IoP, but not for IoT\nPolling-based, event-based actions difficult to implement\nPoint-to-point: n clients to 1 server; routing a message between clients is difficult and not efficient"
+  },
+  {
+    "objectID": "0-intro.html#http-overhead",
+    "href": "0-intro.html#http-overhead",
+    "title": "Course Introduction",
+    "section": "HTTP overhead",
+    "text": "HTTP overhead\n\n\nLet’s see a HTTP/TCP request/reply message exchange by capturing the whole traffic with Wireshark\n\nRequest phrase: GET / HTTP/1.1 (14 × 2 bytes)\nThe HTTP frame takes 153 bytes total\nThe full request stack takes 437 bytes for the minimum request\n\n\n\n\n\nWireshark capture"
+  },
+  {
+    "objectID": "0-intro.html#http-overhead-1",
+    "href": "0-intro.html#http-overhead-1",
+    "title": "Course Introduction",
+    "section": "HTTP overhead",
+    "text": "HTTP overhead\n\n\n\nResponse phrase: 77 bytes + HTML\nThe whole HTTP frame takes 937 bytes (including 819 bytes of HTML)\nThe full response stack takes 1201 bytes, 382 bytes for a blank page\n\n\n\n\n\n\n\nOverhead\n\n\nThis is a huge overhead for a simple request/reply message exchange, and it is not acceptable for IoT communications, because it adds both bandwidth and latency\n\n\n\n\n\n\n\nWireshark capture"
+  },
+  {
+    "objectID": "0-intro.html#how-to-reduce-overhead",
+    "href": "0-intro.html#how-to-reduce-overhead",
+    "title": "Course Introduction",
+    "section": "How to reduce overhead",
+    "text": "How to reduce overhead\n\nReliability and robustness are very important for IoP communications: variety of web servers, web browsers and document formats, and the web must “just work”\nThey are also important in IoT (because things must do their tasks) but we can enforce standards and minimize possible sources of unexpected conditions\n\nOverhed can be reduced by:\n\nSimpler transport layer (L2) protocol: UDP has no SYN/ACK/FIN frames (but no confirmation of delivery!)\nSimpler application layer (L3) protocols, where the data frame is as naked as possible\nTrading reliability and robustness for bandwidth and latency"
+  },
+  {
+    "objectID": "0-intro.html#rest-vs-message-queuing-1",
+    "href": "0-intro.html#rest-vs-message-queuing-1",
+    "title": "Course Introduction",
+    "section": "REST vs Message Queuing",
+    "text": "REST vs Message Queuing\n\n\n\nIoT messages are typically smaller but much more frequent than IoP messages, and may need to follow routes more complex than n-to-1 (clients–server)\n\nNeed to minimize overhead\nNeed to support flexible topologies\n\nMessage Queuing protocols (like MQTT and ZeroMQ)\n\n\n\n\n\n\n\nflowchart LR\n  P1[Publisher] --&gt; B[Broker]\n  P2[Publisher] --&gt; B\n  B --&gt; S1[Subscriber]\n  B --&gt; S2[Subscriber]\n  B --&gt; S3[Subscriber]\n  B --&gt; S4[Subscriber]"
+  },
+  {
+    "objectID": "0-intro.html#rest-vs-message-queuing-2",
+    "href": "0-intro.html#rest-vs-message-queuing-2",
+    "title": "Course Introduction",
+    "section": "REST vs Message Queuing",
+    "text": "REST vs Message Queuing"
+  },
+  {
+    "objectID": "0-intro.html#digital-manufacturing-4",
+    "href": "0-intro.html#digital-manufacturing-4",
+    "title": "Course Introduction",
+    "section": "Digital Manufacturing",
+    "text": "Digital Manufacturing\nIt is the effort of moving all information flow from the design phase to the manufacturing phase into a digital (paperless) workflow, with the final goal of minimizing human effort and intervention (automation)\n\nConventional machining: Designer ➡︎ Drawings/models ➡︎ CAM operator ➡︎ part-program ➡︎ CNC machine tool\nAdditive Manufacturing: Designer ➡︎ Machine tool (like a printer)\nEntirely digital workflow, minimal human intervention\nSupport for Machine Learning and Artificial Intelligence:\n\nClassification of operating conditions\nAutonomous and de-centralized decision making\nLevel 7 automation on Amber & Amber’s scale"
+  },
+  {
+    "objectID": "0-intro.html#course-matter",
+    "href": "0-intro.html#course-matter",
+    "title": "Course Introduction",
+    "section": "Course Matter",
+    "text": "Course Matter\n\nOverview of manufacturing processes, machine architectures, control algorithms\nDevelopment of a CNC kernel (motion planner and controller)\nInterfacing the CNC kernel with a digital twin (Simulink model) and a 3D viewer, using an IoT framework\n\n\n\n\n\n\nC++ development and testing\n\n\n\n\n\n\nCPS simulation (Digital Twin)\n\n\n\n\n\n\n3D printer/3D viewer"
+  },
+  {
+    "objectID": "0-intro.html#tools",
+    "href": "0-intro.html#tools",
+    "title": "Course Introduction",
+    "section": "Tools",
+    "text": "Tools\n\nProgramming in C++: high performance, general purpose language, suitable for real-time systems (controllers), more complex to learn than C (bigger) but more abstract (does not need understanding of hardware)\nGNU-Unix toolchain (much more common than Windows in automation)\n\nLinux exposed via WSL in Windows (MacOS is UNIX already)\nAnd/or custom machine simulator (faster)\n\nCode will be developed in class and made available on https://github.com/pbosetti/cncpp\nReference IoT framework is MADS"
+  },
+  {
+    "objectID": "0-intro.html#teaching-material",
+    "href": "0-intro.html#teaching-material",
+    "title": "Course Introduction",
+    "section": "Teaching Material",
+    "text": "Teaching Material\n\n\n\nAll teaching materials are provided via Moodle\nSoftware will be made available on GitHub platform\nReference textbook is Manufacturing Automation, by Y. Altintas (2000), available @BUM (2 copies)\n\n\n\n\n\nReference book"
+  },
+  {
+    "objectID": "0-intro.html#exam-rules",
+    "href": "0-intro.html#exam-rules",
+    "title": "Course Introduction",
+    "section": "Exam rules",
+    "text": "Exam rules\nNormal exam\n\nEach Session is made up by a mandatory written exam and an optional oral exam\n\nWritten exam: on Moodle platform, max 26/30\nOral exam: optional, max 30L/30, must be given in the same session\n\nFinal mark: starting from written mark, oral exam can improve or degrade it\n\nAlternative: personal project\n\nThe students extend the CNC kernel developed in class to implement a selection of new features, and demonstrate it on a simulated machine\nThe project is evaluated by the teacher and the final mark is given as a single oral exam (max 30L/30)\nPersonal projects begin after the course end"
   }
 ]
