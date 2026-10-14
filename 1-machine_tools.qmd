@@ -20,7 +20,8 @@ format:
 #| include: false
 options(width = 60)
 knitr::opts_chunk$set(
-  include = FALSE
+  echo = FALSE,
+  warning = FALSE
 )
 set.seed(0)
 library(tidyverse)
@@ -2177,7 +2178,7 @@ la_plot(9, 8, 5)
 :::
 ::::
 
-## Forward step: accelerations {.smaller}
+## Forward step: accelerations
 
 Short segments:
 
