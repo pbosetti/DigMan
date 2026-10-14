@@ -7,6 +7,6 @@ engine: knitr
 
 # Contents
 
-* [Course introduction](0-intro.qmd): course contents, exam rules, and intro to Digital Manufacturing
-* [Digital manufacturing](1-machine_tools.qmd): Manufacturing processes, Machine tools architectures, and CNC algorithms
-* [Tool radius compensation](2-trc.qmd): A possible feature to implement for the personal project
+* [Course introduction](0-intro.qmd): course contents, exam rules, and intro to Digital Manufacturing ([PDF version](0-intro.pdf){target="pdf"})
+* [Digital manufacturing](1-machine_tools.qmd): Manufacturing processes, Machine tools architectures, and CNC algorithms ([PDF version](1-machine_tools.pdf){target="pdf"})
+* [Tool radius compensation](2-trc.qmd): A possible feature to implement for the personal project ([PDF version](2-trc.pdf){target="pdf"})

@@ -7,12 +7,21 @@ author: "Paolo Bosetti"
 institute: "Università di Trento, Dipartimento di Ingegneria Industriale"
 date: "`r Sys.time()`"
 date-format: "[*Updated:* ]DD/MM/YYYY"
-format: revealjs
+format: 
+  revealjs:
+    number-sections: false
+  pdf:
+    toc: true
+    number-sections: true
 ---
 
 
 ```{r}
+#| include: false
 options(width = 60)
+knitr::opts_chunk$set(
+  include = FALSE
+)
 set.seed(0)
 library(tidyverse)
 ```
