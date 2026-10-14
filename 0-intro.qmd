@@ -39,6 +39,8 @@ set.seed(0)
 
 ## Industry 4.0
 
+The term is a **marketing slogan** for the 4th industrial revolution, which is the **digitalization of manufacturing**. It was coined in Germany in 2011, and it is now a worldwide concept.
+
 - **Motivation** --- reaction from EU and USA to 2008 economical crisis
 - **Name origin** --- 2011 Hannover Messe (Angela Merkel)
 
@@ -53,7 +55,7 @@ set.seed(0)
 :::
 
 ::: {.column}
-![](images/industry40.png){fig-align="center" height=200}
+![](images/industry40.png){fig-align="center" height=300}
 :::
 
 :::
@@ -105,8 +107,6 @@ set.seed(0)
 
 ## Industry 4.0
 
-**Design principles:**
-
 | Order | Human attribute | Example |
 | - | - | ----- |
 | 0 | None | Manual tools |
@@ -148,24 +148,23 @@ set.seed(0)
 
 ## Digital Manufacturing
 
-Some core, enabling technologies are grounding I4.0 and DM:
+A set of core, **enabling technologies** are grounding I4.0 and DM:
 
-- Cyber-Physical Systems (M2M connectivity)
-- IIoT (connectivity layer)
-- Additive Manufacturing (dematerialization of design)
-- Machine Learning and AI (autonomous decisions)
+- **Cyber-Physical Systems** (M2M connectivity): in short, they are mechatronic systems, i.e., mechanisms, whose actuators are controlled by a computer system based on output from sensors and logics provided by algorithms
+- CPSs provide the plant controller with information on its own status
+- **IIoT** (connectivity layer): *Industrial Internet of Things*
+- Additive Manufacturing (dematerialization of design): paradigm of **fully digital manufacturing process**
+- **Machine Learning** and AI: strategy to further enhance the level of automation and enable autonomous decisions
 
-## Digital Manufacturing
-
-- **Cyber-Physical Systems:** in short, they are mechatronic systems, i.e., mechanisms, whose actuators are controlled by a computer system based on output from sensors and logics provided by algorithms
-- I4.0/DM-enabled CPS must be IoT-connected
-  - Provide the plant controller with information on its own status
-  - Accept incoming tasks
 
 ## Digital Manufacturing
 
 - **Industrial Internet of Things (IIoT):** has to support communications among CPSs (M2M communication)
-- IP protocol: IPv4 has $2^{32} \simeq 4.3 \times 10^9$ addresses, IPv6 has $2^{128} \simeq 3.4 \times 10^{39}$ addresses. IPv6 adoption is slow because of NAT and its rescue for IPv4 addresses exhaustion problem
+- Every **device** is on the newtork: we have tens of billions of devices globally connected, and the number is growing fast
+- **Problem**: IP protocol: IPv4 has $2^{32} \simeq 4.3 \times 10^9$ addresses 
+- **Solutions**: 
+  - IPv6 has $2^{128} \simeq 3.4 \times 10^{39}$ addresses, but IPv6 adoption is slow because of the added costs and complexities
+  - **NAT** ([*Network Address Translation*](https://en.wikipedia.org/wiki/Network_address_translation)) keeps IPv4 and addresses exhaustion problem by allowing multiple devices to share a single public IP address behind a gateway
 
 ## OSI Networking Model
 
@@ -191,10 +190,11 @@ Some core, enabling technologies are grounding I4.0 and DM:
 
 ## Digital Manufacturing
 
-- **Industrial Internet of Things (IIoT):** has to support communications among CPSs (M2M communication)
-- **Level 0 protocols:** 5G (low latency!)
+**Industrial Internet of Things (IIoT):** has to support communications among CPSs (M2M communication)
+
+- **Level 0 protocols:** as fast as possible; currently introducing 5G (wireless yet extra-low latency!)
 - **IP protocol (L1):** beside address space, IPv6 has other advantages (complex multicasting, autoconfiguration, IPsec). Its adoption is still slow, though
-- **Level 3 protocols:** from REST (HTTPS) to lightweight protocols (MQTT, ZeroMQ, AMQP, OPC-UA)
+- **Level 3 protocols:** moving from REST (HTTPS) to more lightweight **message queuing protocols** (MQTT, ZeroMQ, AMQP, OPC-UA)
 
 ## REST vs Message Queuing
 
@@ -202,11 +202,12 @@ Some core, enabling technologies are grounding I4.0 and DM:
 ::: {.columns}
 
 ::: {.column}
-- **RE**presentational **S**tate **T**ransfer: IoT extension of HTTP
-  - Verbose (large overhead)
-  - Complex (PUT/GET/POST/DELETE)
-  - Polling-based
-  - Point-to-point (*n* clients to 1 server)
+- **RE**presentational **S**tate **T**ransfer: it is an IoT extension of HTTP
+* It is not ideal:
+  - Verbose: large overhead
+  - Complex: `PUT/GET/POST/DELETE` verbs that make sense for IoP, but not for IoT
+  - Polling-based, event-based actions difficult to implement
+  - Point-to-point: *n* clients to 1 server; routing a message between clients is difficult and not efficient
 :::
 
 ::: {.column}
@@ -217,16 +218,16 @@ Some core, enabling technologies are grounding I4.0 and DM:
 
 
 
-
 ## HTTP overhead
 
 :::: {.columns}
 ::: {.column width="50%"}
-Request phrase: `GET / HTTP/1.1` (14 × 2 bytes)
+Let's see a HTTP/TCP request/reply message exchange by capturing the whole traffic with [Wireshark](https://www.wireshark.org/)
 
-The HTTP frame takes 153 bytes total
+* Request phrase: `GET / HTTP/1.1` (14 × 2 bytes)
+* The HTTP frame takes 153 bytes total
+* The full request stack takes 437 bytes for the **minimum request**
 
-The full request stack takes 437 bytes
 :::
 ::: {.column width="50%"}
 ![Wireshark capture](images/wireshark-1.png){height=470}
@@ -237,11 +238,15 @@ The full request stack takes 437 bytes
 
 :::: {.columns}
 ::: {.column width="50%"}
-Response phrase: 77 bytes + HTML
+* Response phrase: 77 bytes + HTML
+* The whole HTTP frame takes 937 bytes (including 819 bytes of HTML)
+* The full response stack takes 1201 bytes, 382 bytes for a **blank page**
 
-The whole HTTP frame takes 937 bytes (including 819 bytes of HTML)
 
-The full response stack takes 1201 bytes, 382 bytes for a blank page
+::: {.callout-warning}
+### Overhead
+This is a **huge overhead** for a simple request/reply message exchange, and it is not acceptable for IoT communications, because it adds both bandwidth **and** latency
+:::
 :::
 ::: {.column width="50%"}
 ![Wireshark capture](images/wireshark-2.png){height=470}
@@ -250,17 +255,15 @@ The full response stack takes 1201 bytes, 382 bytes for a blank page
 
 ## How to reduce overhead
 
+- Reliability and robustness are very important for **IoP** communications: variety of web servers, web browsers and document formats, and the web must "just work"
+- They are also important in **IoT** (because *things* must do their tasks) but we can enforce standards and minimize possible sources of unexpected conditions
+
+Overhed can be reduced by:
+
 - Simpler transport layer (L2) protocol: UDP has no SYN/ACK/FIN frames (but no confirmation of delivery!)
-
-**AND/OR**
-
 - Simpler application layer (L3) protocols, where the data frame is as naked as possible
-- Trade reliability and robustness for bandwidth and latency
+- Trading reliability and robustness for bandwidth and latency
 
-## How to reduce overhead
-
-- Reliability and robustness are very important for IoP communications: variety of web servers, web browsers and document formats, and the web must "just work"
-- They are also important in IoT (things must do their tasks) but we can enforce standards and minimize possible sources of unexpected conditions
 
 ## REST vs Message Queuing
 
@@ -292,43 +295,43 @@ flowchart LR
 
 ## Digital Manufacturing
 
-- **Conventional machining:** Designer ➡︎ CAM operator ➡︎ CNC machine tool
-- **Additive Manufacturing:** Designer ➡︎ Machine tool (printer)
-- Entirely digital workflow
+It is the effort of moving all information flow from the design phase to the manufacturing phase into a digital (paperless) workflow, with the final goal of [minimizing human effort and intervention]{.bgreen} (automation)
 
-## Digital Manufacturing
-
-**Machine Learning and Artificial Intelligence:**
-
-- Classification of operating conditions
-- Autonomous and de-centralized decision making
-- Level 7 automation on Amber & Amber's scale
+* **Conventional machining:** Designer ➡︎ Drawings/models ➡︎ CAM operator ➡︎ part-program ➡︎ CNC machine tool
+* **Additive Manufacturing:** Designer ➡︎ Machine tool (like a printer)
+* Entirely digital workflow, minimal human intervention
+* Support for **Machine Learning** and Artificial Intelligence:
+  - Classification of operating conditions
+  - Autonomous and de-centralized decision making
+  - Level 7 automation on Amber & Amber's scale
 
 ## Course Matter
 
+1. Overview of manufacturing processes, machine architectures, control algorithms
+2. Development of a CNC kernel (motion planner and controller) 
+3. Interfacing the CNC kernel with a digital twin (Simulink model) and a 3D viewer, using an IoT framework
+
 :::: {.columns}
-::: {.column width="25%"}
-![Development and testing](images/vscode.png){height=180}
+::: {.column width="33%"}
+![C++ development and testing](images/vscode.png){height=300}
 :::
-::: {.column width="25%"}
-![Deployment (MADS on BeagleBone)](images/beaglebone.png){height=180}
+::: {.column width="33%"}
+![CPS simulation (Digital Twin)](images/simulink.png){height=300}
 :::
-::: {.column width="25%"}
-![CPS simulation (Digital Twin)](images/simulink.png){height=180}
-:::
-::: {.column width="25%"}
-![3D printer](images/printer.png){height=180}
+::: {.column width="33%"}
+![3D printer/3D viewer](images/printer.png){height=300}
 :::
 ::::
 
-Development and testing ➡︎ Deployment ➡︎ (ZeroMQ) ➡︎ CPS simulation, and/or 3D printer
 
 ## Tools
 
-- Programming in C++: high performance, general purpose language, suitable for real-time systems (controllers), more complex to learn than C (bigger) but more abstract (does not need understanding of hardware)
-- GNU-Unix toolchain (much more common than Windows in automation)
+- **Programming in C++**: high performance, general purpose language, suitable for real-time systems (controllers), more complex to learn than C (bigger) but more abstract (does not need understanding of hardware)
+- **GNU-Unix toolchain** (much more common than Windows in automation)
   - Linux exposed via WSL in Windows (MacOS is UNIX already)
   - And/or custom machine simulator (faster)
+- Code will be developed in class and made available on <https://github.com/pbosetti/cncpp>
+- Reference **IoT framework** is [MADS](https://mads-net.github.io)
 
 ## Teaching Material
 
@@ -343,9 +346,17 @@ Development and testing ➡︎ Deployment ➡︎ (ZeroMQ) ➡︎ CPS simulation,
 :::
 ::::
 
-## Exam
+## Exam rules
+
+### Normal exam
 
 - Each Session is made up by a mandatory written exam and an optional oral exam
   - **Written exam:** on Moodle platform, max 26/30
   - **Oral exam:** optional, max 30L/30, must be given in the same session
 - **Final mark:** starting from written mark, oral exam can improve or degrade it
+
+### Alternative: personal project
+
+* The students extend the CNC kernel developed in class to implement a selection of new features, and demonstrate it on a simulated machine
+* The project is evaluated by the teacher and the final mark is given as a single oral exam (max 30L/30)
+* Personal projects begin **after the course end**

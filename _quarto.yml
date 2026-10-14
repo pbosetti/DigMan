@@ -5,6 +5,7 @@ project:
     browser: true
   resources:
     - videos/*
+    - iframes/*.html
     - MillCoordinates/**
     - Interferometer/**
     - images-1/scenes.html

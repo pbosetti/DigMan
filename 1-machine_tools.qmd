@@ -780,6 +780,8 @@ Other operations happen in *exposed time*, which is added to the machining cost
 
 ![](images/mt-elements.jpg){fig-align="center" height=470}
 
+# {background-iframe="iframes/milling-machine-slide.html" background-interactive="true" footer="false"}
+
 ## Drivers
 
 ![](images-1/driver-loop.svg){fig-align="center" height=140}
@@ -844,6 +846,8 @@ Encoder gain: pulses/rev --- Axis gain: screw pitch × encoder gain (mm/pulse)
 - Low friction
 - High load-bearing
 - Two counter-screwed nuts with interposed elastic pad for eliminating mechanical plays (precision)
+
+# {background-iframe="iframes/ballscrew-slide.html" background-interactive="true" footer="false"}
 
 ## Linear guide-rail
 
@@ -1222,7 +1226,7 @@ Even for 3 axes machines, it is customary to also include **small** rotations ab
 
 
 
-# {background-iframe="MillCoordinates/machine-frames.html" background-interactive="true"}
+# {background-iframe="iframes/machine-frames.html" background-interactive="true" footer="false"}
 
 
 ## Measuring positions: touch probe
@@ -1239,6 +1243,8 @@ Reference positions (as $O_{wp}$can be measure in machine thanks to a **touch pr
 ![](images/touch-probe.jpg){fig-align="center" height=440}
 :::
 ::::
+
+# {background-iframe="iframes/touch-probe-slide.html" background-interactive="true" footer="false"}
 
 
 ## Tool reference (*presetting*)
@@ -2433,32 +2439,85 @@ bind_rows(corner(500), corner(1500)) %>%
 
 ## Laser interferometer
 
-![](images/interferometer-optics.jpg){fig-align="center" height=470}
+![Agilent beam splitter and retro-reflector](images/interferometer-optics.jpg){fig-align="center" height=470}
 
 ## Linearity measurement
 
-![](images/linearity-meas.jpg){fig-align="center" height=470}
+
+::: {.columns}
+
+::: {.column}
+* This is the simnplest measurement
+* The laser beam is reflected by a mirror mounted on the axis and the interferometer measures the distance travelled by the axis
+* It is a way to **calibrate** and to verify the **positioning accuracy** of the axis encoder
+:::
+
+::: {.column}
+![Linearity measurement](images/linearity-meas.jpg)
+:::
+:::
+
+
 
 ## Angle measurement
 
-![](images-1/angle-meas.png){fig-align="center" height=470}
+::: {.columns}
+::: {.column}
+
+* An angle interferometer only changes the optical paths difference upon rotation
+* Rotation can happen either on the splitter or in the retro-reflector
+* The action plane can be selected to measure the pitch or the yaw angles
+
+:::
+
+::: {.column}
+![Angle measurement](images-1/angle-meas.png)
+:::
+:::
+
+
 
 ## Straightness measurement
 
-*Principles of operation of Wollaston's prism*
+A [Wollaston prism](https://en.wikipedia.org/wiki/Wollaston_prism) is a **beam-splitting prism** that splits a beam of light into two beams with orthogonal polarizations. The two beams are **diverging** at a small angle (typically 15–30 arcmin). The prism is used to measure the straightness of an axis by measuring the lateral displacement of the reflected beam.
 
 ![](images-1/straightness-prism.svg){fig-align="center" height=400}
 
 ## Straightness measurement
 
-![](images-1/straightness-meas.png){fig-align="center" height=490}
+
+::: {.columns}
+::: {.column}
+* By aligning the wollastone prism action plane with XY and with XZ planes it is possible to measure the straightness of the X axis in Y and Z directions
+
+:::
+
+::: {.column}
+![Wollaston prism](images-1/straightness-meas.png)
+:::
+:::
+
+
 
 ## Squareness measurement
 
-![](images-1/squareness-meas.png){fig-align="center" height=490}
+
+::: {.columns}
+::: {.column}
+* By combining lateral displacement measurement with an **optical square** it is possible to measure the squareness between two axes. 
+* The optical square is a **reflecting prism** that reflects the laser beam at 90° its incoming direction
+:::
+
+::: {.column}
+![Wollaston prism and optical square](images-1/squareness-meas.png)
+:::
+:::
 
 
-# {background-iframe="Interferometer/laser-interferometer.html" background-interactive="true"}
+
+
+
+# {background-iframe="iframes/laser-interferometer.html" background-interactive="true" footer="false"}
 
 
 ## Calibration
@@ -2493,4 +2552,29 @@ expand_grid(run = 1:5, dir = c("forward", "backward"), x = xs) %>%
 
 ## Laser interferometer: three-axis machine tool installation
 
-![](images/three-axis.jpg){fig-align="center" height=470}
+
+::: {.columns}
+
+::: {.column}
+High precision machine tools are equipped with a laser interferometer to measure the actual position of the axes. 
+
+* one laser head (emitter only)
+* one receiver per axis
+* beam splitters direct 1/3 of the toutal source power to each axis
+
+
+::: {.callout-note}
+Laser beam can be affected by refraction index changes and by air turbulence, so the machine is usually equipped with a **temperature and pressure sensor** to correct the measured distance and the laser is usually enclosed in a **protective tube** to avoid air turbulence.
+:::
+
+
+:::
+
+::: {.column}
+![Using **LIF** as measurement tool](images/three-axis.jpg){fig-align="center" height=470}
+:::
+
+:::
+
+
+
