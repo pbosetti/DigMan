@@ -841,11 +841,6 @@ expand_grid(t = seq(0, 0.2, length.out = 500), Kp = c(1, 11, 21)) %>%
 
 Encoder gain: pulses/rev --- Axis gain: screw pitch × encoder gain (mm/pulse)
 
-## Ball-screw assembly
-
-- Low friction
-- High load-bearing
-- Two counter-screwed nuts with interposed elastic pad for eliminating mechanical plays (precision)
 
 # {background-iframe="iframes/ballscrew-slide.html" background-interactive="true" footer="false"}
 
