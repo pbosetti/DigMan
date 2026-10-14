@@ -564,6 +564,9 @@ Paolo Bosetti
          and can be forced with ?dyslexic=1 / ?dyslexic=0 in the URL. -->
     <script>
     (() => {
+      // PDF export (DeckTape drives a headless browser): default font, no switch
+      if (navigator.webdriver) return;
+
       const KEY = "dm-dyslexic";
       const root = document.documentElement;
 

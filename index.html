@@ -151,9 +151,9 @@ Paolo Bosetti
 <section id="contents" class="title-slide slide level1 center">
 <h1>Contents</h1>
 <ul>
-<li><a href="./0-intro.html">Course introduction</a>: course contents, exam rules, and intro to Digital Manufacturing</li>
-<li><a href="./1-machine_tools.html">Digital manufacturing</a>: Manufacturing processes, Machine tools architectures, and CNC algorithms</li>
-<li><a href="./2-trc.html">Tool radius compensation</a>: A possible feature to implement for the personal project</li>
+<li><a href="./0-intro.html">Course introduction</a>: course contents, exam rules, and intro to Digital Manufacturing (<a href="0-intro.pdf" target="pdf">PDF version</a>)</li>
+<li><a href="./1-machine_tools.html">Digital manufacturing</a>: Manufacturing processes, Machine tools architectures, and CNC algorithms (<a href="1-machine_tools.pdf" target="pdf">PDF version</a>)</li>
+<li><a href="./2-trc.html">Tool radius compensation</a>: A possible feature to implement for the personal project (<a href="2-trc.pdf" target="pdf">PDF version</a>)</li>
 </ul>
 
 
@@ -380,6 +380,9 @@ Paolo Bosetti
          and can be forced with ?dyslexic=1 / ?dyslexic=0 in the URL. -->
     <script>
     (() => {
+      // PDF export (DeckTape drives a headless browser): default font, no switch
+      if (navigator.webdriver) return;
+
       const KEY = "dm-dyslexic";
       const root = document.documentElement;
 

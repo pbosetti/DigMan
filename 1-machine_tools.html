@@ -503,25 +503,9 @@ P &amp;= MRR\, p_s = 190.98\ \text{cm}^3/\text{min} \cdot 12.56\ \text{W min/cm}
 <p><span class="math inline">\(VT^n=K \rightarrow \log(V) - n\log(T) = \log(K) \rightarrow \log(T) = \frac{1}{n}\log(V) - \frac{1}{n}\log(K)\)</span></p>
 <div class="columns">
 <div class="column">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-2-1.png" width="1500"></p>
-</figure>
-</div>
-</div>
-</div>
+
 </div><div class="column">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-3-1.png" width="1500"></p>
-</figure>
-</div>
-</div>
-</div>
+
 </div></div>
 </section>
 <section id="productivity-optimization" class="slide level2">
@@ -656,15 +640,7 @@ T_{0,t} &amp;= (1/n -1)T_c
 <li>So, <span class="math inline">\(V\)</span> shall be normally set to <span class="math inline">\(V_{o,c}\)</span>, increasing it up to (but not above) <span class="math inline">\(V_{o,t}\)</span> if there are penalties for delays</li>
 </ul>
 </div><div class="column">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-4-1.png" width="1500"></p>
-</figure>
-</div>
-</div>
-</div>
+
 </div></div>
 </section>
 <section id="limits-of-analytical-process-models" class="slide level2">
@@ -1261,15 +1237,7 @@ T_{0,t} &amp;= (1/n -1)T_c
 <li><strong>No overshoot</strong> (or risk of damages)</li>
 </ul>
 </div><div class="column" style="width:55%;">
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center" width="443" height="290"></p>
-</figure>
-</div>
-</div>
-</div>
+
 </div></div>
 </section>
 <section id="feedback" class="slide level2">
@@ -2464,29 +2432,12 @@ N99999999 %es1 G71 *</code></pre>
 <li>limit jerks, to minimize vibrations and mechanical stress</li>
 </ul>
 </div><div class="column">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-7-1.png" width="1500"></p>
-</figure>
-</div>
-</div>
-</div>
+
 </div></div>
 </section>
 <section id="profiling-1" class="slide level2">
 <h2>Profiling</h2>
 <p>Discrete time-base (clock steps of <span class="math inline">\(t_q\)</span>) and feedrate quantization. Block durations must be scaled to a multiple of <span class="math inline">\(t_q\)</span> yet maintaining the same block length. The actual feedrate is reduced accordingly.</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center" width="792" height="190"></p>
-</figure>
-</div>
-</div>
-</div>
 <p><span class="math display">\[
 \Delta t_1 = \frac{f_m - f_s}{a}, \quad
 \Delta t_2 = \frac{f_m - f_e}{d}, \quad
@@ -2500,15 +2451,6 @@ N99999999 %es1 G71 *</code></pre>
 <section id="profiling-2" class="slide level2">
 <h2>Profiling</h2>
 <p>Discrete time-base (clock steps of <span class="math inline">\(t_q\)</span>) and feedrate quantization. Block durations must be scaled to a multiple of <span class="math inline">\(t_q\)</span> yet maintaining the same block length. The actual feedrate is reduced accordingly.</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center" width="792" height="190"></p>
-</figure>
-</div>
-</div>
-</div>
 <p><span class="math display">\[
 \int_{t_s}^{t_e} f(\tau)\,\mathrm{d}\tau = \frac{\Delta t_1}{2}(f_m^* + f_s) + \Delta t_m^* f_m^* + \frac{\Delta t_2}{2}(f_m^* + f_e) = l
 \]</span></p>
@@ -2523,15 +2465,7 @@ d^* = \frac{f_e - f_m^*}{\Delta t_2}
 <p>In <strong>short segments</strong> there’s no time enough to reach the nominal feedrate: <span class="math inline">\(\Delta t_m \le 0\)</span></p>
 <div class="columns">
 <div class="column" style="width:35%;">
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-10-1.png" class="quarto-figure quarto-figure-center" width="300" height="200"></p>
-</figure>
-</div>
-</div>
-</div>
+
 </div><div class="column" style="width:65%;">
 <p><span class="math display">\[
 \int_{t_s}^{t_e} f(\tau)\,\mathrm{d}\tau = \frac{a\Delta t_1^2 + d\Delta t_2^2}{2}; \quad a\Delta t_1 = d\Delta t_2
@@ -2572,15 +2506,7 @@ Z(t) &amp;= Z_0 + \Delta Z \lambda(t)
 \end{aligned}
 \]</span></p>
 </div><div class="column" style="width:40%;">
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-11-1.png" class="quarto-figure quarto-figure-center" width="310" height="431"></p>
-</figure>
-</div>
-</div>
-</div>
+
 </div></div>
 </section>
 <section id="motion-interpolation-1" class="slide level2">
@@ -2659,15 +2585,7 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
 <li>for <strong>limited jerk profiling</strong> each segment is split into 7 ranges (vs.&nbsp;3)</li>
 </ul>
 </div><div class="column">
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-12-1.png" class="quarto-figure quarto-figure-center" width="654" height="430"></p>
-</figure>
-</div>
-</div>
-</div>
+
 </div></div>
 </section>
 <section id="look-ahead-feedrate-profile" class="slide level2">
@@ -2716,15 +2634,7 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
 <li><span class="math inline">\(v_{f,i} = 0\)</span> for last segment or if <span class="math inline">\(v_{m,i} = 0\)</span></li>
 </ul>
 </div><div class="column">
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center" width="1500"></p>
-</figure>
-</div>
-</div>
-</div>
+
 </div></div>
 </section>
 <section id="forward-step-accelerations" class="slide level2">
@@ -2734,25 +2644,9 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
 <p>B. <span class="math inline">\(v_f &lt; v_m\)</span>, <span class="math inline">\(s_0 &lt; s_1 &lt; s_f &lt; s_2\)</span></p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-14-1.png" width="520" height="355"></p>
-</figure>
-</div>
-</div>
-</div>
+
 </div><div class="column" style="width:50%;">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-15-1.png" width="520" height="355"></p>
-</figure>
-</div>
-</div>
-</div>
+
 </div></div>
 </section>
 <section id="forward-step-accelerations-1" class="slide level2">
@@ -2762,25 +2656,9 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
 <p>B. <span class="math inline">\(v_f &lt; v_m\)</span>, <span class="math inline">\(s_1 &lt; s_0 &lt; s_f &lt; s_2\)</span></p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-16-1.png" width="520" height="355"></p>
-</figure>
-</div>
-</div>
-</div>
+
 </div><div class="column" style="width:50%;">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-17-1.png" width="520" height="355"></p>
-</figure>
-</div>
-</div>
-</div>
+
 </div></div>
 </section>
 <section id="forward-step-accelerations-2" class="slide level2 smaller">
@@ -2792,25 +2670,9 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
 </ul>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-18-1.png" width="520" height="355"></p>
-</figure>
-</div>
-</div>
-</div>
+
 </div><div class="column" style="width:50%;">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-19-1.png" width="520" height="355"></p>
-</figure>
-</div>
-</div>
-</div>
+
 </div></div>
 </section>
 <section id="forward-step-accelerations-3" class="slide level2">
@@ -2821,25 +2683,9 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
 </ul>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-20-1.png" width="520" height="355"></p>
-</figure>
-</div>
-</div>
-</div>
+
 </div><div class="column" style="width:50%;">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-21-1.png" width="520" height="355"></p>
-</figure>
-</div>
-</div>
-</div>
+
 </div></div>
 </section>
 <section id="backward-step-decelerations" class="slide level2">
@@ -2850,38 +2696,13 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
 </ul>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-22-1.png" width="520" height="355"></p>
-</figure>
-</div>
-</div>
-</div>
+
 </div><div class="column" style="width:50%;">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-23-1.png" width="520" height="355"></p>
-</figure>
-</div>
-</div>
-</div>
+
 </div></div>
 </section>
 <section id="possible-cases" class="slide level2">
 <h2>9 Possible cases</h2>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-24-1.png" class="quarto-figure quarto-figure-center" width="964" height="540"></p>
-</figure>
-</div>
-</div>
-</div>
 </section>
 <section id="change-of-variable" class="slide level2">
 <h2>Change of variable</h2>
@@ -2932,154 +2753,7 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
 <li><span class="bblue">Machine error sources</span>: more difficult to compensate, potentially ever changing</li>
 </ul>
 </div><div class="column" style="width:66%;">
-<div class="cell" data-fig-width="7" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<svg width="672" height="384" viewbox="0.00 0.00 764.20 432.70" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 428.7)">
-<title>errsrc</title>
-<!-- box -->
-<g id="node1" class="node">
-<title>box</title>
-<path fill="none" stroke="#880000" stroke-dasharray="5,2" d="M618.1,-424.7C618.1,-424.7 138.1,-424.7 138.1,-424.7 132.1,-424.7 126.1,-418.7 126.1,-412.7 126.1,-412.7 126.1,-310.7 126.1,-310.7 126.1,-304.7 132.1,-298.7 138.1,-298.7 138.1,-298.7 618.1,-298.7 618.1,-298.7 624.1,-298.7 630.1,-304.7 630.1,-310.7 630.1,-310.7 630.1,-412.7 630.1,-412.7 630.1,-418.7 624.1,-424.7 618.1,-424.7"></path>
-</g>
-<!-- lab -->
-<g id="node2" class="node">
-<title>lab</title>
-<text text-anchor="middle" x="194.5" y="-399.26" font-family="Helvetica,sans-Serif" font-size="14.00" fill="#880000">≈ 70% of total errors</text>
-</g>
-<!-- geo -->
-<g id="node3" class="node">
-<title>geo</title>
-<ellipse fill="#e8e8f8" stroke="#000088" cx="212.5" cy="-347.3" rx="68.5" ry="30.5"></ellipse>
-<text text-anchor="middle" x="212.5" y="-351.8" font-family="Helvetica,sans-Serif" font-size="15.00">Geometrical</text>
-<text text-anchor="middle" x="212.5" y="-333.8" font-family="Helvetica,sans-Serif" font-size="15.00">errors</text>
-</g>
-<!-- th -->
-<g id="node4" class="node">
-<title>th</title>
-<ellipse fill="#e8e8f8" stroke="#000088" cx="378.1" cy="-347.3" rx="68.5" ry="30.5"></ellipse>
-<text text-anchor="middle" x="378.1" y="-351.8" font-family="Helvetica,sans-Serif" font-size="15.00">Thermal</text>
-<text text-anchor="middle" x="378.1" y="-333.8" font-family="Helvetica,sans-Serif" font-size="15.00">errors</text>
-</g>
-<!-- kin -->
-<g id="node5" class="node">
-<title>kin</title>
-<ellipse fill="#e8e8f8" stroke="#000088" cx="543.7" cy="-347.3" rx="68.5" ry="30.5"></ellipse>
-<text text-anchor="middle" x="543.7" y="-351.8" font-family="Helvetica,sans-Serif" font-size="15.00">Kinematic</text>
-<text text-anchor="middle" x="543.7" y="-333.8" font-family="Helvetica,sans-Serif" font-size="15.00">errors</text>
-</g>
-<!-- tot -->
-<g id="node6" class="node">
-<title>tot</title>
-<path fill="#f3eaea" stroke="#880000" d="M431.1,-242.8C431.1,-242.8 325.1,-242.8 325.1,-242.8 319.1,-242.8 313.1,-236.8 313.1,-230.8 313.1,-230.8 313.1,-175.8 313.1,-175.8 313.1,-169.8 319.1,-163.8 325.1,-163.8 325.1,-163.8 431.1,-163.8 431.1,-163.8 437.1,-163.8 443.1,-169.8 443.1,-175.8 443.1,-175.8 443.1,-230.8 443.1,-230.8 443.1,-236.8 437.1,-242.8 431.1,-242.8"></path>
-<text text-anchor="middle" x="378.1" y="-218.6" font-family="Helvetica,sans-Serif" font-size="17.00" fill="#880000">Total</text>
-<text text-anchor="middle" x="378.1" y="-198.2" font-family="Helvetica,sans-Serif" font-size="17.00" fill="#880000">volumetric</text>
-<text text-anchor="middle" x="378.1" y="-177.8" font-family="Helvetica,sans-Serif" font-size="17.00" fill="#880000">error</text>
-</g>
-<!-- wear -->
-<g id="node7" class="node">
-<title>wear</title>
-<ellipse fill="#edf8e8" stroke="#666666" cx="68.5" cy="-203.3" rx="68.5" ry="30.5"></ellipse>
-<text text-anchor="middle" x="68.5" y="-198.8" font-family="Helvetica,sans-Serif" font-size="15.00">Tool wear</text>
-</g>
-<!-- cut -->
-<g id="node8" class="node">
-<title>cut</title>
-<ellipse fill="#edf8e8" stroke="#666666" cx="118.9" cy="-66.5" rx="68.5" ry="30.5"></ellipse>
-<text text-anchor="middle" x="118.9" y="-71" font-family="Helvetica,sans-Serif" font-size="15.00">Cutting</text>
-<text text-anchor="middle" x="118.9" y="-53" font-family="Helvetica,sans-Serif" font-size="15.00">forces</text>
-</g>
-<!-- fix -->
-<g id="node9" class="node">
-<title>fix</title>
-<ellipse fill="#edf8e8" stroke="#666666" cx="284.5" cy="-30.5" rx="68.5" ry="30.5"></ellipse>
-<text text-anchor="middle" x="284.5" y="-26" font-family="Helvetica,sans-Serif" font-size="15.00">Fixtures</text>
-</g>
-<!-- mat -->
-<g id="node10" class="node">
-<title>mat</title>
-<ellipse fill="#fed2b0" stroke="#666666" cx="687.7" cy="-203.3" rx="68.5" ry="30.5"></ellipse>
-<text text-anchor="middle" x="687.7" y="-207.8" font-family="Helvetica,sans-Serif" font-size="15.00">Material</text>
-<text text-anchor="middle" x="687.7" y="-189.8" font-family="Helvetica,sans-Serif" font-size="15.00">instability</text>
-</g>
-<!-- ctl -->
-<g id="node11" class="node">
-<title>ctl</title>
-<ellipse fill="#fed2b0" stroke="#666666" cx="471.7" cy="-30.5" rx="68.5" ry="30.5"></ellipse>
-<text text-anchor="middle" x="471.7" y="-35" font-family="Helvetica,sans-Serif" font-size="15.00">Control</text>
-<text text-anchor="middle" x="471.7" y="-17" font-family="Helvetica,sans-Serif" font-size="15.00">interpolation</text>
-</g>
-<!-- creep -->
-<g id="node12" class="node">
-<title>creep</title>
-<ellipse fill="#fed2b0" stroke="#666666" cx="637.3" cy="-66.5" rx="68.5" ry="30.5"></ellipse>
-<text text-anchor="middle" x="637.3" y="-71" font-family="Helvetica,sans-Serif" font-size="15.00">Creep at</text>
-<text text-anchor="middle" x="637.3" y="-53" font-family="Helvetica,sans-Serif" font-size="15.00">joints</text>
-</g>
-<!-- tot&#45;&#45;geo -->
-<g id="edge1" class="edge">
-<title>tot--geo</title>
-<path fill="none" stroke="#333333" d="M332.41,-243.03C306.24,-265.78 273.84,-293.96 249.32,-315.28"></path>
-<polygon fill="#333333" stroke="#333333" points="247.57,-313.56 243.9,-320 250.79,-317.25 247.57,-313.56"></polygon>
-</g>
-<!-- tot&#45;&#45;th -->
-<g id="edge2" class="edge">
-<title>tot--th</title>
-<path fill="none" stroke="#333333" d="M378.1,-243.03C378.1,-263.73 378.1,-288.92 378.1,-309.36"></path>
-<polygon fill="#333333" stroke="#333333" points="375.65,-309.37 378.1,-316.37 380.55,-309.37 375.65,-309.37"></polygon>
-</g>
-<!-- tot&#45;&#45;kin -->
-<g id="edge3" class="edge">
-<title>tot--kin</title>
-<path fill="none" stroke="#333333" d="M423.79,-243.03C449.96,-265.78 482.36,-293.96 506.88,-315.28"></path>
-<polygon fill="#333333" stroke="#333333" points="505.41,-317.25 512.3,-320 508.63,-313.56 505.41,-317.25"></polygon>
-</g>
-<!-- tot&#45;&#45;wear -->
-<g id="edge4" class="edge">
-<title>tot--wear</title>
-<path fill="none" stroke="#333333" d="M312.82,-203.3C263.6,-203.3 195.98,-203.3 144.35,-203.3"></path>
-<polygon fill="#333333" stroke="#333333" points="144.18,-200.85 137.18,-203.3 144.18,-205.75 144.18,-200.85"></polygon>
-</g>
-<!-- tot&#45;&#45;cut -->
-<g id="edge5" class="edge">
-<title>tot--cut</title>
-<path fill="none" stroke="#333333" d="M313.03,-168.96C268.62,-145.52 210.63,-114.91 169.63,-93.28"></path>
-<polygon fill="#333333" stroke="#333333" points="170.54,-90.98 163.2,-89.88 168.25,-95.32 170.54,-90.98"></polygon>
-</g>
-<!-- tot&#45;&#45;fix -->
-<g id="edge6" class="edge">
-<title>tot--fix</title>
-<path fill="none" stroke="#333333" d="M356.63,-163.66C340.77,-134.38 319.36,-94.86 304,-66.49"></path>
-<polygon fill="#333333" stroke="#333333" points="306.11,-65.25 300.62,-60.26 301.8,-67.58 306.11,-65.25"></polygon>
-</g>
-<!-- tot&#45;&#45;mat -->
-<g id="edge7" class="edge">
-<title>tot--mat</title>
-<path fill="none" stroke="#333333" d="M443.38,-203.3C492.6,-203.3 560.22,-203.3 611.85,-203.3"></path>
-<polygon fill="#333333" stroke="#333333" points="612.02,-205.75 619.02,-203.3 612.02,-200.85 612.02,-205.75"></polygon>
-</g>
-<!-- tot&#45;&#45;ctl -->
-<g id="edge8" class="edge">
-<title>tot--ctl</title>
-<path fill="none" stroke="#333333" d="M399.57,-163.66C415.43,-134.38 436.84,-94.86 452.2,-66.49"></path>
-<polygon fill="#333333" stroke="#333333" points="454.4,-67.58 455.58,-60.26 450.09,-65.25 454.4,-67.58"></polygon>
-</g>
-<!-- tot&#45;&#45;creep -->
-<g id="edge9" class="edge">
-<title>tot--creep</title>
-<path fill="none" stroke="#333333" d="M443.17,-168.96C487.58,-145.52 545.57,-114.91 586.57,-93.28"></path>
-<polygon fill="#333333" stroke="#333333" points="587.95,-95.32 593,-89.88 585.66,-90.98 587.95,-95.32"></polygon>
-</g>
-</g>
-</svg>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
+
 </div></div>
 </section>
 <section id="error-compensation-a5" class="slide level2">
@@ -3105,15 +2779,7 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
 <li>When a sharp corner is needed, use curls or disable look-ahead</li>
 </ul>
 </div><div class="column" style="width:40%;">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-26-1.png" width="1500"></p>
-</figure>
-</div>
-</div>
-</div>
+
 </div><div class="column" style="width:30%;">
 <p><img data-src="images-1/corner.png"></p>
 </div></div>
@@ -3263,16 +2929,6 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
 </section>
 <section id="calibration" class="slide level2">
 <h2>Calibration</h2>
-<div class="cell quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-27-1.png"></p>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img data-src="1-machine_tools_files/figure-revealjs/unnamed-chunk-27-2.png"></p>
-</div>
-</div>
-</div>
 </section>
 <section id="laser-interferometer-three-axis-machine-tool-installation" class="slide level2">
 <h2>Laser interferometer: three-axis machine tool installation</h2>
@@ -3530,6 +3186,9 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
          and can be forced with ?dyslexic=1 / ?dyslexic=0 in the URL. -->
     <script>
     (() => {
+      // PDF export (DeckTape drives a headless browser): default font, no switch
+      if (navigator.webdriver) return;
+
       const KEY = "dm-dyslexic";
       const root = document.documentElement;
 

@@ -690,21 +690,21 @@
     "href": "1-machine_tools.html#profiling-1",
     "title": "Digital Manufacturing – Part 1",
     "section": "Profiling",
-    "text": "Profiling\nDiscrete time-base (clock steps of \\(t_q\\)) and feedrate quantization. Block durations must be scaled to a multiple of \\(t_q\\) yet maintaining the same block length. The actual feedrate is reduced accordingly.\n\n\n\n\n\n\n\n\n\n\\[\n\\Delta t_1 = \\frac{f_m - f_s}{a}, \\quad\n\\Delta t_2 = \\frac{f_m - f_e}{d}, \\quad\n\\Delta t_m = \\frac{l}{f_m} - \\Delta t_1 \\frac{f_m + f_s}{2 f_m} - \\Delta t_2 \\frac{f_e + f_m}{2 f_m}\n\\]\n\\[\n\\Delta t^* = \\mathrm{int}\\left(\\frac{\\Delta t}{t_q} + 1\\right) t_q = \\Delta t_1 + \\Delta t_m^* + \\Delta t_2, \\qquad\n\\Delta t_m^* = \\Delta t_m + \\Delta t^* - \\Delta t\n\\]"
+    "text": "Profiling\nDiscrete time-base (clock steps of \\(t_q\\)) and feedrate quantization. Block durations must be scaled to a multiple of \\(t_q\\) yet maintaining the same block length. The actual feedrate is reduced accordingly.\n\\[\n\\Delta t_1 = \\frac{f_m - f_s}{a}, \\quad\n\\Delta t_2 = \\frac{f_m - f_e}{d}, \\quad\n\\Delta t_m = \\frac{l}{f_m} - \\Delta t_1 \\frac{f_m + f_s}{2 f_m} - \\Delta t_2 \\frac{f_e + f_m}{2 f_m}\n\\]\n\\[\n\\Delta t^* = \\mathrm{int}\\left(\\frac{\\Delta t}{t_q} + 1\\right) t_q = \\Delta t_1 + \\Delta t_m^* + \\Delta t_2, \\qquad\n\\Delta t_m^* = \\Delta t_m + \\Delta t^* - \\Delta t\n\\]"
   },
   {
     "objectID": "1-machine_tools.html#profiling-2",
     "href": "1-machine_tools.html#profiling-2",
     "title": "Digital Manufacturing – Part 1",
     "section": "Profiling",
-    "text": "Profiling\nDiscrete time-base (clock steps of \\(t_q\\)) and feedrate quantization. Block durations must be scaled to a multiple of \\(t_q\\) yet maintaining the same block length. The actual feedrate is reduced accordingly.\n\n\n\n\n\n\n\n\n\n\\[\n\\int_{t_s}^{t_e} f(\\tau)\\,\\mathrm{d}\\tau = \\frac{\\Delta t_1}{2}(f_m^* + f_s) + \\Delta t_m^* f_m^* + \\frac{\\Delta t_2}{2}(f_m^* + f_e) = l\n\\]\n\\[\nf_m^* = \\frac{2l - f_s \\Delta t_1 - f_e \\Delta t_2}{\\Delta t_1 + \\Delta t_2 + 2\\Delta t_m^*}, \\qquad\na^* = \\frac{f_m^* - f_s}{\\Delta t_1}, \\qquad\nd^* = \\frac{f_e - f_m^*}{\\Delta t_2}\n\\]"
+    "text": "Profiling\nDiscrete time-base (clock steps of \\(t_q\\)) and feedrate quantization. Block durations must be scaled to a multiple of \\(t_q\\) yet maintaining the same block length. The actual feedrate is reduced accordingly.\n\\[\n\\int_{t_s}^{t_e} f(\\tau)\\,\\mathrm{d}\\tau = \\frac{\\Delta t_1}{2}(f_m^* + f_s) + \\Delta t_m^* f_m^* + \\frac{\\Delta t_2}{2}(f_m^* + f_e) = l\n\\]\n\\[\nf_m^* = \\frac{2l - f_s \\Delta t_1 - f_e \\Delta t_2}{\\Delta t_1 + \\Delta t_2 + 2\\Delta t_m^*}, \\qquad\na^* = \\frac{f_m^* - f_s}{\\Delta t_1}, \\qquad\nd^* = \\frac{f_e - f_m^*}{\\Delta t_2}\n\\]"
   },
   {
     "objectID": "1-machine_tools.html#profiling-3",
     "href": "1-machine_tools.html#profiling-3",
     "title": "Digital Manufacturing – Part 1",
     "section": "Profiling",
-    "text": "Profiling\nIn short segments there’s no time enough to reach the nominal feedrate: \\(\\Delta t_m \\le 0\\)\n\n\n\n\n\n\n\n\n\n\n\n\n\\[\n\\int_{t_s}^{t_e} f(\\tau)\\,\\mathrm{d}\\tau = \\frac{a\\Delta t_1^2 + d\\Delta t_2^2}{2}; \\quad a\\Delta t_1 = d\\Delta t_2\n\\]\n\\[\n\\frac{\\Delta t_1^2 (a + a^2/d)}{2} = l\n\\]\n\n\\[\n\\begin{aligned}\n\\Delta t_1 &= \\sqrt{\\frac{2l}{a + a^2/d}} \\\\\n\\Delta t_2 &= \\frac{a}{d}\\Delta t_1 \\\\\n\\Delta t_2^* &= \\Delta t^* - \\Delta t_1\n\\end{aligned}\n\\qquad\nf_m^*(\\Delta t_1 + \\Delta t_2^*) = 2l\n\\qquad\n\\begin{aligned}\na^* &= \\frac{f_m^* - f_s}{\\Delta t_1} \\\\\nd^* &= \\frac{f_e - f_m^*}{\\Delta t_2^*}\n\\end{aligned}\n\\]"
+    "text": "Profiling\nIn short segments there’s no time enough to reach the nominal feedrate: \\(\\Delta t_m \\le 0\\)\n\n\n\n\n\\[\n\\int_{t_s}^{t_e} f(\\tau)\\,\\mathrm{d}\\tau = \\frac{a\\Delta t_1^2 + d\\Delta t_2^2}{2}; \\quad a\\Delta t_1 = d\\Delta t_2\n\\]\n\\[\n\\frac{\\Delta t_1^2 (a + a^2/d)}{2} = l\n\\]\n\n\\[\n\\begin{aligned}\n\\Delta t_1 &= \\sqrt{\\frac{2l}{a + a^2/d}} \\\\\n\\Delta t_2 &= \\frac{a}{d}\\Delta t_1 \\\\\n\\Delta t_2^* &= \\Delta t^* - \\Delta t_1\n\\end{aligned}\n\\qquad\nf_m^*(\\Delta t_1 + \\Delta t_2^*) = 2l\n\\qquad\n\\begin{aligned}\na^* &= \\frac{f_m^* - f_s}{\\Delta t_1} \\\\\nd^* &= \\frac{f_e - f_m^*}{\\Delta t_2^*}\n\\end{aligned}\n\\]"
   },
   {
     "objectID": "1-machine_tools.html#motion-interpolation",
@@ -830,7 +830,7 @@
     "href": "1-machine_tools.html#machining-error-sources",
     "title": "Digital Manufacturing – Part 1",
     "section": "Machining error sources",
-    "text": "Machining error sources\n\n\n\nProcess error sources: tool/workpiece interaction (minimized by proper process conditions)\nStructural error sources: time-dependent, eventually become stable and can be compensated\nMachine error sources: more difficult to compensate, potentially ever changing\n\n\n\n\n\n\n\n\n\nerrsrc\n\n\nbox\n\n\n\n\nlab\n≈ 70% of total errors\n\n\n\ngeo\n\nGeometrical\nerrors\n\n\n\nth\n\nThermal\nerrors\n\n\n\nkin\n\nKinematic\nerrors\n\n\n\ntot\n\nTotal\nvolumetric\nerror\n\n\n\nwear\n\nTool wear\n\n\n\ncut\n\nCutting\nforces\n\n\n\nfix\n\nFixtures\n\n\n\nmat\n\nMaterial\ninstability\n\n\n\nctl\n\nControl\ninterpolation\n\n\n\ncreep\n\nCreep at\njoints\n\n\n\ntot--geo\n\n\n\n\n\ntot--th\n\n\n\n\n\ntot--kin\n\n\n\n\n\ntot--wear\n\n\n\n\n\ntot--cut\n\n\n\n\n\ntot--fix\n\n\n\n\n\ntot--mat\n\n\n\n\n\ntot--ctl\n\n\n\n\n\ntot--creep"
+    "text": "Machining error sources\n\n\n\nProcess error sources: tool/workpiece interaction (minimized by proper process conditions)\nStructural error sources: time-dependent, eventually become stable and can be compensated\nMachine error sources: more difficult to compensate, potentially ever changing"
   },
   {
     "objectID": "1-machine_tools.html#error-compensation-a5",
