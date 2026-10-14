@@ -392,13 +392,6 @@
     "text": "Linear axis control\n\n\n\n\n\nEncoder gain: pulses/rev — Axis gain: screw pitch × encoder gain (mm/pulse)"
   },
   {
-    "objectID": "1-machine_tools.html#ball-screw-assembly",
-    "href": "1-machine_tools.html#ball-screw-assembly",
-    "title": "Digital Manufacturing – Part 1",
-    "section": "Ball-screw assembly",
-    "text": "Ball-screw assembly\n\nLow friction\nHigh load-bearing\nTwo counter-screwed nuts with interposed elastic pad for eliminating mechanical plays (precision)"
-  },
-  {
     "objectID": "1-machine_tools.html#linear-guide-rail",
     "href": "1-machine_tools.html#linear-guide-rail",
     "title": "Digital Manufacturing – Part 1",
