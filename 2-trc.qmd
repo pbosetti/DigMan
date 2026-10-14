@@ -18,7 +18,7 @@ set.seed(0)
 
 # Tool radius compensation (TRC)
 
-A possible feature to implemet for the personal project
+A possible feature to implement for the personal project
 
 
 ## TRC and G-code

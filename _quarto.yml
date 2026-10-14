@@ -6,6 +6,7 @@ project:
   resources:
     - videos/*
     - iframes/*.html
+    - fonts/*
     - MillCoordinates/**
     - Interferometer/**
     - images-1/scenes.html
@@ -25,6 +26,10 @@ format:
       method: mathjax
       url: "https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"
     theme: [default, slides.scss]
+    css:
+      - fonts/archivo.css
+      - fonts/opendyslexic.css
+    include-after-body: _dyslexia-toggle.html
     chalkboard: true
     footer: "paolo.bosetti@unitn.it --- [https://pbosetti.github.io/DigMan/](https://pbosetti.github.io/DigMan/)"
     fig-width: 5

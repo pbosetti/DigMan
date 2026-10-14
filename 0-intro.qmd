@@ -160,7 +160,7 @@ A set of core, **enabling technologies** are grounding I4.0 and DM:
 ## Digital Manufacturing
 
 - **Industrial Internet of Things (IIoT):** has to support communications among CPSs (M2M communication)
-- Every **device** is on the newtork: we have tens of billions of devices globally connected, and the number is growing fast
+- Every **device** is on the network: we have tens of billions of devices globally connected, and the number is growing fast
 - **Problem**: IP protocol: IPv4 has $2^{32} \simeq 4.3 \times 10^9$ addresses 
 - **Solutions**: 
   - IPv6 has $2^{128} \simeq 3.4 \times 10^{39}$ addresses, but IPv6 adoption is slow because of the added costs and complexities
@@ -258,7 +258,7 @@ This is a **huge overhead** for a simple request/reply message exchange, and it 
 - Reliability and robustness are very important for **IoP** communications: variety of web servers, web browsers and document formats, and the web must "just work"
 - They are also important in **IoT** (because *things* must do their tasks) but we can enforce standards and minimize possible sources of unexpected conditions
 
-Overhed can be reduced by:
+Overhead can be reduced by:
 
 - Simpler transport layer (L2) protocol: UDP has no SYN/ACK/FIN frames (but no confirmation of delivery!)
 - Simpler application layer (L3) protocols, where the data frame is as naked as possible

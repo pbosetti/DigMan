@@ -62,7 +62,7 @@ Regardless the process, understanding its physics and the governing parameters i
 :::
 
 
-# The subtractive manufactiring case
+# The subtractive manufacturing case
 
 Material removal processes and their control parameters
 
@@ -174,7 +174,7 @@ $$
 
 
 ::: {.callout-note}
-The machininst must always ensure that the required maximum power does not exceet that available at the spindle. If not, some of the machining parameters must be reduced (usually $d$ and or $w$)
+The machinist must always ensure that the required maximum power does not exceed that available at the spindle. If not, some of the machining parameters must be reduced (usually $d$ and or $w$)
 :::
 
 
@@ -547,7 +547,7 @@ tibble(
 - Slewing (*Brandeggio*)
 - Turning diameter
 - Turning length
-- X e Z travels (and possibly other axes)
+- X and Z travels (and possibly other axes)
 - Spindle speed
 - Rapid speeds
 - Spindle torque and power
@@ -611,7 +611,7 @@ ED= Duty Cycle=moving time / total cycle time. S6 = ED 40%
 
 ::: {.column}
 
-* Universl milling centers have a **rotary table** and a **universal milling head** that can be tilted and swiveled to machine any surface of the workpiece
+* Universal milling centers have a **rotary table** and a **universal milling head** that can be tilted and swiveled to machine any surface of the workpiece
 * By rotating the axis at 45° from Z, the spindle axis can be changed from vertical to horizontal (*universal*)
 
 :::
@@ -650,7 +650,7 @@ ED= Duty Cycle=moving time / total cycle time. S6 = ED 40%
 **Cons**:
 
 - Chip disposal is more difficult
-- Not suitable for machinind dies/cavities
+- Not suitable for machining dies/cavities
 :::
 
 :::column
@@ -705,7 +705,7 @@ Suitable for:
 ::: {.callout-important}
 ### Masked time
 
-Any operation that can be performed in parallel to machining is said to happen in *masked time*. It's cost is absorbed in the machining cost
+Any operation that can be performed in parallel to machining is said to happen in *masked time*. Its cost is absorbed in the machining cost
 
 Other operations happen in *exposed time*, which is added to the machining cost
 
@@ -780,7 +780,7 @@ Other operations happen in *exposed time*, which is added to the machining cost
 
 ![](images/mt-elements.jpg){fig-align="center" height=470}
 
-# {background-iframe="iframes/milling-machine-slide.html" background-interactive="true" footer="false"}
+## {.nodeco background-iframe="iframes/milling-machine-slide.html" background-interactive="true" footer="false"}
 
 ## Drivers
 
@@ -842,7 +842,7 @@ expand_grid(t = seq(0, 0.2, length.out = 500), Kp = c(1, 11, 21)) %>%
 Encoder gain: pulses/rev --- Axis gain: screw pitch × encoder gain (mm/pulse)
 
 
-# {background-iframe="iframes/ballscrew-slide.html" background-interactive="true" footer="false"}
+## {.nodeco background-iframe="iframes/ballscrew-slide.html" background-interactive="true" footer="false"}
 
 ## Linear guide-rail
 
@@ -890,7 +890,7 @@ Encoder gain: pulses/rev --- Axis gain: screw pitch × encoder gain (mm/pulse)
 
 :::: {.columns}
 ::: {.column width="55%"}
-PLC is a controller taht implemets logic relationships between inputs and outputs. It provides a range of interfaces and registers:
+PLC is a controller that implements logic relationships between inputs and outputs. It provides a range of interfaces and registers:
 
 - Analog and digital I/O (> 2048)
 - Relay (1000)
@@ -917,7 +917,7 @@ Can be either a separate hardware, or a software process running on the same com
   - General purpose communication: RS232, RS422, Ethernet
   - Deterministic communication: Profibus, DeviceNet, Modbus, Industrial EtherNET, CAN-BUS
   - Special I/O: counters, virtual cams, PIDs and controllers
-* PLC programming languages have been designed to facilitate the transition form **wired logics** to **software logics**: the languages had to be intuitive and immediately productive for technicians with different backgrounds: **electrical engineering**, control engineering, firmware programming
+* PLC programming languages have been designed to facilitate the transition from **wired logics** to **software logics**: the languages had to be intuitive and immediately productive for technicians with different backgrounds: **electrical engineering**, control engineering, firmware programming
 
 ## PLC
 
@@ -1036,7 +1036,7 @@ The CNC controller is the **brain** of the machine tool. It implements the **jud
 
 * parsing the **part-program**
 * converting it into **motion commands** for the machine tool actuators
-* provinding action inputs to the **PLC controller** for auxiliary functions (coolant, tool change rutines, etc.)
+* providing action inputs to the **PLC controller** for auxiliary functions (coolant, tool change routines, etc.)
 
 CNC controllers are characterized by:
 
@@ -1150,7 +1150,7 @@ CNC can control axes with increasing levels of sophistication:
 
 
 ::: {.callout-note}
-In turning, there is no tool radius compensation; rather, tool is measured by **length** and **abuttment**, the latter being the offset w.r.t. the registration point
+In turning, there is no tool radius compensation; rather, tool is measured by **length** and **abutment**, the latter being the offset w.r.t. the registration point
 :::
 
 
@@ -1221,7 +1221,7 @@ Even for 3 axes machines, it is customary to also include **small** rotations ab
 
 
 
-# {background-iframe="iframes/machine-frames.html" background-interactive="true" footer="false"}
+## {.nodeco background-iframe="iframes/machine-frames.html" background-interactive="true" footer="false"}
 
 
 ## Measuring positions: touch probe
@@ -1239,7 +1239,7 @@ Reference positions (as $O_{wp}$can be measure in machine thanks to a **touch pr
 :::
 ::::
 
-# {background-iframe="iframes/touch-probe-slide.html" background-interactive="true" footer="false"}
+## {.nodeco background-iframe="iframes/touch-probe-slide.html" background-interactive="true" footer="false"}
 
 
 ## Tool reference (*presetting*)
@@ -1280,7 +1280,7 @@ According to the Yardstick of Automation:
 :::
 ::::
 
-- a validated **process model** can be required to implement A5, which is not necessarilyavailable for most machining processes
+- a validated **process model** can be required to implement A5, which is not necessarily available for most machining processes
 - empirical models (*machine learning*) can be used to implement A5, but they require a lot of data and are not always reliable
 
 ## Machining cycle
@@ -1289,7 +1289,7 @@ The general sequence for machining a part is:
 
 ![](images-1/machining-cycle.svg){fig-align="center" height=260}
 
-The section within the red box is the **mcahining cycle**, i.e. the sequence of operations that can be cyclically repeated for each part
+The section within the red box is the **machining cycle**, i.e. the sequence of operations that can be cyclically repeated for each part
 
 ## Part-program structure
 
@@ -1602,7 +1602,7 @@ N99999999 %es1 G71 *
 ::: {.column width="60%"}
 Different CNC manufacturers implement proprietary languages that extend the basic G-code with advanced features:
 
-- Explicit, reacher syntax
+- Explicit, richer syntax
 - Conversational/interactive programming (*zero-handbook*)
 - Macros
 - Parametric programming
@@ -1749,7 +1749,7 @@ The **CNC kernel** is the part of the CNC controller that implements the **real-
 
 - Understanding a part-program (parsing)
 - Generate velocity profiles (profiling)
-- Position interpolation (project trajectoryb on the machine axes)
+- Position interpolation (project trajectory on the machine axes)
 - Generate command signals (actuation) to the axes drives
 
 
@@ -2442,7 +2442,7 @@ bind_rows(corner(500), corner(1500)) %>%
 ::: {.columns}
 
 ::: {.column}
-* This is the simnplest measurement
+* This is the simplest measurement
 * The laser beam is reflected by a mirror mounted on the axis and the interferometer measures the distance travelled by the axis
 * It is a way to **calibrate** and to verify the **positioning accuracy** of the axis encoder
 :::
@@ -2483,7 +2483,7 @@ A [Wollaston prism](https://en.wikipedia.org/wiki/Wollaston_prism) is a **beam-s
 
 ::: {.columns}
 ::: {.column}
-* By aligning the wollastone prism action plane with XY and with XZ planes it is possible to measure the straightness of the X axis in Y and Z directions
+* By aligning the Wollaston prism action plane with XY and with XZ planes it is possible to measure the straightness of the X axis in Y and Z directions
 
 :::
 
@@ -2512,7 +2512,7 @@ A [Wollaston prism](https://en.wikipedia.org/wiki/Wollaston_prism) is a **beam-s
 
 
 
-# {background-iframe="iframes/laser-interferometer.html" background-interactive="true" footer="false"}
+## {.nodeco background-iframe="iframes/laser-interferometer.html" background-interactive="true" footer="false"}
 
 
 ## Calibration
@@ -2555,7 +2555,7 @@ High precision machine tools are equipped with a laser interferometer to measure
 
 * one laser head (emitter only)
 * one receiver per axis
-* beam splitters direct 1/3 of the toutal source power to each axis
+* beam splitters direct 1/3 of the total source power to each axis
 
 
 ::: {.callout-note}
