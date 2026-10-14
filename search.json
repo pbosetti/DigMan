@@ -81,7 +81,7 @@
     "href": "1-machine_tools.html#example",
     "title": "Digital Manufacturing – Part 1",
     "section": "Example",
-    "text": "Example\nWe have to set up a milling process on Aluminum, which has \\(p_s = 12.56\\) W min/cm³\nThe tool manufacturer suggests \\(v = 1000\\) m/min and \\(f_z = 0.1\\) mm/tooth\nThe mill has a diameter of \\(30\\) mm and does face milling with full overlapping, has \\(3\\) teeth and removes a layer of \\(2\\) mm\n\\[\n\\begin{aligned}\nN &= \\frac{v}{\\pi D} = \\frac{1000\\ \\text{m/min}}{\\pi\\, 30\\ \\text{mm}} = 10610\\ \\text{rpm} \\\\\nf &= f_z z N = 0.1\\ \\text{mm} \\cdot 3 \\cdot 10610\\ \\text{rpm} = 3183\\ \\text{mm/min} \\\\\nMRR &= w d f = 30\\ \\text{mm} \\cdot 2\\ \\text{mm} \\cdot 3183\\ \\text{mm/min} = 190980\\ \\text{mm}^3/\\text{min} \\\\\nP &= MRR\\, p_s = 190.98\\ \\text{cm}^3/\\text{min} \\cdot 12.56\\ \\text{W min/cm}^3 \\simeq 2.4\\ \\text{kW}\n\\end{aligned}\n\\]\n\n\n\n\n\n\nNote\n\n\nThe machininst must always ensure that the required maximum power does not exceet that available at the spindle. If not, some of the machining parameters must be reduced (usually \\(d\\) and or \\(w\\))"
+    "text": "Example\nWe have to set up a milling process on Aluminum, which has \\(p_s = 12.56\\) W min/cm³\nThe tool manufacturer suggests \\(v = 1000\\) m/min and \\(f_z = 0.1\\) mm/tooth\nThe mill has a diameter of \\(30\\) mm and does face milling with full overlapping, has \\(3\\) teeth and removes a layer of \\(2\\) mm\n\\[\n\\begin{aligned}\nN &= \\frac{v}{\\pi D} = \\frac{1000\\ \\text{m/min}}{\\pi\\, 30\\ \\text{mm}} = 10610\\ \\text{rpm} \\\\\nf &= f_z z N = 0.1\\ \\text{mm} \\cdot 3 \\cdot 10610\\ \\text{rpm} = 3183\\ \\text{mm/min} \\\\\nMRR &= w d f = 30\\ \\text{mm} \\cdot 2\\ \\text{mm} \\cdot 3183\\ \\text{mm/min} = 190980\\ \\text{mm}^3/\\text{min} \\\\\nP &= MRR\\, p_s = 190.98\\ \\text{cm}^3/\\text{min} \\cdot 12.56\\ \\text{W min/cm}^3 \\simeq 2.4\\ \\text{kW}\n\\end{aligned}\n\\]\n\n\n\n\n\n\nNote\n\n\nThe machinist must always ensure that the required maximum power does not exceed that available at the spindle. If not, some of the machining parameters must be reduced (usually \\(d\\) and or \\(w\\))"
   },
   {
     "objectID": "1-machine_tools.html#cutting-economics",
@@ -270,7 +270,7 @@
     "href": "1-machine_tools.html#parameters",
     "title": "Digital Manufacturing – Part 1",
     "section": "Parameters",
-    "text": "Parameters\n\n\n\nSlewing (Brandeggio)\nTurning diameter\nTurning length\nX e Z travels (and possibly other axes)\nSpindle speed\nRapid speeds\nSpindle torque and power\n\n\n\n\n\nED = Einschaltdauer (operating time)\n\n\n\n\nED= Duty Cycle=moving time / total cycle time. S6 = ED 40%"
+    "text": "Parameters\n\n\n\nSlewing (Brandeggio)\nTurning diameter\nTurning length\nX and Z travels (and possibly other axes)\nSpindle speed\nRapid speeds\nSpindle torque and power\n\n\n\n\n\nED = Einschaltdauer (operating time)\n\n\n\n\nED= Duty Cycle=moving time / total cycle time. S6 = ED 40%"
   },
   {
     "objectID": "1-machine_tools.html#milling-machines",
@@ -291,7 +291,7 @@
     "href": "1-machine_tools.html#universal-milling-center",
     "title": "Digital Manufacturing – Part 1",
     "section": "Universal milling center",
-    "text": "Universal milling center\n\n\n\nUniversl milling centers have a rotary table and a universal milling head that can be tilted and swiveled to machine any surface of the workpiece\nBy rotating the axis at 45° from Z, the spindle axis can be changed from vertical to horizontal (universal)\n\n\n\n\n\nUniversal milling head"
+    "text": "Universal milling center\n\n\n\nUniversal milling centers have a rotary table and a universal milling head that can be tilted and swiveled to machine any surface of the workpiece\nBy rotating the axis at 45° from Z, the spindle axis can be changed from vertical to horizontal (universal)\n\n\n\n\n\nUniversal milling head"
   },
   {
     "objectID": "1-machine_tools.html#architectures",
@@ -305,7 +305,7 @@
     "href": "1-machine_tools.html#vertical-spindle",
     "title": "Digital Manufacturing – Part 1",
     "section": "Vertical spindle",
-    "text": "Vertical spindle\n\n\nPros:\n\nEasy fixturing\nReduced moveable mass\n\nCons:\n\nChip disposal is more difficult\nNot suitable for machinind dies/cavities\n\n\n\n\n\nVertical spindle machine"
+    "text": "Vertical spindle\n\n\nPros:\n\nEasy fixturing\nReduced moveable mass\n\nCons:\n\nChip disposal is more difficult\nNot suitable for machining dies/cavities\n\n\n\n\n\nVertical spindle machine"
   },
   {
     "objectID": "1-machine_tools.html#horizontal-spindle",
@@ -326,7 +326,7 @@
     "href": "1-machine_tools.html#traveling-column",
     "title": "Digital Manufacturing – Part 1",
     "section": "Traveling column",
-    "text": "Traveling column\n\n\nSuitable for:\n\nslender WP\nstocky WP but with two alternating fixturing zones (higher productivity)\n\n\n\n\n\n\n\nMasked time\n\n\nAny operation that can be performed in parallel to machining is said to happen in masked time. It’s cost is absorbed in the machining cost\nOther operations happen in exposed time, which is added to the machining cost\n\n\n\n\n\n\n\nTravelling column machine"
+    "text": "Traveling column\n\n\nSuitable for:\n\nslender WP\nstocky WP but with two alternating fixturing zones (higher productivity)\n\n\n\n\n\n\n\nMasked time\n\n\nAny operation that can be performed in parallel to machining is said to happen in masked time. Its cost is absorbed in the machining cost\nOther operations happen in exposed time, which is added to the machining cost\n\n\n\n\n\n\n\nTravelling column machine"
   },
   {
     "objectID": "1-machine_tools.html#milling-centers",
@@ -424,14 +424,14 @@
     "href": "1-machine_tools.html#plc-programmable-logic-controller",
     "title": "Digital Manufacturing – Part 1",
     "section": "PLC: Programmable Logic Controller",
-    "text": "PLC: Programmable Logic Controller\n\n\nPLC is a controller taht implemets logic relationships between inputs and outputs. It provides a range of interfaces and registers:\n\nAnalog and digital I/O (&gt; 2048)\nRelay (1000)\nMemories (200)\nTimers (200)\nCounters (200)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\nCan be either a separate hardware, or a software process running on the same computer that runs the CNC"
+    "text": "PLC: Programmable Logic Controller\n\n\nPLC is a controller that implements logic relationships between inputs and outputs. It provides a range of interfaces and registers:\n\nAnalog and digital I/O (&gt; 2048)\nRelay (1000)\nMemories (200)\nTimers (200)\nCounters (200)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\nCan be either a separate hardware, or a software process running on the same computer that runs the CNC"
   },
   {
     "objectID": "1-machine_tools.html#plc",
     "href": "1-machine_tools.html#plc",
     "title": "Digital Manufacturing – Part 1",
     "section": "PLC",
-    "text": "PLC\n\nBeside GPIO, PLC can also have advanced I/O and communication capabilities:\n\nGeneral purpose communication: RS232, RS422, Ethernet\nDeterministic communication: Profibus, DeviceNet, Modbus, Industrial EtherNET, CAN-BUS\nSpecial I/O: counters, virtual cams, PIDs and controllers\n\nPLC programming languages have been designed to facilitate the transition form wired logics to software logics: the languages had to be intuitive and immediately productive for technicians with different backgrounds: electrical engineering, control engineering, firmware programming"
+    "text": "PLC\n\nBeside GPIO, PLC can also have advanced I/O and communication capabilities:\n\nGeneral purpose communication: RS232, RS422, Ethernet\nDeterministic communication: Profibus, DeviceNet, Modbus, Industrial EtherNET, CAN-BUS\nSpecial I/O: counters, virtual cams, PIDs and controllers\n\nPLC programming languages have been designed to facilitate the transition from wired logics to software logics: the languages had to be intuitive and immediately productive for technicians with different backgrounds: electrical engineering, control engineering, firmware programming"
   },
   {
     "objectID": "1-machine_tools.html#plc-1",
@@ -473,7 +473,7 @@
     "href": "1-machine_tools.html#computer-numerical-control",
     "title": "Digital Manufacturing – Part 1",
     "section": "(Computer) Numerical Control",
-    "text": "(Computer) Numerical Control\nThe CNC controller is the brain of the machine tool. It implements the judgement (A4) of Amber’s scale, and it is responsible for:\n\nparsing the part-program\nconverting it into motion commands for the machine tool actuators\nprovinding action inputs to the PLC controller for auxiliary functions (coolant, tool change rutines, etc.)\n\nCNC controllers are characterized by:\n\nTypes of motion interpolation\nNumber of controlled axes"
+    "text": "(Computer) Numerical Control\nThe CNC controller is the brain of the machine tool. It implements the judgement (A4) of Amber’s scale, and it is responsible for:\n\nparsing the part-program\nconverting it into motion commands for the machine tool actuators\nproviding action inputs to the PLC controller for auxiliary functions (coolant, tool change routines, etc.)\n\nCNC controllers are characterized by:\n\nTypes of motion interpolation\nNumber of controlled axes"
   },
   {
     "objectID": "1-machine_tools.html#types-of-motion-interpolation",
@@ -515,7 +515,7 @@
     "href": "1-machine_tools.html#coordinate-transformations",
     "title": "Digital Manufacturing – Part 1",
     "section": "Coordinate transformations",
-    "text": "Coordinate transformations\n\nThe part program defines the toolpath as the trajectory of the tool center position (TCP) in the workpiece reference frame\nThe CNC controller converts the TCP coordinates into machine coordinates by applying a roto-translation transformation that accounts for:\n\nthe workpiece origin\nthe tool length\n\nTool diameter is accounted for by the tool radius compensation function, which offsets the toolpath by the tool radius in a direction perpendicular to the toolpath\n\n\n\n\n\n\n\nNote\n\n\nIn turning, there is no tool radius compensation; rather, tool is measured by length and abuttment, the latter being the offset w.r.t. the registration point"
+    "text": "Coordinate transformations\n\nThe part program defines the toolpath as the trajectory of the tool center position (TCP) in the workpiece reference frame\nThe CNC controller converts the TCP coordinates into machine coordinates by applying a roto-translation transformation that accounts for:\n\nthe workpiece origin\nthe tool length\n\nTool diameter is accounted for by the tool radius compensation function, which offsets the toolpath by the tool radius in a direction perpendicular to the toolpath\n\n\n\n\n\n\n\nNote\n\n\nIn turning, there is no tool radius compensation; rather, tool is measured by length and abutment, the latter being the offset w.r.t. the registration point"
   },
   {
     "objectID": "1-machine_tools.html#coordinate-transformations-1",
@@ -571,14 +571,14 @@
     "href": "1-machine_tools.html#automation-1",
     "title": "Digital Manufacturing – Part 1",
     "section": "Automation",
-    "text": "Automation\n\n\nAccording to the Yardstick of Automation:\n\nmost CNC machines are at Level A4\nLevel A5 requires post-machining automated inspection and feedback to the CNC controller and to the part-program\n\n\n\n\n\n\n\n\n\na validated process model can be required to implement A5, which is not necessarilyavailable for most machining processes\nempirical models (machine learning) can be used to implement A5, but they require a lot of data and are not always reliable"
+    "text": "Automation\n\n\nAccording to the Yardstick of Automation:\n\nmost CNC machines are at Level A4\nLevel A5 requires post-machining automated inspection and feedback to the CNC controller and to the part-program\n\n\n\n\n\n\n\n\n\na validated process model can be required to implement A5, which is not necessarily available for most machining processes\nempirical models (machine learning) can be used to implement A5, but they require a lot of data and are not always reliable"
   },
   {
     "objectID": "1-machine_tools.html#machining-cycle",
     "href": "1-machine_tools.html#machining-cycle",
     "title": "Digital Manufacturing – Part 1",
     "section": "Machining cycle",
-    "text": "Machining cycle\nThe general sequence for machining a part is:\n\n\n\n\n\nThe section within the red box is the mcahining cycle, i.e. the sequence of operations that can be cyclically repeated for each part"
+    "text": "Machining cycle\nThe general sequence for machining a part is:\n\n\n\n\n\nThe section within the red box is the machining cycle, i.e. the sequence of operations that can be cyclically repeated for each part"
   },
   {
     "objectID": "1-machine_tools.html#part-program-structure",
@@ -669,14 +669,14 @@
     "href": "1-machine_tools.html#advanced-languages",
     "title": "Digital Manufacturing – Part 1",
     "section": "Advanced languages",
-    "text": "Advanced languages\n\n\nDifferent CNC manufacturers implement proprietary languages that extend the basic G-code with advanced features:\n\nExplicit, reacher syntax\nConversational/interactive programming (zero-handbook)\nMacros\nParametric programming\n\n\n\n\nHeidenhain language\n\n0  BEGIN PGM es1 MM\n1  BLK FORM 0.1 Z  X+0  Y+0  Z-20\n2  BLK FORM 0.2  X+150  Y+150  Z+0\n3  CYCL DEF 247 DEF. ZERO PEZZO ~\n    Q339=+1    ;NUMERO ORIGINE\n4  TOOL CALL 1 Z S5000 F4000\n5  M8\n6  L  X+10  Y-10  Z+10 R0 FMAX\n7  L  Z-10 R0 FMAX\n8  L  Y+95 RL F AUTO\n9  L  X+36  Y+140\n10 RND R10 F AUTO\n11 L  X+105\n12 CHF 4\n13 L IY-55\n14 RND R14\n15 L IX+35\n16 RND R5\n17 L  X+105  Y+14\n18 CHF 8\n19 L  X-15\n20 L  Z+10 R0 FMAX\n21 STOP M30\n22 END PGM es1 MM"
+    "text": "Advanced languages\n\n\nDifferent CNC manufacturers implement proprietary languages that extend the basic G-code with advanced features:\n\nExplicit, richer syntax\nConversational/interactive programming (zero-handbook)\nMacros\nParametric programming\n\n\n\n\nHeidenhain language\n\n0  BEGIN PGM es1 MM\n1  BLK FORM 0.1 Z  X+0  Y+0  Z-20\n2  BLK FORM 0.2  X+150  Y+150  Z+0\n3  CYCL DEF 247 DEF. ZERO PEZZO ~\n    Q339=+1    ;NUMERO ORIGINE\n4  TOOL CALL 1 Z S5000 F4000\n5  M8\n6  L  X+10  Y-10  Z+10 R0 FMAX\n7  L  Z-10 R0 FMAX\n8  L  Y+95 RL F AUTO\n9  L  X+36  Y+140\n10 RND R10 F AUTO\n11 L  X+105\n12 CHF 4\n13 L IY-55\n14 RND R14\n15 L IX+35\n16 RND R5\n17 L  X+105  Y+14\n18 CHF 8\n19 L  X-15\n20 L  Z+10 R0 FMAX\n21 STOP M30\n22 END PGM es1 MM"
   },
   {
     "objectID": "1-machine_tools.html#cnc-kernel-tasks",
     "href": "1-machine_tools.html#cnc-kernel-tasks",
     "title": "Digital Manufacturing – Part 1",
     "section": "CNC kernel tasks",
-    "text": "CNC kernel tasks\nThe CNC kernel is the part of the CNC controller that implements the real-time control loop. It is responsible for:\n\nUnderstanding a part-program (parsing)\nGenerate velocity profiles (profiling)\nPosition interpolation (project trajectoryb on the machine axes)\nGenerate command signals (actuation) to the axes drives\n\n\n\n\n\n\n\nNote\n\n\nBeside these tasks, the rest of the CNC also takes care of the GUI, programs selection, editing and storing, networking, tables management (presets and tools), interaction with the PLC, and other non-real-time tasks. The CNC kernel is the part of the CNC that is real-time and must be implemented in a real-time operating system (RTOS)"
+    "text": "CNC kernel tasks\nThe CNC kernel is the part of the CNC controller that implements the real-time control loop. It is responsible for:\n\nUnderstanding a part-program (parsing)\nGenerate velocity profiles (profiling)\nPosition interpolation (project trajectory on the machine axes)\nGenerate command signals (actuation) to the axes drives\n\n\n\n\n\n\n\nNote\n\n\nBeside these tasks, the rest of the CNC also takes care of the GUI, programs selection, editing and storing, networking, tables management (presets and tools), interaction with the PLC, and other non-real-time tasks. The CNC kernel is the part of the CNC that is real-time and must be implemented in a real-time operating system (RTOS)"
   },
   {
     "objectID": "1-machine_tools.html#profiling",
@@ -893,7 +893,7 @@
     "href": "1-machine_tools.html#linearity-measurement",
     "title": "Digital Manufacturing – Part 1",
     "section": "Linearity measurement",
-    "text": "Linearity measurement\n\n\n\nThis is the simnplest measurement\nThe laser beam is reflected by a mirror mounted on the axis and the interferometer measures the distance travelled by the axis\nIt is a way to calibrate and to verify the positioning accuracy of the axis encoder\n\n\n\n\n\nLinearity measurement"
+    "text": "Linearity measurement\n\n\n\nThis is the simplest measurement\nThe laser beam is reflected by a mirror mounted on the axis and the interferometer measures the distance travelled by the axis\nIt is a way to calibrate and to verify the positioning accuracy of the axis encoder\n\n\n\n\n\nLinearity measurement"
   },
   {
     "objectID": "1-machine_tools.html#angle-measurement",
@@ -914,7 +914,7 @@
     "href": "1-machine_tools.html#straightness-measurement-1",
     "title": "Digital Manufacturing – Part 1",
     "section": "Straightness measurement",
-    "text": "Straightness measurement\n\n\n\nBy aligning the wollastone prism action plane with XY and with XZ planes it is possible to measure the straightness of the X axis in Y and Z directions\n\n\n\n\n\nWollaston prism"
+    "text": "Straightness measurement\n\n\n\nBy aligning the Wollaston prism action plane with XY and with XZ planes it is possible to measure the straightness of the X axis in Y and Z directions\n\n\n\n\n\nWollaston prism"
   },
   {
     "objectID": "1-machine_tools.html#squareness-measurement",
@@ -935,7 +935,7 @@
     "href": "1-machine_tools.html#laser-interferometer-three-axis-machine-tool-installation",
     "title": "Digital Manufacturing – Part 1",
     "section": "Laser interferometer: three-axis machine tool installation",
-    "text": "Laser interferometer: three-axis machine tool installation\n\n\nHigh precision machine tools are equipped with a laser interferometer to measure the actual position of the axes.\n\none laser head (emitter only)\none receiver per axis\nbeam splitters direct 1/3 of the toutal source power to each axis\n\n\n\n\n\n\n\nNote\n\n\nLaser beam can be affected by refraction index changes and by air turbulence, so the machine is usually equipped with a temperature and pressure sensor to correct the measured distance and the laser is usually enclosed in a protective tube to avoid air turbulence.\n\n\n\n\n\n\n\nUsing LIF as measurement tool"
+    "text": "Laser interferometer: three-axis machine tool installation\n\n\nHigh precision machine tools are equipped with a laser interferometer to measure the actual position of the axes.\n\none laser head (emitter only)\none receiver per axis\nbeam splitters direct 1/3 of the total source power to each axis\n\n\n\n\n\n\n\nNote\n\n\nLaser beam can be affected by refraction index changes and by air turbulence, so the machine is usually equipped with a temperature and pressure sensor to correct the measured distance and the laser is usually enclosed in a protective tube to avoid air turbulence.\n\n\n\n\n\n\n\nUsing LIF as measurement tool"
   },
   {
     "objectID": "2-trc.html#trc-and-g-code",
@@ -1124,7 +1124,7 @@
     "href": "0-intro.html#digital-manufacturing-2",
     "title": "Course Introduction",
     "section": "Digital Manufacturing",
-    "text": "Digital Manufacturing\n\nIndustrial Internet of Things (IIoT): has to support communications among CPSs (M2M communication)\nEvery device is on the newtork: we have tens of billions of devices globally connected, and the number is growing fast\nProblem: IP protocol: IPv4 has \\(2^{32} \\simeq 4.3 \\times 10^9\\) addresses\nSolutions:\n\nIPv6 has \\(2^{128} \\simeq 3.4 \\times 10^{39}\\) addresses, but IPv6 adoption is slow because of the added costs and complexities\nNAT (Network Address Translation) keeps IPv4 and addresses exhaustion problem by allowing multiple devices to share a single public IP address behind a gateway"
+    "text": "Digital Manufacturing\n\nIndustrial Internet of Things (IIoT): has to support communications among CPSs (M2M communication)\nEvery device is on the network: we have tens of billions of devices globally connected, and the number is growing fast\nProblem: IP protocol: IPv4 has \\(2^{32} \\simeq 4.3 \\times 10^9\\) addresses\nSolutions:\n\nIPv6 has \\(2^{128} \\simeq 3.4 \\times 10^{39}\\) addresses, but IPv6 adoption is slow because of the added costs and complexities\nNAT (Network Address Translation) keeps IPv4 and addresses exhaustion problem by allowing multiple devices to share a single public IP address behind a gateway"
   },
   {
     "objectID": "0-intro.html#osi-networking-model",
@@ -1166,7 +1166,7 @@
     "href": "0-intro.html#how-to-reduce-overhead",
     "title": "Course Introduction",
     "section": "How to reduce overhead",
-    "text": "How to reduce overhead\n\nReliability and robustness are very important for IoP communications: variety of web servers, web browsers and document formats, and the web must “just work”\nThey are also important in IoT (because things must do their tasks) but we can enforce standards and minimize possible sources of unexpected conditions\n\nOverhed can be reduced by:\n\nSimpler transport layer (L2) protocol: UDP has no SYN/ACK/FIN frames (but no confirmation of delivery!)\nSimpler application layer (L3) protocols, where the data frame is as naked as possible\nTrading reliability and robustness for bandwidth and latency"
+    "text": "How to reduce overhead\n\nReliability and robustness are very important for IoP communications: variety of web servers, web browsers and document formats, and the web must “just work”\nThey are also important in IoT (because things must do their tasks) but we can enforce standards and minimize possible sources of unexpected conditions\n\nOverhead can be reduced by:\n\nSimpler transport layer (L2) protocol: UDP has no SYN/ACK/FIN frames (but no confirmation of delivery!)\nSimpler application layer (L3) protocols, where the data frame is as naked as possible\nTrading reliability and robustness for bandwidth and latency"
   },
   {
     "objectID": "0-intro.html#rest-vs-message-queuing-1",

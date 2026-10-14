@@ -35,7 +35,9 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-3c42783efb589def58cebd2c5d808515.css">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-f16d5ce359b8914984a7a1be58b43b3d.css">
+  <link rel="stylesheet" href="fonts/archivo.css">
+  <link rel="stylesheet" href="fonts/opendyslexic.css">
   <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -388,7 +390,7 @@ Paolo Bosetti
 <h2>Digital Manufacturing</h2>
 <ul>
 <li><strong>Industrial Internet of Things (IIoT):</strong> has to support communications among CPSs (M2M communication)</li>
-<li>Every <strong>device</strong> is on the newtork: we have tens of billions of devices globally connected, and the number is growing fast</li>
+<li>Every <strong>device</strong> is on the network: we have tens of billions of devices globally connected, and the number is growing fast</li>
 <li><strong>Problem</strong>: IP protocol: IPv4 has <span class="math inline">\(2^{32} \simeq 4.3 \times 10^9\)</span> addresses</li>
 <li><strong>Solutions</strong>:
 <ul>
@@ -506,7 +508,7 @@ Paolo Bosetti
 <li>Reliability and robustness are very important for <strong>IoP</strong> communications: variety of web servers, web browsers and document formats, and the web must “just work”</li>
 <li>They are also important in <strong>IoT</strong> (because <em>things</em> must do their tasks) but we can enforce standards and minimize possible sources of unexpected conditions</li>
 </ul>
-<p>Overhed can be reduced by:</p>
+<p>Overhead can be reduced by:</p>
 <ul>
 <li>Simpler transport layer (L2) protocol: UDP has no SYN/ACK/FIN frames (but no confirmation of delivery!)</li>
 <li>Simpler application layer (L3) protocols, where the data frame is as naked as possible</li>
@@ -867,6 +869,55 @@ Paolo Bosetti
           RevealZoom
         ]
       });
+    </script>
+    <!-- Dyslexia-friendly font toggle, shown on the title slide only.
+         Off by default; the choice is remembered per browser (localStorage)
+         and can be forced with ?dyslexic=1 / ?dyslexic=0 in the URL. -->
+    <script>
+    (() => {
+      const KEY = "dm-dyslexic";
+      const root = document.documentElement;
+
+      const load = () => {
+        const q = new URLSearchParams(location.search).get("dyslexic");
+        if (q !== null) return q === "1" || q === "true";
+        try { return localStorage.getItem(KEY) === "1"; } catch (e) { return false; }
+      };
+      const save = (on) => {
+        try { localStorage.setItem(KEY, on ? "1" : "0"); } catch (e) {}
+      };
+      const apply = (on) => {
+        root.classList.toggle("dm-dyslexic", on);
+        if (window.Reveal && Reveal.isReady && Reveal.isReady()) Reveal.layout();
+      };
+
+      apply(load());
+
+      const mount = () => {
+        const title = document.getElementById("title-slide");
+        if (!title || title.querySelector(".dm-dys-toggle")) return;
+        const box = document.createElement("div");
+        box.className = "dm-dys-toggle";
+        box.innerHTML =
+          '<label><input type="checkbox" role="switch">' +
+          '<span class="dm-switch" aria-hidden="true"></span>' +
+          '<span class="dm-switch-label">Dyslexia-friendly font</span></label>';
+        const input = box.querySelector("input");
+        input.checked = root.classList.contains("dm-dyslexic");
+        input.addEventListener("change", () => {
+          apply(input.checked);
+          save(input.checked);
+        });
+        // after a mouse click, hand the keyboard back to reveal.js navigation
+        input.addEventListener("click", (e) => { if (e.detail > 0) input.blur(); });
+        title.appendChild(box);
+        if (window.Reveal && Reveal.isReady && Reveal.isReady()) Reveal.layout();
+      };
+
+      if (window.Reveal && Reveal.isReady && Reveal.isReady()) mount();
+      else if (window.Reveal) Reveal.on("ready", mount);
+      else window.addEventListener("load", mount);
+    })();
     </script>
     
     <script>

@@ -101,7 +101,9 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-3c42783efb589def58cebd2c5d808515.css">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-f16d5ce359b8914984a7a1be58b43b3d.css">
+  <link rel="stylesheet" href="fonts/archivo.css">
+  <link rel="stylesheet" href="fonts/opendyslexic.css">
   <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -277,8 +279,8 @@ Paolo Bosetti
 </div>
 </section></section>
 <section>
-<section id="the-subtractive-manufactiring-case" class="title-slide slide level1 center">
-<h1>The subtractive manufactiring case</h1>
+<section id="the-subtractive-manufacturing-case" class="title-slide slide level1 center">
+<h1>The subtractive manufacturing case</h1>
 <p>Material removal processes and their control parameters</p>
 </section>
 <section id="machining-parameters" class="slide level2">
@@ -457,7 +459,7 @@ P &amp;= MRR\, p_s = 190.98\ \text{cm}^3/\text{min} \cdot 12.56\ \text{W min/cm}
 <p><strong>Note</strong></p>
 </div>
 <div class="callout-content">
-<p>The machininst must always ensure that the required maximum power does not exceet that available at the spindle. If not, some of the machining parameters must be reduced (usually <span class="math inline">\(d\)</span> and or <span class="math inline">\(w\)</span>)</p>
+<p>The machinist must always ensure that the required maximum power does not exceed that available at the spindle. If not, some of the machining parameters must be reduced (usually <span class="math inline">\(d\)</span> and or <span class="math inline">\(w\)</span>)</p>
 </div>
 </div>
 </div>
@@ -875,7 +877,7 @@ T_{0,t} &amp;= (1/n -1)T_c
 <li>Slewing (<em>Brandeggio</em>)</li>
 <li>Turning diameter</li>
 <li>Turning length</li>
-<li>X e Z travels (and possibly other axes)</li>
+<li>X and Z travels (and possibly other axes)</li>
 <li>Spindle speed</li>
 <li>Rapid speeds</li>
 <li>Spindle torque and power</li>
@@ -977,7 +979,7 @@ T_{0,t} &amp;= (1/n -1)T_c
 <div class="columns">
 <div class="column">
 <ul>
-<li>Universl milling centers have a <strong>rotary table</strong> and a <strong>universal milling head</strong> that can be tilted and swiveled to machine any surface of the workpiece</li>
+<li>Universal milling centers have a <strong>rotary table</strong> and a <strong>universal milling head</strong> that can be tilted and swiveled to machine any surface of the workpiece</li>
 <li>By rotating the axis at 45° from Z, the spindle axis can be changed from vertical to horizontal (<em>universal</em>)</li>
 </ul>
 </div><div class="column">
@@ -1019,7 +1021,7 @@ T_{0,t} &amp;= (1/n -1)T_c
 <p><strong>Cons</strong>:</p>
 <ul>
 <li>Chip disposal is more difficult</li>
-<li>Not suitable for machinind dies/cavities</li>
+<li>Not suitable for machining dies/cavities</li>
 </ul>
 </div><div class="column">
 <div class="quarto-figure quarto-figure-center">
@@ -1090,7 +1092,7 @@ T_{0,t} &amp;= (1/n -1)T_c
 <p><strong>Masked time</strong></p>
 </div>
 <div class="callout-content">
-<p>Any operation that can be performed in parallel to machining is said to happen in <em>masked time</em>. It’s cost is absorbed in the machining cost</p>
+<p>Any operation that can be performed in parallel to machining is said to happen in <em>masked time</em>. Its cost is absorbed in the machining cost</p>
 <p>Other operations happen in <em>exposed time</em>, which is added to the machining cost</p>
 </div>
 </div>
@@ -1239,11 +1241,9 @@ T_{0,t} &amp;= (1/n -1)T_c
 <p><img data-src="images/mt-elements.jpg" class="quarto-figure quarto-figure-center" height="470"></p>
 </figure>
 </div>
-</section></section>
-<section>
-<section id="section" class="title-slide slide level1 center" data-background-iframe="iframes/milling-machine-slide.html" data-background-interactive="true" data-footer="false">
-<h1></h1>
-
+</section>
+<section id="section" class="slide level2 nodeco" data-background-iframe="iframes/milling-machine-slide.html" data-background-interactive="true" data-footer="false">
+<h2></h2>
 </section>
 <section id="drivers" class="slide level2">
 <h2>Drivers</h2>
@@ -1311,11 +1311,9 @@ T_{0,t} &amp;= (1/n -1)T_c
 </figure>
 </div>
 <p>Encoder gain: pulses/rev — Axis gain: screw pitch × encoder gain (mm/pulse)</p>
-</section></section>
-<section>
-<section id="section-1" class="title-slide slide level1 center" data-background-iframe="iframes/ballscrew-slide.html" data-background-interactive="true" data-footer="false">
-<h1></h1>
-
+</section>
+<section id="section-1" class="slide level2 nodeco" data-background-iframe="iframes/ballscrew-slide.html" data-background-interactive="true" data-footer="false">
+<h2></h2>
 </section>
 <section id="linear-guide-rail" class="slide level2">
 <h2>Linear guide-rail</h2>
@@ -1424,7 +1422,7 @@ T_{0,t} &amp;= (1/n -1)T_c
 <h2>PLC: Programmable Logic Controller</h2>
 <div class="columns">
 <div class="column" style="width:55%;">
-<p>PLC is a controller taht implemets logic relationships between inputs and outputs. It provides a range of interfaces and registers:</p>
+<p>PLC is a controller that implements logic relationships between inputs and outputs. It provides a range of interfaces and registers:</p>
 <ul>
 <li>Analog and digital I/O (&gt; 2048)</li>
 <li>Relay (1000)</li>
@@ -1462,7 +1460,7 @@ T_{0,t} &amp;= (1/n -1)T_c
 <li>Deterministic communication: Profibus, DeviceNet, Modbus, Industrial EtherNET, CAN-BUS</li>
 <li>Special I/O: counters, virtual cams, PIDs and controllers</li>
 </ul></li>
-<li>PLC programming languages have been designed to facilitate the transition form <strong>wired logics</strong> to <strong>software logics</strong>: the languages had to be intuitive and immediately productive for technicians with different backgrounds: <strong>electrical engineering</strong>, control engineering, firmware programming</li>
+<li>PLC programming languages have been designed to facilitate the transition from <strong>wired logics</strong> to <strong>software logics</strong>: the languages had to be intuitive and immediately productive for technicians with different backgrounds: <strong>electrical engineering</strong>, control engineering, firmware programming</li>
 </ul>
 </section>
 <section id="plc-1" class="slide level2">
@@ -1661,7 +1659,7 @@ T_{0,t} &amp;= (1/n -1)T_c
 <ul>
 <li>parsing the <strong>part-program</strong></li>
 <li>converting it into <strong>motion commands</strong> for the machine tool actuators</li>
-<li>provinding action inputs to the <strong>PLC controller</strong> for auxiliary functions (coolant, tool change rutines, etc.)</li>
+<li>providing action inputs to the <strong>PLC controller</strong> for auxiliary functions (coolant, tool change routines, etc.)</li>
 </ul>
 <p>CNC controllers are characterized by:</p>
 <ul>
@@ -1814,7 +1812,7 @@ T_{0,t} &amp;= (1/n -1)T_c
 <p><strong>Note</strong></p>
 </div>
 <div class="callout-content">
-<p>In turning, there is no tool radius compensation; rather, tool is measured by <strong>length</strong> and <strong>abuttment</strong>, the latter being the offset w.r.t. the registration point</p>
+<p>In turning, there is no tool radius compensation; rather, tool is measured by <strong>length</strong> and <strong>abutment</strong>, the latter being the offset w.r.t. the registration point</p>
 </div>
 </div>
 </div>
@@ -1891,11 +1889,9 @@ T = \begin{bmatrix}
 </div>
 </div>
 </div>
-</section></section>
-<section>
-<section id="section-2" class="title-slide slide level1 center" data-background-iframe="iframes/machine-frames.html" data-background-interactive="true" data-footer="false">
-<h1></h1>
-
+</section>
+<section id="section-2" class="slide level2 nodeco" data-background-iframe="iframes/machine-frames.html" data-background-interactive="true" data-footer="false">
+<h2></h2>
 </section>
 <section id="measuring-positions-touch-probe" class="slide level2">
 <h2>Measuring positions: touch probe</h2>
@@ -1914,11 +1910,9 @@ T = \begin{bmatrix}
 </figure>
 </div>
 </div></div>
-</section></section>
-<section>
-<section id="section-3" class="title-slide slide level1 center" data-background-iframe="iframes/touch-probe-slide.html" data-background-interactive="true" data-footer="false">
-<h1></h1>
-
+</section>
+<section id="section-3" class="slide level2 nodeco" data-background-iframe="iframes/touch-probe-slide.html" data-background-interactive="true" data-footer="false">
+<h2></h2>
 </section>
 <section id="tool-reference-presetting" class="slide level2">
 <h2>Tool reference (<em>presetting</em>)</h2>
@@ -1960,7 +1954,7 @@ T = \begin{bmatrix}
 </div>
 </div></div>
 <ul>
-<li>a validated <strong>process model</strong> can be required to implement A5, which is not necessarilyavailable for most machining processes</li>
+<li>a validated <strong>process model</strong> can be required to implement A5, which is not necessarily available for most machining processes</li>
 <li>empirical models (<em>machine learning</em>) can be used to implement A5, but they require a lot of data and are not always reliable</li>
 </ul>
 </section>
@@ -1972,7 +1966,7 @@ T = \begin{bmatrix}
 <p><img data-src="images-1/machining-cycle.svg" class="quarto-figure quarto-figure-center" height="260"></p>
 </figure>
 </div>
-<p>The section within the red box is the <strong>mcahining cycle</strong>, i.e.&nbsp;the sequence of operations that can be cyclically repeated for each part</p>
+<p>The section within the red box is the <strong>machining cycle</strong>, i.e.&nbsp;the sequence of operations that can be cyclically repeated for each part</p>
 </section>
 <section id="part-program-structure" class="slide level2">
 <h2>Part-program structure</h2>
@@ -2389,7 +2383,7 @@ N99999999 %es1 G71 *</code></pre>
 <div class="column" style="width:60%;">
 <p>Different CNC manufacturers implement proprietary languages that extend the basic G-code with advanced features:</p>
 <ul>
-<li>Explicit, reacher syntax</li>
+<li>Explicit, richer syntax</li>
 <li>Conversational/interactive programming (<em>zero-handbook</em>)</li>
 <li>Macros</li>
 <li>Parametric programming</li>
@@ -2442,7 +2436,7 @@ N99999999 %es1 G71 *</code></pre>
 <ul>
 <li>Understanding a part-program (parsing)</li>
 <li>Generate velocity profiles (profiling)</li>
-<li>Position interpolation (project trajectoryb on the machine axes)</li>
+<li>Position interpolation (project trajectory on the machine axes)</li>
 <li>Generate command signals (actuation) to the axes drives</li>
 </ul>
 <div class="callout callout-note callout-titled callout-style-default">
@@ -3191,7 +3185,7 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
 <div class="columns">
 <div class="column">
 <ul>
-<li>This is the simnplest measurement</li>
+<li>This is the simplest measurement</li>
 <li>The laser beam is reflected by a mirror mounted on the axis and the interferometer measures the distance travelled by the axis</li>
 <li>It is a way to <strong>calibrate</strong> and to verify the <strong>positioning accuracy</strong> of the axis encoder</li>
 </ul>
@@ -3236,7 +3230,7 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
 <div class="columns">
 <div class="column">
 <ul>
-<li>By aligning the wollastone prism action plane with XY and with XZ planes it is possible to measure the straightness of the X axis in Y and Z directions</li>
+<li>By aligning the Wollaston prism action plane with XY and with XZ planes it is possible to measure the straightness of the X axis in Y and Z directions</li>
 </ul>
 </div><div class="column">
 <div class="quarto-figure quarto-figure-center">
@@ -3263,11 +3257,9 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
 </figure>
 </div>
 </div></div>
-</section></section>
-<section>
-<section id="section-4" class="title-slide slide level1 center" data-background-iframe="iframes/laser-interferometer.html" data-background-interactive="true" data-footer="false">
-<h1></h1>
-
+</section>
+<section id="section-4" class="slide level2 nodeco" data-background-iframe="iframes/laser-interferometer.html" data-background-interactive="true" data-footer="false">
+<h2></h2>
 </section>
 <section id="calibration" class="slide level2">
 <h2>Calibration</h2>
@@ -3290,7 +3282,7 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
 <ul>
 <li>one laser head (emitter only)</li>
 <li>one receiver per axis</li>
-<li>beam splitters direct 1/3 of the toutal source power to each axis</li>
+<li>beam splitters direct 1/3 of the total source power to each axis</li>
 </ul>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
@@ -3532,6 +3524,55 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
           RevealZoom
         ]
       });
+    </script>
+    <!-- Dyslexia-friendly font toggle, shown on the title slide only.
+         Off by default; the choice is remembered per browser (localStorage)
+         and can be forced with ?dyslexic=1 / ?dyslexic=0 in the URL. -->
+    <script>
+    (() => {
+      const KEY = "dm-dyslexic";
+      const root = document.documentElement;
+
+      const load = () => {
+        const q = new URLSearchParams(location.search).get("dyslexic");
+        if (q !== null) return q === "1" || q === "true";
+        try { return localStorage.getItem(KEY) === "1"; } catch (e) { return false; }
+      };
+      const save = (on) => {
+        try { localStorage.setItem(KEY, on ? "1" : "0"); } catch (e) {}
+      };
+      const apply = (on) => {
+        root.classList.toggle("dm-dyslexic", on);
+        if (window.Reveal && Reveal.isReady && Reveal.isReady()) Reveal.layout();
+      };
+
+      apply(load());
+
+      const mount = () => {
+        const title = document.getElementById("title-slide");
+        if (!title || title.querySelector(".dm-dys-toggle")) return;
+        const box = document.createElement("div");
+        box.className = "dm-dys-toggle";
+        box.innerHTML =
+          '<label><input type="checkbox" role="switch">' +
+          '<span class="dm-switch" aria-hidden="true"></span>' +
+          '<span class="dm-switch-label">Dyslexia-friendly font</span></label>';
+        const input = box.querySelector("input");
+        input.checked = root.classList.contains("dm-dyslexic");
+        input.addEventListener("change", () => {
+          apply(input.checked);
+          save(input.checked);
+        });
+        // after a mouse click, hand the keyboard back to reveal.js navigation
+        input.addEventListener("click", (e) => { if (e.detail > 0) input.blur(); });
+        title.appendChild(box);
+        if (window.Reveal && Reveal.isReady && Reveal.isReady()) Reveal.layout();
+      };
+
+      if (window.Reveal && Reveal.isReady && Reveal.isReady()) mount();
+      else if (window.Reveal) Reveal.on("ready", mount);
+      else window.addEventListener("load", mount);
+    })();
     </script>
     
     <script>
