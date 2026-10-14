@@ -398,7 +398,7 @@ tibble(
   geom_line(aes(y=Cost, color=Item)) + 
   geom_vline(xintercept=c(Voc, Vot), linetype=2, color="red") + 
   ylim(c(0, 60)) + 
-  labs(x="Cutting speed (m/min)", y="Cost (€)")
+  labs(x="Cutting speed (m/min)", y="Cost (Euro)")
 ```
 :::
 :::
