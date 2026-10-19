@@ -1276,6 +1276,8 @@ Tool geometry can be measured in machine (**exposed time**) or by a **tool prese
 
 <video data-autoplay controls loop muted src="videos/tool-presetter.mp4" style="max-height:480px; display:block; margin:auto"></video>
 
+## {.nodeco background-iframe="iframes/tool-presetter-slide.html" background-interactive="true" footer="false"}
+
 ## Automation
 
 :::: {.columns}
