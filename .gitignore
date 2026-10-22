@@ -5,7 +5,9 @@ _site
 *_files/*
 
 *.html
-!_dyslexia-toggle.html
+!_extensions/**/*.html
 
 .DS_Store
 .thumbnail
+# copied by the P4010_teaching extension at render time
+/fonts/

@@ -8,7 +8,7 @@ institute: "Università di Trento, Dipartimento di Ingegneria Industriale"
 date: "`r Sys.time()`"
 date-format: "[*Updated:* ]DD/MM/YYYY"
 format: 
-  revealjs:
+  pbosetti_teaching_tmpl-revealjs:
     number-sections: false
   pdf:
     toc: true

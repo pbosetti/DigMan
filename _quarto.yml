@@ -6,38 +6,12 @@ project:
   resources:
     - videos/*
     - iframes/*.html
-    - fonts/*
     - MillCoordinates/**
     - Interferometer/**
     - images-1/scenes.html
 
 format:
-  revealjs: 
-    width: 1280
-    height: 720
-    margin: 0.1
-    slide-number: true
-    code-line-numbers: true
-    code-annotations: below
-    preview-links: auto
-    # html-math-method: mathjax
-    # html-math-method: katex
-    html-math-method: 
-      method: mathjax
-      url: "https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"
-    theme: [default, slides.scss]
-    css:
-      - fonts/archivo.css
-      - fonts/opendyslexic.css
-    include-after-body: _dyslexia-toggle.html
-    chalkboard: true
+  # defaults, theme, fonts and the dyslexia toggle: _extensions/P4010_teaching
+  P4010_teaching-revealjs:
     footer: "paolo.bosetti@unitn.it --- [https://pbosetti.github.io/DigMan/](https://pbosetti.github.io/DigMan/)"
-    fig-width: 5
-    fig-height: 4
-    fig-dpi: 300
-    controls: true
-    touch: true
-    email-obfuscation: javascript
-    pdf-separate-fragments: true
-    link-external-icon: true
     lang: en-EN

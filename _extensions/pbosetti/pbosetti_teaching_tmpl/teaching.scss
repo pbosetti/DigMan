@@ -6,54 +6,54 @@
 // perceived lightness (L ≈ 0.42–0.45), so blue/green/teal emphasis carries the
 // same visual weight as red, and all clear WCAG AA (≥ 6:1) on white.
 // Neutrals are slightly warm grays, tinted toward the brand hue.
-// The same values are used in iframes/*.html.
+// Keep embedded pages (e.g. background iframes) in sync with these values.
 // ---------------------------------------------------------------------------
-$dm-red:        #8b1e20; // oklch(0.42 0.145 25) — headings, strong, rules
-$dm-red-dark:   #551112; // oklch(0.30 0.10 25)  — hover, pressed
-$dm-red-bright: #b02a2d; // oklch(0.50 0.17 25)  — small accents
-$dm-red-soft:   #e1a6a3; // oklch(0.78 0.07 22)  — light borders
-$dm-red-tint:   #fae6e5; // oklch(0.94 0.022 22) — hover fills
-$dm-red-wash:   #fef4f4; // oklch(0.975 0.01 22) — stripes, boxes
+$pt-red:        #8b1e20; // oklch(0.42 0.145 25) — headings, strong, rules
+$pt-red-dark:   #551112; // oklch(0.30 0.10 25)  — hover, pressed
+$pt-red-bright: #b02a2d; // oklch(0.50 0.17 25)  — small accents
+$pt-red-soft:   #e1a6a3; // oklch(0.78 0.07 22)  — light borders
+$pt-red-tint:   #fae6e5; // oklch(0.94 0.022 22) — hover fills
+$pt-red-wash:   #fef4f4; // oklch(0.975 0.01 22) — stripes, boxes
 
-$dm-blue:       #154d8c; // oklch(0.42 0.12 255) — math, links, secondary
-$dm-green:      #196632; // oklch(0.45 0.11 150) — positive emphasis
-$dm-teal:       #076b6f; // oklch(0.48 0.08 200)
+$pt-blue:       #154d8c; // oklch(0.42 0.12 255) — math, links, secondary
+$pt-green:      #196632; // oklch(0.45 0.11 150) — positive emphasis
+$pt-teal:       #076b6f; // oklch(0.48 0.08 200)
 
-$dm-ink:        #231e1d; // oklch(0.24 0.008 30) — headings on light fills
-$dm-body:       #322c2b; // oklch(0.30 0.008 30) — body text
-$dm-muted:      #6f6765; // oklch(0.52 0.01 30)  — captions, footer
-$dm-rule:       #d8d3d2; // oklch(0.87 0.006 30) — hairlines
-$dm-plate:      #f2f0ed; // gray plate behind schematics
-$dm-plate-edge: #c1bdba;
+$pt-ink:        #231e1d; // oklch(0.24 0.008 30) — headings on light fills
+$pt-body:       #322c2b; // oklch(0.30 0.008 30) — body text
+$pt-muted:      #6f6765; // oklch(0.52 0.01 30)  — captions, footer
+$pt-rule:       #d8d3d2; // oklch(0.87 0.006 30) — hairlines
+$pt-plate:      #f2f0ed; // gray plate behind schematics
+$pt-plate-edge: #c1bdba;
 
 // ---------------------------------------------------------------------------
 // Typography: Archivo (self-hosted, see fonts/archivo.css) for text and
-// headings — the same family as the interactive iframes.
+// headings. Use the same family in embedded iframes.
 // ---------------------------------------------------------------------------
-$dm-sans: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
-$dm-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+$pt-sans: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$pt-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
 
-$font-family-sans-serif: $dm-sans;
-$font-family-monospace: $dm-mono;
-$presentation-heading-font: $dm-sans;
+$font-family-sans-serif: $pt-sans;
+$font-family-monospace: $pt-mono;
+$presentation-heading-font: $pt-sans;
 $presentation-font-size-root: 30px;
-$presentation-heading-color: $dm-red;
+$presentation-heading-color: $pt-red;
 $presentation-heading-font-weight: 700;
 $presentation-h1-font-size: 2.2em;
 $presentation-h2-font-size: 1.45em;
 $presentation-h3-font-size: 1.1em;
 
 $body-bg: #ffffff;
-$body-color: $dm-body;
-$link-color: $dm-blue;
-$selection-bg: $dm-red-tint;
-$selection-color: $dm-ink;
+$body-color: $pt-body;
+$link-color: $pt-blue;
+$selection-bg: $pt-red-tint;
+$selection-color: $pt-ink;
 
 $code-block-font-size: 0.75em;
-$code-color: $dm-red-dark;
-$code-bg: $dm-red-wash;
+$code-color: $pt-red-dark;
+$code-bg: $pt-red-wash;
 $code-block-bg: #fbfaf9;
-$code-block-border-color: $dm-rule;
+$code-block-border-color: $pt-rule;
 
 /*-- scss:rules --*/
 
@@ -69,7 +69,7 @@ $code-block-border-color: $dm-rule;
 
 .reveal .slides a {
   text-decoration: underline;
-  text-decoration-color: rgba($dm-blue, 0.35);
+  text-decoration-color: rgba($pt-blue, 0.35);
   text-underline-offset: 0.15em;
 
   &:hover {
@@ -78,7 +78,7 @@ $code-block-border-color: $dm-rule;
 }
 
 .reveal strong {
-  color: $dm-red;
+  color: $pt-red;
   font-weight: 650;
 }
 
@@ -88,20 +88,20 @@ $code-block-border-color: $dm-rule;
 
 .reveal aside {
   font-style: italic;
-  color: $dm-muted;
+  color: $pt-muted;
 }
 
 .reveal figcaption,
 .reveal .caption {
   font-style: italic;
   text-align: center;
-  color: $dm-muted;
+  color: $pt-muted;
   font-size: 0.8em;
 }
 
 .reveal ul li::marker,
 .reveal ol li::marker {
-  color: $dm-red;
+  color: $pt-red;
 }
 
 .reveal ol li::marker {
@@ -112,14 +112,14 @@ $code-block-border-color: $dm-rule;
   width: auto;
   margin: 0.6em 0;
   padding: 0.4em 1em;
-  background: $dm-red-wash;
-  border-left: 4px solid $dm-red;
+  background: $pt-red-wash;
+  border-left: 4px solid $pt-red;
   box-shadow: none;
   font-style: normal;
 }
 
 .reveal .math {
-  color: $dm-blue;
+  color: $pt-blue;
 }
 
 .reveal .smaller {
@@ -131,21 +131,21 @@ $code-block-border-color: $dm-rule;
 .reveal .bred,
 .reveal .rbold {
   font-weight: 700;
-  color: $dm-red;
+  color: $pt-red;
 }
 
 .reveal .bblue {
   font-weight: 700;
-  color: $dm-blue;
+  color: $pt-blue;
 }
 
 .reveal .bgreen {
   font-weight: 700;
-  color: $dm-green;
+  color: $pt-green;
 }
 
 .reveal .rgreen {
-  color: $dm-green;
+  color: $pt-green;
 }
 
 // --- Headings --------------------------------------------------------------
@@ -162,18 +162,18 @@ $code-block-border-color: $dm-rule;
 .reveal h2 {
   padding-bottom: 0.18em;
   border-bottom: 3px solid transparent;
-  border-image: linear-gradient(to right, $dm-red 0 18%, $dm-rule 18% 100%) 1;
+  border-image: linear-gradient(to right, $pt-red 0 18%, $pt-rule 18% 100%) 1;
 }
 
 .reveal h3 {
-  color: $dm-ink;
+  color: $pt-ink;
 }
 
 // section dividers (# Heading): red marker on a warm gray band
 .reveal h1:not(.title) {
   padding: 0.25em 0.5em;
-  background: linear-gradient(to right, $dm-plate, rgba($dm-plate, 0));
-  border-left: 10px solid $dm-red;
+  background: linear-gradient(to right, $pt-plate, rgba($pt-plate, 0));
+  border-left: 10px solid $pt-red;
 }
 
 // untitled sections (e.g. `# {background-iframe=...}`) must stay invisible
@@ -199,42 +199,42 @@ $code-block-border-color: $dm-rule;
 
 .reveal .title {
   padding-bottom: 0.15em;
-  border-bottom: 6px solid $dm-red;
+  border-bottom: 6px solid $pt-red;
 }
 
 .reveal .subtitle {
-  color: $dm-ink;
+  color: $pt-ink;
   font-weight: 500;
 }
 
 .quarto-title-author-name {
   font-size: 80%;
   font-weight: 700;
-  color: $dm-ink;
+  color: $pt-ink;
 }
 
 .quarto-title-affiliation {
   font-style: italic;
-  color: $dm-muted;
+  color: $pt-muted;
 }
 
 .reveal p.date {
   font-size: 50%;
   font-style: italic;
-  color: $dm-muted;
+  color: $pt-muted;
 }
 
-// --- Dyslexia-friendly font (toggle on the title slide, _dyslexia-toggle.html)
+// --- Dyslexia-friendly font (toggle on the title slide, dyslexia-toggle.html)
 
 // OpenDyslexic sets ~1.6× wider than Archivo: font-size-adjust scales it to a
 // fixed x-height (≈ 0.8× Archivo's), and code and math keep their own size.
-html.dm-dyslexic .reveal {
-  --r-main-font: "OpenDyslexic", #{$dm-sans};
-  --r-heading-font: "OpenDyslexic", #{$dm-sans};
+html.pt-dyslexic .reveal {
+  --r-main-font: "OpenDyslexic", #{$pt-sans};
+  --r-heading-font: "OpenDyslexic", #{$pt-sans};
 
   .slides,
   .footer {
-    font-family: "OpenDyslexic", $dm-sans;
+    font-family: "OpenDyslexic", $pt-sans;
     font-size-adjust: 0.42;
   }
 
@@ -260,10 +260,10 @@ html.dm-dyslexic .reveal {
   }
 }
 
-.reveal .dm-dys-toggle {
+.reveal .pt-dys-toggle {
   margin-top: 1.2em;
   font-size: 0.5em;
-  color: $dm-muted;
+  color: $pt-muted;
 
   label {
     display: inline-flex;
@@ -280,13 +280,13 @@ html.dm-dyslexic .reveal {
     height: 0;
   }
 
-  .dm-switch {
+  .pt-switch {
     position: relative;
     flex: none;
     width: 2.4em;
     height: 1.3em;
     border-radius: 0.65em;
-    background: $dm-rule;
+    background: $pt-rule;
     transition: background 0.15s;
 
     &::after {
@@ -298,36 +298,36 @@ html.dm-dyslexic .reveal {
       height: 1em;
       border-radius: 50%;
       background: #ffffff;
-      box-shadow: 0 1px 2px rgba($dm-ink, 0.3);
+      box-shadow: 0 1px 2px rgba($pt-ink, 0.3);
       transition: transform 0.15s;
     }
   }
 
-  input:checked + .dm-switch {
-    background: $dm-red;
+  input:checked + .pt-switch {
+    background: $pt-red;
 
     &::after {
       transform: translateX(1.1em);
     }
   }
 
-  input:focus-visible + .dm-switch {
-    outline: 2px solid $dm-red;
+  input:focus-visible + .pt-switch {
+    outline: 2px solid $pt-red;
     outline-offset: 2px;
   }
 
-  input:checked ~ .dm-switch-label {
-    color: $dm-red;
+  input:checked ~ .pt-switch-label {
+    color: $pt-red;
   }
 }
 
 // not part of printed slides
-html.print-pdf .reveal .dm-dys-toggle {
+html.print-pdf .reveal .pt-dys-toggle {
   display: none;
 }
 
 @media print {
-  .reveal .dm-dys-toggle {
+  .reveal .pt-dys-toggle {
     display: none;
   }
 }
@@ -335,27 +335,27 @@ html.print-pdf .reveal .dm-dys-toggle {
 // --- Chrome: footer, slide number, progress, controls ----------------------
 
 .reveal .footer {
-  color: $dm-muted;
+  color: $pt-muted;
 
   a {
-    color: $dm-muted;
+    color: $pt-muted;
   }
 }
 
 .reveal .slide-number,
 .reveal .slide-number a {
   background: transparent;
-  color: $dm-red;
+  color: $pt-red;
   font-weight: 600;
   text-decoration: none;
 }
 
 .reveal .progress {
-  color: $dm-red;
+  color: $pt-red;
 }
 
 .reveal .controls {
-  color: $dm-red;
+  color: $pt-red;
 }
 
 // --- Code ------------------------------------------------------------------
@@ -367,14 +367,14 @@ html.print-pdf .reveal .dm-dys-toggle {
 .reveal :not(pre) > code {
   padding: 0.05em 0.25em;
   border-radius: 3px;
-  background: $dm-red-wash;
-  color: $dm-red-dark;
+  background: $pt-red-wash;
+  color: $pt-red-dark;
 }
 
 .reveal div.sourceCode,
 .reveal pre.gcode {
-  border: 1px solid $dm-rule;
-  border-left: 3px solid $dm-red;
+  border: 1px solid $pt-rule;
+  border-left: 3px solid $pt-red;
   border-radius: 0;
 }
 
@@ -400,9 +400,9 @@ html.print-pdf .reveal .dm-dys-toggle {
 // --- Theorem-like boxes ----------------------------------------------------
 
 .reveal .theorem {
-  background-color: $dm-red-wash;
-  border: 1px solid $dm-red-soft;
-  border-left: 4px solid $dm-red;
+  background-color: $pt-red-wash;
+  border: 1px solid $pt-red-soft;
+  border-left: 4px solid $pt-red;
   padding: 10px 14px;
   margin: 43px 0 10px 0;
 }
@@ -410,7 +410,7 @@ html.print-pdf .reveal .dm-dys-toggle {
 .reveal .theorem .title {
   font-weight: 600;
   color: #ffffff;
-  background-color: $dm-red;
+  background-color: $pt-red;
   border: none !important;
   margin-top: -32px;
   margin-left: 16px;
@@ -429,27 +429,27 @@ html.print-pdf .reveal .dm-dys-toggle {
 }
 
 .reveal table thead th {
-  color: $dm-ink;
-  border-bottom: 2px solid $dm-red;
+  color: $pt-ink;
+  border-bottom: 2px solid $pt-red;
 }
 
 .reveal table tbody tr {
-  border-bottom: 1px solid $dm-rule;
+  border-bottom: 1px solid $pt-rule;
 }
 
 // Bootstrap-like table classes (revealjs does not bundle Bootstrap)
 .reveal table.table-striped tbody tr:nth-child(odd) {
-  background-color: $dm-red-wash;
+  background-color: $pt-red-wash;
 }
 
 .reveal table.table-hover tbody tr:hover {
-  background-color: $dm-red-tint;
+  background-color: $pt-red-tint;
 }
 
 .reveal table caption {
   font-style: italic;
   font-size: 0.7em;
-  color: $dm-muted;
+  color: $pt-muted;
 }
 
 // --- Layout ----------------------------------------------------------------
@@ -538,31 +538,31 @@ html.print-pdf .reveal .dm-dys-toggle {
 // --- Quiz option buttons ---------------------------------------------------
 
 .option-button {
-  background-color: $dm-plate !important;
-  color: $dm-ink !important;
-  border: 2px solid $dm-plate-edge !important;
+  background-color: $pt-plate !important;
+  color: $pt-ink !important;
+  border: 2px solid $pt-plate-edge !important;
 }
 
 .option-button:hover {
-  background-color: $dm-plate !important;
-  color: $dm-muted !important;
-  border: 2px solid $dm-muted !important;
+  background-color: $pt-plate !important;
+  color: $pt-muted !important;
+  border: 2px solid $pt-muted !important;
 }
 
 .option-button.selected {
   background-color: #f2f6fb !important;
-  color: $dm-ink !important;
-  border: 2px solid $dm-blue !important;
+  color: $pt-ink !important;
+  border: 2px solid $pt-blue !important;
 }
 
 .option-button.correct {
   background-color: #f0f7f2 !important;
-  color: $dm-ink !important;
-  border: 2px solid $dm-green !important;
+  color: $pt-ink !important;
+  border: 2px solid $pt-green !important;
 }
 
 .option-button.incorrect {
-  background-color: $dm-red-wash !important;
-  color: $dm-ink !important;
-  border: 2px solid $dm-red !important;
+  background-color: $pt-red-wash !important;
+  color: $pt-ink !important;
+  border: 2px solid $pt-red !important;
 }
