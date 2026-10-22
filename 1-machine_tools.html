@@ -101,9 +101,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-f16d5ce359b8914984a7a1be58b43b3d.css">
-  <link rel="stylesheet" href="fonts/archivo.css">
-  <link rel="stylesheet" href="fonts/opendyslexic.css">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-bb10886b10b53dd000a89b8d40ba1af7.css">
   <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -197,6 +195,10 @@
       margin-right: 0; 
     }
   </style>
+  <!-- Self-hosted fonts: the fonts/ folder is copied next to each document
+       (format-resources), so slides render identically offline and in print. -->
+  <link rel="stylesheet" href="fonts/archivo.css">
+  <link rel="stylesheet" href="fonts/opendyslexic.css">
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -218,7 +220,7 @@ Paolo Bosetti
     </div>
 </div>
 
-  <p class="date"><em>Updated:</em> 19/10/2026</p>
+  <p class="date"><em>Updated:</em> 22/10/2026</p>
 </section>
 <section>
 <section id="manufacturing-systems" class="title-slide slide level1 center">
@@ -3536,7 +3538,7 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
       // PDF export (DeckTape drives a headless browser): default font, no switch
       if (navigator.webdriver) return;
 
-      const KEY = "dm-dyslexic";
+      const KEY = "pt-dyslexic";
       const root = document.documentElement;
 
       const load = () => {
@@ -3548,7 +3550,7 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
         try { localStorage.setItem(KEY, on ? "1" : "0"); } catch (e) {}
       };
       const apply = (on) => {
-        root.classList.toggle("dm-dyslexic", on);
+        root.classList.toggle("pt-dyslexic", on);
         if (window.Reveal && Reveal.isReady && Reveal.isReady()) Reveal.layout();
       };
 
@@ -3556,15 +3558,15 @@ Y_c = Y_0 + \frac{\Delta y}{2} + \mathrm{sign}(R)\,\frac{\Delta x \sqrt{-\Delta 
 
       const mount = () => {
         const title = document.getElementById("title-slide");
-        if (!title || title.querySelector(".dm-dys-toggle")) return;
+        if (!title || title.querySelector(".pt-dys-toggle")) return;
         const box = document.createElement("div");
-        box.className = "dm-dys-toggle";
+        box.className = "pt-dys-toggle";
         box.innerHTML =
           '<label><input type="checkbox" role="switch">' +
-          '<span class="dm-switch" aria-hidden="true"></span>' +
-          '<span class="dm-switch-label">Dyslexia-friendly font</span></label>';
+          '<span class="pt-switch" aria-hidden="true"></span>' +
+          '<span class="pt-switch-label">Dyslexia-friendly font</span></label>';
         const input = box.querySelector("input");
-        input.checked = root.classList.contains("dm-dyslexic");
+        input.checked = root.classList.contains("pt-dyslexic");
         input.addEventListener("change", () => {
           apply(input.checked);
           save(input.checked);
