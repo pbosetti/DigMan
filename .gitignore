@@ -9,5 +9,5 @@ _site
 
 .DS_Store
 .thumbnail
-# copied by the P4010_teaching extension at render time
+# copied by the pbosetti_teaching_tmpl extension at render time
 /fonts/

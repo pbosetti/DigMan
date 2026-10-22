@@ -1,7 +1,7 @@
 ---
 title: Digital Manufacturing
 author: Paolo Bosetti
-format: P4010_teaching-revealjs
+format: pbosetti_teaching_tmpl-revealjs
 engine: knitr
 ---
 

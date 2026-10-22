@@ -11,7 +11,7 @@ project:
     - images-1/scenes.html
 
 format:
-  # defaults, theme, fonts and the dyslexia toggle: _extensions/P4010_teaching
-  P4010_teaching-revealjs:
+  # defaults, theme, fonts and the dyslexia toggle: _extensions/pbosetti_teaching_tmpl
+  pbosetti_teaching_tmpl-revealjs:
     footer: "paolo.bosetti@unitn.it --- [https://pbosetti.github.io/DigMan/](https://pbosetti.github.io/DigMan/)"
     lang: en-EN
